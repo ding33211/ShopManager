@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file:///bigdisk/ding/WorkBench/GoldenSteward/GoldenSteward.iml" filepath="/bigdisk/ding/WorkBench/GoldenSteward/GoldenSteward.iml" />
+      <module fileurl="file:///bigdisk/ding/WorkBench/GoldenSteward/app/app.iml" filepath="/bigdisk/ding/WorkBench/GoldenSteward/app/app.iml" />
+    </modules>
+  </component>
+</project>
