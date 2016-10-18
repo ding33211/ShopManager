@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">GoldenSteward</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
+    <string name="button_ok">好的</string>
+
+    <string name="error_400_message">客户端请求错误</string>
+    <string name="error_401_message">用户未认证</string>
+    <string name="error_403_message">用户未授权</string>
+    <string name="error_404_message">请求接口不存在</string>
+    <string name="error_422_message">请求参数错误</string>
+    <string name="error_500_message">服务器错误</string>
 </resources>
