@@ -3,7 +3,7 @@ package com.soubu.goldensteward.module;
 /**
  * Created by dingsigang on 16-10-19.
  */
-public class RecyclerViewItem {
+public class InformationRvItem {
     int titleRes;
     int itemType;
     String content;

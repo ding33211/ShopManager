@@ -9,12 +9,11 @@
         android:id="@+id/tl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_white_stroke_bottom"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/subtitle_grey" />
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content"

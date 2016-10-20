@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.Contant;
+import com.soubu.goldensteward.module.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,43 +76,55 @@ public class CustomGridViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (mViewTypeList.get(i) < 10) {
+        if (mViewTypeList.get(i) < 10 || mViewTypeList.get(i) > 20) {
             viewHolder.ivIcon.setVisibility(View.GONE);
         }
         switch (mViewTypeList.get(i)) {
-            case Contant.GRID_TYPE_TODAY_VISITOR_NUM:
+            case Constant.GRID_TYPE_TODAY_VISITOR_NUM:
                 viewHolder.tvLabel.setText(R.string.today_visitor_num);
                 break;
-            case Contant.GRID_TYPE_TODAY_PRODUCT_VISIT:
+            case Constant.GRID_TYPE_TODAY_PRODUCT_VISIT:
                 viewHolder.tvLabel.setText(R.string.today_product_visit);
                 break;
-            case Contant.GRID_TYPE_TODAY_ORDER_NUM:
+            case Constant.GRID_TYPE_TODAY_ORDER_NUM:
                 viewHolder.tvLabel.setText(R.string.today_product_visit);
                 break;
-            case Contant.GRID_TYPE_TODAY_RETURN_RATE:
+            case Constant.GRID_TYPE_TODAY_RETURN_RATE:
                 viewHolder.tvLabel.setText(R.string.today_return_rate);
                 break;
-            case Contant.GRID_TYPE_MY_WALLET:
+            case Constant.GRID_TYPE_MY_WALLET:
                 viewHolder.tvLabel.setText(R.string.my_wallet);
                 viewHolder.ivIcon.setImageResource(R.drawable.home_wallet);
                 break;
-            case Contant.GRID_TYPE_OPERATION_REPORT:
+            case Constant.GRID_TYPE_OPERATION_REPORT:
                 viewHolder.tvLabel.setText(R.string.operation_report);
                 viewHolder.tvContent.setText(R.string.product_access_etc);
                 viewHolder.ivIcon.setImageResource(R.drawable.home_chart);
                 break;
-            case Contant.GRID_TYPE_MY_CUSTOMER:
+            case Constant.GRID_TYPE_MY_CUSTOMER:
                 viewHolder.tvLabel.setText(R.string.my_customer);
                 viewHolder.tvContent.setText(R.string.transaction_record_display);
                 viewHolder.ivIcon.setImageResource(R.drawable.home_customer);
                 break;
-            case Contant.GRID_TYPE_SETTING:
+            case Constant.GRID_TYPE_SETTING:
                 viewHolder.tvLabel.setText(R.string.setting);
                 viewHolder.tvContent.setText(R.string.real_name_authentication_etc);
                 viewHolder.ivIcon.setImageResource(R.drawable.home_setting);
                 break;
+            case Constant.GRID_TYPE_ACCUMULATED_INCOME:
+                viewHolder.tvLabel.setText(R.string.accumulated_income_yuan);
+                break;
+            case Constant.GRID_TYPE_TODAY_INCOME:
+                viewHolder.tvLabel.setText(R.string.today_income_yuan);
+                break;
+            case Constant.GRID_TYPE_LAST_WEEK_INCOME:
+                viewHolder.tvLabel.setText(R.string.last_week_income_yuan);
+                break;
+            case Constant.GRID_TYPE_LAST_MONTH_INCOME:
+                viewHolder.tvLabel.setText(R.string.last_month_income_yuan);
+                break;
         }
-        if(i < mSubTitleList.size()){
+        if (i < mSubTitleList.size()) {
             viewHolder.tvContent.setText(mSubTitleList.get(i));
         }
         return convertView;

@@ -41,8 +41,58 @@
     <string name="email">邮箱</string>
     <string name="phone">固定电话</string>
 
+    <string name="total_amount_of_account_yuan">账户总金额(元)</string>
+    <string name="rest_in_wait_yuan">待收尾款(元)</string>
+    <string name="can_withdraw_yuan">可提现(元)</string>
+    <string name="withdraw">提现</string>
+    <string name="income_and_expenses">收入与支出</string>
+    <string name="security_center">安全中心</string>
+    <string name="wallet_alert">建议您的支付密码不要外泄,以免您的子账户在搜布软件中做提现操作</string>
+    <string name="accumulated_income_yuan">累计收入(元)</string>
+    <string name="today_income_yuan">今日收入(元)</string>
+    <string name="last_week_income_yuan">近一周收入(元)</string>
+    <string name="last_month_income_yuan">近一月收入(元)</string>
 
+    <string name="bank_account">银行账户</string>
+    <string name="account">账户</string>
+    <string name="add_bank_account">添加银行卡账户</string>
+    <string name="replace">更换</string>
+    <string name="amount_of_money_yuan">金额(元)</string>
+    <string name="current_cash_balance">当前现金余额%s元</string>
+    <string name="confirm_roll_out">确认转出</string>
+    <string name="customer_service_phone">客服电话</string>
+    <string name="colon">:</string>
+    <string name="customer_service_phone_number">4000-17-0067</string>
+    <string name="account_num">账 户 号</string>
+    <string name="card_no_and_passbook_no">银行卡号/存折号</string>
+    <string name="bank_of_card">开户银行</string>
+    <string name="please_input_bank_name">请输入银行名称</string>
+    <string name="branch_bank_of_card">开户支行</string>
+    <string name="branch_bank_address">开户地区</string>
+    <string name="please_input_branch_bank_name">请输入支行名称</string>
+    <string name="name_of_bank_account">户       名</string>
+    <string name="please_choose_with_line">---请选择---</string>
+    <string name="withdraw_explain">身份信息严格加密处理,仅用于身份验证</string>
+    <string name="finish">完成</string>
+    <string name="bank_explain">为保障打款安全与效率,请填写相关信息。(推荐使用中国银行、建设银行、农业银行、工商银行。)</string>
+    <string name="find_help">查找帮助</string>
+    <string name="account_name_explain_title">持卡人说明</string>
+    <string name="account_name_explain_message">为了您的账户资金安全,只能绑定持卡人本人的银行卡 \n获取更多帮助,拨打客服电话4000-17-0067</string>
+    <string name="got_it">知道了</string>
+    <string name="please_input_soubu_pay_password">请输入搜布支付密码</string>
 
+    <string name="withdraw_handling">您的提现正在受理中,注意查收!</string>
+    <string name="savings_card">储蓄卡</string>
+    <string name="withdraw_amount">提现金额</string>
+    <string name="kindly_reminder">温馨提示</string>
+    <string name="withdraw_success_reminder_message">1.提现受理时间 9:00-18:00 \n2.受理后到账时间: \n  (1) 工作日2个小时内到账 \n  (2) 节假日24个小时内到账</string>
+
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="pay_success">付款成功</string>
+    <string name="customer_service_to_handle">处理客服</string>
+    <string name="income">收入</string>
+    <string name="expenses">支出</string>
 
     <string name="error_400_message">客户端请求错误</string>
     <string name="error_401_message">用户未认证</string>

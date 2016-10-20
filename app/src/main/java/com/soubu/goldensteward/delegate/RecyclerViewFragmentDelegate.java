@@ -2,19 +2,23 @@ package com.soubu.goldensteward.delegate;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.InformationRecyclerViewAdapter;
-import com.soubu.goldensteward.module.RecyclerViewItem;
+import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 
 import java.util.List;
 
 /**
  * Created by dingsigang on 16-10-19.
  */
-public class RecyclerViewFragmentDelegate extends BaseFragmentDelegate {
+public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
 
-    private InformationRecyclerViewAdapter mAdapter;
+    private BaseRecyclerViewAdapter mAdapter;
+    RecyclerView mRvContent;
+    LinearLayout mLlEmptyView;
 
     @Override
     public int getRootLayoutId() {
@@ -24,14 +28,31 @@ public class RecyclerViewFragmentDelegate extends BaseFragmentDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new InformationRecyclerViewAdapter();
-        RecyclerView rvContent = get(R.id.rv_content);
-        rvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvContent.setAdapter(mAdapter);
+        mRvContent = get(R.id.rv_content);
+        mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public void setData(List<RecyclerViewItem> list){
+    public void setData(List<T> list){
+        if(mLlEmptyView != null){
+            if(list.isEmpty()){
+                mLlEmptyView.setVisibility(View.VISIBLE);
+            } else {
+                mLlEmptyView.setVisibility(View.GONE);
+            }
+        }
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
+    }
+
+    public void setAdapter(BaseRecyclerViewAdapter<T> adapter){
+        mAdapter = adapter;
+        mRvContent.setAdapter(mAdapter);
+    }
+
+    public void setEmptyView(View view){
+        mLlEmptyView = get(R.id.ll_empty_view);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        view.setLayoutParams(params);
+        mLlEmptyView.addView(view);
     }
 }

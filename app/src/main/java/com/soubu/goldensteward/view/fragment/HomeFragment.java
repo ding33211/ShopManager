@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.HomeFragmentDelegate;
-import com.soubu.goldensteward.module.Contant;
+import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.view.activity.InformationActivity;
 import com.soubu.goldensteward.view.activity.MyWalletActivity;
 
@@ -27,10 +27,10 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
     protected void initData() {
         super.initData();
         List<Integer> viewTypeList = new ArrayList<>();
-        viewTypeList.add(Contant.GRID_TYPE_TODAY_VISITOR_NUM);
-        viewTypeList.add(Contant.GRID_TYPE_TODAY_PRODUCT_VISIT);
-        viewTypeList.add(Contant.GRID_TYPE_TODAY_ORDER_NUM);
-        viewTypeList.add(Contant.GRID_TYPE_TODAY_RETURN_RATE);
+        viewTypeList.add(Constant.GRID_TYPE_TODAY_VISITOR_NUM);
+        viewTypeList.add(Constant.GRID_TYPE_TODAY_PRODUCT_VISIT);
+        viewTypeList.add(Constant.GRID_TYPE_TODAY_ORDER_NUM);
+        viewTypeList.add(Constant.GRID_TYPE_TODAY_RETURN_RATE);
         viewDelegate.setViewTypeList(viewTypeList);
         List<String> subTitleList = new ArrayList<>();
         subTitleList.add("0");
@@ -40,10 +40,10 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
         viewDelegate.setSubTitleList(subTitleList);
 
         List<Integer> actionViewTypeList = new ArrayList<>();
-        actionViewTypeList.add(Contant.GRID_TYPE_MY_WALLET);
-        actionViewTypeList.add(Contant.GRID_TYPE_OPERATION_REPORT);
-        actionViewTypeList.add(Contant.GRID_TYPE_MY_CUSTOMER);
-        actionViewTypeList.add(Contant.GRID_TYPE_SETTING);
+        actionViewTypeList.add(Constant.GRID_TYPE_MY_WALLET);
+        actionViewTypeList.add(Constant.GRID_TYPE_OPERATION_REPORT);
+        actionViewTypeList.add(Constant.GRID_TYPE_MY_CUSTOMER);
+        actionViewTypeList.add(Constant.GRID_TYPE_SETTING);
         viewDelegate.setActionViewTypeList(actionViewTypeList);
 
         List<String> actionSubTitleList = new ArrayList<>();

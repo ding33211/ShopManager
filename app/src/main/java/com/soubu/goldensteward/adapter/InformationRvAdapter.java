@@ -8,26 +8,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.RecyclerViewItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.soubu.goldensteward.module.InformationRvItem;
 
 /**
  * Created by dingsigang on 16-10-19.
  */
-public class InformationRecyclerViewAdapter extends RecyclerView.Adapter {
+public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvItem> {
     public static final int TYPE_ITEM_CAN_CHOOSE = 0x00;  //可选
     public static final int TYPE_ITEM_CAN_NOT_CHOOSE = 0x01;  //不可选
     public static final int TYPE_ITEM_CONTENT_MULTILINE = 0x02;  //内容多行
     public static final int TYPE_ITEM_AVATAR = 0x03;  //头像展示
     public static final int TYPE_ITEM_COMPANY_PROFILE = 0x04;  //公司简介单独一个类型
-
-    private List<RecyclerViewItem> mList;
-
-    public InformationRecyclerViewAdapter() {
-        mList = new ArrayList<>();
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -77,19 +68,6 @@ public class InformationRecyclerViewAdapter extends RecyclerView.Adapter {
         holder1.tvContent.setText(mList.get(position).getContent());
         holder1.tvMultiLineContent.setText(mList.get(position).getContent());
     }
-
-    @Override
-    public int getItemCount() {
-        return mList.size();
-    }
-
-    public void setData(List<RecyclerViewItem> list) {
-        if (!mList.isEmpty()) {
-            mList.clear();
-        }
-        mList.addAll(list);
-    }
-
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

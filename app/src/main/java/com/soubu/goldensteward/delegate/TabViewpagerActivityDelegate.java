@@ -16,24 +16,26 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-10-19.
  */
-public class InformationActivityDelegate extends AppDelegate{
+public class TabViewpagerActivityDelegate extends AppDelegate {
 
     @Override
     public int getRootLayoutId() {
-        return R.layout.activity_information;
+        return R.layout.activity_tab_viewpager;
     }
 
     @Override
     public void initWidget() {
         super.initWidget();
+    }
+
+    public void initFragment(List<Fragment> fragmentList, String[] titles) {
         ViewPager viewPager = get(R.id.vp_content);
         TabLayout tabLayout = get(R.id.tl_title);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new CompanyInformationFragment());
         fragments.add(new PersonalInformationFragment());
-
         TitleFragmentPagerAdapter adapter = new TitleFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-                fragments, new String[]{getActivity().getString(R.string.company_information), getActivity().getString(R.string.personal_information)});
+                fragmentList, titles);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
