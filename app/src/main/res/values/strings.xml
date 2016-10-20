@@ -1,10 +1,48 @@
 <resources>
-    <string name="app_name">GoldenSteward</string>
+    <string name="app_name">金管家</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="button_allow">允许</string>
     <string name="button_deny">拒绝</string>
     <string name="button_ok">好的</string>
+    <string name="home_page">首页</string>
+    <string name="sub_account">子账户</string>
+    <string name="marketing">推广</string>
+    <string name="click_again_to_quit">再按一次退出金管家</string>
+    <string name="turnover_volume_today">今日成交额(元)</string>
+    <string name="today_visitor_num">今日访客数</string>
+    <string name="today_product_visit">今日产品访问</string>
+    <string name="today_order_num">今日订单数</string>
+    <string name="today_return_rate">今日退货率</string>
+    <string name="my_wallet">我的钱包</string>
+    <string name="operation_report">运营报表</string>
+    <string name="my_customer">我的客户</string>
+    <string name="setting">设置</string>
+    <string name="product_access_etc">产品访问等</string>
+    <string name="transaction_record_display">交易记录展示</string>
+    <string name="real_name_authentication_etc">实名认证等</string>
+    <string name="company_information">公司信息</string>
+    <string name="personal_information">个人信息</string>
+    <string name="information">信息</string>
+
+    <string name="company_logo">公司标志</string>
+    <string name="company_name">公司名称</string>
+    <string name="main_industry">主营行业</string>
+    <string name="management_model">经营模式</string>
+    <string name="company_address">公司地址</string>
+    <string name="annual_turnover">年营业额</string>
+    <string name="employees_num">员工人数</string>
+    <string name="main_products">主营产品</string>
+    <string name="company_profile">公司简介</string>
+    <string name="store_name">店铺名称</string>
+    <string name="contact">联系人</string>
+    <string name="position">职位</string>
+    <string name="mobile">手机</string>
+    <string name="email">邮箱</string>
+    <string name="phone">固定电话</string>
+
+
+
 
     <string name="error_400_message">客户端请求错误</string>
     <string name="error_401_message">用户未认证</string>
