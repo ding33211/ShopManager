@@ -93,30 +93,11 @@
         android:textSize="18sp" />
 
 
-    <LinearLayout
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/customer_service_phone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="4dp"
-            android:text="@string/colon" />
-
-        <TextView
-            android:id="@+id/tv_customer_service_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/customer_service_phone_number"
-            android:textColor="@color/colorPrimary" />
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        layout="@layout/customer_service_phone"/>
 
 </RelativeLayout>

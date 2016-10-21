@@ -5,4 +5,11 @@
         <attr name="border_color" format="color"/>
         <attr name="dot_color" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="YAxisView">
+        <attr name="type">
+            <flag name="left" value="0" />
+            <flag name="right" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

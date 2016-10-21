@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,33 +21,35 @@ import java.util.List;
 public class CustomGridViewAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Integer> mViewTypeList = new ArrayList<>();
+    private List<String> mTitleList = new ArrayList<>();
     private List<String> mSubTitleList = new ArrayList<>();
+    private List<Integer> mIconList = new ArrayList<>();
 
     public CustomGridViewAdapter(Context context) {
         mContext = context;
     }
 
-    public CustomGridViewAdapter(Context context, List<Integer> viewTypeList, List<String> subTitleList) {
-        mViewTypeList.addAll(viewTypeList);
+    public CustomGridViewAdapter(Context context, List<Integer> iconList, List<String> titleList, List<String> subTitleList) {
+        mTitleList.addAll(titleList);
         mSubTitleList.addAll(subTitleList);
         mContext = context;
+        if(iconList != null){
+            mIconList.addAll(iconList);
+        }
     }
 
-    public void setViewTypeList(List<Integer> viewTypeList) {
-        mViewTypeList.addAll(viewTypeList);
+    public void setData(List<Integer> iconList, List<String> titleList, List<String> subTitleList){
+        if(iconList != null){
+            mIconList.addAll(iconList);
+        }
+        mTitleList.addAll(titleList);
+        mSubTitleList.addAll(subTitleList);
         notifyDataSetChanged();
     }
-
-    public void setSubTitleList(List<String> subTitleList) {
-        mSubTitleList = subTitleList;
-        notifyDataSetChanged();
-    }
-
 
     @Override
     public int getCount() {
-        return mViewTypeList.size();
+        return mTitleList.size();
     }
 
     @Override
@@ -76,57 +79,59 @@ public class CustomGridViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (mViewTypeList.get(i) < 10 || mViewTypeList.get(i) > 20) {
+        if (mIconList.size() == 0 || mIconList.get(i) == 0 ) {
             viewHolder.ivIcon.setVisibility(View.GONE);
+        } else {
+            viewHolder.ivIcon.setImageResource(mIconList.get(i));
         }
-        switch (mViewTypeList.get(i)) {
-            case Constant.GRID_TYPE_TODAY_VISITOR_NUM:
-                viewHolder.tvLabel.setText(R.string.today_visitor_num);
-                break;
-            case Constant.GRID_TYPE_TODAY_PRODUCT_VISIT:
-                viewHolder.tvLabel.setText(R.string.today_product_visit);
-                break;
-            case Constant.GRID_TYPE_TODAY_ORDER_NUM:
-                viewHolder.tvLabel.setText(R.string.today_product_visit);
-                break;
-            case Constant.GRID_TYPE_TODAY_RETURN_RATE:
-                viewHolder.tvLabel.setText(R.string.today_return_rate);
-                break;
-            case Constant.GRID_TYPE_MY_WALLET:
-                viewHolder.tvLabel.setText(R.string.my_wallet);
-                viewHolder.ivIcon.setImageResource(R.drawable.home_wallet);
-                break;
-            case Constant.GRID_TYPE_OPERATION_REPORT:
-                viewHolder.tvLabel.setText(R.string.operation_report);
-                viewHolder.tvContent.setText(R.string.product_access_etc);
-                viewHolder.ivIcon.setImageResource(R.drawable.home_chart);
-                break;
-            case Constant.GRID_TYPE_MY_CUSTOMER:
-                viewHolder.tvLabel.setText(R.string.my_customer);
-                viewHolder.tvContent.setText(R.string.transaction_record_display);
-                viewHolder.ivIcon.setImageResource(R.drawable.home_customer);
-                break;
-            case Constant.GRID_TYPE_SETTING:
-                viewHolder.tvLabel.setText(R.string.setting);
-                viewHolder.tvContent.setText(R.string.real_name_authentication_etc);
-                viewHolder.ivIcon.setImageResource(R.drawable.home_setting);
-                break;
-            case Constant.GRID_TYPE_ACCUMULATED_INCOME:
-                viewHolder.tvLabel.setText(R.string.accumulated_income_yuan);
-                break;
-            case Constant.GRID_TYPE_TODAY_INCOME:
-                viewHolder.tvLabel.setText(R.string.today_income_yuan);
-                break;
-            case Constant.GRID_TYPE_LAST_WEEK_INCOME:
-                viewHolder.tvLabel.setText(R.string.last_week_income_yuan);
-                break;
-            case Constant.GRID_TYPE_LAST_MONTH_INCOME:
-                viewHolder.tvLabel.setText(R.string.last_month_income_yuan);
-                break;
-        }
-        if (i < mSubTitleList.size()) {
-            viewHolder.tvContent.setText(mSubTitleList.get(i));
-        }
+        viewHolder.tvLabel.setText(mTitleList.get(i));
+        viewHolder.tvContent.setText(mSubTitleList.get(i));
+//        switch (mViewTypeList.get(i)) {
+//            case Constant.GRID_TYPE_TODAY_VISITOR_NUM:
+//                viewHolder.tvLabel.setText(R.string.today_visitor_num);
+//                break;
+//            case Constant.GRID_TYPE_TODAY_PRODUCT_VISIT:
+//                viewHolder.tvLabel.setText(R.string.today_product_visit);
+//                break;
+//            case Constant.GRID_TYPE_TODAY_ORDER_NUM:
+//                viewHolder.tvLabel.setText(R.string.today_product_visit);
+//                break;
+//            case Constant.GRID_TYPE_TODAY_RETURN_RATE:
+//                viewHolder.tvLabel.setText(R.string.today_return_rate);
+//                break;
+//            case Constant.GRID_TYPE_MY_WALLET:
+//                viewHolder.tvLabel.setText(R.string.my_wallet);
+//                viewHolder.ivIcon.setImageResource(R.drawable.home_wallet);
+//                break;
+//            case Constant.GRID_TYPE_OPERATION_REPORT:
+//                viewHolder.tvLabel.setText(R.string.operation_report);
+//                viewHolder.tvContent.setText(R.string.product_access_etc);
+//                viewHolder.ivIcon.setImageResource(R.drawable.home_chart);
+//                break;
+//            case Constant.GRID_TYPE_MY_CUSTOMER:
+//                viewHolder.tvLabel.setText(R.string.my_customer);
+//                viewHolder.tvContent.setText(R.string.transaction_record_display);
+//                viewHolder.ivIcon.setImageResource(R.drawable.home_customer);
+//                break;
+//            case Constant.GRID_TYPE_SETTING:
+//                viewHolder.tvLabel.setText(R.string.setting);
+//                viewHolder.tvContent.setText(R.string.real_name_authentication_etc);
+//                viewHolder.ivIcon.setImageResource(R.drawable.home_setting);
+//                break;
+//            case Constant.GRID_TYPE_ACCUMULATED_INCOME:
+//                viewHolder.tvLabel.setText(R.string.accumulated_income_yuan);
+//                break;
+//            case Constant.GRID_TYPE_TODAY_INCOME:
+//                viewHolder.tvLabel.setText(R.string.today_income_yuan);
+//                break;
+//            case Constant.GRID_TYPE_LAST_WEEK_INCOME:
+//                viewHolder.tvLabel.setText(R.string.last_week_income_yuan);
+//                break;
+//            case Constant.GRID_TYPE_LAST_MONTH_INCOME:
+//                viewHolder.tvLabel.setText(R.string.last_month_income_yuan);
+//                break;
+//        }
+
         return convertView;
     }
 

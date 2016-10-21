@@ -55,4 +55,8 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         view.setLayoutParams(params);
         mLlEmptyView.addView(view);
     }
+
+    public void setRvItemOnClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
+        mAdapter.setOnRvItemClickListener(listener);
+    }
 }

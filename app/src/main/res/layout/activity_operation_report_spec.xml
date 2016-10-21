@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp">
+        <TextView
+            android:id="@+id/tv_last_week"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_orange_stroke_corners"
+            android:gravity="center"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/last_week"/>
+        <TextView
+            android:id="@+id/tv_last_month"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_grey_stroke_corners"
+            android:gravity="center"
+            android:textColor="@color/subtitle_grey"
+            android:text="@string/last_month"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_color_info"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_black"
+            android:textSize="16sp"
+            android:text="@string/turnover_volume_wan_yuan"/>
+
+        <View
+            android:id="@+id/v_left_color"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/tv_color_info"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@color/colorPrimary" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_chart"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:scrollbars="none">
+
+            <com.soubu.goldensteward.widget.linebarchart.LineView
+                android:id="@+id/line_view"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp" />
+        </HorizontalScrollView>
+
+        <com.soubu.goldensteward.widget.linebarchart.YAxisView
+            android:id="@+id/v_left_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/hsv_chart"
+            app:type="left" />
+    </RelativeLayout>
+
+</LinearLayout>

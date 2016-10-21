@@ -28,12 +28,8 @@ public class MyWalletActivityDelegate extends AppDelegate {
         mIncomeGridView.setAdapter(mAdapter);
     }
 
-    public void setViewTypeList(List<Integer> list){
-        mAdapter.setViewTypeList(list);
-    }
-
-    public void setSubTitleList(List<String> list){
-        mAdapter.setSubTitleList(list);
+    public void setData(List<String> titleList, List<String> subTitleList){
+        mAdapter.setData(null, titleList, subTitleList);
     }
 
 }

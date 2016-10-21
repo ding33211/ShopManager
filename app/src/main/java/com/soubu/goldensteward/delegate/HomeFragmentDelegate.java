@@ -1,6 +1,5 @@
 package com.soubu.goldensteward.delegate;
 
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -35,22 +34,16 @@ public class HomeFragmentDelegate extends BaseFragmentDelegate {
         mActionGridView.setAdapter(mActionAdapter);
     }
 
-    public void setViewTypeList(List<Integer> list){
-        mTodayAdapter.setViewTypeList(list);
-    }
-
-    public void setSubTitleList(List<String> list){
-        mTodayAdapter.setSubTitleList(list);
+    public void setTodayData(List<Integer> iconList, List<String> titleList, List<String> subTitleList){
+        mTodayAdapter.setData(iconList, titleList, subTitleList);
     }
 
 
-    public void setActionViewTypeList(List<Integer> list){
-        mActionAdapter.setViewTypeList(list);
+
+    public void setActionData(List<Integer> iconList, List<String> titleList, List<String> subTitleList){
+        mActionAdapter.setData(iconList, titleList, subTitleList);
     }
 
-    public void setActionSubTitleList(List<String> list){
-        mActionAdapter.setSubTitleList(list);
-    }
 
     public void setTodayOnItemClickListener(AdapterView.OnItemClickListener listener){
         mTodayGridView.setOnItemClickListener(listener);

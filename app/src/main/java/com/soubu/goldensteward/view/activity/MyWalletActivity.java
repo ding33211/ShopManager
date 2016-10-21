@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.view.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
@@ -23,18 +24,18 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     @Override
     protected void initData() {
         super.initData();
-        List<Integer> viewTypeList = new ArrayList<>();
-        viewTypeList.add(Constant.GRID_TYPE_ACCUMULATED_INCOME);
-        viewTypeList.add(Constant.GRID_TYPE_TODAY_INCOME);
-        viewTypeList.add(Constant.GRID_TYPE_LAST_WEEK_INCOME);
-        viewTypeList.add(Constant.GRID_TYPE_LAST_MONTH_INCOME);
-        viewDelegate.setViewTypeList(viewTypeList);
+        Resources resources = getResources();
+        List<String> titleList = new ArrayList<>();
+        titleList.add(resources.getString(R.string.accumulated_income_yuan));
+        titleList.add(resources.getString(R.string.today_income_yuan));
+        titleList.add(resources.getString(R.string.last_week_income_yuan));
+        titleList.add(resources.getString(R.string.last_month_income_yuan));
         List<String> subTitleList = new ArrayList<>();
         subTitleList.add("5000");
         subTitleList.add("2000");
         subTitleList.add("10000");
         subTitleList.add("20000");
-        viewDelegate.setSubTitleList(subTitleList);
+        viewDelegate.setData(titleList, subTitleList);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
 
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.ll_withdraw, R.id.ll_income_and_expenses);
+        viewDelegate.setOnClickListener(this, R.id.ll_withdraw, R.id.ll_income_and_expenses, R.id.ll_security_center);
     }
 
     @Override
@@ -64,6 +65,9 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
                 break;
             case R.id.ll_income_and_expenses:
                 intent = new Intent(this, IncomeAndExpensesActivity.class);
+                break;
+            case R.id.ll_security_center:
+                intent = new Intent(this, SecurityCenterActivity.class);
                 break;
         }
         if(null != intent){

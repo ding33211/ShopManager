@@ -58,8 +58,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.e("zzzzzzz", "onCreate  begin ");
         if (viewDelegate.ifNeedEventBus()) {
             EventBus.getDefault().register(this);
         }
@@ -70,11 +68,9 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
         setContentView(viewDelegate.getRootView());
         initToolbar();
         initView();
-        Log.e("zzzzzzz", "initView  end ");
         viewDelegate.initWidget();
         bindEvenListener();
         initData();
-        Log.e("zzzzzzz", "onCreate  end ");
     }
 
     //初始化一些布局view

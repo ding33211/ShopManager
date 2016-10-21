@@ -9,6 +9,7 @@ import java.util.List;
  * Created by dingsigang on 16-10-20.
  */
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
+    OnRvItemClickListener mListener;
 
     List<T> mList;
 
@@ -27,6 +28,15 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+
+    public interface OnRvItemClickListener {
+        void onClick(int position);
+    }
+
+    public void setOnRvItemClickListener(OnRvItemClickListener listener){
+        mListener = listener;
     }
 
 }
