@@ -54,6 +54,7 @@ public abstract class AppDelegate implements IDelegate {
     public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int rootLayoutId = getRootLayoutId();
         contentView = inflater.inflate(rootLayoutId, container, false);
+        contentView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         rootView = inflater.inflate(R.layout.activity_base_with_toolbar, container, false);
         //如果需要隐藏toolbar或者是要求全屏,就不添加toolbar
         if (!ifNeedHideToolBar() && !ifNeedFullScreen()) {

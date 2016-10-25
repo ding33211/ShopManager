@@ -31,9 +31,6 @@ public class TabViewpagerActivityDelegate extends AppDelegate {
     public void initFragment(List<Fragment> fragmentList, String[] titles) {
         ViewPager viewPager = get(R.id.vp_content);
         TabLayout tabLayout = get(R.id.tl_title);
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new CompanyInformationFragment());
-        fragments.add(new PersonalInformationFragment());
         TitleFragmentPagerAdapter adapter = new TitleFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
                 fragmentList, titles);
         viewPager.setAdapter(adapter);

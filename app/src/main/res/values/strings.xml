@@ -129,6 +129,24 @@
     <string name="last_week">近一周</string>
     <string name="last_month">近一月</string>
     <string name="turnover_volume_wan_yuan">成交额(万元)</string>
+    <string name="all">全部</string>
+    <string name="pending_payment">待付款</string>
+    <string name="pending_shipped">待发货</string>
+    <string name="refund_appeal">退货/申诉</string>
+    <string name="contact_friends">通讯录好友</string>
+    <string name="products_on_sale">在售产品</string>
+    <string name="all_evaluate">全部评价</string>
+    <string name="product_amount_desc">共%s件商品</string>
+    <string name="total">合计</string>
+    <string name="rmb">¥</string>
+    <string name="with_bracket">(%s)</string>
+    <string name="price">价格</string>
+    <string name="browser">浏览</string>
+    <string name="collection">收藏</string>
+    <string name="yuan">元</string>
+    <string name="backslash">/</string>
+    <string name="meter">米</string>
+
 
 
     <string name="error_400_message">客户端请求错误</string>

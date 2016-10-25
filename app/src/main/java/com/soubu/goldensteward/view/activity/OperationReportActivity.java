@@ -48,9 +48,11 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
         mList.add(createItem(getString(R.string.return_rate),
                 new String[]{getString(R.string.accumulated_return_rate), getString(R.string.today_return_rate), getString(R.string.last_week_return_rate), getString(R.string.last_month_return_rate)},
                 new String[]{"50", "0", "50", "0"}));
-        mList.add(createItem(getString(R.string.more_data),
+        OperationReportRvItem item = createItem(getString(R.string.more_data),
                 new String[]{getString(R.string.last_week_offer_num), getString(R.string.last_week_collect_num)},
-                new String[]{"50", "0"}));
+                new String[]{"50", "0"});
+        item.setClickable(false);
+        mList.add(item);
         viewDelegate.setData(mList);
     }
 
@@ -75,6 +77,15 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
                 switch (position){
                     case 0:
                         intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
+                        break;
+                    case 1:
+                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_STORE_VISITOR);
+                        break;
+                    case 2:
+                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_PRODUCT_ACCESS);
+                        break;
+                    case 3:
+                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_REFUND_RATE);
                         break;
                 }
                 startActivity(intent);

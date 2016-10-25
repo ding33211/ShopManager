@@ -21,11 +21,9 @@ public class OperationReportRvAdapter extends BaseRecyclerViewAdapter<OperationR
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_operation_report_recyclerview, parent, false);
         View vChoose = v.findViewById(R.id.iv_choose);
-        View vLabel = v.findViewById(R.id.ll_label);
-        switch (viewType){
+        switch (viewType) {
             case UN_CLICKABLE:
                 vChoose.setVisibility(View.GONE);
-                vLabel.setClickable(false);
                 break;
         }
         return new ItemViewHolder(v);
@@ -33,7 +31,7 @@ public class OperationReportRvAdapter extends BaseRecyclerViewAdapter<OperationR
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
+        if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
             holder1.tvLabel.setText(mList.get(position).getLabel());
             holder1.gvContainer.setAdapter(mList.get(position).getAdapter());
@@ -63,14 +61,12 @@ public class OperationReportRvAdapter extends BaseRecyclerViewAdapter<OperationR
 
         @Override
         public void onClick(View v) {
-            if(mListener != null){
+            if (getItemViewType() == CLICKABLE && mListener != null) {
                 mListener.onClick(getLayoutPosition());
             }
+
         }
     }
 
-    public interface OnClickItemListener {
-        void onClick(int position);
-    }
 
 }

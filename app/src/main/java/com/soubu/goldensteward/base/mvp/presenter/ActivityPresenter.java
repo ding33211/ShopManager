@@ -177,8 +177,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
                     System.exit(0);
                 }
             }
+        } else {
+            super.onKeyDown(keyCode,event);
         }
-        return false;
+        return true;
     }
 
     public boolean keyDownTwiceFinish(){
