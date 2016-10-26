@@ -147,6 +147,22 @@
     <string name="backslash">/</string>
     <string name="meter">米</string>
 
+    <string name="please_input_your_phone_number">请输入您的手机号</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="login">登录</string>
+    <string name="register_new_user">新用户注册</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="permission_explain_storage">我们需要读取您的存储文件来让您更好的使用我们的应用</string>
+    <string name="please_input_phone_for_main_account">请输入主账户的手机号</string>
+    <string name="please_input_verification_code">请输入验证码</string>
+    <string name="register_pwd_desc">请设置6-20位密码</string>
+    <string name="next_step">下一步</string>
+    <string name="register_pre_protocol">我已阅读并接受</string>
+    <string name="register_protocol"><u>搜布用户协议</u></string>
+    <string name="supplier_register">供应商注册</string>
+
+
+
 
 
     <string name="error_400_message">客户端请求错误</string>

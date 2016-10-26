@@ -46,7 +46,7 @@ public class WithDrawFragment extends FragmentPresenter<WithDrawFragmentDelegate
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.tv_customer_service_num, R.id.tv_replace, R.id.ll_add_bank_account, R.id.btn_confirm);
+        viewDelegate.setOnClickListener(this, R.id.tv_replace, R.id.ll_add_bank_account, R.id.btn_confirm);
 
     }
 
@@ -54,9 +54,9 @@ public class WithDrawFragment extends FragmentPresenter<WithDrawFragmentDelegate
     public void onClick(final View v) {
         Intent intent = null;
         switch (v.getId()) {
-            case R.id.tv_customer_service_num:
-                intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + getString(R.string.customer_service_phone_number)));
-                break;
+//            case R.id.tv_customer_service_num:
+//                intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + getString(R.string.customer_service_phone_number)));
+//                break;
             case R.id.tv_replace:
             case R.id.ll_add_bank_account:
                 intent = new Intent(mContext, AddBankAccountActivity.class);

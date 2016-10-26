@@ -23,8 +23,6 @@ import com.soubu.goldensteward.widget.linebarchart.YAxisView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-
 /**
  * Created by dingsigang on 16-10-21.
  */

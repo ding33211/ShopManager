@@ -20,5 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/customer_service_phone_number"
+        android:onClick="onClickCustomerServicePhone"
         android:textColor="@color/colorPrimary" />
 </LinearLayout>

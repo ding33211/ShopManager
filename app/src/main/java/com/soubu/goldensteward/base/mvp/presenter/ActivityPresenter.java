@@ -15,6 +15,8 @@
  */
 package com.soubu.goldensteward.base.mvp.presenter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,7 +45,6 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivity {
     protected T viewDelegate;
-    public boolean mEventBusJustForThis = false;
 
     public ActivityPresenter() {
         try {
@@ -140,51 +141,5 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     }
 
     protected abstract Class<T> getDelegateClass();
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        if(!mEventBusJustForThis){
-            return;
-        } else {
-            mEventBusJustForThis = false;
-        }
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
-
-    //是否需要退出
-    private boolean mNeedQuit = false;
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            mNeedQuit = false;
-        }
-    };
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyDownTwiceFinish()){
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (!mNeedQuit) {
-                    mNeedQuit = true;
-                    ShowWidgetUtil.showShort(R.string.click_again_to_quit);
-                    // 利用handler延迟发送更改状态信息
-                    mHandler.sendEmptyMessageDelayed(0, 2000);
-                } else {
-                    finish();
-                    System.exit(0);
-                }
-            }
-        } else {
-            super.onKeyDown(keyCode,event);
-        }
-        return true;
-    }
-
-    public boolean keyDownTwiceFinish(){
-        return false;
-    }
 
 }
