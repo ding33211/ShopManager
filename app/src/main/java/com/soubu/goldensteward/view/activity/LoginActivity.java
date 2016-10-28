@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.LoginActivityDelegate;
+import com.soubu.goldensteward.module.Constant;
+
+import static com.soubu.goldensteward.module.Constant.EXTRA_TYPE;
 
 /**
  * Created by lakers on 16/10/25.
@@ -55,8 +58,16 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 break;
             case R.id.tv_register:
                 Intent intent1 = new Intent(this, RegisterOrForgetPwdActivity.class);
+                intent1.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_REGISTER);
                 startActivity(intent1);
                 break;
+            case R.id.tv_forget_pwd:
+                Intent intent2 = new Intent(this, RegisterOrForgetPwdActivity.class);
+                intent2.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
+                startActivity(intent2);
+                break;
+
+
 
         }
     }

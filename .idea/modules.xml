@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file:///bigdisk/ding/WorkBench/GoldenSteward/GoldenSteward.iml" filepath="/bigdisk/ding/WorkBench/GoldenSteward/GoldenSteward.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Soubu-ShopManager-Android.iml" filepath="$PROJECT_DIR$/Soubu-ShopManager-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file:///bigdisk/ding/WorkBench/GoldenSteward/app/app.iml" filepath="/bigdisk/ding/WorkBench/GoldenSteward/app/app.iml" />
     </modules>
   </component>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_item_transparent_grey_bg"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/tv_must"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="*"
+                android:textColor="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/store_name"
+                android:clickable="false"
+                android:textColorHint="@color/line_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/company_logo"
+                android:textColor="@color/title_black"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="60dp"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text="@string/please_choose"
+                    android:textColor="@color/line_color"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/iv_choose"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/arrow_choose" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/et_multiline_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:gravity="top"
+            android:textColor="@color/subtitle_grey"
+            android:textColorHint="@color/line_color"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <!--<EditText-->
+    <!--android:id="@+id/et_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_toRightOf="@+id/tv_title"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:gravity="top"-->
+    <!--android:textColor="@color/title_black"-->
+    <!--android:visibility="invisible" />-->
+
+    <View
+        android:id="@+id/v_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/line_color" />
+</LinearLayout>

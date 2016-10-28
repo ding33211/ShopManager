@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.delegate;
 
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
@@ -47,4 +48,11 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
         mSendVerifyCode.setBackgroundResource(R.drawable.bg_grey_stroke_corners);
         timer.start();
     }
+
+
+//    public void gotoReferStore(){
+//        get(R.id.rl_register).setVisibility(View.GONE);
+//        get(R.id.ll_refer_store).setVisibility(View.VISIBLE);
+//        get(R.id.ll_register_desc).setVisibility(View.GONE);
+//    }
 }

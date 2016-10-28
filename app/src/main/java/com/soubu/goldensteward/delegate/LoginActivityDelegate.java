@@ -14,7 +14,7 @@ public class LoginActivityDelegate extends AppDelegate {
     }
 
     @Override
-    public boolean ifNeedFullScreen() {
+    public boolean ifNeedHideToolBar() {
         return true;
     }
 }

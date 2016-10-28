@@ -28,6 +28,10 @@ public class FragmentActivityDelegate extends AppDelegate{
     }
 
     public void addFragment(Fragment fragment){
-        mFragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit();
+        if(fragment.isAdded()){
+            mFragmentManager.beginTransaction().show(fragment).commit();
+        } else {
+            mFragmentManager.beginTransaction().add(R.id.fragment_container, fragment).show(fragment).commit();
+        }
     }
 }

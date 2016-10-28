@@ -20,6 +20,7 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
     public static final int TYPE_ITEM_AVATAR = 0x03;  //头像展示
     public static final int TYPE_ITEM_COMPANY_PROFILE = 0x04;  //公司简介单独一个类型
 
+
     @Override
     public int getItemViewType(int position) {
         return mList.get(position).getItemType();

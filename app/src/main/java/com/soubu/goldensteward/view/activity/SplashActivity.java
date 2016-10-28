@@ -54,6 +54,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     void load() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, REQUEST_LOGIN);
+        finish();
     }
 
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法

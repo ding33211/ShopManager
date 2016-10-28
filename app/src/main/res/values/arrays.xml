@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clue_status">
+        <item>未处理</item>
+        <item>联系方式有效</item>
+        <item>联系方式无效</item>
+        <item>关闭</item>
+    </string-array>
+
+    <string-array name="clue_status_web">
+        <item>UNHANDLED</item>
+        <item>CONTACT_VALID</item>
+        <item>CONTACT_INVALID</item>
+        <item>CLOSED</item>
+    </string-array>
+</resources>

@@ -82,7 +82,6 @@
                 android:background="@null"
                 android:hint="@string/please_input_password"
                 android:inputType="textPassword"
-                android:maxLength="6"
                 android:textColorHint="@color/line_color" />
 
             <ImageView

@@ -33,7 +33,7 @@ public class InformationActivity extends ActivityPresenter<TabViewpagerActivityD
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new CompanyInformationFragment());
         fragments.add(new PersonalInformationFragment());
-        String[] titles = new String[]{getString(R.string.company_information), getString(R.string.personal_information)};
+        String[] titles = new String[]{getString(R.string.company_info), getString(R.string.personal_information)};
         viewDelegate.initFragment(fragments, titles);
     }
 }

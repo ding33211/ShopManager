@@ -21,7 +21,6 @@
     <string name="product_access_etc">产品访问等</string>
     <string name="transaction_record_display">交易记录展示</string>
     <string name="real_name_authentication_etc">实名认证等</string>
-    <string name="company_information">公司信息</string>
     <string name="personal_information">个人信息</string>
     <string name="information">信息</string>
 
@@ -160,7 +159,40 @@
     <string name="register_pre_protocol">我已阅读并接受</string>
     <string name="register_protocol"><u>搜布用户协议</u></string>
     <string name="supplier_register">供应商注册</string>
+    <string name="refer_store">关联店铺</string>
+    <string name="find_pwd">找回密码</string>
+    <string name="alert">提示</string>
+    <string name="phone_has_been_registered">该手机号码已注册 /n  可以直接前往关联店铺</string>
+    <string name="base_info">基本信息</string>
+    <string name="account_info">账户信息</string>
+    <string name="register_alert">(请慎重选择，注册成功后部分不可修改）</string>
+    <string name="please_choose">请选择</string>
+    <string name="contact_name">联系人姓名</string>
+    <string name="position_in">所在职位</string>
+    <string name="company_info">公司信息</string>
+    <string name="finish_register">注册完成</string>
+    <string name="location_at">所在地</string>
+    <string name="detail_address">详细地址</string>
+    <string name="company_profile_desc">请重点介绍公司的产品、服务、业绩、人才、管理等优势。不要填写电话、电子邮件、聊天账号等联系方式，否则审核不通过。600字以内</string>
 
+    <string name="watch_example">查看示例</string>
+    <string name="company_type">单位类型</string>
+    <string name="certificates_type">证件类型</string>
+    <string name="operator">经营者</string>
+    <string name="please_fill_company_name">请填写企业名称</string>
+    <string name="legal_person">法定代表人</string>
+    <string name="legal_person_suffix">的证件</string>
+    <string name="please_fill_name">请填写姓名</string>
+    <string name="id_num">身份证号</string>
+    <string name="please_fill_id_num">请填写身份证号</string>
+    <string name="store_owner_verify_step1_desc">审核结果将通过短信发送至该手机</string>
+    <string name="store_owner_verify">店主认证</string>
+    <string name="upload_certificates">上传证件</string>
+    <string name="merge_store">店铺合并</string>
+    <string name="business_license_and_organization_code_certificate">营业执照及组织机构代码证</string>
+    <string name="please_input_phone_for_merge">请输入被合并的手机号</string>
+    <string name="submit_application">提交申请</string>
+    <string name="store_merge_desc">1.请将您所有需要合并的子账户都添加完整 \n2.审核结果将通过短信发送至该手机，通过后即可登录APP</string>
 
 
 

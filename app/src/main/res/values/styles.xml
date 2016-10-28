@@ -32,4 +32,27 @@
         <item name="contentInsetEnd">0dp</item>
     </style>
 
+
+
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_below="@+id/ll_top"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_orange_corners"
+    android:text="@string/finish"
+    android:textColor="@android:color/white"
+    android:textSize="18sp"
+
+    <style name="OrangeButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:background">@drawable/bg_orange_corners</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>
