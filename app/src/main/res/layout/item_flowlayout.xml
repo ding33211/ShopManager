@@ -3,8 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingTop="4dp">
+    android:paddingRight="6dp"
+    android:paddingTop="2dp">
 
     <TextView
         android:id="@+id/tv_phone"
@@ -13,10 +13,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_orange_stroke_corners"
-        android:paddingBottom="4dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
+        android:padding="4dp"
         android:text="13888888888"
         android:textColor="@color/colorPrimary" />
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="55dp"
+    android:layout_height="26dp"
+    android:layout_marginTop="4dp"
+    android:gravity="center"
+    android:inputType="none"
+    android:background="@drawable/bg_grey_corners"
+    android:hint="@string/plus"
+    android:textColorHint="@color/subtitle_grey"/>

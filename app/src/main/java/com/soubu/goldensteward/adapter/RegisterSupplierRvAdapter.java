@@ -2,6 +2,7 @@ package com.soubu.goldensteward.adapter;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.RegisterRvItem;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.utils.WindowUtil;
+import com.soubu.goldensteward.view.activity.ChooseMainProductsActivity;
 
 /**
  * Created by lakers on 16/10/27.
@@ -84,7 +86,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
             String content = mList.get(position).getContent();
             int type = getItemViewType(position);
             holder1.tvTitle.setText(titleRes);
-            if(type != TYPE_ITEM_MULTILINE){
+            if (type != TYPE_ITEM_MULTILINE) {
                 if (TextUtils.isEmpty(content)) {
                     holder1.etTitle.setHint(titleRes);
                 } else {
@@ -92,10 +94,10 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                     holder1.tvContent.setText(content);
                 }
             } else {
-                if(!TextUtils.isEmpty(mMultiLine)){
+                if (!TextUtils.isEmpty(mMultiLine)) {
                     holder1.etMultiLineContent.setText(mMultiLine);
                 } else {
-                    if(!TextUtils.isEmpty(content)){
+                    if (!TextUtils.isEmpty(content)) {
                         holder1.etMultiLineContent.setHint(content);
                     }
                 }
@@ -182,16 +184,18 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                     break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_MUST_CHOOSE:
-                    final RegisterRvItem item = mList.get(getLayoutPosition());
-                    ShowWidgetUtil.showMultiItemDialog(mActivity, item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            CharSequence[] webArray = mActivity.getResources().getTextArray(item.getWebArrayRes());
-                            mList.get(getLayoutPosition()).setContent(webArray[which].toString());
-                            notifyDataSetChanged();
-                            dialog.dismiss();
-                        }
-                    });
+                    if (!doChooseMainProducts(mList.get(getLayoutPosition()).getTitleRes())) {
+                        final RegisterRvItem item = mList.get(getLayoutPosition());
+                        ShowWidgetUtil.showMultiItemDialog(mActivity, item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CharSequence[] webArray = mActivity.getResources().getTextArray(item.getWebArrayRes());
+                                mList.get(getLayoutPosition()).setContent(webArray[which].toString());
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        });
+                    }
                 case TYPE_ITEM_MULTILINE:
                     WindowUtil.showSoftInput(v.getContext(), etMultiLineContent);
                     etMultiLineContent.setSelection(etMultiLineContent.getText().length());
@@ -201,5 +205,16 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
 
         }
     }
+
+    private boolean doChooseMainProducts(int titleRes) {
+        if (titleRes != R.string.main_products) {
+            return false;
+        } else {
+            Intent intent = new Intent(mActivity, ChooseMainProductsActivity.class);
+            mActivity.startActivity(intent);
+            return true;
+        }
+    }
+
 
 }

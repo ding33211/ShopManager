@@ -16,5 +16,6 @@
     <color name="item_line_grey">#e5e5e5</color>
     <color name="orange_1">#fe8a36</color>
     <color name="bank_account_blue">#6a7ca0</color>
+    <color name="warning_ground">#fff2dd</color>
 
 </resources>

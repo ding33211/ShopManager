@@ -13,4 +13,13 @@
         <item>CONTACT_INVALID</item>
         <item>CLOSED</item>
     </string-array>
+
+    <string-array name="main_products_category">
+        <item>针织类</item>
+        <item>梭织类</item>
+        <item>毛织</item>
+        <item>蕾丝/绣品类</item>
+        <item>皮革皮草</item>
+        <item>辅料</item>
+    </string-array>
 </resources>

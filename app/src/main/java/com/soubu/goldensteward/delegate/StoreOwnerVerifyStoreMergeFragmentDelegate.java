@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.module.TagInFlowLayout;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by lakers on 16/10/28.
  */
 
-public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDelegate implements FlowLayoutController.OnEventCallBackListener{
+public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDelegate implements FlowLayoutController.OnEventCallBackListener<String> {
     FlowLayout mFlPhones;
     FlowLayoutController mController;
     List<String> mPhones;
@@ -35,10 +36,10 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     public void initWidget() {
         super.initWidget();
         int colorPrimary = getActivity().getResources().getColor(R.color.colorPrimary);
-        ((TextView)get(R.id.tv_step2)).setTextColor(colorPrimary);
+        ((TextView) get(R.id.tv_step2)).setTextColor(colorPrimary);
         get(R.id.tv_step2_num).setBackgroundResource(R.drawable.bg_orange_circle);
         get(R.id.v_2_to_3).setBackgroundColor(colorPrimary);
-        ((TextView)get(R.id.tv_step3)).setTextColor(colorPrimary);
+        ((TextView) get(R.id.tv_step3)).setTextColor(colorPrimary);
         get(R.id.tv_step3_num).setBackgroundResource(R.drawable.bg_orange_circle);
         mFlPhones = get(R.id.fl_child_phones);
         etChildPhone = get(R.id.et_child_phone);
@@ -48,14 +49,14 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
         mPhones = new ArrayList<>();
     }
 
-    public void addPhoneItem(String phone){
+    public void addPhoneItem(String phone) {
         mController.addPhoneItem(phone, true);
     }
 
 
-    public void clickAdd(){
+    public void clickAdd() {
         String phone = etChildPhone.getText().toString();
-        if(RegularUtil.isMobile(phone)){
+        if (RegularUtil.isMobile(phone)) {
             addPhoneItem(phone);
             etChildPhone.setText("");
         } else {
@@ -66,7 +67,7 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     @Override
     public void onAdd(String content) {
         mPhones.add(content);
-        if(mPhones.size() > 0){
+        if (mPhones.size() > 0) {
             mFlPhones.setVisibility(View.VISIBLE);
             vBottomLine.setVisibility(View.VISIBLE);
         }
@@ -75,7 +76,7 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     @Override
     public void onDelete(String content) {
         mPhones.remove(content);
-        if(mPhones.size() == 0){
+        if (mPhones.size() == 0) {
             mFlPhones.setVisibility(View.GONE);
             vBottomLine.setVisibility(View.GONE);
         }

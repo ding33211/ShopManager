@@ -20,10 +20,17 @@
 package com.soubu.goldensteward.utils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.soubu.goldensteward.R;
 
 public class ShowWidgetUtil {
 
@@ -99,12 +106,49 @@ public class ShowWidgetUtil {
     }
 
 
-    public static void showMultiItemDialog(Activity activity, int titleRes, int arrayRes, boolean multiChoice, DialogInterface.OnClickListener listener){
+    public static void showMultiItemDialog(Activity activity, int titleRes, int arrayRes, boolean multiChoice, DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setItems(arrayRes, listener);
         builder.setCancelable(true);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public interface OnClickCustomInputConfirm {
+        void onConfirm(String content);
+    }
+
+    public static void showCustomInputDialog(Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener){
+        View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
+        ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
+        final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
+        etContent.setHint(hintRes);
+        View vCancel = customView.findViewById(R.id.btn_cancel);
+        View vConfirm = customView.findViewById(R.id.btn_confirm);
+        final AlertDialog dialog = new AlertDialog.Builder(activity).setView(customView).create();
+        dialog.show();
+        vConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String content = etContent.getText().toString();
+                if(TextUtils.isEmpty(content)){
+                    ShowWidgetUtil.showShort(R.string.input_empty_error);
+                    return;
+                } else {
+                    if(listener != null){
+                        listener.onConfirm(content);
+                        dialog.dismiss();
+                    }
+                }
+
+            }
+        });
+        vCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 

@@ -36,6 +36,22 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         mHeight = height;
     }
 
+    /**
+     * 自定义recyclerView分割线
+     * @param context
+     * @param orientation
+     * @param height  定义分割线高度
+     */
+    public DividerItemDecoration(Context context, int orientation, int height, int drawableRes) {
+        if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
+            this.mOrientation = DEFAULT_ORIENTATION;
+        } else {
+            this.mOrientation = orientation;
+        }
+        mDrawable = context.getResources().getDrawable(drawableRes);
+        mHeight = height;
+    }
+
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (mOrientation == LinearLayoutManager.HORIZONTAL) {
