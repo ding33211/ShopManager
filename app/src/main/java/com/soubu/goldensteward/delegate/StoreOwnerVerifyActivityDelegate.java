@@ -1,6 +1,11 @@
 package com.soubu.goldensteward.delegate;
 
+import android.support.v4.app.Fragment;
+
+import com.soubu.goldensteward.utils.WindowUtil;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyBaseInfoFragment;
+import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyStoreAppealFragment;
+import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyStoreMergeFragment;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyUploadCertificatesFragment;
 
 /**
@@ -9,20 +14,44 @@ import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyUploadCertificatesF
 
 public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
     int mCurrentIndex = 0;
-    int mNextIndex = 0;
+    final String TAG_BASE_INFO = "BASE_INFO";
+    final String TAG_UPLOAD_CERTIFICATES = "UPLOAD_CERTIFICATES";
+    final String TAG_STORE_MERGE = "STORE_MERGE";
+    final String TAG_STORE_APPEAL = "STORE_APPEAL";
+    String[] mTags;
+    Fragment[] mFragments;
     StoreOwnerVerifyBaseInfoFragment mBaseInfoFragment;
     StoreOwnerVerifyUploadCertificatesFragment mUploadBaseInfoFragment;
+    StoreOwnerVerifyStoreMergeFragment mStoreMergeFragment;
+    StoreOwnerVerifyStoreAppealFragment mStoreAppealFragment;
 
     @Override
     public void initWidget() {
         super.initWidget();
+        mTags = new String[]{TAG_BASE_INFO, TAG_UPLOAD_CERTIFICATES, TAG_STORE_MERGE, TAG_STORE_APPEAL};
         mBaseInfoFragment = new StoreOwnerVerifyBaseInfoFragment();
         mUploadBaseInfoFragment = new StoreOwnerVerifyUploadCertificatesFragment();
-        addFragment(mBaseInfoFragment);
+        mStoreMergeFragment = new StoreOwnerVerifyStoreMergeFragment();
+        mStoreAppealFragment = new StoreOwnerVerifyStoreAppealFragment();
+        mFragments = new Fragment[]{mBaseInfoFragment, mUploadBaseInfoFragment, mStoreMergeFragment, mStoreAppealFragment};
+        addFragment(mBaseInfoFragment, mTags[mCurrentIndex]);
     }
 
 
-    public void clickStep1(){
-        addFragment(mUploadBaseInfoFragment);
+    public void clickNextStep() {
+        showFragment(mTags[mCurrentIndex++], mTags[mCurrentIndex], mFragments[mCurrentIndex]);
+        WindowUtil.hideSoftInput(this.getActivity());
     }
+
+
+    public boolean backPopFragment() {
+        if (mCurrentIndex == 0 || mCurrentIndex == 3) {
+            return false;
+        } else {
+            showFragment(mTags[mCurrentIndex--], mTags[mCurrentIndex], mFragments[mCurrentIndex]);
+            WindowUtil.hideSoftInput(getActivity());
+            return true;
+        }
+    }
+
 }

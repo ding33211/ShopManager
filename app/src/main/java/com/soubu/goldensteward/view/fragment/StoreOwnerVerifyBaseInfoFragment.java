@@ -41,7 +41,7 @@ public class StoreOwnerVerifyBaseInfoFragment extends FragmentPresenter<StoreOwn
         switch (v.getId()){
             case R.id.btn_next_step:
                 if(mOnClickNextStep != null){
-                    mOnClickNextStep.onClickNextStep();
+                    mOnClickNextStep.onClickStep1();
                 }
                 break;
 
@@ -49,7 +49,7 @@ public class StoreOwnerVerifyBaseInfoFragment extends FragmentPresenter<StoreOwn
     }
 
     public interface OnClickNextStepListener {
-        void onClickNextStep();
+        void onClickStep1();
     }
 
 }

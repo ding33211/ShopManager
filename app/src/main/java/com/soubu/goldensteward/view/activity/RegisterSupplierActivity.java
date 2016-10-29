@@ -53,7 +53,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     }
 
     void initRegisterSecond(){
-        if(viewDelegate.ifStep2Empty()){
+        if(!viewDelegate.ifStep2Init()){
             List<RegisterRvItem> list = new ArrayList<>();
             list.add(createItem(R.string.company_name, null, RegisterSupplierRvAdapter.TYPE_ITEM_MUST_FILL, 0, 0, 0));
             list.add(createItem(R.string.main_industry, null, RegisterSupplierRvAdapter.TYPE_ITEM_MUST_CHOOSE, 0, R.array.clue_status, R.array.clue_status_web));
@@ -65,8 +65,6 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
             list.add(createItem(R.string.employees_num, null, RegisterSupplierRvAdapter.TYPE_ITEM_MUST_CHOOSE, 0,R.array.clue_status, R.array.clue_status_web));
             list.add(createItem(R.string.company_profile, getString(R.string.company_profile_desc), RegisterSupplierRvAdapter.TYPE_ITEM_MULTILINE, 0, 0, 0));
             viewDelegate.setStep2Data(list);
-        } else {
-
         }
 
     }

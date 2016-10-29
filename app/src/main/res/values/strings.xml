@@ -193,6 +193,8 @@
     <string name="please_input_phone_for_merge">请输入被合并的手机号</string>
     <string name="submit_application">提交申请</string>
     <string name="store_merge_desc">1.请将您所有需要合并的子账户都添加完整 \n2.审核结果将通过短信发送至该手机，通过后即可登录APP</string>
+    <string name="appeal_desc">您的信息正在审核，审核结果将以短信形式发送到金管家的注册手机</string>
+    <string name="please_input_correct_phone">请输入正确的手机号</string>
 
 
 

@@ -18,8 +18,9 @@ import java.util.List;
 
 public class RegisterSupplierActivityDelegate extends AppDelegate {
     RecyclerView mRvContent;
-    RegisterSupplierRvAdapter mAdapter1;
-    RegisterSupplierRvAdapter mAdapter2;
+    List<RegisterRvItem> mList1;
+    List<RegisterRvItem> mList2;
+    RegisterSupplierRvAdapter mAdapter;
 
 
     @Override
@@ -32,37 +33,37 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter1 = new RegisterSupplierRvAdapter(getActivity());
-        mAdapter2 = new RegisterSupplierRvAdapter(getActivity());
-        mRvContent.setAdapter(mAdapter1);
+        mAdapter = new RegisterSupplierRvAdapter(getActivity());
+        mRvContent.setAdapter(mAdapter);
     }
 
 
     public void setStep1Data(List<RegisterRvItem> list){
-        mAdapter1.setData(list);
-        mAdapter1.notifyDataSetChanged();
+        mList1 = list;
+        mAdapter.setData(list);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void setStep2Data(List<RegisterRvItem> list){
-        mAdapter2.setData(list);
+        mList2 = list;
     }
 
     public void clickNextStep(){
         ((TextView)get(R.id.tv_label)).setText(R.string.company_info);
         ((Button)get(R.id.btn_next_step)).setText(R.string.finish_register);
-        mAdapter2.notifyDataSetChanged();
-        mRvContent.setAdapter(mAdapter2);
+        mAdapter.setData(mList2);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void onClickBackOnSecondStep(){
         ((TextView)get(R.id.tv_label)).setText(R.string.account_info);
         ((Button)get(R.id.btn_next_step)).setText(R.string.next_step);
-        mAdapter1.notifyDataSetChanged();
-        mRvContent.setAdapter(mAdapter1);
+        mAdapter.setData(mList1);
+        mAdapter.notifyDataSetChanged();
     }
 
-    public boolean ifStep2Empty(){
-        return mAdapter2.getItemCount() == 0;
+    public boolean ifStep2Init(){
+        return mList2 != null;
     }
 
 }
