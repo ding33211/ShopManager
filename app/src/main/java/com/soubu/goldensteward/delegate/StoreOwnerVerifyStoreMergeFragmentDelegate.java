@@ -1,12 +1,10 @@
 package com.soubu.goldensteward.delegate;
 
 import android.view.View;
-import android.view.inputmethod.InputMethodSession;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.TagInFlowLayout;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;

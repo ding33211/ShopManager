@@ -7,7 +7,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.adapter.ChooseMainProductsCategoryRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
-import com.soubu.goldensteward.module.TagInFlowLayout;
+import com.soubu.goldensteward.module.TagInFlowLayoutModule;
 import com.soubu.goldensteward.widget.DividerItemDecoration;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayoutController;
@@ -48,7 +48,7 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void refreshTags(List<TagInFlowLayout> list){
+    public void refreshTags(List<TagInFlowLayoutModule> list){
         mFlTags.removeAllViews();
         mFlController.addTags(list);
     }
@@ -62,7 +62,7 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mFlController.setOnClickAddItemListener(listener);
     }
 
-    public void addTag(TagInFlowLayout tag){
+    public void addTag(TagInFlowLayoutModule tag){
         mFlController.addTagItem(tag);
     }
 

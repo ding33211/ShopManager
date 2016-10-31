@@ -71,38 +71,44 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
-            <LinearLayout
+            <include
+                layout="@layout/shop_tag_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_name"
-                android:layout_below="@+id/tv_name">
+                android:layout_below="@+id/tv_name"/>
 
-                <ImageView
-                    android:id="@+id/iv_shop_tag_gold"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@drawable/shop_tag_gold" />
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+               <!--&gt;-->
 
-                <ImageView
-                    android:id="@+id/iv_shop_tag_vip"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@drawable/shop_tag_vip" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_shop_tag_gold"-->
+                    <!--android:layout_width="16dp"-->
+                    <!--android:layout_height="16dp"-->
+                    <!--android:layout_marginRight="4dp"-->
+                    <!--android:src="@drawable/shop_tag_gold" />-->
 
-                <ImageView
-                    android:id="@+id/iv_shop_org_com"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@drawable/shop_tag_enterprise" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_shop_tag_vip"-->
+                    <!--android:layout_width="16dp"-->
+                    <!--android:layout_height="16dp"-->
+                    <!--android:layout_marginRight="4dp"-->
+                    <!--android:src="@drawable/shop_tag_vip" />-->
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/supplier_type_productor" />
-            </LinearLayout>
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_shop_org_com"-->
+                    <!--android:layout_width="16dp"-->
+                    <!--android:layout_height="16dp"-->
+                    <!--android:layout_marginRight="4dp"-->
+                    <!--android:src="@drawable/shop_tag_enterprise" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="16dp"-->
+                    <!--android:src="@drawable/supplier_type_productor" />-->
+            <!--</LinearLayout>-->
 
             <ImageView
                 android:layout_width="wrap_content"

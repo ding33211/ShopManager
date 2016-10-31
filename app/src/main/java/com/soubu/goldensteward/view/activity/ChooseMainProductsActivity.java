@@ -1,14 +1,10 @@
 package com.soubu.goldensteward.view.activity;
 
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ChooseMainProductsActivityDelegate;
-import com.soubu.goldensteward.module.TagInFlowLayout;
+import com.soubu.goldensteward.module.TagInFlowLayoutModule;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayoutController;
 
@@ -21,7 +17,7 @@ import java.util.List;
  */
 
 public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProductsActivityDelegate> {
-    List<List<TagInFlowLayout>> mTags = new ArrayList<>();
+    List<List<TagInFlowLayoutModule>> mTags = new ArrayList<>();
 
     @Override
     protected Class<ChooseMainProductsActivityDelegate> getDelegateClass() {
@@ -46,14 +42,14 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
         List<String> list = Arrays.asList(category);
         viewDelegate.setCategory(list);
 
-        List<TagInFlowLayout> list1 = new ArrayList<>();
-        TagInFlowLayout tag = new TagInFlowLayout();
+        List<TagInFlowLayoutModule> list1 = new ArrayList<>();
+        TagInFlowLayoutModule tag = new TagInFlowLayoutModule();
         tag.setContent("毛衫");
         tag.setId(1);
         tag.setParentId(0);
         tag.setSelected(false);
         list1.add(tag);
-        tag = new TagInFlowLayout();
+        tag = new TagInFlowLayoutModule();
         tag.setContent("针织牛仔");
         tag.setId(1);
         tag.setParentId(0);
@@ -81,7 +77,7 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
                 ShowWidgetUtil.showCustomInputDialog(ChooseMainProductsActivity.this, R.string.custom_product_name, R.string.custom_product_rule, new ShowWidgetUtil.OnClickCustomInputConfirm() {
                     @Override
                     public void onConfirm(String content) {
-                        TagInFlowLayout tag = new TagInFlowLayout();
+                        TagInFlowLayoutModule tag = new TagInFlowLayoutModule();
                         tag.setContent(content);
                         tag.setCanDel(true);
                         viewDelegate.addTag(tag);

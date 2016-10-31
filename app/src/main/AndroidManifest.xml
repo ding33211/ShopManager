@@ -52,7 +52,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.activity.ModifyPwdActivity"
+            android:name=".view.activity.ModifyPayPwdActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
         <activity
@@ -91,6 +91,34 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.activity.ChooseMainProductsActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.MyCustomersActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CustomerSpecActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.FeedBackActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ModifyPhoneActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.SubAccountSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
     </application>

@@ -8,23 +8,40 @@ import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.delegate.ModifyPwdActivityDelegate;
+import com.soubu.goldensteward.delegate.ModifyPayPwdActivityDelegate;
+import com.soubu.goldensteward.module.Constant;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by dingsigang on 16-10-20.
  */
-public class ModifyPwdActivity extends ActivityPresenter<ModifyPwdActivityDelegate> implements View.OnClickListener{
+public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivityDelegate> implements View.OnClickListener {
     private boolean mDisplayPwd;
 
+    public static final int TYPE_PWD = 0x00;
+    public static final int TYPE_PAY_PWD = 0x01;
+
+    private int mType;
+
     @Override
-    protected Class<ModifyPwdActivityDelegate> getDelegateClass() {
-        return ModifyPwdActivityDelegate.class;
+    protected Class<ModifyPayPwdActivityDelegate> getDelegateClass() {
+        return ModifyPayPwdActivityDelegate.class;
     }
 
     @Override
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.modify_pay_password);
+        mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, TYPE_PAY_PWD);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        if (mType == TYPE_PWD) {
+            viewDelegate.initPwdWidget();
+        }
     }
 
     @Override
@@ -35,7 +52,7 @@ public class ModifyPwdActivity extends ActivityPresenter<ModifyPwdActivityDelega
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_clear:
                 ((EditText) viewDelegate.get(R.id.et_original_pwd)).setText("");
                 break;

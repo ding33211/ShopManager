@@ -2,44 +2,68 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/filter_selected_color"
     android:paddingBottom="40dp">
 
 
-    <LinearLayout
-        android:id="@+id/ll_tab"
+    <RelativeLayout
+        android:id="@+id/rl_tab"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/tv_security_verification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:textColor="@color/subtitle_grey"
-            android:text="@string/security_verification" />
+        <LinearLayout
+            android:id="@+id/ll_modify_phone_top"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:textColor="@color/subtitle_grey"
-            android:text="@string/bigger_than" />
+            <TextView
+                android:id="@+id/tv_verify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verify_old_phone" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_find_pay_pwd"
+        <LinearLayout
+            android:id="@+id/ll_tab"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/find_pay_password"
-            android:textColor="@color/line_color"/>
-    </LinearLayout>
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_security_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="@string/security_verification"
+                android:textColor="@color/subtitle_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="@string/bigger_than"
+                android:textColor="@color/subtitle_grey" />
+
+            <TextView
+                android:id="@+id/tv_find_pay_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/find_pay_password"
+                android:textColor="@color/line_color" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_top"
-        android:layout_below="@+id/ll_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_tab"
         android:orientation="vertical">
 
         <LinearLayout
@@ -47,8 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/white"
             android:orientation="vertical"
             android:paddingLeft="10dp"
@@ -89,8 +113,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:inputType="number"
                     android:hint="@string/input_verify_code_in_phone"
+                    android:inputType="number"
                     android:textColorHint="@color/subtitle_grey"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -101,8 +125,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@android:color/white"
             android:orientation="vertical"
             android:paddingLeft="10dp"
@@ -120,9 +144,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:maxLength="6"
                     android:hint="@string/please_input_new_soubu_pay_pwd"
                     android:inputType="numberPassword"
+                    android:maxLength="6"
                     android:textColorHint="@color/subtitle_grey"
                     android:textSize="14sp" />
 
@@ -155,9 +179,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:hint="@string/please_input_new_soubu_pay_pwd_again"
                     android:inputType="number"
                     android:maxLength="6"
-                    android:hint="@string/please_input_new_soubu_pay_pwd_again"
                     android:textColorHint="@color/subtitle_grey"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -178,11 +202,11 @@
 
     <include
         android:id="@+id/include"
+        layout="@layout/customer_service_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        layout="@layout/customer_service_phone"/>
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/tv_find_pwd_help"
@@ -190,6 +214,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/include"
         android:layout_centerHorizontal="true"
-        android:text="@string/find_pwd_help"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:text="@string/find_pwd_help" />
 </RelativeLayout>

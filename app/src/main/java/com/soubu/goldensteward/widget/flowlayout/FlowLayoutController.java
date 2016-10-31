@@ -7,7 +7,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.TagInFlowLayout;
+import com.soubu.goldensteward.module.TagInFlowLayoutModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public class FlowLayoutController {
     }
 
 
-    public void addTagItem(final TagInFlowLayout tag) {
+    public void addTagItem(final TagInFlowLayoutModule tag) {
         final View tagItem = LayoutInflater.from(mFlLayout.getContext()).inflate(R.layout.item_flowlayout, mFlLayout, false);
         final TextView tvContent = (TextView) tagItem.findViewById(R.id.tv_phone);
         tvContent.setText(tag.getContent());
@@ -122,11 +122,11 @@ public class FlowLayoutController {
     }
 
 
-    public void addTags(List<TagInFlowLayout> list) {
+    public void addTags(List<TagInFlowLayoutModule> list) {
         if (list == null) {
             return;
         } else {
-            for (TagInFlowLayout tag : list) {
+            for (TagInFlowLayoutModule tag : list) {
                 addTagItem(tag);
             }
             addAddItem();

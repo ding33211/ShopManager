@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_item_white_grey_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_letter"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:background="@color/filter_selected_color"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_letter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="A"
+            android:textColor="@color/subtitle_grey"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="客服名称"
+                android:textColor="@color/title_black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviewing"
+                android:textColor="@color/line_color"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/item_line_grey" />
+    </RelativeLayout>
+</LinearLayout>

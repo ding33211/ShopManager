@@ -33,7 +33,7 @@ public class SecurityCenterActivity extends ActivityPresenter<SecurityCenterActi
         Intent intent = null;
         switch (v.getId()){
             case R.id.ll_modify_pwd:
-                intent = new Intent(this, ModifyPwdActivity.class);
+                intent = new Intent(this, ModifyPayPwdActivity.class);
                 break;
             case R.id.ll_find_pwd:
                 intent = new Intent(this, FindPwdActivity.class);

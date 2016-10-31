@@ -2,33 +2,30 @@ package com.soubu.goldensteward.delegate;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.adapter.SubAccountRvAdapter;
+import com.soubu.goldensteward.adapter.MyCustomersRvAdapter;
+import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.widget.RecyclerViewFastScroller;
 
 /**
- * Created by dingsigang on 16-10-18.
+ * Created by lakers on 16/10/29.
  */
-public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
 
-    SubAccountRvAdapter mAdapter;
+public class MyCustomersActivityDelegate extends AppDelegate {
+    MyCustomersRvAdapter mAdapter;
 
     @Override
     public int getRootLayoutId() {
-        return R.layout.fragment_sub_account;
+        return R.layout.activity_my_customers;
     }
-
 
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new SubAccountRvAdapter(getActivity());
+        mAdapter = new MyCustomersRvAdapter(this.getActivity());
         RecyclerView recyclerView = get(R.id.rv_content);
         recyclerView.setAdapter(mAdapter);
         final RecyclerViewFastScroller fastScroller = get(R.id.fast_scroller);
@@ -52,27 +49,10 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
         });
         fastScroller.setRecyclerView(recyclerView);
         fastScroller.setViewsToUse(R.layout.recycler_view_fast_scroller, R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
-
-        ((EditText) get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //过滤操作
-                mAdapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
-    public void setOnRvItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
+
+    public void setOnRvItemSelectedListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
         mAdapter.setOnRvItemClickListener(listener);
     }
-
 }

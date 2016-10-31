@@ -10,8 +10,10 @@ import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.HomeFragmentDelegate;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.view.activity.InformationActivity;
+import com.soubu.goldensteward.view.activity.MyCustomersActivity;
 import com.soubu.goldensteward.view.activity.MyWalletActivity;
 import com.soubu.goldensteward.view.activity.OperationReportActivity;
+import com.soubu.goldensteward.view.activity.SettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,11 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
                     case 1:
                         intent = new Intent(getActivity(), OperationReportActivity.class);
                         break;
+                    case 2:
+                        intent = new Intent(getActivity(), MyCustomersActivity.class);
+                        break;
+                    case 3:
+                        intent = new Intent(getActivity(), SettingActivity.class);
                 }
                 startActivity(intent);
             }

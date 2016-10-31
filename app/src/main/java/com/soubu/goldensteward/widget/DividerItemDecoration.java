@@ -90,7 +90,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             int top = child.getBottom() + params.bottomMargin;
-            int bottom = top + mHeight;
+            int bottom = top + mDrawable.getIntrinsicHeight();
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(c);
         }
@@ -99,9 +99,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         if (mOrientation == LinearLayoutManager.VERTICAL) {
-            outRect.set(0, 0, 0, mDrawable.getIntrinsicHeight());
+            outRect.set(0, 0, 0, mHeight);
         } else {
-            outRect.set(0, 0, mDrawable.getIntrinsicWidth(), 0);
+            outRect.set(0, 0, mHeight, 0);
         }
     }
 }

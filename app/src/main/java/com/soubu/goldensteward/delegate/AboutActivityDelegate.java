@@ -4,11 +4,12 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 
 /**
- * Created by dingsigang on 16-10-20.
+ * Created by lakers on 16/10/31.
  */
-public class ModifyPwdActivityDelegate extends AppDelegate{
+
+public class AboutActivityDelegate extends AppDelegate {
     @Override
     public int getRootLayoutId() {
-        return R.layout.activity_modify_pwd;
+        return R.layout.activity_about;
     }
 }

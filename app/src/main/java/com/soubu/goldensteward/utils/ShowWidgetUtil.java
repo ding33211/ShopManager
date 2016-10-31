@@ -22,6 +22,7 @@ package com.soubu.goldensteward.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -149,6 +150,29 @@ public class ShowWidgetUtil {
                 dialog.dismiss();
             }
         });
+    }
+
+
+    public static void showVerifyCodeTimerStart(final TextView textView){
+        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textView.setText(millisUntilFinished/1000 + "秒");
+            }
+
+            @Override
+            public void onFinish() {
+                textView.setEnabled(true);
+                textView.setTextColor(textView.getResources().getColor(R.color.colorPrimary));
+                textView.setBackgroundResource(R.drawable.bg_orange_stroke_corners);
+                textView.setText(R.string.get_verify_code);
+            }
+        };
+        textView.setEnabled(false);
+        textView.setTextColor(textView.getResources().getColor(R.color.subtitle_grey));
+        textView.setBackgroundResource(R.drawable.bg_grey_stroke_corners);
+        timer.start();
     }
 
 

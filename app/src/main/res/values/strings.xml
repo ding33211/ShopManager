@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">金管家</string>
+    <string name="app_version">1.0</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="button_allow">允许</string>
@@ -199,8 +200,46 @@
     <string name="custom_product_name">自定义品名</string>
     <string name="custom_product_rule">品名建议7个字以内</string>
     <string name="input_empty_error">输入的内容不能为空</string>
+    <string name="traded_order_count">成交订单</string>
+    <string name="last_deal">最后下单</string>
+    <string name="dan">单</string>
+    <string name="empty_customer">暂无客户</string>
+    <string name="receiver">收货人</string>ac
+    <string name="contact_number">联系电话</string>
+    <string name="receipt_address">收货地址</string>
+    <string name="transaction_record">交易记录</string>
+    <string name="spec_info">详细资料</string>
 
+    <string name="suggestion_feedback">意见反馈</string>
+    <string name="logout_account">退出当前账户</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="modify_phone">修改手机号</string>
+    <string name="about">关于</string>
+    <string name="share">分享</string>
+    <string name="child_account_manage">子账户管理</string>
+    <string name="wallet_manage">钱包管理</string>
+    <string name="function_operation">功能操作</string>
+    <string name="not_smooth_use">使用不流畅</string>
+    <string name="other_issue">其他问题</string>
+    <string name="please_input_your_valuable_advice">请输入您宝贵的意见</string>
+    <string name="submit_feedback">提交意见反馈</string>
+    <string name="verify_old_phone">验证原手机号</string>
+    <string name="verify_new_phone">验证新手机号</string>
+    <string name="please_input_original_pwd">请输入原密码</string>
+    <string name="please_input_new_pwd">请输入新密码</string>
+    <string name="please_input_new_pwd_again">请再次输入新密码</string>
+    <string name="score_for_me">帮我评分</string>
+    <string name="address">地址</string>
+    <string name="soubu_address">宁波市鄞州区钱湖天地TBD-A座5楼</string>
+    <string name="soubu_service_protocol">搜布服务条款</string>
+    <string name="contact_customer_service">联系客服</string>
 
+    <string name="add_sub_account">添加子账户</string>
+    <string name="reviewing">审核中</string>
+    <string name="login_time_last_week">登录时间（近一周）</string>
+    <string name="today_turnover">今日成交额</string>
+    <string name="today_chat_num">今日聊天数</string>
+    <string name="today_offer_num">今日报价数</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

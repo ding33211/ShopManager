@@ -5,10 +5,12 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.FindPwdActivityDelegate;
+import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 /**
  * Created by dingsigang on 16-10-20.
@@ -37,8 +39,7 @@ public class FindPwdActivity extends ActivityPresenter<FindPwdActivityDelegate> 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_send_verify_code:
-                v.setEnabled(false);
-                viewDelegate.startTimer();
+                ShowWidgetUtil.showVerifyCodeTimerStart((TextView)v);
                 break;
             case R.id.btn_confirm:
                 viewDelegate.clickVerify();

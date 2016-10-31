@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btn_feedback_1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/child_account_manage"
+            android:textColor="@color/selector_feedback_btn_text" />
+
+        <Button
+            android:id="@+id/btn_feedback_2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/operation_report"
+            android:textColor="@color/selector_feedback_btn_text" />
+
+        <Button
+            android:id="@+id/btn_feedback_3"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/wallet_manage"
+            android:textColor="@color/selector_feedback_btn_text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <Button
+            android:id="@+id/btn_feedback_4"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/function_operation"
+            android:textColor="@color/selector_feedback_btn_text" />
+
+        <Button
+            android:id="@+id/btn_feedback_5"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/not_smooth_use"
+            android:textColor="@color/selector_feedback_btn_text" />
+
+        <Button
+            android:id="@+id/btn_feedback_6"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_feedback_btn_bg"
+            android:text="@string/other_issue"
+            android:textColor="@color/selector_feedback_btn_text" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@android:color/white"
+        android:minHeight="160dp"
+        android:padding="10dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/please_input_your_valuable_advice"
+            android:textColorHint="@color/line_color" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/OrangeButton"
+        android:layout_marginTop="10dp"
+        android:text="@string/submit_feedback" />
+</LinearLayout>
