@@ -15,14 +15,8 @@
  */
 package com.soubu.goldensteward.base.mvp.presenter;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,12 +24,8 @@ import android.view.WindowManager;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.BaseActivity;
 import com.soubu.goldensteward.base.mvp.view.IDelegate;
-import com.soubu.goldensteward.server.ServerErrorUtil;
-import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 
 /**

@@ -183,15 +183,9 @@
         android:textColor="@color/subtitle_grey"/>
 
     <Button
+        style="@style/OrangeButton"
         android:id="@+id/btn_finish"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:layout_below="@+id/ll_top"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_orange_corners"
-        android:text="@string/finish"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:text="@string/finish"/>
 </LinearLayout>

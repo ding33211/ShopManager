@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
  * Created by dingsigang on 16-8-2.
  */
 public class RegularUtil {
+    //验证密码  6-20位必须同时包含数字和字母
+    private static final String REGEX_PWD = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
     //验证手机号
     private static final String REGEX_MOBILE = "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
     //验证座机号,正确格式：xxx/xxxx-xxxxxxx/xxxxxxxx
@@ -90,5 +92,13 @@ public class RegularUtil {
         }
         Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
         return pattern.matcher(str).matches();
+    }
+
+    /**
+     * @param string 待验证文本
+     * @return 是否符合密码格式
+     */
+    public static boolean isPassword(String string) {
+        return isMatch(REGEX_PWD, string);
     }
 }

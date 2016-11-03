@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
@@ -19,6 +18,11 @@ import com.soubu.goldensteward.module.RegisterRvItem;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.utils.WindowUtil;
 import com.soubu.goldensteward.view.activity.ChooseMainProductsActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.baidu.location.f.mC;
 
 /**
  * Created by lakers on 16/10/27.
@@ -30,17 +34,24 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     public static final int TYPE_ITEM_MUST_CHOOSE = 0x12;  // 必选
     public static final int TYPE_ITEM_CAN_CHOOSE = 0x03;  // 可选
     public static final int TYPE_ITEM_MULTILINE = 0x04;  // 必填
+    public static final int TYPE_ITEM_LOCATE = 0x13;
+
+    private String mArea;
+    private String mAddress;
 
     private Activity mActivity;
     //需要对multiLine所输入的内容进行缓存
     private String mMultiLine;
+    //必填项
+    private List<RegisterRvItem> mMustList;
 
 
     public RegisterSupplierRvAdapter(Activity activity) {
         super();
         mActivity = activity;
+        mMustList = new ArrayList<>();
+//        mLostFocusListener = listener;
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,7 +61,9 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
         View vRight = v.findViewById(R.id.ll_right);
         View vMust = v.findViewById(R.id.tv_must);
         View etMultiLine = v.findViewById(R.id.et_multiline_content);
-        if (viewType > 10) {
+        ImageView ivChoose = (ImageView) v.findViewById(R.id.iv_choose);
+        View vChoose = v.findViewById(R.id.tv_content);
+        if (viewType > 0x10) {
             vMust.setVisibility(View.VISIBLE);
         } else {
             vMust.setVisibility(View.GONE);
@@ -61,6 +74,14 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                 tvTitle.setVisibility(View.GONE);
                 etTitle.setVisibility(View.VISIBLE);
                 vRight.setVisibility(View.GONE);
+                break;
+            case TYPE_ITEM_LOCATE:
+                ivChoose.setImageResource(R.drawable.login_location);
+                vChoose.setVisibility(View.GONE);
+                tvTitle.setVisibility(View.GONE);
+                etTitle.setVisibility(View.VISIBLE);
+                ((EditText)etTitle).setCursorVisible(false);
+                vRight.setVisibility(View.VISIBLE);
                 break;
             case TYPE_ITEM_CAN_CHOOSE:
             case TYPE_ITEM_MUST_CHOOSE:
@@ -83,15 +104,45 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
             int titleRes = mList.get(position).getTitleRes();
-            String content = mList.get(position).getContent();
             int type = getItemViewType(position);
+            String content = mList.get(position).getContent();
+            if(type > 10){
+                if(!mMustList.contains(mList.get(position))){
+                    mMustList.add(mList.get(position));
+                }
+            }
+            if(type == TYPE_ITEM_LOCATE){
+                if(!TextUtils.isEmpty(mArea) && TextUtils.isEmpty(content)){
+                    mList.get(position).setContent(mArea);
+                    content = mArea;
+                }
+            }
+            if(titleRes == R.string.detail_address){
+                if(!TextUtils.isEmpty(mAddress) && TextUtils.isEmpty(content)){
+                    mList.get(position).setContent(mAddress);
+                    content = mAddress;
+                }
+            }
             holder1.tvTitle.setText(titleRes);
+
             if (type != TYPE_ITEM_MULTILINE) {
                 if (TextUtils.isEmpty(content)) {
                     holder1.etTitle.setHint(titleRes);
+                    holder1.etTitle.setText("");
+                    holder1.tvContent.setText(R.string.please_choose);
+                    holder1.tvContent.setTextColor(mActivity.getResources().getColor(R.color.line_color));
                 } else {
                     holder1.etTitle.setText(content);
-                    holder1.tvContent.setText(content);
+                    if(type == TYPE_ITEM_CAN_CHOOSE || type == TYPE_ITEM_MUST_CHOOSE){
+                        if(titleRes == R.string.main_products){
+                            holder1.tvContent.setText(content);
+                        } else {
+                            holder1.tvContent.setText(mActivity.getResources().getTextArray(mList.get(position).getArrayRes())[Integer.valueOf(content)]);
+                        }
+                    } else {
+                        holder1.tvContent.setText(content);
+                    }
+                    holder1.tvContent.setTextColor(mActivity.getResources().getColor(R.color.title_black));
                 }
             } else {
                 if (!TextUtils.isEmpty(mMultiLine)) {
@@ -107,28 +158,22 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
             holder1.etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-//                        mVStillFocus = v;
-                    }
                     if (!hasFocus) {
-//                        mVStillFocus = null;
                         onEditTextLostFocus(v, position);
                     }
                 }
             });
+            holder1.etTitle.setTag(mContentObserver);
             holder1.etMultiLineContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-//                        mVStillFocus = v;
-                    }
                     if (!hasFocus) {
-//                        mVStillFocus = null;
                         onEditTextLostFocus(v, position);
                     }
                 }
             });
             holder1.etMultiLineContent.setHint(content);
+            holder1.etMultiLineContent.setTag(mContentObserver);
             if (holder.getLayoutPosition() == getItemCount() - 1) {
                 holder1.vBottomLine.setVisibility(View.INVISIBLE);
             } else {
@@ -139,11 +184,13 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
 
     private void onEditTextLostFocus(View editText, int pos) {
         if (editText != null && editText instanceof EditText) {
-            ViewParent group = editText.getParent();
-            group.clearChildFocus(editText);
             String temp = ((EditText) editText).getText().toString();
             if (!TextUtils.isEmpty(temp)) {
-                mList.get(pos).setContent(temp);
+                OnContentObserver listener = (OnContentObserver) editText.getTag();
+                if(listener != null){
+                    listener.onContentChange(pos, temp);
+                }
+//                mList.get(pos).setContent(temp);
             }
             WindowUtil.hideSoftInput(mActivity);
         }
@@ -184,18 +231,27 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                     break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_MUST_CHOOSE:
-                    if (!doChooseMainProducts(mList.get(getLayoutPosition()).getTitleRes())) {
+                    if (!doChooseSpec(mList.get(getLayoutPosition()).getTitleRes())) {
                         final RegisterRvItem item = mList.get(getLayoutPosition());
                         ShowWidgetUtil.showMultiItemDialog(mActivity, item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                CharSequence[] webArray = mActivity.getResources().getTextArray(item.getWebArrayRes());
-                                mList.get(getLayoutPosition()).setContent(webArray[which].toString());
+                                if(mContentObserver != null){
+                                    mContentObserver.onContentChange(getLayoutPosition(), which + "");
+                                }
+                                mList.get(getLayoutPosition()).setContent(which + "");
                                 notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         });
                     }
+                    break;
+                case TYPE_ITEM_LOCATE:
+                    v.requestFocus();
+                     if(mChooseAreaOrProductListener != null){
+                         mChooseAreaOrProductListener.onClick(true);
+                     }
+                    break;
                 case TYPE_ITEM_MULTILINE:
                     WindowUtil.showSoftInput(v.getContext(), etMultiLineContent);
                     etMultiLineContent.setSelection(etMultiLineContent.getText().length());
@@ -206,15 +262,42 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
         }
     }
 
-    private boolean doChooseMainProducts(int titleRes) {
+    //一些特别的选择方法
+    private boolean doChooseSpec(int titleRes) {
         if (titleRes != R.string.main_products) {
             return false;
         } else {
-            Intent intent = new Intent(mActivity, ChooseMainProductsActivity.class);
-            mActivity.startActivity(intent);
+            if(mChooseAreaOrProductListener != null){
+                mChooseAreaOrProductListener.onClick(false);
+            }
+//            Intent intent = new Intent(mActivity, ChooseMainProductsActivity.class);
+//            mActivity.startActivity(intent);
             return true;
         }
     }
+
+    OnChooseAreaOrProductClickListener mChooseAreaOrProductListener;
+
+    public interface OnChooseAreaOrProductClickListener {
+        void onClick(boolean chooseArea);
+    }
+
+    public void setOnChooseAreaOrProductClickListener(OnChooseAreaOrProductClickListener listener){
+        mChooseAreaOrProductListener = listener;
+    }
+
+    OnContentObserver mContentObserver;
+
+    public interface OnContentObserver{
+        void onContentChange(int pos, String content);
+    }
+
+    public void setOnContentObserver(OnContentObserver listener){
+        mContentObserver = listener;
+    }
+
+
+
 
 
 }

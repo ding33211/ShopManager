@@ -20,13 +20,16 @@
 package com.soubu.goldensteward.utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,7 +122,7 @@ public class ShowWidgetUtil {
         void onConfirm(String content);
     }
 
-    public static void showCustomInputDialog(Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener){
+    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener){
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
@@ -139,6 +142,7 @@ public class ShowWidgetUtil {
                     if(listener != null){
                         listener.onConfirm(content);
                         dialog.dismiss();
+                        WindowUtil.hideSoftInput(activity);
                     }
                 }
 
@@ -148,8 +152,10 @@ public class ShowWidgetUtil {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                WindowUtil.hideSoftInput(activity);
             }
         });
+        WindowUtil.showSoftInput(activity, etContent);
     }
 
 
@@ -173,6 +179,63 @@ public class ShowWidgetUtil {
         textView.setTextColor(textView.getResources().getColor(R.color.subtitle_grey));
         textView.setBackgroundResource(R.drawable.bg_grey_stroke_corners);
         timer.start();
+    }
+
+
+    private static ProgressDialog dialog;
+
+    public static ProgressDialog showProgressDialog(Context context, String strContent) {
+        dismissProgressDialogNow();
+        if (context != null) {
+            try {
+                if (dialog == null) {
+                    dialog = new ProgressDialog(context, R.style.ProgressDialogTheme);
+                }
+                //通过这种方式，避免dialog直接持有activity对象，早晨内存泄漏
+                dialog .getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                if (!dialog.isShowing()) {
+                    Log.d("dialog", "show" + dialog.getContext().getClass().getName());
+                    dialog.show();
+                }
+                dialog.setContentView(R.layout.progressdialog_loading);
+//                TextView textView = (TextView) dialog
+//                        .findViewById(R.id.loading_msg);
+//                textView.setText(strContent);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("dialog", "show" + e.getClass().getName());
+            }
+            return dialog;
+        }
+        return null;
+    }
+
+    public static void dismissProgressDialogNow() {
+        if (dialog != null) {
+            try {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+            } catch (Exception e) {
+                Log.d("dialog", "dismissDialogNow" + e.getClass().getName());
+            }
+        }
+        dialog = null;
+    }
+
+
+    public static void dismissProgressDialog() {
+        if (dialog != null) {
+            try {
+                if (dialog.isShowing()) {
+                    ///Log.d("dialog", "dismis" + dialog.getContext().get);
+                    dialog.dismiss();
+                }
+            } catch (Exception e) {
+                Log.d("dialog", "dismiss" + e.getClass().getName());
+            }
+        }
     }
 
 

@@ -33,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        ShowWidgetUtil.dismissProgressDialog();
 //        MobclickAgent.onPause(this);
     }
 

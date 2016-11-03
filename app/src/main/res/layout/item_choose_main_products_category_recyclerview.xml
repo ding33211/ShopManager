@@ -3,12 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="123"
-        android:textColor="@color/subtitle_grey" />
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/login_product_checking"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="123"
+            android:textColor="@color/subtitle_grey" />
+    </LinearLayout>
+
 </LinearLayout>

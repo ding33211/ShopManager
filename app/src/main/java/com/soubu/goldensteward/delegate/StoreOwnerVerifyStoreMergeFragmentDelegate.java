@@ -81,8 +81,8 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     }
 
     @Override
-    public void onSelected(String content) {
-
+    public boolean onSelected(String content) {
+        return true;
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.adapter.ChooseMainProductsCategoryRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.module.TagInFlowLayoutModule;
@@ -48,23 +47,43 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void refreshTags(List<TagInFlowLayoutModule> list){
+    public void setCategorySelected(List<Integer> selectedList) {
+        mAdapter.setSelectedList(selectedList);
+    }
+
+    public void refreshTags(List<TagInFlowLayoutModule> list) {
         mFlTags.removeAllViews();
         mFlController.addTags(list);
     }
 
 
-    public void setOnCategoryItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
+    public void setOnCategoryItemSelectListener(ChooseMainProductsCategoryRvAdapter.OnCanGoOnClickListener listener) {
         mAdapter.setOnRvItemClickListener(listener);
     }
 
-    public void setOnAddItemClickListener(FlowLayoutController.OnClickAddItemListener listener){
+    public void setOnAddItemClickListener(FlowLayoutController.OnClickAddItemListener listener) {
         mFlController.setOnClickAddItemListener(listener);
     }
 
-    public void addTag(TagInFlowLayoutModule tag){
+    public void setOnEventCallBackListener(FlowLayoutController.OnEventCallBackListener callBack) {
+        mFlController.setOnEventCallBack(callBack);
+    }
+
+    public void addTag(TagInFlowLayoutModule tag) {
         mFlController.addTagItem(tag);
     }
 
+    public void removeAddItem() {
+        mFlController.removeAddItem();
+    }
 
+    public void addAddItem() {
+        mFlController.addAddItem();
+    }
+
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

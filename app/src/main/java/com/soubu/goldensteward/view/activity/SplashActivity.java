@@ -3,11 +3,22 @@ package com.soubu.goldensteward.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.base.greendao.Address;
+import com.soubu.goldensteward.base.greendao.AddressDao;
+import com.soubu.goldensteward.base.greendao.DBHelper;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.SplashActivityDelegate;
 import com.soubu.goldensteward.utils.PermissionUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -15,8 +26,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by lakers on 16/10/25.
@@ -39,11 +48,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                initProvinceAndCity();
                 SplashActivityPermissionsDispatcher.loadWithCheck(SplashActivity.this);
             }
         }).start();
@@ -96,5 +101,53 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
         } else {
             finish();
         }
+    }
+
+
+    private void initProvinceAndCity(){
+        AddressDao addressDao = DBHelper.getInstance(getApplicationContext()).getAddressDao();
+        Log.e("xxxxxxxxxxxx", addressDao.count() + "");
+        if(addressDao.count() > 0){
+            return;
+        } else {
+            JSONObject addressJson = initJsonData();
+            try {
+                JSONArray jsonArray = addressJson.getJSONArray("RECORDS");
+                for(int i = 0; i < jsonArray.length(); i ++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    Address address = new Address();
+                    address.setArea_id(object.getInt("area_id"));
+                    address.setArea_name(object.getString("area_name"));
+                    address.setParent_id(object.getInt("parent_id"));
+                    address.setSort(object.getInt("sort"));
+                    address.setTag(object.getString("tag"));
+                    addressDao.insert(address);
+                    Log.e("xxxxxxxx", address.getArea_name());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /** 从assert文件夹中读取省市区的json文件，然后转化为json对象 */
+    private JSONObject initJsonData() {
+        try {
+            StringBuffer sb = new StringBuffer();
+            InputStream is = getAssets().open("city.json");
+            int len = -1;
+            byte[] buf = new byte[1024];
+            while ((len = is.read(buf)) != -1) {
+                sb.append(new String(buf, 0, len, "UTF-8"));
+            }
+            is.close();
+            return new JSONObject(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

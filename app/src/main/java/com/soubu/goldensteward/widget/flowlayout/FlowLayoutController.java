@@ -12,6 +12,9 @@ import com.soubu.goldensteward.module.TagInFlowLayoutModule;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.max;
+import static com.baidu.location.h.j.m;
+
 /**
  * Created by lakers on 16/10/28.
  */
@@ -22,7 +25,7 @@ public class FlowLayoutController {
     OnClickAddItemListener mOnClickAddItemListener;
     ArrayList<String> mListSelected;
     ArrayList<String> mListAdded;
-
+    List<TagInFlowLayoutModule> mTags;
 
     public FlowLayoutController(FlowLayout flowLayout) {
         mFlLayout = flowLayout;
@@ -90,6 +93,7 @@ public class FlowLayoutController {
         tagItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(tag.isSelected()){
                     tvContent.setBackgroundResource(R.drawable.bg_grey_corners);
                     tvContent.setTextColor(mFlLayout.getResources().getColor(R.color.subtitle_grey));
@@ -98,11 +102,12 @@ public class FlowLayoutController {
                     }
                     tag.setSelected(false);
                 } else {
+                    //此处如果第二项返回的是false，那么久不能再选择了
+                    if(mOnEventCallBackListener != null && !mOnEventCallBackListener.onSelected(tag)){
+                        return;
+                    }
                     tvContent.setBackgroundResource(R.drawable.bg_orange_corners);
                     tvContent.setTextColor(mFlLayout.getResources().getColor(android.R.color.white));
-                    if(mOnEventCallBackListener != null){
-                        mOnEventCallBackListener.onSelected(tag);
-                    }
                     tag.setSelected(true);
                 }
             }
@@ -112,13 +117,18 @@ public class FlowLayoutController {
                 @Override
                 public void onClick(View v) {
                     mFlLayout.removeView(tagItem);
+                    if(mOnEventCallBackListener != null ){
+                        mOnEventCallBackListener.onDelete(tag);
+                    }
                 }
             });
         } else {
             vDelete.setVisibility(View.GONE);
         }
         mFlLayout.addView(tagItem);
-
+        if(mOnEventCallBackListener != null){
+            mOnEventCallBackListener.onAdd(tag);
+        }
     }
 
 
@@ -126,6 +136,7 @@ public class FlowLayoutController {
         if (list == null) {
             return;
         } else {
+            mTags = list;
             for (TagInFlowLayoutModule tag : list) {
                 addTagItem(tag);
             }
@@ -147,6 +158,10 @@ public class FlowLayoutController {
         mFlLayout.addView(addItem);
     }
 
+    public void removeAddItem(){
+        mFlLayout.removeViewAt(mFlLayout.getChildCount() - 1);
+    }
+
 
     public interface OnEventCallBackListener<T> {
 
@@ -154,7 +169,9 @@ public class FlowLayoutController {
 
         void onDelete(T content);
 
-        void onSelected(T content);
+
+        //返回是否可以继续选择
+        boolean onSelected(T content);
 
         void onUnSelected(T content);
 

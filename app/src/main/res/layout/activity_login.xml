@@ -93,16 +93,10 @@
         </LinearLayout>
 
         <Button
+            style="@style/OrangeButton"
             android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="22dp"
-            android:background="@drawable/bg_orange_corners"
-            android:text="@string/login"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:text="@string/login" />
 
         <LinearLayout
             android:layout_width="match_parent"

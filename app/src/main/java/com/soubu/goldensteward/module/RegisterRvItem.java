@@ -13,7 +13,8 @@ public class RegisterRvItem {
     boolean must;
     int editType = InputType.TYPE_CLASS_TEXT;
     int arrayRes;
-    int webArrayRes;
+    //由于server端对应的传的是index，暂时不用web
+//    int webArrayRes;
 
     public int getTitleRes() {
         return titleRes;
@@ -31,13 +32,13 @@ public class RegisterRvItem {
         this.arrayRes = arrayRes;
     }
 
-    public int getWebArrayRes() {
-        return webArrayRes;
-    }
-
-    public void setWebArrayRes(int webArrayRes) {
-        this.webArrayRes = webArrayRes;
-    }
+//    public int getWebArrayRes() {
+//        return webArrayRes;
+//    }
+//
+//    public void setWebArrayRes(int webArrayRes) {
+//        this.webArrayRes = webArrayRes;
+//    }
 
     public int getType() {
         return type;

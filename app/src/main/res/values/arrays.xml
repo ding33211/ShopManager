@@ -14,12 +14,47 @@
         <item>CLOSED</item>
     </string-array>
 
-    <string-array name="main_products_category">
-        <item>针织类</item>
-        <item>梭织类</item>
-        <item>毛织</item>
-        <item>蕾丝/绣品类</item>
-        <item>皮革皮草</item>
-        <item>辅料</item>
+    <!--<string-array name="main_products_category">-->
+        <!--<item>针织类</item>-->
+        <!--<item>梭织类</item>-->
+        <!--<item>毛织</item>-->
+        <!--<item>蕾丝/绣品类</item>-->
+        <!--<item>皮革皮草</item>-->
+        <!--<item>辅料</item>-->
+    <!--</string-array>-->
+
+    <string-array name="job">
+        <item>总经理</item>
+        <item>销售经理</item>
+        <item>业务员</item>
+        <item>面料顾问</item>
     </string-array>
+
+    <string-array name="company_size">
+        <item>1-10人</item>
+        <item>10-100人</item>
+        <item>100人以上</item>
+    </string-array>
+
+    <string-array name="operation_mode">
+        <item>生产商</item>
+        <item>一级代理</item>
+        <item>二级代理</item>
+        <item>国际代理</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="main_industry">
+        <item>面料</item>
+        <item>辅料</item>
+        <item>加工工艺</item>
+    </string-array>
+
+    <string-array name="turnover">
+        <item>100万-300万</item>
+        <item>300万-600万</item>
+        <item>600万-1000万</item>
+        <item>1000万以上</item>
+    </string-array>
+
 </resources>
