@@ -58,7 +58,7 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
             addPhoneItem(phone);
             etChildPhone.setText("");
         } else {
-            ShowWidgetUtil.showShort(R.string.please_input_correct_phone);
+            ShowWidgetUtil.showShort(R.string.wrong_phone);
         }
     }
 

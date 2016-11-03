@@ -52,9 +52,16 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 }
                 break;
             case R.id.btn_login:
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                if(true){
+                    Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
                 break;
             case R.id.tv_register:
                 Intent intent1 = new Intent(this, RegisterOrForgetPwdActivity.class);
@@ -66,8 +73,6 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 intent2.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
                 startActivity(intent2);
                 break;
-
-
 
         }
     }

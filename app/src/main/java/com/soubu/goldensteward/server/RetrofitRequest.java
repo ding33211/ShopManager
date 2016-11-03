@@ -9,6 +9,7 @@ import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.LoginServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,9 +40,13 @@ public class RetrofitRequest {
         return mInstance;
     }
 
+    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost){
+        enqueueClue(call, needEventPost, null);
+    }
 
-    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost) {
-        ShowWidgetUtil.showProgressDialog(GoldenStewardApplication.getContext(), "");
+
+    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent) {
+        ShowWidgetUtil.showProgressDialog(dialogContent);
         call.enqueue(new Callback<BaseResp<T>>() {
             @Override
             public void onResponse(Call<BaseResp<T>> call, Response<BaseResp<T>> response) {
@@ -65,7 +70,8 @@ public class RetrofitRequest {
 //
 //                    String finallyError = sb.toString();
                     Log.e(TAG, "errorbody  :   " + response.body().msg);
-                    EventBus.getDefault().post(response.code());
+                    ShowWidgetUtil.showShort(response.body().msg);
+//                    EventBus.getDefault().post(response.body());
                 } else {
                     if (needEventPost) {
                         EventBus.getDefault().post(response.body());
@@ -126,6 +132,16 @@ public class RetrofitRequest {
         Call<BaseResp<LoginServerParams>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .register(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 认证
+     */
+    public void submitCertification(VerificationServerParams params) {
+        Call<BaseResp<VerificationServerParams>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .submitCertification(new Gson().toJson(params));
         enqueueClue(call, true);
     }
 

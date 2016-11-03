@@ -163,6 +163,7 @@
     <string name="register_new_user">新用户注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="permission_explain_storage">我们需要读取您的存储文件来让您更好的使用我们的应用</string>
+    <string name="permission_explain_camera">您只有打开了允许了相机权限才可以使用相机</string>
     <string name="please_input_phone_for_main_account">请输入主账户的手机号</string>
     <string name="please_input_verification_code">请输入验证码</string>
     <string name="register_pwd_desc">请设置6-20位密码</string>
@@ -189,23 +190,37 @@
     <string name="watch_example">查看示例</string>
     <string name="company_type">单位类型</string>
     <string name="certificates_type">证件类型</string>
-    <string name="operator">经营者</string>
-    <string name="please_fill_company_name">请填写企业名称</string>
+    <string name="operator_name">经营者姓名</string>
+    <string name="enterprise_name">企业名称</string>
+    <string name="please_fill_enterprise_name">请填写企业名称</string>
+    <string name="please_fill_operator_name">请填写经营者姓名</string>
     <string name="legal_person">法定代表人</string>
     <string name="legal_person_suffix">的证件</string>
     <string name="please_fill_name">请填写姓名</string>
+    <string name="please_fill_legal_person">请填写法定代表人姓名</string>
     <string name="id_num">身份证号</string>
+    <string name="contact_method">联系方式</string>
     <string name="please_fill_id_num">请填写身份证号</string>
+    <string name="please_fill_mobile">请填写手机号</string>
+    <string name="wrong_id">身份证号码格式不正确</string>
     <string name="store_owner_verify_step1_desc">审核结果将通过短信发送至该手机</string>
     <string name="store_owner_verify">店主认证</string>
     <string name="upload_certificates">上传证件</string>
+    <string name="please_choose_company_type">请选择单位类型</string>
+    <string name="please_choose_certification_type">请选择证件类型</string>
+    <string name="please_choose_business_license">请选择营业执照</string>
+    <string name="please_choose_business_code">请选择机构代码证</string>
+    <string name="please_choose_id_hand">请选择手持身份证</string>
+    <string name="please_choose_id_front">请选择正面照</string>
+    <string name="please_choose_id_back">请选择反面照</string>
+
     <string name="merge_store">店铺合并</string>
     <string name="business_license_and_organization_code_certificate">营业执照及组织机构代码证</string>
+    <string name="many_license_in_one">多证合一照或个体工商户证件</string>
     <string name="please_input_phone_for_merge">请输入被合并的手机号</string>
     <string name="submit_application">提交申请</string>
     <string name="store_merge_desc">1.请将您所有需要合并的子账户都添加完整 \n2.审核结果将通过短信发送至该手机，通过后即可登录APP</string>
     <string name="appeal_desc">您的信息正在审核，审核结果将以短信形式发送到金管家的注册手机</string>
-    <string name="please_input_correct_phone">请输入正确的手机号</string>
     <string name="choose_main_products">选择主营产品</string>
     <string name="custom_product_name">自定义品名</string>
     <string name="custom_product_rule">品名建议7个字以内</string>
@@ -219,6 +234,7 @@
     <string name="receipt_address">收货地址</string>
     <string name="transaction_record">交易记录</string>
     <string name="spec_info">详细资料</string>
+    <string name="choose_photo">选择图片</string>
 
     <string name="suggestion_feedback">意见反馈</string>
     <string name="logout_account">退出当前账户</string>

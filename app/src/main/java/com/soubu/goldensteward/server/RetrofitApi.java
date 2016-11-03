@@ -5,6 +5,7 @@ import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.LoginServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.VerificationServerParams;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -33,4 +34,9 @@ public interface RetrofitApi {
     @FormUrlEncoded
     @POST("User/register")
     Call<BaseResp<LoginServerParams>> register(@Field("params") String params);
+
+    //注册
+    @FormUrlEncoded
+    @POST("Certification/submit_certification")
+    Call<BaseResp<VerificationServerParams>> submitCertification(@Field("params") String params);
 }

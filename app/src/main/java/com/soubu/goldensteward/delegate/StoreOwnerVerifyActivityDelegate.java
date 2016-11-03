@@ -45,7 +45,7 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
 
 
     public boolean backPopFragment() {
-        if (mCurrentIndex == 0 || mCurrentIndex == 3) {
+        if (mCurrentIndex != 1 ) {
             return false;
         } else {
             showFragment(mTags[mCurrentIndex--], mTags[mCurrentIndex], mFragments[mCurrentIndex]);
@@ -54,4 +54,12 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
         }
     }
 
+    public void setFileType(String type){
+        mUploadBaseInfoFragment.setFileType(type);
+    }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

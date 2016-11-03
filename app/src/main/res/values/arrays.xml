@@ -57,4 +57,22 @@
         <item>1000万以上</item>
     </string-array>
 
+    <string-array name="company_type">
+        <item>个人工商户</item>
+        <item>企业</item>
+        <item>事业单位</item>
+        <item>民办非企业单位</item>
+        <item>社会团体</item>
+    </string-array>
+
+    <string-array name="certification_type">
+        <item>普通营业执照</item>
+        <item>多证合一营业执照</item>
+    </string-array>
+
+    <string-array name="choose_photo">
+        <item>相册选择照片</item>
+        <item>相机拍摄</item>
+    </string-array>
+
 </resources>

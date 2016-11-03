@@ -1,5 +1,7 @@
 package com.soubu.goldensteward.module;
 
+import java.io.File;
+
 /**
  * Created by dingsigang on 16-10-19.
  */

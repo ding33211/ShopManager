@@ -20,6 +20,7 @@
 package com.soubu.goldensteward.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,6 +35,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 
 public class ShowWidgetUtil {
@@ -122,7 +124,7 @@ public class ShowWidgetUtil {
         void onConfirm(String content);
     }
 
-    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener){
+    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener) {
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
@@ -135,11 +137,11 @@ public class ShowWidgetUtil {
             @Override
             public void onClick(View v) {
                 String content = etContent.getText().toString();
-                if(TextUtils.isEmpty(content)){
+                if (TextUtils.isEmpty(content)) {
                     ShowWidgetUtil.showShort(R.string.input_empty_error);
                     return;
                 } else {
-                    if(listener != null){
+                    if (listener != null) {
                         listener.onConfirm(content);
                         dialog.dismiss();
                         WindowUtil.hideSoftInput(activity);
@@ -159,12 +161,12 @@ public class ShowWidgetUtil {
     }
 
 
-    public static void showVerifyCodeTimerStart(final TextView textView){
+    public static void showVerifyCodeTimerStart(final TextView textView) {
         CountDownTimer timer = new CountDownTimer(60000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                textView.setText(millisUntilFinished/1000 + "秒");
+                textView.setText(millisUntilFinished / 1000 + "秒");
             }
 
             @Override
@@ -184,32 +186,31 @@ public class ShowWidgetUtil {
 
     private static ProgressDialog dialog;
 
-    public static ProgressDialog showProgressDialog(Context context, String strContent) {
+    public static ProgressDialog showProgressDialog(String strContent) {
         dismissProgressDialogNow();
-        if (context != null) {
-            try {
-                if (dialog == null) {
-                    dialog = new ProgressDialog(context, R.style.ProgressDialogTheme);
-                }
-                //通过这种方式，避免dialog直接持有activity对象，早晨内存泄漏
-                dialog .getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-                if (!dialog.isShowing()) {
-                    Log.d("dialog", "show" + dialog.getContext().getClass().getName());
-                    dialog.show();
-                }
-                dialog.setContentView(R.layout.progressdialog_loading);
-//                TextView textView = (TextView) dialog
-//                        .findViewById(R.id.loading_msg);
-//                textView.setText(strContent);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("dialog", "show" + e.getClass().getName());
+        try {
+            if (dialog == null) {
+                dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
             }
-            return dialog;
+            //通过这种方式，避免dialog直接持有activity对象，造成内存泄漏
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+            if (!dialog.isShowing()) {
+                Log.d("dialog", "show" + dialog.getContext().getClass().getName());
+                dialog.show();
+            }
+            dialog.setContentView(R.layout.progressdialog_loading);
+            if (!TextUtils.isEmpty(strContent)) {
+                TextView textView = (TextView) dialog
+                        .findViewById(R.id.tv_content);
+                textView.setText(strContent);
+            }
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("dialog", "show" + e.getClass().getName());
         }
-        return null;
+        return dialog;
     }
 
     public static void dismissProgressDialogNow() {
@@ -236,6 +237,36 @@ public class ShowWidgetUtil {
                 Log.d("dialog", "dismiss" + e.getClass().getName());
             }
         }
+    }
+
+
+    public static void showCustomDialog(int customViewRes, boolean clickContentCancelable) {
+        dismissProgressDialogNow();
+        dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+        dialog.setCanceledOnTouchOutside(clickContentCancelable);
+        dialog.setCancelable(clickContentCancelable);
+        dialog.show();
+        dialog.setContentView(customViewRes);
+    }
+
+    public static void showCustomDialog(View customView, boolean clickContentCancelable) {
+        dismissProgressDialogNow();
+        dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+        dialog.setCanceledOnTouchOutside(clickContentCancelable);
+        dialog.setCancelable(clickContentCancelable);
+        dialog.show();
+        if(clickContentCancelable){
+            customView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismissProgressDialog();
+                }
+            });
+        }
+        dialog.setContentView(customView);
+
     }
 
 

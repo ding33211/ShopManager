@@ -316,7 +316,6 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                 } else {
                     if (viewDelegate.checkComplete(mParams, 2)) {
                         RetrofitRequest.getInstance().register(mParams);
-
                     }
                 }
                 break;
@@ -330,6 +329,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                 LoginServerParams params = (LoginServerParams) resp.getResult();
                 GoldenStewardApplication.getContext().setUid(params.getUid());
                 GoldenStewardApplication.getContext().setToken(params.getToken());
+                GoldenStewardApplication.getContext().setName(mParams.getPhone());
                 Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
                 startActivity(intent);
                 finish();

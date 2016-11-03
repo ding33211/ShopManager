@@ -26,6 +26,8 @@ public class RegularUtil {
     //验证IP地址
     private static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
+    private static final String REGEX_ID = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
+
     //If u want more please visit http://toutiao.com/i6231678548520731137/
 
     /**
@@ -100,5 +102,13 @@ public class RegularUtil {
      */
     public static boolean isPassword(String string) {
         return isMatch(REGEX_PWD, string);
+    }
+
+    /**
+     * @param string 待验证文本
+     * @return 是否符合身份证格式
+     */
+    public static boolean isId(String string) {
+        return isMatch(REGEX_ID, string);
     }
 }

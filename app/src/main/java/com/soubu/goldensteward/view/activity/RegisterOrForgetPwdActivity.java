@@ -70,7 +70,6 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 if (RegularUtil.isMobile(phone)) {
                     sendVerifyCode(phone);
                     v.setEnabled(false);
-                    ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
                 } else {
                     ShowWidgetUtil.showShort(R.string.wrong_phone);
                 }
@@ -119,6 +118,9 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 startActivity(intent);
             } else {
                 ShowWidgetUtil.showShort(msg);
+                if(TextUtils.equals(msg, "发送成功")){
+                    ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+                }
             }
         }
     }

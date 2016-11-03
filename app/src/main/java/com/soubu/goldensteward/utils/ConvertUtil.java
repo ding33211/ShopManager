@@ -1,6 +1,10 @@
 package com.soubu.goldensteward.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.math.BigInteger;
@@ -15,6 +19,11 @@ import java.util.Map;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import jp.wasabeef.glide.transformations.internal.Utils;
+
+import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
+import static com.baidu.location.h.j.S;
 
 /**
  * 用于各种转换的工具
@@ -181,4 +190,31 @@ public class ConvertUtil {
     public static int GCD(int min, int max) {
         return max==0 ? min : GCD(max, min % max);
     }
+
+
+
+
+    public static String uriToPath( final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
 }

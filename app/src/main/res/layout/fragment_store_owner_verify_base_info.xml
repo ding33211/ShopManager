@@ -14,37 +14,13 @@
 
         <include layout="@layout/item_store_owner_verify_top" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center_vertical|right"
-            android:orientation="vertical"
-            android:paddingRight="10dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watch_example"
-                    android:textColor="@color/subtitle_grey" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/home_help" />
-            </LinearLayout>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_company_type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@android:color/white"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/selector_item_white_grey_bg"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
@@ -64,6 +40,7 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    android:id="@+id/tv_company_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -104,6 +81,7 @@
                 android:gravity="center_vertical">
 
                 <TextView
+                    android:id="@+id/tv_certificate_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -132,10 +110,11 @@
             android:paddingRight="10dp">
 
             <TextView
+                android:id="@+id/tv_operator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/operator"
+                android:text="@string/enterprise_name"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
 
@@ -147,18 +126,15 @@
                 android:gravity="center_vertical">
 
                 <EditText
+                    android:id="@+id/et_operator"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/please_fill_company_name"
+                    android:hint="@string/please_fill_enterprise_name"
                     android:textColorHint="@color/line_color"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/wallet_withdraw_notice" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -187,6 +163,7 @@
                 android:layout_marginLeft="100dp">
 
                 <EditText
+                    android:id="@+id/et_legal_person"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -215,7 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/operator"
+                android:text="@string/id_num"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
 
@@ -226,9 +203,11 @@
                 android:layout_marginLeft="100dp">
 
                 <EditText
+                    android:id="@+id/et_id_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:background="@null"
                     android:hint="@string/please_fill_id_num"
                     android:textColorHint="@color/line_color"
@@ -251,7 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/legal_person"
+                android:text="@string/contact_method"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
 
@@ -262,11 +241,14 @@
                 android:layout_marginLeft="100dp">
 
                 <EditText
+                    android:id="@+id/et_mobile"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="13300499504"
+                    android:inputType="phone"
+                    android:hint="@string/please_fill_mobile"
+                    android:textColorHint="@color/line_color"
                     android:textSize="16sp" />
             </LinearLayout>
         </RelativeLayout>
