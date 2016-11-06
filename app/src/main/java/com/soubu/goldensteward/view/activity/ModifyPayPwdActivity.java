@@ -10,8 +10,16 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ModifyPayPwdActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
+import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.ShowWidgetUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static android.icu.text.UnicodeSet.CASE;
 
 /**
  * Created by dingsigang on 16-10-20.
@@ -32,8 +40,12 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        viewDelegate.setTitle(R.string.modify_pay_password);
         mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, TYPE_PAY_PWD);
+        if (mType == TYPE_PAY_PWD) {
+            viewDelegate.setTitle(R.string.modify_pay_password);
+        } else {
+            viewDelegate.setTitle(R.string.modify_password);
+        }
     }
 
     @Override
@@ -47,7 +59,7 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd);
+        viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_confirm);
     }
 
     @Override
@@ -67,6 +79,24 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
                     mDisplayPwd = false;
                 }
                 break;
+            case R.id.btn_confirm:
+                ModifyPwdServerParams params = new ModifyPwdServerParams();
+                if(viewDelegate.checkComplete(params)){
+                    if(mType == TYPE_PWD){
+                        RetrofitRequest.getInstance().modifyLoginPwd(params);
+                    } else {
+
+                    }
+                }
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modify(BaseResp resp){
+        if(resp.getResult() instanceof ModifyPwdServerParams){
+            ShowWidgetUtil.showShort(resp.getMsg());
+            finish();
         }
     }
 }

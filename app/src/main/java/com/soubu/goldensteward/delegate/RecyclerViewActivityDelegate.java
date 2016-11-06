@@ -8,4 +8,9 @@ public class RecyclerViewActivityDelegate extends RecyclerViewFragmentDelegate {
     public boolean ifNeedHideToolBar() {
         return false;
     }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

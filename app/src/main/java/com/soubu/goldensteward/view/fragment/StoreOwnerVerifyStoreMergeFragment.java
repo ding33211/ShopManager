@@ -6,6 +6,7 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyStoreMergeFragmentDelegate;
+import com.soubu.goldensteward.module.server.MergeServerParams;
 
 /**
  * Created by lakers on 16/10/28.
@@ -40,8 +41,11 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_next_step:
-                if (mOnClickFinishListener != null) {
-                    mOnClickFinishListener.onClickFinish();
+                MergeServerParams params = new MergeServerParams();
+                if(viewDelegate.checkComplete(params)){
+                    if (mOnClickFinishListener != null) {
+                        mOnClickFinishListener.onClickFinish(params);
+                    }
                 }
                 break;
             case R.id.tv_add_phone:
@@ -51,7 +55,7 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
     }
 
     public interface OnClickFinishListener {
-        void onClickFinish();
+        void onClickFinish(MergeServerParams params);
     }
 
 }

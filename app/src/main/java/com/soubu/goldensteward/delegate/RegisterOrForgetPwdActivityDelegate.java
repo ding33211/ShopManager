@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
-import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
@@ -53,7 +53,7 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
 //        get(R.id.ll_register_desc).setVisibility(View.GONE);
 //    }
 
-    public boolean checkComplete(RegisterServerParams params) {
+    public boolean checkComplete(UserServerParams params) {
 
         String phone = ((EditText) get(R.id.et_phone)).getText().toString();
         if (!RegularUtil.isMobile(phone)) {

@@ -17,13 +17,37 @@ public class MyDaoGenerator {
     private static void addTable(Schema schema) {
         //省份城市列表
         Entity address = schema.addEntity("Address");
-        address.setTableName("Address");
+        address.setDbName("Address");
         address.addIdProperty().primaryKey().autoincrement();
         address.addIntProperty("area_id");
         address.addIntProperty("parent_id");
         address.addStringProperty("area_name");
         address.addIntProperty("sort");
         address.addStringProperty("tag");
+
+        Entity user = schema.addEntity("User");
+        user.setDbName("User");
+        user.addIdProperty().primaryKey().autoincrement();
+        user.addStringProperty("name");
+        user.addStringProperty("portrait");
+        user.addStringProperty("phone");
+        user.addStringProperty("main_product");
+        user.addStringProperty("province");
+        user.addStringProperty("province_id");
+        user.addStringProperty("city");
+        user.addStringProperty("city_id");
+        user.addStringProperty("address");
+        user.addStringProperty("contact_name");
+        user.addStringProperty("job");
+        user.addStringProperty("company");
+        user.addStringProperty("company_size");
+        user.addStringProperty("operation_mode");
+        user.addStringProperty("mail");
+        user.addStringProperty("main_industry");
+        user.addStringProperty("turnover");
+        user.addStringProperty("fixed_telephone");
+        user.addStringProperty("company_profile");
+        user.addStringProperty("uid");
 
 
 //        //员工列表

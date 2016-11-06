@@ -23,8 +23,7 @@ import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.MainProductParams;
 import com.soubu.goldensteward.module.RegisterRvItem;
 import com.soubu.goldensteward.module.server.BaseResp;
-import com.soubu.goldensteward.module.server.LoginServerParams;
-import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.LocationUtils;
 import com.soubu.goldensteward.utils.PermissionUtil;
@@ -62,7 +61,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     private List<Address> mProvinces;
     private List<List<Address>> mCities;
     private OptionsPickerView mOpv;
-    private RegisterServerParams mParams;
+    private UserServerParams mParams;
     private MainProductParams[] mMainProductParams;
 
 
@@ -75,7 +74,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.supplier_register);
-        mParams = (RegisterServerParams) getIntent().getSerializableExtra(Constant.EXTRA_PARAMS);
+        mParams = (UserServerParams) getIntent().getSerializableExtra(Constant.EXTRA_PARAMS);
     }
 
 
@@ -157,7 +156,9 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                             mParams.setCity(cityList.get(0).getArea_name());
                             area = (bdLocation.getProvince() + bdLocation.getCity()).replace("省", "").replace("市", "");
                         }
-                        String address = bdLocation.getAddrStr().replace("省", "").replace("市", "");
+                        String addr = bdLocation.getAddrStr();
+                        //截取市之后的信息
+                        String address = addr.substring(addr.indexOf(bdLocation.getCity()) + bdLocation.getCity().length(), addr.length());
                         viewDelegate.refreshArea(area);
                         viewDelegate.refreshAddress(address);
                     } else {
@@ -272,6 +273,12 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                 }
             }
         });
+        viewDelegate.setOnClickLocationViewListener(new RegisterSupplierRvAdapter.OnClickLocationViewListener() {
+            @Override
+            public void onClickLocationView() {
+                RegisterSupplierActivityPermissionsDispatcher.getLocationWithCheck(RegisterSupplierActivity.this);
+            }
+        });
     }
 
     private RegisterRvItem createItem(int titleRes, String content, int type, int editType, int arrayRes) {
@@ -324,12 +331,12 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void goNext(BaseResp resp){
-        if(resp.getResult() instanceof LoginServerParams){
+        if(resp.getResult() instanceof UserServerParams){
             if(resp.status == 200){
-                LoginServerParams params = (LoginServerParams) resp.getResult();
+                UserServerParams params = (UserServerParams) resp.getResult();
                 GoldenStewardApplication.getContext().setUid(params.getUid());
                 GoldenStewardApplication.getContext().setToken(params.getToken());
-                GoldenStewardApplication.getContext().setName(mParams.getPhone());
+                GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
                 Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
                 startActivity(intent);
                 finish();

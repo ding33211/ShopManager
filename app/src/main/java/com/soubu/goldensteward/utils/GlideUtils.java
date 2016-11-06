@@ -45,12 +45,11 @@ public class GlideUtils {
 //        });
 //    }
 
-    public static Bitmap getRoundCornerImage(Bitmap bitmap_bg,Bitmap bitmap_in,int width,int height)
-    {
-        Bitmap roundConcerImage = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
+    public static Bitmap getRoundCornerImage(Bitmap bitmap_bg, Bitmap bitmap_in, int width, int height) {
+        Bitmap roundConcerImage = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(roundConcerImage);
         Paint paint = new Paint();
-        Rect rect = new Rect(0,0,width,height);
+        Rect rect = new Rect(0, 0, width, height);
         Rect rectF = new Rect(0, 0, bitmap_in.getWidth(), bitmap_in.getHeight());
         paint.setAntiAlias(true);
         NinePatch patch = new NinePatch(bitmap_bg, bitmap_bg.getNinePatchChunk(), null);
@@ -60,21 +59,20 @@ public class GlideUtils {
         return roundConcerImage;
     }
 
-    public static Bitmap getShardImage(Bitmap bitmap_bg,Bitmap bitmap_in)
-    {
-        Bitmap roundConcerImage = Bitmap.createBitmap(bitmap_in.getWidth(),bitmap_in.getHeight(), Bitmap.Config.ARGB_8888);
+    public static Bitmap getShardImage(Bitmap bitmap_bg, Bitmap bitmap_in) {
+        Bitmap roundConcerImage = Bitmap.createBitmap(bitmap_in.getWidth(), bitmap_in.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(roundConcerImage);
         Paint paint = new Paint();
-        Rect rect = new Rect(0,0,bitmap_in.getWidth(),bitmap_in.getHeight());
+        Rect rect = new Rect(0, 0, bitmap_in.getWidth(), bitmap_in.getHeight());
         paint.setAntiAlias(true);
         NinePatch patch = new NinePatch(bitmap_bg, bitmap_bg.getNinePatchChunk(), null);
         patch.draw(canvas, rect);
-        Rect rect2 = new Rect(2,2,bitmap_in.getWidth()-2,bitmap_in.getHeight()-2);
+        Rect rect2 = new Rect(2, 2, bitmap_in.getWidth() - 2, bitmap_in.getHeight() - 2);
         canvas.drawBitmap(bitmap_in, rect, rect2, paint);
         return roundConcerImage;
     }
 
-    public static void loadShardImage(final Context context, final ImageView targetView, Uri uri,final int bgId, int placeholder, final int errorRes) {
+    public static void loadShardImage(final Context context, final ImageView targetView, Uri uri, final int bgId, int placeholder, final int errorRes) {
         if (context != null) {
             if (context instanceof ActivityPresenter) {
                 if (((ActivityPresenter) context).isFinishing()) {
@@ -97,18 +95,17 @@ public class GlideUtils {
                     int w = resource.getIntrinsicWidth();
                     int h = resource.getIntrinsicHeight();
                     Bitmap.Config config = resource.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
-                    Bitmap bitmap_in = Bitmap.createBitmap(w,h,config);
+                    Bitmap bitmap_in = Bitmap.createBitmap(w, h, config);
                     Canvas canvas = new Canvas(bitmap_in);
                     resource.setBounds(0, 0, w, h);
                     resource.draw(canvas);
 
-                    if(targetView.getWidth() == 0 || targetView.getHeight() == 0)
-                    {
+                    if (targetView.getWidth() == 0 || targetView.getHeight() == 0) {
                         targetView.setImageDrawable(resource);
                         return true;
                     }
 
-                    final Bitmap bp = getRoundCornerImage(bitmap_bg, bitmap_in,targetView.getWidth(), targetView.getHeight());
+                    final Bitmap bp = getRoundCornerImage(bitmap_bg, bitmap_in, targetView.getWidth(), targetView.getHeight());
                     final Bitmap bp2 = getShardImage(bitmap_bg, bp);
                     targetView.setImageBitmap(bp2);
                     //targetView.setImageDrawable(resource);
@@ -258,7 +255,16 @@ public class GlideUtils {
         }
     }
 
-    public static void loadRoundedImage(Context context, final ImageView targetView, Uri uri, int placeholder, final int errorRes) {
+    public static void loadRoundedImage(Context context, final ImageView targetView, Object object, int placeholder, final int errorRes) {
+        Uri uri = null;
+        String url = null;
+        if (object instanceof Uri) {
+            uri = (Uri) object;
+        }
+        if (object instanceof String) {
+            url = (String) object;
+        }
+
         if (context != null) {
             if (context instanceof ActivityPresenter) {
                 if (((ActivityPresenter) context).isFinishing()) {
@@ -269,21 +275,18 @@ public class GlideUtils {
             int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics());
             RoundedCornersTransformation rtf = new RoundedCornersTransformation(context, px, 0,
                     RoundedCornersTransformation.CornerType.ALL);
-            manager.load(uri).placeholder(placeholder).error(errorRes).crossFade().bitmapTransform(new CenterCrop(context), rtf).
-                    listener(new RequestListener<Uri, GlideDrawable>() {
+            manager.load(uri == null ? url : uri).placeholder(placeholder).error(errorRes).crossFade().bitmapTransform(new CenterCrop(context), rtf).
+                    listener(new RequestListener<Comparable<? extends Comparable<?>>, GlideDrawable>() {
                         @Override
-                        public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        public boolean onException(Exception e, Comparable<? extends Comparable<?>> model, Target<GlideDrawable> target, boolean isFirstResource) {
                             targetView.setImageResource(errorRes);
-
                             return false;
                         }
 
-
                         @Override
-                        public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        public boolean onResourceReady(GlideDrawable resource, Comparable<? extends Comparable<?>> model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             targetView.setImageDrawable(resource);
-
-                            return true;
+                            return false;
                         }
                     }).into(targetView);
         }

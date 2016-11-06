@@ -1,15 +1,18 @@
 package com.soubu.goldensteward.delegate;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayoutController;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,4 +92,17 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     public void onUnSelected(String content) {
 
     }
+
+    public boolean checkComplete(MergeServerParams params) {
+        String mainPhone = ((EditText) get(R.id.et_main_phone)).getText().toString();
+        if (TextUtils.isEmpty(mainPhone)) {
+            ShowWidgetUtil.showShort(R.string.please_input_phone_for_main_account);
+            return false;
+        }
+        params.setMain_phone(mainPhone);
+        params.setChild_phone(mPhones.toArray(new String[mPhones.size()]));
+        return true;
+    }
+
+
 }

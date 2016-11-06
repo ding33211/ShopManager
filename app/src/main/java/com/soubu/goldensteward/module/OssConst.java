@@ -17,4 +17,5 @@ public class OssConst {
     public static final String BASE = "jgj";
 
     public static final String DIY_CERTIFICATION = BASE + File.separator + "certification";
+    public static final String DIY_USER = BASE + File.separator + "user";
 }

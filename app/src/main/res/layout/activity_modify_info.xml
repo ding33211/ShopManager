@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/filter_selected_color"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:id="@+id/ll_location_change"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/selector_item_white_grey_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="1dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_province_and_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/title_black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_locate"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_weight="0"
+            android:src="@drawable/login_location" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_edit_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
+        android:minHeight="50dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="top"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/OrangeButton"
+        android:layout_marginTop="16dp"
+        android:text="@string/confirm"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

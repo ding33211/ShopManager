@@ -8,7 +8,6 @@ public class InformationRvItem {
     int itemType;
     String content;
     int arrayRes;
-    int webArrayRes;
 
     public int getTitleRes() {
         return titleRes;
@@ -42,11 +41,4 @@ public class InformationRvItem {
         this.arrayRes = arrayRes;
     }
 
-    public int getWebArrayRes() {
-        return webArrayRes;
-    }
-
-    public void setWebArrayRes(int webArrayRes) {
-        this.webArrayRes = webArrayRes;
-    }
 }

@@ -32,9 +32,9 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public void setData(List<T> list){
-        if(mLlEmptyView != null){
-            if(list.isEmpty()){
+    public void setData(List<T> list) {
+        if (mLlEmptyView != null) {
+            if (list.isEmpty()) {
                 mLlEmptyView.setVisibility(View.VISIBLE);
             } else {
                 mLlEmptyView.setVisibility(View.GONE);
@@ -44,19 +44,28 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setAdapter(BaseRecyclerViewAdapter<T> adapter){
+    public void setAdapter(BaseRecyclerViewAdapter<T> adapter) {
         mAdapter = adapter;
         mRvContent.setAdapter(mAdapter);
     }
 
-    public void setEmptyView(View view){
+    public void setEmptyView(View view) {
         mLlEmptyView = get(R.id.ll_empty_view);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         view.setLayoutParams(params);
         mLlEmptyView.addView(view);
     }
 
-    public void setRvItemOnClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
+    public void setRvItemOnClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
         mAdapter.setOnRvItemClickListener(listener);
     }
+
+    public View getClickView(int position) {
+        return mRvContent.getLayoutManager().findViewByPosition(position);
+    }
+
+    public void notifyItemChanged(int position){
+        mAdapter.notifyItemChanged(position);
+    }
+
 }

@@ -2,9 +2,12 @@ package com.soubu.goldensteward.delegate;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
+
+import static com.baidu.location.h.j.p;
 
 
 /**
@@ -25,5 +28,12 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
         ((Button) get(R.id.btn_confirm)).setText(R.string.next_step);
     }
 
+    public void initPhone(String phone){
+        ((TextView)get(R.id.tv_phone)).setText(phone);
+    }
 
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

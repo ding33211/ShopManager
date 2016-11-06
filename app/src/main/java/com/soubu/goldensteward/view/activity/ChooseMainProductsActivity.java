@@ -11,7 +11,7 @@ import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ChooseMainProductsActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.TagInFlowLayoutModule;
-import com.soubu.goldensteward.module.server.BaseData;
+import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.MainProductParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
@@ -24,9 +24,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.data;
-import static com.baidu.location.h.j.o;
 
 /**
  * Created by lakers on 16/10/29.
@@ -237,8 +234,8 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMainTag(BaseResp resp) {
-        if (resp.getResult() instanceof BaseData) {
-            BaseData data = (BaseData) resp.getResult();
+        if (resp.getResult() instanceof BaseDataArray) {
+            BaseDataArray data = (BaseDataArray) resp.getResult();
             Object o = data.getData();
             if (o instanceof MainProductTagServerParams[]) {
                 initTagView((MainProductTagServerParams[]) o);

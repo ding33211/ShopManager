@@ -40,8 +40,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="@string/please_input_your_phone_number"
-                android:inputType="number"
-                android:maxLength="6"
+                android:inputType="phone"
                 android:textColorHint="@color/line_color" />
 
             <ImageView
@@ -49,6 +48,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="20dp"
+                android:visibility="invisible"
                 android:src="@drawable/clear" />
         </LinearLayout>
 

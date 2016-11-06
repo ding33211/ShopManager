@@ -11,7 +11,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.RegisterSupplierRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.module.RegisterRvItem;
-import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
@@ -116,7 +116,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
     }
 
 
-    public boolean checkComplete(RegisterServerParams params, int stepWhich){
+    public boolean checkComplete(UserServerParams params, int stepWhich){
         for(RegisterRvItem param : stepWhich == 1 ? mList1 : mList2){
             String content = param.getContent();
             int titleRes = param.getTitleRes();
@@ -160,7 +160,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                     params.setOperation_mode(Integer.valueOf(content) + 1 + "");
                     break;
                 case R.string.detail_address:
-                    params.setDetail_address(content);
+                    params.setAddress(content);
                     break;
                 case R.string.annual_turnover:
                     params.setTurnover(Integer.valueOf(content) + 1 + "");
@@ -169,12 +169,16 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                     params.setCompany_size(Integer.valueOf(content) + 1 + "");
                     break;
                 case R.string.company_profile:
-                    Log.e("zzzzzzz111111", "content :   " + content);
-                    params.setCompany_profile(content);
+                    params.setCompany_profile(mAdapter.getMultiLineContent());
                     break;
             }
         }
         return true;
+    }
+
+
+    public void setOnClickLocationViewListener(RegisterSupplierRvAdapter.OnClickLocationViewListener listener){
+        mAdapter.setOnClickLocationViewListener(listener);
     }
 
 }

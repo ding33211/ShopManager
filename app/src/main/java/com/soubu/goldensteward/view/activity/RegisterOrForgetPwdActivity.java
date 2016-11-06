@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RegisterOrForgetPwdActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.server.BaseResp;
-import com.soubu.goldensteward.module.server.RegisterServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
@@ -30,8 +29,9 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     public static final int TYPE_FORGET_PWD = 0x01;
 
     private int mType;
+    private UserServerParams mParams;
+    private View mVSendCode;
 
-    private RegisterServerParams mParams;
 
     @Override
     protected Class<RegisterOrForgetPwdActivityDelegate> getDelegateClass() {
@@ -59,7 +59,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     @Override
     protected void initData() {
         super.initData();
-        mParams = new RegisterServerParams();
+        mParams = new UserServerParams();
     }
 
     @Override
@@ -68,8 +68,8 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
             case R.id.tv_send_verify_code:
                 String phone = ((EditText) viewDelegate.get(R.id.et_phone)).getText().toString();
                 if (RegularUtil.isMobile(phone)) {
+                    mVSendCode = v;
                     sendVerifyCode(phone);
-                    v.setEnabled(false);
                 } else {
                     ShowWidgetUtil.showShort(R.string.wrong_phone);
                 }
@@ -110,7 +110,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(BaseResp resp) {
-        if (resp.getResult() instanceof RegisterServerParams) {
+        if (resp.getResult() instanceof UserServerParams) {
             String msg = resp.getMsg();
             if (TextUtils.equals(msg, "验证成功")) {
                 Intent intent = new Intent(this, RegisterSupplierActivity.class);
@@ -119,6 +119,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
             } else {
                 ShowWidgetUtil.showShort(msg);
                 if(TextUtils.equals(msg, "发送成功")){
+                    mVSendCode.setEnabled(false);
                     ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
                 }
             }

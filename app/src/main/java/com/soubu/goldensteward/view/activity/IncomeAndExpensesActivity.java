@@ -8,7 +8,12 @@ import com.soubu.goldensteward.adapter.IncomeOrExpensesRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.TabViewpagerActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.view.fragment.IncomeOrExpensesFragment;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +49,12 @@ public class IncomeAndExpensesActivity extends ActivityPresenter<TabViewpagerAct
         fragments.add(expensesFragment);
         String[] titles = new String[]{getString(R.string.income), getString(R.string.expenses)};
         viewDelegate.initFragment(fragments, titles);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeSuccess(BaseResp resp){
+        if(resp.getResult() instanceof UserServerParams){
+
+        }
     }
 }

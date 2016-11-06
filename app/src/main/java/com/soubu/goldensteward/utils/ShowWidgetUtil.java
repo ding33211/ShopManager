@@ -124,11 +124,22 @@ public class ShowWidgetUtil {
         void onConfirm(String content);
     }
 
+    public static void showCustomInputDialog(final Activity activity, int titleRes, String content, final OnClickCustomInputConfirm listener) {
+        showCustomInputDialog(activity, titleRes, 0, content, listener);
+    }
+
     public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener) {
+        showCustomInputDialog(activity, titleRes, hintRes, null, listener);
+    }
+
+    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, String content, final OnClickCustomInputConfirm listener) {
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
-        etContent.setHint(hintRes);
+        if(hintRes != 0){
+            etContent.setHint(hintRes);
+        }
+        etContent.setText(content);
         View vCancel = customView.findViewById(R.id.btn_cancel);
         View vConfirm = customView.findViewById(R.id.btn_confirm);
         final AlertDialog dialog = new AlertDialog.Builder(activity).setView(customView).create();
@@ -257,7 +268,7 @@ public class ShowWidgetUtil {
         dialog.setCanceledOnTouchOutside(clickContentCancelable);
         dialog.setCancelable(clickContentCancelable);
         dialog.show();
-        if(clickContentCancelable){
+        if (clickContentCancelable) {
             customView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -10,4 +10,5 @@ public class MarketingFragmentDelegate extends BaseFragmentDelegate {
     public int getRootLayoutId() {
         return R.layout.fragment_marketing;
     }
+
 }

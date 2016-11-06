@@ -10,42 +10,50 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
 
-        <ImageView
-            android:id="@+id/tv_cancel"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/home_message" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sub_account"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_toLeftOf="@+id/tv_cancel"
-            android:background="@drawable/bg_white_corners">
+        <!--<ImageView-->
+            <!--android:id="@+id/tv_cancel"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@drawable/home_message" />-->
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/follow_search" />
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_toLeftOf="@+id/tv_cancel"-->
+            <!--android:background="@drawable/bg_white_corners">-->
 
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:background="@null"
-                android:singleLine="true"
-                android:textColor="@color/subtitle_grey" />
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:layout_width="18dp"-->
+                <!--android:layout_height="18dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:src="@drawable/follow_search" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/et_search"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:background="@null"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColor="@color/subtitle_grey" />-->
+        <!--</LinearLayout>-->
     </RelativeLayout>
 
     <RelativeLayout

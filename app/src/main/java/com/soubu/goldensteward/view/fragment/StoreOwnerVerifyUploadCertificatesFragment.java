@@ -230,7 +230,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
                         OssUtil.uploadSingleImage(path, OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
                             @Override
                             public void onSuccess(String fileName) {
-                                String path = OssConst.BASE + File.separator + OssConst.DIY_CERTIFICATION + File.separator + fileName;
+                                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
                                 mPaths[mClickIndex] = path;
                                 Log.e("xxxxxxxSuccess", fileName);
                             }
@@ -257,6 +257,8 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
                         OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
                             @Override
                             public void onSuccess(String fileName) {
+                                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
+                                mPaths[mClickIndex] = path;
                                 Log.e("xxxxxxxSuccess", fileName);
                             }
 

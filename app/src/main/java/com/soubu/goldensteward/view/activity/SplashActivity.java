@@ -49,9 +49,9 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             @Override
             public void run() {
                 initProvinceAndCity();
-                SplashActivityPermissionsDispatcher.loadWithCheck(SplashActivity.this);
             }
         }).start();
+        SplashActivityPermissionsDispatcher.loadWithCheck(SplashActivity.this);
     }
 
     //需要验证权限的方法

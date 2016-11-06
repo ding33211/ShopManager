@@ -36,4 +36,9 @@ public class TabViewpagerActivityDelegate extends AppDelegate {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

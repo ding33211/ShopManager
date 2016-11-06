@@ -35,6 +35,10 @@ public class DBHelper {
         return daoSession.getAddressDao();
     }
 
+    public UserDao getUserDao() {
+        return daoSession.getUserDao();
+    }
+
     public AsyncSession getAsyncSession() {
         return asyncSession;
     }

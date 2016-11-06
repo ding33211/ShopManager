@@ -71,7 +71,6 @@
             android:id="@+id/ll_modify_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/selector_item_transparent_grey_bg"
             android:gravity="center_vertical"
             android:padding="10dp">
@@ -135,7 +134,6 @@
             android:id="@+id/ll_share"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/selector_item_transparent_grey_bg"
             android:gravity="center_vertical"
             android:padding="10dp">

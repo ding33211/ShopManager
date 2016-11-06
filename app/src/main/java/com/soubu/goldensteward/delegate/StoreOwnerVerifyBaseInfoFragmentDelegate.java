@@ -26,7 +26,7 @@ public class StoreOwnerVerifyBaseInfoFragmentDelegate extends BaseFragmentDelega
     @Override
     public void initWidget() {
         super.initWidget();
-        ((TextView) get(R.id.et_mobile)).setText(GoldenStewardApplication.getContext().getName());
+        ((TextView) get(R.id.et_mobile)).setText(GoldenStewardApplication.getContext().getPhone());
     }
 
 

@@ -3,6 +3,7 @@ package com.soubu.goldensteward;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
@@ -10,28 +11,34 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.soubu.goldensteward.base.greendao.DBHelper;
+import com.soubu.goldensteward.base.greendao.User;
+import com.soubu.goldensteward.base.greendao.UserDao;
 import com.soubu.goldensteward.module.AppConfig;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.OssConst;
+import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.sdk.eventbus.MyEventBusIndex;
 import com.soubu.goldensteward.utils.AppUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static okhttp3.internal.Internal.instance;
+import java.util.List;
+
+import static com.baidu.location.h.j.P;
 
 /**
  * Created by dingsigang on 16-10-18.
  */
 public class GoldenStewardApplication extends Application {
-    private static GoldenStewardApplication instance;
+    private static GoldenStewardApplication sInstance;
 
     //token以及uid做成全局参数
     private static String mToken;
     private static String mUid;
     //此处的账户名就是手机号
-    private static String mName;
+    private static String mPhone;
     public static OSS oss;
 
     public static final String OSS_BUCKET_HOST_ID = OssConst.END_POINT;
@@ -41,35 +48,37 @@ public class GoldenStewardApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = (GoldenStewardApplication) getApplicationContext();
+        sInstance = (GoldenStewardApplication) getApplicationContext();
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
-        AppConfig.init(instance);
+        AppConfig.init(sInstance);
         initOSSConfig();
     }
 
     // 获取ApplicationContext
     public static GoldenStewardApplication getContext() {
-        return instance;
+        return sInstance;
     }
 
     public String getToken() {
+        Log.e("xxxxxxxxxxxx", "gettoken");
         if (TextUtils.isEmpty(mToken)) {
-            SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+            SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
             mToken = sp.getString(Constant.SP_KEY_TOKEN, "");
         }
         return mToken;
     }
 
     public void setToken(String token) {
+        Log.e("xxxxxxxxxxxx", "settoken    :   " + token);
         mToken = token;
-        SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+        SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_TOKEN, token).commit();
     }
 
     public String getUid() {
         if (TextUtils.isEmpty(mUid)) {
-            SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+            SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
             mUid = sp.getString(Constant.SP_KEY_USER_ID, null);
         }
         return mUid;
@@ -77,23 +86,23 @@ public class GoldenStewardApplication extends Application {
 
     public void setUid(String uid) {
         mUid = uid;
-        SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+        SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_USER_ID, uid).commit();
     }
 
 
-    public String getName() {
-        if (TextUtils.isEmpty(mName)) {
-            SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
-            mName = sp.getString(Constant.SP_KEY_USER_NAME, null);
+    public String getPhone() {
+        if (TextUtils.isEmpty(mPhone)) {
+            SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
+            mPhone = sp.getString(Constant.SP_KEY_USER_PHONE, null);
         }
-        return mName;
+        return mPhone;
     }
 
-    public void setName(String name) {
-        mName = name;
-        SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
-        sp.edit().putString(Constant.SP_KEY_USER_NAME, name).commit();
+    public void setPhone(String name) {
+        mPhone = name;
+        SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
+        sp.edit().putString(Constant.SP_KEY_USER_PHONE, name).commit();
     }
 
 
@@ -109,4 +118,44 @@ public class GoldenStewardApplication extends Application {
         }
         oss = new OSSClient(getApplicationContext(), OSS_BUCKET_HOST_ID, credentialProvider, conf);
     }
+
+
+    public void saveUserInfo(UserServerParams params){
+        setPhone(params.getPhone());
+        UserDao dao = DBHelper.getInstance(sInstance).getUserDao();
+        List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(params.getPhone())).list();
+        User user = new User();
+        if(list.size() > 0){
+            user = list.get(0);
+        }
+        user.setName(params.getName());
+        user.setUid(params.getUid());
+        user.setAddress(params.getAddress());
+        user.setCity(params.getCity());
+        user.setCity_id(params.getCity_id());
+        user.setProvince(params.getProvince());
+        user.setProvince_id(params.getProvince_id());
+        user.setCompany(params.getCompany());
+        user.setCompany_profile(params.getCompany_profile());
+        user.setCompany_size(params.getCompany_size());
+        user.setContact_name(params.getContact_name());
+        user.setFixed_telephone(params.getFixed_telephone());
+        user.setJob(params.getJob());
+        user.setMail(params.getMail());
+        user.setMain_industry(params.getMain_industry());
+        user.setMain_product(params.getMain_product());
+        user.setOperation_mode(params.getOperation_mode());
+        user.setPhone(params.getPhone());
+        if(!TextUtils.isEmpty(params.getPortrait())){
+            user.setPortrait(params.getPortrait());
+        }
+        user.setTurnover(params.getTurnover());
+        if(list.size() > 0){
+            dao.update(user);
+        } else {
+            dao.insert(user);
+        }
+    }
+
+
 }

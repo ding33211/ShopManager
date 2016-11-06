@@ -8,6 +8,13 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.MyWalletActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.server.BaseDataObject;
+import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+import com.soubu.goldensteward.server.RetrofitRequest;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +22,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-10-20.
  */
-public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate> implements View.OnClickListener{
+public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate> implements View.OnClickListener {
     @Override
     protected Class<MyWalletActivityDelegate> getDelegateClass() {
         return MyWalletActivityDelegate.class;
@@ -24,6 +31,19 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     @Override
     protected void initData() {
         super.initData();
+        RetrofitRequest.getInstance().getMyWalletInfo();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getWalletInfoSuccess(BaseResp resp) {
+        if (resp.getResult() instanceof BaseDataObject && ((BaseDataObject) resp.getResult()).getData() instanceof WalletHomeInfoServerParams) {
+            WalletHomeInfoServerParams params = (WalletHomeInfoServerParams) ((BaseDataObject) resp.getResult()).getData();
+            initWalletInfo(params);
+        }
+    }
+
+    private void initWalletInfo(WalletHomeInfoServerParams params) {
+        viewDelegate.refreshMoney(params.getAll_money(), params.getPending_payment(), params.getWithdrawals_sum());
         Resources resources = getResources();
         List<String> titleList = new ArrayList<>();
         titleList.add(resources.getString(R.string.accumulated_income_yuan));
@@ -31,12 +51,13 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
         titleList.add(resources.getString(R.string.last_week_income_yuan));
         titleList.add(resources.getString(R.string.last_month_income_yuan));
         List<String> subTitleList = new ArrayList<>();
-        subTitleList.add("5000");
-        subTitleList.add("2000");
-        subTitleList.add("10000");
-        subTitleList.add("20000");
+        subTitleList.add(params.getAll_income());
+        subTitleList.add(params.getToday_income());
+        subTitleList.add(params.getWeek_income());
+        subTitleList.add(params.getMonth_income());
         viewDelegate.setData(titleList, subTitleList);
     }
+
 
     @Override
     protected void initToolbar() {
@@ -59,7 +80,7 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     @Override
     public void onClick(View v) {
         Intent intent = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_withdraw:
                 intent = new Intent(this, WithDrawActivity.class);
                 break;
@@ -70,7 +91,7 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
                 intent = new Intent(this, SecurityCenterActivity.class);
                 break;
         }
-        if(null != intent){
+        if (null != intent) {
             startActivity(intent);
         }
     }

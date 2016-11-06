@@ -6,8 +6,9 @@ import java.io.Serializable;
  * Created by lakers on 16/10/31.
  */
 
-public class RegisterServerParams implements Serializable{
+public class UserServerParams extends BaseDeltaCopyParams implements Serializable{
     String name;
+    String portrait;
     String phone;
     String password;
     String code;
@@ -16,7 +17,7 @@ public class RegisterServerParams implements Serializable{
     String province_id;
     String city;
     String city_id;
-    String detail_address;
+    String address;
     String contact_name;
     String job;
     String company;
@@ -27,6 +28,50 @@ public class RegisterServerParams implements Serializable{
     String turnover;
     String fixed_telephone;
     String company_profile;
+    String certification;
+    String fail_cause;
+    String uid;
+    String token;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
+    public String getCertification() {
+        return certification;
+    }
+
+    public void setCertification(String certification) {
+        this.certification = certification;
+    }
+
+    public String getFail_cause() {
+        return fail_cause;
+    }
+
+    public void setFail_cause(String fail_cause) {
+        this.fail_cause = fail_cause;
+    }
 
     public String getName() {
         return name;
@@ -100,12 +145,12 @@ public class RegisterServerParams implements Serializable{
         this.city_id = city_id;
     }
 
-    public String getDetail_address() {
-        return detail_address;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDetail_address(String detail_address) {
-        this.detail_address = detail_address;
+    public void setAddress(String detail_address) {
+        this.address = detail_address;
     }
 
     public String getContact_name() {
@@ -187,4 +232,5 @@ public class RegisterServerParams implements Serializable{
     public void setCompany_profile(String company_profile) {
         this.company_profile = company_profile;
     }
+
 }

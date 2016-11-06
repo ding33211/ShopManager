@@ -1,13 +1,12 @@
 package com.soubu.goldensteward.view.activity;
 
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyActivityDelegate;
-import com.soubu.goldensteward.module.server.BaseData;
 import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyBaseInfoFragment;
@@ -16,8 +15,6 @@ import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyUploadCertificatesF
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.baidu.location.h.j.v;
 
 /**
  * Created by lakers on 16/10/27.
@@ -73,14 +70,13 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void gotoMerge(BaseResp resp){
-        BaseResp resp1 = resp;
-        if(resp.getResult() instanceof VerificationServerParams){
+        if(resp.getResult() instanceof VerificationServerParams || resp.getResult() instanceof MergeServerParams){
             viewDelegate.clickNextStep();
         }
     }
 
     @Override
-    public void onClickFinish() {
-        viewDelegate.clickNextStep();
+    public void onClickFinish(MergeServerParams params) {
+        RetrofitRequest.getInstance().submitMergeChild(params);
     }
 }

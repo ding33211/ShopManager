@@ -1,12 +1,10 @@
 package com.soubu.goldensteward.module.server;
 
-import android.text.TextUtils;
-
 /**
  * Created by lakers on 16/11/3.
  */
 
-public class VerificationServerParams {
+public class VerificationServerParams extends BaseDeltaCopyParams{
 
     String com_type;
     String file_type;
@@ -108,41 +106,41 @@ public class VerificationServerParams {
         this.down_img = down_img;
     }
 
-    //增量复制
-    public void deltaCopy(VerificationServerParams params){
-        if(!TextUtils.isEmpty(params.com_type)){
-            com_type = params.com_type;
-        }
-        if(!TextUtils.isEmpty(params.file_type)){
-            file_type = params.file_type;
-        }
-        if(!TextUtils.isEmpty(params.company)){
-            company = params.company;
-        }
-        if(!TextUtils.isEmpty(params.person)){
-            person = params.person;
-        }
-        if(!TextUtils.isEmpty(params.id_num)){
-            id_num = params.id_num;
-        }
-        if(!TextUtils.isEmpty(params.phone)){
-            phone = params.phone;
-        }
-        if(!TextUtils.isEmpty(params.business_img)){
-            business_img = params.business_img;
-        }
-        if(!TextUtils.isEmpty(params.code_img)){
-            code_img = params.code_img;
-        }
-        if(!TextUtils.isEmpty(params.hold_img)){
-            hold_img = params.hold_img;
-        }
-        if(!TextUtils.isEmpty(params.up_img)){
-            up_img = params.up_img;
-        }
-        if(!TextUtils.isEmpty(params.down_img)){
-            down_img = params.down_img;
-        }
-
-    }
+//    //增量复制
+//    public void deltaCopy(VerificationServerParams params){
+//        if(!TextUtils.isEmpty(params.com_type)){
+//            com_type = params.com_type;
+//        }
+//        if(!TextUtils.isEmpty(params.file_type)){
+//            file_type = params.file_type;
+//        }
+//        if(!TextUtils.isEmpty(params.company)){
+//            company = params.company;
+//        }
+//        if(!TextUtils.isEmpty(params.person)){
+//            person = params.person;
+//        }
+//        if(!TextUtils.isEmpty(params.id_num)){
+//            id_num = params.id_num;
+//        }
+//        if(!TextUtils.isEmpty(params.phone)){
+//            phone = params.phone;
+//        }
+//        if(!TextUtils.isEmpty(params.business_img)){
+//            business_img = params.business_img;
+//        }
+//        if(!TextUtils.isEmpty(params.code_img)){
+//            code_img = params.code_img;
+//        }
+//        if(!TextUtils.isEmpty(params.hold_img)){
+//            hold_img = params.hold_img;
+//        }
+//        if(!TextUtils.isEmpty(params.up_img)){
+//            up_img = params.up_img;
+//        }
+//        if(!TextUtils.isEmpty(params.down_img)){
+//            down_img = params.down_img;
+//        }
+//
+//    }
 }

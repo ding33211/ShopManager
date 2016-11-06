@@ -1,14 +1,19 @@
 package com.soubu.goldensteward.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.InformationRvItem;
+import com.soubu.goldensteward.utils.GlideUtils;
+
+import static com.baidu.location.h.j.m;
 
 /**
  * Created by dingsigang on 16-10-19.
@@ -66,8 +71,18 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
             holder1.vItemBottomLine.setVisibility(View.INVISIBLE);
         }
         holder1.tvTitle.setText(mList.get(position).getTitleRes());
-        holder1.tvContent.setText(mList.get(position).getContent());
+        String content = mList.get(position).getContent();
+        if(mList.get(position).getArrayRes() != 0){
+            holder1.tvContent.setText(GoldenStewardApplication.getContext().getResources().getTextArray(mList.get(position).getArrayRes())[Integer.valueOf(content) - 1]);
+        } else {
+            holder1.tvContent.setText(content);
+        }
         holder1.tvMultiLineContent.setText(mList.get(position).getContent());
+        if(getItemViewType(position) == TYPE_ITEM_AVATAR){
+            if(!TextUtils.isEmpty(content)){
+                GlideUtils.loadRoundedImage(GoldenStewardApplication.getContext(), holder1.ivAvatar, content, R.drawable.common_header, R.drawable.common_header);
+            }
+        }
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -80,17 +95,19 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            ivAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvContent = (TextView) itemView.findViewById(R.id.tv_content);
             tvMultiLineContent = (TextView) itemView.findViewById(R.id.tv_multiline_content);
             vItemBottomLine = itemView.findViewById(R.id.v_bottom_line);
+            ivAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-
+            if(mListener != null){
+                mListener.onClick(getLayoutPosition());
+            }
         }
     }
 }

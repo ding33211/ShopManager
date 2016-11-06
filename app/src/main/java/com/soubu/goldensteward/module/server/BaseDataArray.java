@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by lakers on 16/11/2.
  */
 
-public class BaseData<T> {
+public class BaseDataArray<T> {
 
     @SerializedName("data")
     @Expose
@@ -16,4 +16,5 @@ public class BaseData<T> {
     public T[] getData() {
         return data;
     }
+
 }

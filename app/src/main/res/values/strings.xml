@@ -49,6 +49,7 @@
     <string name="wrong_email">邮箱格式不正确</string>
     <string name="much_more_big_tag">您最多只能选择两个大类</string>
     <string name="much_more_small_tag">您最多只能选择8个标签</string>
+    <string name="empty_content">输入的内容不能为空</string>
 
 
     <string name="total_amount_of_account_yuan">账户总金额(元)</string>
@@ -72,7 +73,7 @@
     <string name="confirm_roll_out">确认转出</string>
     <string name="customer_service_phone">客服电话</string>
     <string name="colon">:</string>
-    <string name="customer_service_phone_number">4000-17-0067</string>
+    <string name="customer_service_phone_number">400-850-1773</string>
     <string name="account_num">账 户 号</string>
     <string name="card_no_and_passbook_no">银行卡号/存折号</string>
     <string name="bank_of_card">开户银行</string>
@@ -87,7 +88,7 @@
     <string name="bank_explain">为保障打款安全与效率,请填写相关信息。(推荐使用中国银行、建设银行、农业银行、工商银行。)</string>
     <string name="find_help">查找帮助</string>
     <string name="account_name_explain_title">持卡人说明</string>
-    <string name="account_name_explain_message">为了您的账户资金安全,只能绑定持卡人本人的银行卡 \n获取更多帮助,拨打客服电话4000-17-0067</string>
+    <string name="account_name_explain_message">为了您的账户资金安全,只能绑定持卡人本人的银行卡 \n获取更多帮助,拨打客服电话400-850-1773</string>
     <string name="got_it">知道了</string>
     <string name="please_input_soubu_pay_password">请输入搜布支付密码</string>
 
@@ -104,6 +105,7 @@
     <string name="income">收入</string>
     <string name="expenses">支出</string>
     <string name="modify_pay_password">修改支付密码</string>
+    <string name="modify_password">修改密码</string>
     <string name="find_pay_password">找回支付密码</string>
     <string name="please_input_original_soubu_pay_pwd">请输入原搜布支付密码</string>
     <string name="please_input_new_soubu_pay_pwd">请输入新搜布支付密码</string>
@@ -254,6 +256,7 @@
     <string name="please_input_original_pwd">请输入原密码</string>
     <string name="please_input_new_pwd">请输入新密码</string>
     <string name="please_input_new_pwd_again">请再次输入新密码</string>
+    <string name="pwd_not_equal">两次密码不一样</string>
     <string name="score_for_me">帮我评分</string>
     <string name="address">地址</string>
     <string name="soubu_address">宁波市鄞州区钱湖天地TBD-A座5楼</string>

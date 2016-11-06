@@ -53,22 +53,22 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
         fastScroller.setRecyclerView(recyclerView);
         fastScroller.setViewsToUse(R.layout.recycler_view_fast_scroller, R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
 
-        ((EditText) get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //过滤操作
-                mAdapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        ((EditText) get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                //过滤操作
+//                mAdapter.getFilter().filter(s);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
     }
 
     public void setOnRvItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
