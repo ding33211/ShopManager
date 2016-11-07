@@ -81,4 +81,16 @@ public interface RetrofitApi {
     //获取
     @POST("Wallet/my_wallet")
     Call<BaseResp<BaseDataObject<WalletHomeInfoServerParams>>> getMyWalletInfo();
+
+    //验证旧手机号
+    @POST("Security/check_old_phone")
+    Call<BaseResp<BaseDataObject<UserServerParams>>> checkOldPhone(@Field("params") String params);
+
+    //修改手机号
+    @POST("Security/change_phone")
+    Call<BaseResp<BaseDataObject<UserServerParams>>> changePhone(@Field("params") String params);
+
+    //忘记密码
+    @POST("Security/forget_password")
+    Call<BaseResp<BaseDataObject<UserServerParams>>> forgetPassword(@Field("params") String params);
 }

@@ -1,5 +1,7 @@
 package com.soubu.goldensteward.view.activity;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.soubu.goldensteward.R;
@@ -9,6 +11,7 @@ import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyBaseInfoFragment;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyStoreMergeFragment;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyUploadCertificatesFragment;
@@ -23,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerifyActivityDelegate>
         implements StoreOwnerVerifyBaseInfoFragment.OnClickNextStepListener,
         StoreOwnerVerifyUploadCertificatesFragment.OnClickNextStepListener,
-        StoreOwnerVerifyStoreMergeFragment.OnClickFinishListener{
+        StoreOwnerVerifyStoreMergeFragment.OnClickFinishListener {
 
     VerificationServerParams mParams;
 
@@ -49,7 +52,7 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
     @Override
     public void onClickStep1(VerificationServerParams params) {
         mParams.deltaCopy(params);
-        if(!TextUtils.isEmpty(mParams.getFile_type())){
+        if (!TextUtils.isEmpty(mParams.getFile_type())) {
             viewDelegate.setFileType(mParams.getFile_type());
         }
         viewDelegate.clickNextStep();
@@ -57,8 +60,18 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
 
     @Override
     public void onBackPressed() {
-        if(!viewDelegate.backPopFragment()){
-            super.onBackPressed();
+        if (!viewDelegate.backPopFragment()) {
+            new AlertDialog.Builder(this).setMessage(R.string.make_sure_return_to_login).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            }).setPositiveButton(R.string.wrong_click, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).show();
         }
     }
 
@@ -69,8 +82,8 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void gotoMerge(BaseResp resp){
-        if(resp.getResult() instanceof VerificationServerParams || resp.getResult() instanceof MergeServerParams){
+    public void gotoMerge(BaseResp resp) {
+        if (resp.getResult() instanceof VerificationServerParams || resp.getResult() instanceof MergeServerParams) {
             viewDelegate.clickNextStep();
         }
     }

@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -125,14 +126,14 @@ public class ShowWidgetUtil {
     }
 
     public static void showCustomInputDialog(final Activity activity, int titleRes, String content, final OnClickCustomInputConfirm listener) {
-        showCustomInputDialog(activity, titleRes, 0, content, listener);
+        showCustomInputDialog(activity, titleRes, 0, content, 0, listener);
     }
 
-    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, final OnClickCustomInputConfirm listener) {
-        showCustomInputDialog(activity, titleRes, hintRes, null, listener);
+    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, int textLength, final OnClickCustomInputConfirm listener) {
+        showCustomInputDialog(activity, titleRes, hintRes, null, textLength, listener);
     }
 
-    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, String content, final OnClickCustomInputConfirm listener) {
+    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, String content, int textLength, final OnClickCustomInputConfirm listener) {
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
@@ -140,6 +141,9 @@ public class ShowWidgetUtil {
             etContent.setHint(hintRes);
         }
         etContent.setText(content);
+        if(textLength != 0){
+            etContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(textLength)});
+        }
         View vCancel = customView.findViewById(R.id.btn_cancel);
         View vConfirm = customView.findViewById(R.id.btn_confirm);
         final AlertDialog dialog = new AlertDialog.Builder(activity).setView(customView).create();
@@ -197,14 +201,23 @@ public class ShowWidgetUtil {
 
     private static ProgressDialog dialog;
 
-    public static ProgressDialog showProgressDialog(String strContent) {
+    public static void showProgressDialog(String strContent){
+        showProgressDialog(strContent, 0);
+    }
+
+    public static void showProgressDialog(String strContent, int style) {
         dismissProgressDialogNow();
         try {
             if (dialog == null) {
-                dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
+                if(style != 0){
+                    dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), style);
+                } else {
+                    dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), R.style.ProgressDialogTheme);
+                }
             }
-            //通过这种方式，避免dialog直接持有activity对象，造成内存泄漏
-            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+//            //通过这种方式，避免dialog直接持有activity对象，造成内存泄漏
+            //由于小米已经将TOAST也堵住了,使用这种方式必须要去打开悬浮窗,那么对于不知道的用户会非常困惑
+//            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
             if (!dialog.isShowing()) {
                 Log.d("dialog", "show" + dialog.getContext().getClass().getName());
                 dialog.show();
@@ -221,7 +234,6 @@ public class ShowWidgetUtil {
             e.printStackTrace();
             Log.d("dialog", "show" + e.getClass().getName());
         }
-        return dialog;
     }
 
     public static void dismissProgressDialogNow() {

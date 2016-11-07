@@ -28,7 +28,7 @@ public class InformationActivity extends ActivityPresenter<TabViewpagerActivityD
 
     CompanyInformationFragment mCiFragment;
     PersonalInformationFragment mPiFragment;
-    boolean mSuccessed = false;
+    boolean mSucceed = false;
 
     @Override
     protected Class<TabViewpagerActivityDelegate> getDelegateClass() {
@@ -72,10 +72,10 @@ public class InformationActivity extends ActivityPresenter<TabViewpagerActivityD
     public void changeSuccess(BaseResp resp) {
         if (resp.getResult() instanceof UserServerParams) {
             //只做一次成功操作，因为可能同时存在改变信息和地址
-            if(mSuccessed){
+            if(mSucceed){
                 return;
             } else {
-                mSuccessed = true;
+                mSucceed = true;
             }
             ShowWidgetUtil.showShort(resp.msg);
             mPiFragment.updateToDb();

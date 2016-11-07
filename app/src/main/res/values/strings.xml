@@ -50,6 +50,8 @@
     <string name="much_more_big_tag">您最多只能选择两个大类</string>
     <string name="much_more_small_tag">您最多只能选择8个标签</string>
     <string name="empty_content">输入的内容不能为空</string>
+    <string name="please_input_new_phone">请输入新手机号</string>
+    <string name="please_check_internet">请检查网络连接是否正常</string>
 
 
     <string name="total_amount_of_account_yuan">账户总金额(元)</string>
@@ -111,6 +113,7 @@
     <string name="please_input_new_soubu_pay_pwd">请输入新搜布支付密码</string>
     <string name="please_input_new_soubu_pay_pwd_again">请再次输入新搜布支付密码</string>
     <string name="confirm">确定</string>
+    <string name="wrong_click">点错了</string>
     <string name="verify">验证</string>
     <string name="security_verification">安全验证</string>
     <string name="bigger_than">&gt;</string>
@@ -205,6 +208,7 @@
     <string name="please_fill_id_num">请填写身份证号</string>
     <string name="please_fill_mobile">请填写手机号</string>
     <string name="wrong_id">身份证号码格式不正确</string>
+    <string name="make_sure_return_to_login">确定要返回到登录界面么</string>
     <string name="store_owner_verify_step1_desc">审核结果将通过短信发送至该手机</string>
     <string name="store_owner_verify">店主认证</string>
     <string name="upload_certificates">上传证件</string>

@@ -3,6 +3,8 @@ package com.soubu.goldensteward.server;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.soubu.goldensteward.GoldenStewardApplication;
+import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -14,6 +16,7 @@ import com.soubu.goldensteward.module.server.OperationReportServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,32 +53,21 @@ public class RetrofitRequest {
 
 
     private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent) {
-        ShowWidgetUtil.showProgressDialog(dialogContent);
+        if(!PhoneUtil.isConnected(GoldenStewardApplication.getContext())){
+            ShowWidgetUtil.showShort(R.string.please_check_internet);
+            return;
+        }
+        ShowWidgetUtil.showProgressDialog(dialogContent, R.style.LoadingProgressTheme);
         call.enqueue(new Callback<BaseResp<T>>() {
             @Override
             public void onResponse(Call<BaseResp<T>> call, Response<BaseResp<T>> response) {
                 Log.e(TAG, "1111111111111");
                 if (response.body().status != HttpURLConnection.HTTP_OK) {
-//                    BufferedReader reader = null;
-//                    StringBuilder sb = new StringBuilder();
-//                    try {
-//                        reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
-//                        String line;
-//                        try {
-//                            while ((line = reader.readLine()) != null) {
-//                                sb.append(line);
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    String finallyError = sb.toString();
                     Log.e(TAG, "errorBody  :   " + response.body().msg + "   status  :  " + response.body().status);
                     ShowWidgetUtil.showShort(response.body().msg);
-//                    EventBus.getDefault().post(response.body());
+                    if (needEventPost) {
+                        EventBus.getDefault().post(response.body().status);
+                    }
                 } else {
                     if (needEventPost) {
                         EventBus.getDefault().post(response.body());
@@ -235,10 +227,30 @@ public class RetrofitRequest {
     /**
      * 验证旧手机
      */
-    public void checkOldPhone() {
-        Call<BaseResp<BaseDataObject<WalletHomeInfoServerParams>>> call = RetrofitService.getInstance()
+    public void checkOldPhone(UserServerParams params) {
+        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
-                .getMyWalletInfo();
+                .checkOldPhone(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 修改手机号
+     */
+    public void changePhone(UserServerParams params) {
+        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .changePhone(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 忘记密码
+     */
+    public void forgetPassword(UserServerParams params) {
+        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .forgetPassword(new Gson().toJson(params));
         enqueueClue(call, true);
     }
 

@@ -72,8 +72,10 @@
 
                 <ImageView
                     android:id="@+id/iv_choose"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="24dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:src="@drawable/arrow_choose" />

@@ -84,7 +84,7 @@ public class BaseActivity extends AppCompatActivity {
         return false;
     }
 
-    protected void onClickCustomerServicePhone(View view){
+    public void onClickCustomerServicePhone(View view){
         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + getString(R.string.customer_service_phone_number)));
         startActivity(intent);
     }

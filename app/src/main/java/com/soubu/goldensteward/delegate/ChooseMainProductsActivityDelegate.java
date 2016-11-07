@@ -51,6 +51,10 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mAdapter.setSelectedList(selectedList);
     }
 
+    public void setSelectedPosition(int position){
+        mAdapter.setSelectedPosition(position);
+    }
+
     public void refreshTags(List<TagInFlowLayoutModule> list) {
         mFlTags.removeAllViews();
         mFlController.addTags(list);

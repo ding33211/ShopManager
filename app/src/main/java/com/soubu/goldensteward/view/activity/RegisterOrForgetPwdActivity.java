@@ -75,12 +75,16 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 }
                 break;
             case R.id.btn_next_step:
-                if (mType == TYPE_REGISTER) {
-                    if (viewDelegate.checkComplete(mParams)) {
+                if (viewDelegate.checkComplete(mParams)) {
+                    if (mType == TYPE_REGISTER) {
                         verifyPhoneCode();
+                    } else {
+                        RetrofitRequest.getInstance().forgetPassword(mParams);
                     }
+                }
 
-                    //现在没有关联店铺这个东西了
+
+                //现在没有关联店铺这个东西了
 //                    new AlertDialog.Builder(this).setTitle(R.string.alert).setMessage(R.string.phone_has_been_registered)
 //                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 //                                @Override
@@ -93,7 +97,6 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
 //                            viewDelegate.gotoReferStore();
 //                        }
 //                    }).show();
-                }
                 break;
 
         }
@@ -117,10 +120,10 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 intent.putExtra(Constant.EXTRA_PARAMS, mParams);
                 startActivity(intent);
             } else {
-                ShowWidgetUtil.showShort(msg);
-                if(TextUtils.equals(msg, "发送成功")){
+                if (TextUtils.equals(msg, "发送成功")) {
                     mVSendCode.setEnabled(false);
                     ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+                    ShowWidgetUtil.showShort(msg);
                 }
             }
         }

@@ -11,6 +11,7 @@ import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ModifyPhoneActivityDelegate;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
+import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
@@ -45,7 +46,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
         super.initView();
         String phone = GoldenStewardApplication.getContext().getPhone();
         mParams.setPhone(phone);
-        viewDelegate.initPhone(phone.replace(phone.substring(3, 9), "******"));
+        viewDelegate.initPhone(phone.substring(0, 3) + "****" + phone.substring(7));
     }
 
     @Override
@@ -62,10 +63,9 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
                 break;
             case R.id.btn_confirm:
                 if (!mStep2) {
-                    RetrofitRequest.getInstance().getHomeInfo();
-                    ((Button) v).setText(R.string.modify_phone);
-                    ((TextView) viewDelegate.get(R.id.tv_verify)).setText(R.string.verify_new_phone);
-                    mStep2 = true;
+                    if (viewDelegate.checkOldPhone(mParams)) {
+                        RetrofitRequest.getInstance().checkOldPhone(mParams);
+                    }
                 } else {
 
                 }
@@ -80,6 +80,14 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
             if (TextUtils.equals("发送成功", resp.msg)) {
                 ShowWidgetUtil.showShort(resp.msg);
                 ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+            }
+        }
+        if (resp.getResult() instanceof WalletHomeInfoServerParams) {
+            if (TextUtils.equals("验证成功", resp.msg)) {
+
+
+
+                mStep2 = true;
             }
         }
     }

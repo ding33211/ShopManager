@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyUploadCertificatesFragmentDelegate;
@@ -21,6 +22,7 @@ import com.soubu.goldensteward.utils.ConvertUtil;
 import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.OssUtil;
 import com.soubu.goldensteward.utils.PermissionUtil;
+import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.ProgressImageView;
 
@@ -84,7 +86,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
             case R.id.btn_next_step:
                 if (mOnClickNextStep != null) {
                     VerificationServerParams params = new VerificationServerParams();
-                    if(checkGoNext(params)){
+                    if (checkGoNext(params)) {
                         mOnClickNextStep.onClickStep2(params);
                     }
                 }
@@ -218,6 +220,39 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
         StoreOwnerVerifyUploadCertificatesFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
+    private void uploadData(final String path, final Uri uri) {
+        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, mLastImgRes, mLastImgRes);
+        OssUtil.uploadSingleImage(path, OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
+            @Override
+            public void onSuccess(String fileName) {
+                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
+                mPaths[mClickIndex] = path;
+                Log.e("xxxxxxxSuccess", fileName);
+            }
+
+            @Override
+            public void onFailure(String fileName) {
+                if(!PhoneUtil.isConnected(GoldenStewardApplication.getContext())){
+                    ShowWidgetUtil.showShort(R.string.please_check_internet);
+                }
+                Log.e("xxxxxxxFailure", fileName);
+                mIvLastClick.setImageResource(R.drawable.auth_reload);
+                mIvLastClick.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mIvLastClick = (ProgressImageView) v;
+                        uploadData(path, uri);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                mIvLastClick.setProgress(progress);
+            }
+        });
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -227,53 +262,13 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
                 case CameraUtil.REQUEST_GALLERY:
                     if (data != null) {
                         String path = ConvertUtil.uriToPath(getActivity(), data.getData());
-                        OssUtil.uploadSingleImage(path, OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
-                            @Override
-                            public void onSuccess(String fileName) {
-                                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
-                                mPaths[mClickIndex] = path;
-                                Log.e("xxxxxxxSuccess", fileName);
-                            }
-
-                            @Override
-                            public void onFailure(String fileName) {
-                                Log.e("xxxxxxxFailure", fileName);
-                                mIvLastClick.setImageResource(R.drawable.auth_reload);
-                            }
-
-                            @Override
-                            public void onProgress(int progress) {
-                                mIvLastClick.setProgress(progress);
-                            }
-                        });
-                        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, data.getData(), mLastImgRes, mLastImgRes);
+                        uploadData(path, data.getData());
                     }
                     break;
                 case CameraUtil.REQUEST_CAMERA:
-                    if (data != null) {
-                        File takePhoto = CameraUtil.getTakePhoto();
-                        Uri uri = Uri.fromFile(takePhoto);
-                        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, mLastImgRes, mLastImgRes);
-                        OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
-                            @Override
-                            public void onSuccess(String fileName) {
-                                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
-                                mPaths[mClickIndex] = path;
-                                Log.e("xxxxxxxSuccess", fileName);
-                            }
-
-                            @Override
-                            public void onFailure(String fileName) {
-                                Log.e("xxxxxxxFailure", fileName);
-                                mIvLastClick.setImageResource(R.drawable.auth_reload);
-                            }
-
-                            @Override
-                            public void onProgress(int progress) {
-                                mIvLastClick.setProgress(progress);
-                            }
-                        });
-                    }
+                    File takePhoto = CameraUtil.getTakePhoto();
+                    Uri uri = Uri.fromFile(takePhoto);
+                    uploadData(takePhoto.getPath(), uri);
             }
         }
     }

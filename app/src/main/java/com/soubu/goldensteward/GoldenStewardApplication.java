@@ -1,7 +1,10 @@
 package com.soubu.goldensteward;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -31,8 +34,10 @@ import static com.baidu.location.h.j.P;
 /**
  * Created by dingsigang on 16-10-18.
  */
-public class GoldenStewardApplication extends Application {
+public class GoldenStewardApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static GoldenStewardApplication sInstance;
+    //当前上下文,用以显式当前dialog
+    private static Context sNowContext;
 
     //token以及uid做成全局参数
     private static String mToken;
@@ -48,6 +53,7 @@ public class GoldenStewardApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.registerActivityLifecycleCallbacks(this);//注册
         sInstance = (GoldenStewardApplication) getApplicationContext();
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
@@ -120,12 +126,12 @@ public class GoldenStewardApplication extends Application {
     }
 
 
-    public void saveUserInfo(UserServerParams params){
+    public void saveUserInfo(UserServerParams params) {
         setPhone(params.getPhone());
         UserDao dao = DBHelper.getInstance(sInstance).getUserDao();
         List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(params.getPhone())).list();
         User user = new User();
-        if(list.size() > 0){
+        if (list.size() > 0) {
             user = list.get(0);
         }
         user.setName(params.getName());
@@ -146,16 +152,68 @@ public class GoldenStewardApplication extends Application {
         user.setMain_product(params.getMain_product());
         user.setOperation_mode(params.getOperation_mode());
         user.setPhone(params.getPhone());
-        if(!TextUtils.isEmpty(params.getPortrait())){
+        if (!TextUtils.isEmpty(params.getPortrait())) {
             user.setPortrait(params.getPortrait());
         }
         user.setTurnover(params.getTurnover());
-        if(list.size() > 0){
+        if (list.size() > 0) {
             dao.update(user);
         } else {
             dao.insert(user);
         }
     }
 
+    public static Context getNowContext() {
+        return sNowContext;
+    }
 
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (activity.getParent() != null) {
+            sNowContext = activity.getParent();
+        } else {
+            sNowContext = activity;
+        }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        if (activity.getParent() != null) {
+            sNowContext = activity.getParent();
+        } else {
+            sNowContext = activity;
+        }
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        if (activity.getParent() != null) {
+            sNowContext = activity.getParent();
+        } else {
+            sNowContext = activity;
+        }
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        if (sNowContext != null) {
+            sNowContext = null;
+        }
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+
+    }
 }

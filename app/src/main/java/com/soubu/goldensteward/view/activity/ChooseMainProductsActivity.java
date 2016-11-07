@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -91,8 +92,8 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
             if (mChooseParams != null) {
                 for (MainProductParams choose : mChooseParams) {
                     int chooseId = choose.getId();
-                    if (mSelectedBigTagList.contains(chooseId)) {
-                        mSelectedBigTagList.add(chooseId);
+                    if (!mSelectedBigTagList.contains(chooseId - 1)) {
+                        mSelectedBigTagList.add(chooseId - 1);
                     }
                     if (chooseId == bigTagId) {
                         selectedSmallTagList.clear();
@@ -135,7 +136,13 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
         }
         viewDelegate.setCategorySelected(mSelectedBigTagList);
         viewDelegate.setCategory(bigTags);
-        viewDelegate.refreshTags(mTags.get(0));
+        if (mSelectedBigTagList.size() != 0) {
+            viewDelegate.setSelectedPosition(mSelectedBigTagList.get(0));
+            viewDelegate.refreshTags(mTags.get(mSelectedBigTagList.get(0)));
+        } else {
+            viewDelegate.refreshTags(mTags.get(0));
+        }
+
     }
 
 
@@ -160,7 +167,7 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
         viewDelegate.setOnAddItemClickListener(new FlowLayoutController.OnClickAddItemListener() {
             @Override
             public void onClickAdd() {
-                ShowWidgetUtil.showCustomInputDialog(ChooseMainProductsActivity.this, R.string.custom_product_name, R.string.custom_product_rule, new ShowWidgetUtil.OnClickCustomInputConfirm() {
+                ShowWidgetUtil.showCustomInputDialog(ChooseMainProductsActivity.this, R.string.custom_product_name, R.string.custom_product_rule, 7, new ShowWidgetUtil.OnClickCustomInputConfirm() {
                     @Override
                     public void onConfirm(String content) {
                         TagInFlowLayoutModule tag = new TagInFlowLayoutModule();
@@ -251,6 +258,8 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
             case R.id.btn_confirm:
                 mChooseParams = new MainProductParams[mSelectedBigTagList.size()];
                 StringBuilder builder = new StringBuilder();
+                //需要对此排序
+                Collections.sort(mSelectedBigTagList);
                 for (int i = 0; i < mSelectedBigTagList.size(); i++) {
                     MainProductParams param = new MainProductParams();
                     int id = mSelectedBigTagList.get(i) + 1;

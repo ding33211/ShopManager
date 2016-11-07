@@ -91,5 +91,9 @@ public class ChooseMainProductsCategoryRvAdapter extends BaseRecyclerViewAdapter
         mListener = listener;
     }
 
+    public void setSelectedPosition(int position){
+        mSelectPosition = position;
+    }
+
 
 }
