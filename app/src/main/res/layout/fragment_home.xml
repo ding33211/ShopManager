@@ -151,7 +151,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_turnover_volume_today"
                     android:layout_marginTop="10dp"
-                    android:text="1000.5"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30sp" />
 

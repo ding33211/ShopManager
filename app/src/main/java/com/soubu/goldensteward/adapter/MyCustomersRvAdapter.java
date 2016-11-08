@@ -1,6 +1,5 @@
 package com.soubu.goldensteward.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,83 +10,28 @@ import android.widget.TextView;
 
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.CustomersModule;
+import com.soubu.goldensteward.module.server.CustomerServerParams;
+import com.soubu.goldensteward.utils.ConvertUtil;
+import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.PinyinComparator;
 import com.soubu.goldensteward.widget.RecyclerViewFastScroller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by dingsigang on 16-8-25.
  */
-public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomersModule> implements RecyclerViewFastScroller.BubbleTextGetter {
+public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomerServerParams> implements RecyclerViewFastScroller.BubbleTextGetter {
     private final int TYPE_TOP = 0x00;
     private final int TYPE_MID = 0x01;
     private final int TYPE_BOT = 0x02;
     private final int TYPE_ONLY = 0x03;
 
-    public MyCustomersRvAdapter(Context context) {
+    public MyCustomersRvAdapter() {
         mList = new ArrayList<>();
-//        DBHelper helper = DBHelper.getInstance(context);
-        CustomersModule customersModule = new CustomersModule();
-        customersModule.setName("张老四");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("极大");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("管控");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("发哦");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("给你哦啊");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("我就");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("迫切渴望");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("via");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("风貌");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("围绕你");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("蘑菇");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("我没钱");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("蘑菇");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("的才能杀");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("偶尔玩");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("都为");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("傲娇");
-        mList.add(customersModule);
-        customersModule = new CustomersModule();
-        customersModule.setName("二期");
-        mList.add(customersModule);
-
-//        mParams.addAll(helper.getStaffDao().loadAll());
-        Collections.sort(mList, new PinyinComparator());
     }
 
     @Override
@@ -142,10 +86,14 @@ public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomersModul
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
-            holder1.tvName.setText(mList.get(position).getName());
+            CustomerServerParams params = mList.get(position);
+            holder1.tvName.setText(params.getName());
 //            holder1.tvDealCount.setText(mParams.get(position).getDepartment());
 //            holder1.tvPosition.setText(mParams.get(position).getPosition());
-            holder1.tvLetter.setText(mList.get(position).getLetter());
+            holder1.tvLetter.setText(params.getLetter());
+            holder1.tvDealCount.setText(params.getOrder_count());
+            GlideUtils.loadRoundedImage(holder1.ivAvatar.getContext(), holder1.ivAvatar, params.getPortrait(), R.drawable.common_header, R.drawable.common_header);
+            holder1.tvLastDeal.setText(params.getAdd_time() == null ? "" : ConvertUtil.dateToHH_mm(new Date(Long.valueOf(params.getAdd_time()))));
         }
 
     }
@@ -186,4 +134,9 @@ public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomersModul
         }
     }
 
+    @Override
+    public void setData(List<CustomerServerParams> list) {
+        super.setData(list);
+        Collections.sort(mList, new PinyinComparator());
+    }
 }

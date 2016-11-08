@@ -81,11 +81,27 @@ public class ConvertUtil {
         return formatter.format(date);
     }
 
+    public static String dateToMMPointDD(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("MM.dd");
+        return formatter.format(date);
+    }
+
     public static String dateToYYYY_MM_DD_HH_mm(Date date) {
         if (date == null) {
             return null;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return formatter.format(date);
+    }
+
+    public static String dateToYYYY_MM_DD_HH_mm_ss(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
         return formatter.format(date);
     }
 

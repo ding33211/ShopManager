@@ -8,11 +8,15 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.CustomerDeailDataObject;
+import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
+import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
+import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
@@ -251,6 +255,56 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .forgetPassword(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取我的用户列表
+     */
+    public void getCustomerList() {
+        Call<BaseResp<BaseDataArray<CustomerServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getCustomerList();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取用户详情
+     */
+    public void getCustomerDetail(CustomerServerParams params) {
+        Call<BaseResp<CustomerDeailDataObject>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getCustomerDetail(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取我的收入列表
+     */
+    public void getMyIncome() {
+        Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getMyIncome();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取我的支出列表
+     */
+    public void getMyExpense() {
+        Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getMyExpenses();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取成交额
+     */
+    public void getTurnOver() {
+        Call<BaseResp<BaseDataArray<TurnOverServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getTurnOver();
         enqueueClue(call, true);
     }
 

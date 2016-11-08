@@ -99,7 +99,7 @@ public class LineView extends View {
 
     private String[] colorArray = {"#e74c3c", "#2980b9", "#1abc9c"};
 
-    private int[] popupColorArray = {R.drawable.popup_red, R.drawable.popup_green};
+    private int[] popupColorArray = {R.drawable.popup_red, R.drawable.popup_orange};
 
     // onDraw optimisations
     private final Point tmpPoint = new Point();
@@ -163,7 +163,7 @@ public class LineView extends View {
     public LineView(Context context, AttributeSet attrs) {
         super(context, attrs);
         popupTextPaint.setAntiAlias(true);
-        popupTextPaint.setColor(Color.WHITE);
+        popupTextPaint.setColor(getResources().getColor(R.color.colorPrimary));
         popupTextPaint.setTextSize(ConvertUtil.sp2px(getContext(), 13));
         popupTextPaint.setStrokeWidth(5);
         popupTextPaint.setTextAlign(Paint.Align.CENTER);
@@ -396,8 +396,8 @@ public class LineView extends View {
     private void drawRect(Canvas canvas) {
         Rect rect;
         bars.clear();
-        int size = percentList.size();
         if (percentList != null && !percentList.isEmpty()) {
+            int size = percentList.size();
             List<Integer> leftList = new ArrayList<>();
             List<Integer> rightList = new ArrayList<>();
             switch (size) {
@@ -506,16 +506,24 @@ public class LineView extends View {
         int x = (bars.get(barIndex).right + bars.get(barIndex).left) / 2;
         int y = bars.get(barIndex).top;
         Rect popupTextRect = new Rect();
-        popupTextPaint.getTextBounds(num, 0, num.length(), popupTextRect);
+        String text = "2016-09-02";
+        String text2 = num + "万元";
+        int length = text.length();
+        if (text2.length() > length) {
+            length = text2.length();
+        }
+        popupTextPaint.getTextBounds(text, 0, length, popupTextRect);
         Rect r = new Rect(x - popupTextRect.width() / 2 - sidePadding,
-                y - popupTextRect.height() - bottomTriangleHeight - popupTopPadding * 2 - popupBottomMargin,
+                y - popupTextRect.height() * 2 - bottomTriangleHeight - popupTopPadding * 2 - popupBottomMargin * 3,
                 x + popupTextRect.width() / 2 + sidePadding,
                 y + popupTopPadding - popupBottomMargin);
 
         NinePatchDrawable popup = (NinePatchDrawable) getResources().getDrawable(PopupColor);
         popup.setBounds(r);
         popup.draw(canvas);
-        canvas.drawText(num, x, y - bottomTriangleHeight - popupBottomMargin * 4 / 3, popupTextPaint);
+        canvas.drawText(text, x, y - bottomTriangleHeight - popupBottomMargin * 4 / 3 - popupTextPaint.getTextSize() * 4 / 3, popupTextPaint);
+        canvas.drawText(text2, x, y - bottomTriangleHeight - popupBottomMargin * 4 / 3 - popupTextPaint.getTextSize() * 1 / 3, popupTextPaint);
+
     }
 
     private int getPopupHeight() {

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.ProductAccessProductsOnSaleRvAdapater;
+import com.soubu.goldensteward.adapter.ProductAccessProductsOnSaleRvAdapter;
 import com.soubu.goldensteward.adapter.ReturnRateAllEvaluateRvAdapter;
 import com.soubu.goldensteward.adapter.StoreVisitorContactFriendsRvAdapter;
 import com.soubu.goldensteward.adapter.TurnOverOrderRvAdapter;
@@ -38,12 +38,6 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
     public int getRootLayoutId() {
         return R.layout.activity_operation_report_spec;
     }
-
-
-//    @Override
-//    public boolean ifNeedHideToolBar() {
-//        return true;
-//    }
 
     @Override
     public void initWidget() {
@@ -153,7 +147,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
 
     public void initProductAccessRecyclerView(){
         mTvLabel.setText(R.string.products_on_sale);
-        ProductAccessProductsOnSaleRvAdapater adapter = new ProductAccessProductsOnSaleRvAdapater();
+        ProductAccessProductsOnSaleRvAdapter adapter = new ProductAccessProductsOnSaleRvAdapter();
         List<ProductAccessProductsOnSaleRvItem> list = new ArrayList<>();
         list.add(new ProductAccessProductsOnSaleRvItem());
         list.add(new ProductAccessProductsOnSaleRvItem());
@@ -182,4 +176,8 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 2));
     }
 
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

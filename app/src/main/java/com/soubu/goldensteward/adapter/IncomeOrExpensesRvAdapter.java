@@ -1,24 +1,34 @@
 package com.soubu.goldensteward.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.IncomeOrExpensesRvItem;
+import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
+import com.soubu.goldensteward.utils.ConvertUtil;
+import com.soubu.goldensteward.utils.RegularUtil;
+
+import java.util.Date;
 
 /**
  * Created by dingsigang on 16-10-20.
  */
-public class IncomeOrExpensesRvAdapter extends BaseRecyclerViewAdapter<IncomeOrExpensesRvItem> {
+public class IncomeOrExpensesRvAdapter extends BaseRecyclerViewAdapter<IncomeOrExpensesServerParams> {
     public static final int TYPE_INCOME = 0x00;
     public static final int TYPE_EXPENSES = 0x01;
     private int mType;
+    private String[] mStates;
+    private String[] mTypes;
 
-    public IncomeOrExpensesRvAdapter(int type){
+    public IncomeOrExpensesRvAdapter(int type, Context context) {
         mType = type;
+        mStates = context.getResources().getStringArray(R.array.order_state);
+        mTypes = context.getResources().getStringArray(R.array.product_type);
     }
 
     @Override
@@ -35,13 +45,23 @@ public class IncomeOrExpensesRvAdapter extends BaseRecyclerViewAdapter<IncomeOrE
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
-            if(holder1.getLayoutPosition() == getItemCount() - 1 ){
+            if (holder1.getLayoutPosition() == getItemCount() - 1) {
                 holder1.vItemBottomLine.setVisibility(View.INVISIBLE);
             }
-            IncomeOrExpensesRvItem item = mList.get(position);
-            holder1.tvAmount.setText(item.getAmount());
-//            holder1.tvState.setText();
-
+            IncomeOrExpensesServerParams item = mList.get(position);
+            holder1.tvAmount.setText(item.getPrice());
+            if(RegularUtil.isInteger(item.getType())){
+                holder1.tvFor.setText(mTypes[Integer.valueOf(item.getType()) - 1] + "购买" + "-");
+            } else {
+                holder1.tvFor.setText(item.getType());
+            }
+            holder1.tvState.setText(mStates[Integer.valueOf(item.getStatus()) - 1]);
+            if (!TextUtils.isEmpty(item.getName())) {
+                holder1.tvDesc.setText(item.getName());
+            } else {
+                holder1.tvDesc.setText(item.getMessage());
+            }
+            holder1.tvTime.setText(item.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(item.getAdd_time()) * 1000)));
         }
     }
 

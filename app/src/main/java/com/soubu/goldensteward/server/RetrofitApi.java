@@ -3,11 +3,15 @@ package com.soubu.goldensteward.server;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.CustomerDeailDataObject;
+import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
+import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
+import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
@@ -83,14 +87,38 @@ public interface RetrofitApi {
     Call<BaseResp<BaseDataObject<WalletHomeInfoServerParams>>> getMyWalletInfo();
 
     //验证旧手机号
+    @FormUrlEncoded
     @POST("Security/check_old_phone")
     Call<BaseResp<BaseDataObject<UserServerParams>>> checkOldPhone(@Field("params") String params);
 
     //修改手机号
+    @FormUrlEncoded
     @POST("Security/change_phone")
     Call<BaseResp<BaseDataObject<UserServerParams>>> changePhone(@Field("params") String params);
 
     //忘记密码
+    @FormUrlEncoded
     @POST("Security/forget_password")
     Call<BaseResp<BaseDataObject<UserServerParams>>> forgetPassword(@Field("params") String params);
+
+    //获取我的用户列表
+    @POST("Customer/customer_list")
+    Call<BaseResp<BaseDataArray<CustomerServerParams>>> getCustomerList();
+
+    //获取客户详情
+    @FormUrlEncoded
+    @POST("Customer/customer_detail")
+    Call<BaseResp<CustomerDeailDataObject>> getCustomerDetail(@Field("params") String params);
+
+    //获取我的收入
+    @POST("Wallet/my_income")
+    Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> getMyIncome();
+
+    //获取我的支出
+    @POST("Wallet/my_expenditure")
+    Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> getMyExpenses();
+
+    //获取成交额
+    @POST("Report/turnover")
+    Call<BaseResp<BaseDataArray<TurnOverServerParams>>> getTurnOver();
 }

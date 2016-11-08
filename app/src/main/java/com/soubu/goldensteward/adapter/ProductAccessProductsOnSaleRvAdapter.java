@@ -14,7 +14,7 @@ import com.soubu.goldensteward.module.ProductAccessProductsOnSaleRvItem;
  * Created by lakers on 16/10/25.
  */
 
-public class ProductAccessProductsOnSaleRvAdapater extends BaseRecyclerViewAdapter<ProductAccessProductsOnSaleRvItem> {
+public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapter<ProductAccessProductsOnSaleRvItem> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);

@@ -28,8 +28,6 @@ public class RegularUtil {
 
     private static final String REGEX_ID = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
 
-    //If u want more please visit http://toutiao.com/i6231678548520731137/
-
     /**
      * @param string 待验证文本
      * @return 是否符合手机号格式

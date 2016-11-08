@@ -23,4 +23,5 @@ public class BaseDataObject<T> {
     public String getToken() {
         return token;
     }
+
 }

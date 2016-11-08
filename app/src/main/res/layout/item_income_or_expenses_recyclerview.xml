@@ -44,14 +44,7 @@
             android:id="@+id/tv_for"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="色卡购买"
-            android:textColor="@color/subtitle_grey"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:text="色卡"
             android:textColor="@color/subtitle_grey"/>
         <TextView
             android:id="@+id/tv_desc"

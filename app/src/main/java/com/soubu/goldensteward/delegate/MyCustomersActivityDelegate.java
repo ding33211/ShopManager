@@ -8,7 +8,11 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.adapter.MyCustomersRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
+import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.widget.RecyclerViewFastScroller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lakers on 16/10/29.
@@ -25,7 +29,7 @@ public class MyCustomersActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new MyCustomersRvAdapter(this.getActivity());
+        mAdapter = new MyCustomersRvAdapter();
         RecyclerView recyclerView = get(R.id.rv_content);
         recyclerView.setAdapter(mAdapter);
         final RecyclerViewFastScroller fastScroller = get(R.id.fast_scroller);
@@ -54,5 +58,15 @@ public class MyCustomersActivityDelegate extends AppDelegate {
 
     public void setOnRvItemSelectedListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
         mAdapter.setOnRvItemClickListener(listener);
+    }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
+
+    public void setData(List<CustomerServerParams> list){
+        mAdapter.setData(list);
+        mAdapter.notifyDataSetChanged();
     }
 }

@@ -11,10 +11,10 @@
         android:background="@android:color/white">
 
         <ImageView
+            android:id="@+id/iv_customer_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_margin="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,10 +23,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="搜布用户名"
                 android:textColor="@color/title_black"
                 android:textSize="18sp" />
 
@@ -65,10 +65,9 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_take_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="刘二"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -103,7 +102,6 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13299019930"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -143,10 +141,10 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="浙江省啪啪啪啪啪啪啪啪啪啪啪啪啪"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
         </LinearLayout>

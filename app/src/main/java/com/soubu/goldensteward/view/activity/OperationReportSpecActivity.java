@@ -1,18 +1,22 @@
 package com.soubu.goldensteward.view.activity;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.IncomeOrExpensesRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.OperationReportSpecActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
-import com.soubu.goldensteward.view.fragment.IncomeOrExpensesFragment;
+import com.soubu.goldensteward.module.server.BaseDataArray;
+import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.TurnOverServerParams;
+import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.ConvertUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 /**
  * Created by dingsigang on 16-10-21.
@@ -34,7 +38,6 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     @Override
     protected void initToolbar() {
         super.initToolbar();
-
         mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, 0);
         switch (mType) {
             case TYPE_TURNOVER:
@@ -55,45 +58,11 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     @Override
     protected void initData() {
         super.initData();
-        ArrayList<String> test = new ArrayList<String>();
-        for (int i = 0; i < 31; i++) {
-            test.add("9." + (i + 1));
-        }
-        viewDelegate.setBottomTextList(test);
-//        ArrayList<Integer> list = new ArrayList<>();
-//        for(int i = 0; i < 12; i++){
-//            list.add((int)(Math.random() * 1000));
-//            Log.e("1111111", list.get(i) + "");
-//        }
-//        ArrayList<ArrayList<Integer>> lineList = new ArrayList<>();
-//        lineList.add(list);
-//        viewDelegate.setLineDataList(lineList, 200);
-        ArrayList<Integer> list2 = new ArrayList<>();
-        for (int i = 0; i < 31; i++) {
-            list2.add((int) (Math.random() * 50));
-        }
-        ArrayList<ArrayList<Integer>> barList = new ArrayList<>();
-        barList.add(list2);
-        ArrayList<Integer> colorList = new ArrayList<>();
-        colorList.add(getResources().getColor(R.color.colorPrimary));
-        viewDelegate.setBarDataList(barList, 5, colorList);
 
-//        List<Fragment> fragments = new ArrayList<>();
-//        Fragment incomeFragment = new IncomeOrExpensesFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesRvAdapter.TYPE_INCOME);
-//        incomeFragment.setArguments(bundle);
-//        Fragment expensesFragment = new IncomeOrExpensesFragment();
-//        Bundle bundle2 = new Bundle();
-//        bundle.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesRvAdapter.TYPE_EXPENSES);
-//        expensesFragment.setArguments(bundle2);
-//        fragments.add(incomeFragment);
-//        fragments.add(expensesFragment);
-//        fragments.add(incomeFragment);
-//        fragments.add(expensesFragment);
-        switch (mType){
+        switch (mType) {
             case TYPE_TURNOVER:
                 String[] titles = new String[]{getString(R.string.all), getString(R.string.pending_payment), getString(R.string.pending_shipped), getString(R.string.refund_appeal)};
+                RetrofitRequest.getInstance().getTurnOver();
                 viewDelegate.initTurnOverVolumeRecyclerView(titles);
                 break;
             case TYPE_STORE_VISITOR:
@@ -106,8 +75,31 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 viewDelegate.initReturnRateRecyclerView();
                 break;
         }
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getDataSuccess(BaseResp resp) {
+        if (resp.getResult() instanceof BaseDataArray) {
+            if (((BaseDataArray) resp.getResult()).getData() instanceof TurnOverServerParams[]) {
+                TurnOverServerParams[] params = (TurnOverServerParams[]) ((BaseDataArray) resp.getResult()).getData();
+                initTurnOverData(params);
+            }
+        }
+    }
 
+    private void initTurnOverData(TurnOverServerParams[] params){
+        ArrayList<String> test = new ArrayList<String>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        for(TurnOverServerParams param : params){
+            test.add(ConvertUtil.dateToMMPointDD(new Date(Long.valueOf(param.getDate()) * 1000)));
+            list2.add(Integer.valueOf(param.getPrice()));
+        }
+        viewDelegate.setBottomTextList(test);
+        ArrayList<ArrayList<Integer>> barList = new ArrayList<>();
+        barList.add(list2);
+        ArrayList<Integer> colorList = new ArrayList<>();
+        colorList.add(getResources().getColor(R.color.colorPrimary));
+        viewDelegate.setBarDataList(barList, 5, colorList);
     }
 
     @Override
