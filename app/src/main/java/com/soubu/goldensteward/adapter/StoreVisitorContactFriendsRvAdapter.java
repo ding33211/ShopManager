@@ -9,12 +9,18 @@ import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.StoreVisitorContactFriendsRvItem;
+import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
+import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
+import com.soubu.goldensteward.utils.ConvertUtil;
+import com.soubu.goldensteward.utils.GlideUtils;
+
+import java.util.Date;
 
 /**
  * Created by lakers on 16/10/25.
  */
 
-public class StoreVisitorContactFriendsRvAdapter extends BaseRecyclerViewAdapter<StoreVisitorContactFriendsRvItem> {
+public class StoreVisitorContactFriendsRvAdapter extends BaseRecyclerViewAdapter<VisitFriendsServerParams> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_store_visitor_contact_friends_recyclerview, parent, false);
@@ -23,7 +29,13 @@ public class StoreVisitorContactFriendsRvAdapter extends BaseRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        if(holder instanceof ItemViewHolder){
+            ItemViewHolder holder1 = (ItemViewHolder)holder;
+            VisitFriendsServerParams params = mList.get(position);
+            GlideUtils.loadRoundedImage(holder1.ivAvatar.getContext(), holder1.ivAvatar, params.getPortrait(), R.drawable.common_header, R.drawable.common_header);
+            holder1.tvName.setText(params.getName());
+            holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getAdd_time()) * 1000)));
+        }
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder{

@@ -59,7 +59,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="@string/turnover_volume_wan_yuan"
                         android:textColor="@color/title_black"
                         android:textSize="16sp" />
 
@@ -81,9 +80,10 @@
 
                     <HorizontalScrollView
                         android:id="@+id/hsv_chart"
-                        android:layout_width="300dp"
+                        android:layout_width="320dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
                         android:scrollbars="none">
 
                         <com.soubu.goldensteward.widget.linebarchart.LineView
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="@color/filter_selected_color"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
 

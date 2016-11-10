@@ -28,12 +28,12 @@ import java.io.OutputStream;
 
 public class BitmapUtils {
 
-//    static {
-//        System.loadLibrary("jpegbither");
-//        System.loadLibrary("bitherjni");
-//    }
+    static {
+        System.loadLibrary("jpegbither");
+        System.loadLibrary("bitherjni");
+    }
 
-//    private static native String compressImage(Bitmap bit, int w, int h, int quality, byte[] fileNameBytes, boolean optimize);
+    private static native String compressImage(Bitmap bit, int w, int h, int quality, byte[] fileNameBytes, boolean optimize);
 
     public static Bitmap toRoundCorner(Bitmap bitmap, float pixels) {
         // System.out.println("图片是否变成圆角模式了+++++++++++++");
@@ -220,20 +220,18 @@ public class BitmapUtils {
             bitmap = BitmapFactory.decodeFile(srcPath, newOpts); // decodeFileDescriptor比decodeFile占内存小
             Log.e("srcPath", srcPath);
 
-
-            //TODO 待补回
-//            if (isNeedScale) {
-//                String time = String.valueOf(System.currentTimeMillis());
-//                //srcPath = AppConfig.CACHE_DIR + File.separator + "sobu_cache_img_" + time + ".jpg";
-//                srcPath = Environment.getExternalStorageDirectory() + "/DCIM/Sobu/" + time + ".jpg";
-//                bitmap = scaleBitmap(bitmap, w, h);
-//                Log.e("ffdd", bitmap == null ? "bitmap null" : "bitmap not null ");
-//            }
-//            Log.e("dddd", bitmap == null ? "bitmap null" : "bitmap not null ");
+            if (isNeedScale) {
+                String time = String.valueOf(System.currentTimeMillis());
+                //srcPath = AppConfig.CACHE_DIR + File.separator + "sobu_cache_img_" + time + ".jpg";
+                srcPath = Environment.getExternalStorageDirectory() + "/DCIM/Sobu/" + time + ".jpg";
+                bitmap = scaleBitmap(bitmap, w, h);
+                Log.e("ffdd", bitmap == null ? "bitmap null" : "bitmap not null ");
+            }
+            Log.e("dddd", bitmap == null ? "bitmap null" : "bitmap not null ");
 
 
-            compressImage(bitmap);
-//            compressImage(bitmap, bitmap.getWidth(), bitmap.getHeight(), 90, srcPath.getBytes(), true);
+//            compressImage(bitmap);
+            compressImage(bitmap, bitmap.getWidth(), bitmap.getHeight(), 90, srcPath.getBytes(), true);
             File file = new File(srcPath);
             if (bitmap != null) {
                 bitmap.recycle();

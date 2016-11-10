@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'com.neenbedankt.android-apt'
 
+
 apt {
     arguments {
         eventBusIndex "com.soubu.goldensteward.sdk.eventbus.MyEventBusIndex"
@@ -19,7 +20,10 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
-
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
     buildTypes {
         release {
@@ -33,6 +37,20 @@ android {
         }
     }
 }
+
+//应用 Bugtags 插件
+apply plugin: 'com.bugtags.library.plugin'
+//Bugtags 插件配置
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考插件详细使用说明
+    appKey "341caa3e04f777e96c831323ebe82e8a"  //这里是你的 appKey
+    appSecret "34f39ef17c13408f60e95765f16bfeb4"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+
+    //网络跟踪功能配置(企业版)
+    trackingNetworkEnabled true
+}
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -52,4 +70,6 @@ dependencies {
     compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.bugtags.library:bugtags-lib:latest.integration'
+
 }

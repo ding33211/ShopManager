@@ -19,3 +19,15 @@
 -keep class com.alibaba.sdk.android.oss.** { *; }
 -dontwarn okio.**
 -dontwarn org.apache.commons.codec.binary.**
+
+# ProGuard configurations for Bugtags
+  -keepattributes LineNumberTable,SourceFile
+
+  -keep class com.bugtags.library.** {*;}
+  -dontwarn com.bugtags.library.**
+  -keep class io.bugtags.** {*;}
+  -dontwarn io.bugtags.**
+  -dontwarn org.apache.http.**
+  -dontwarn android.net.http.AndroidHttpClient
+
+  # End Bugtags

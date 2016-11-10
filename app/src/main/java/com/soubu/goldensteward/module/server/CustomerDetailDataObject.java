@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by dingsigang on 16-11-8.
  */
-public class CustomerDeailDataObject extends BaseDataObject<CustomerServerParams> {
+public class CustomerDetailDataObject extends BaseDataObject<CustomerServerParams> {
     @SerializedName("order")
     @Expose
-    OrderServerParams[] order;
+    ProductInCustomerDetailServerParams[] order;
 
-    public OrderServerParams[] getOrder() {
+    public ProductInCustomerDetailServerParams[] getOrder() {
         return order;
     }
 }

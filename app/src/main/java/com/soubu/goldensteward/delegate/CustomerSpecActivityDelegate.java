@@ -9,7 +9,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.TransactionRecordRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
-import com.soubu.goldensteward.module.server.OrderServerParams;
+import com.soubu.goldensteward.module.server.ProductInCustomerDetailServerParams;
 import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.widget.DividerItemDecoration;
 
@@ -37,7 +37,7 @@ public class CustomerSpecActivityDelegate extends AppDelegate {
         recyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 40));
     }
 
-    public void setData(List<OrderServerParams> list) {
+    public void setData(List<ProductInCustomerDetailServerParams> list) {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }

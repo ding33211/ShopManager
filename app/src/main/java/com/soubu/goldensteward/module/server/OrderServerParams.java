@@ -1,37 +1,24 @@
 package com.soubu.goldensteward.module.server;
 
 /**
- * Created by dingsigang on 16-11-8.
+ * Created by dingsigang on 16-11-9.
  */
 public class OrderServerParams {
-    String pname;
-    String pic;
-    String price;
     String status;
-    String add_time;
+    String sed_status;
+    String time;
+    String p_count;
+    String sum_price;
+    String freight;
 
-    public String getPname() {
-        return pname;
+    ProductInOrderListServerParams[] detail;
+
+    public ProductInOrderListServerParams[] getDetail() {
+        return detail;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
+    public void setDetail(ProductInOrderListServerParams[] detail) {
+        this.detail = detail;
     }
 
     public String getStatus() {
@@ -42,11 +29,43 @@ public class OrderServerParams {
         this.status = status;
     }
 
-    public String getAdd_time() {
-        return add_time;
+    public String getSed_status() {
+        return sed_status;
     }
 
-    public void setAdd_time(String add_time) {
-        this.add_time = add_time;
+    public void setSed_status(String sed_status) {
+        this.sed_status = sed_status;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getP_count() {
+        return p_count;
+    }
+
+    public void setP_count(String p_count) {
+        this.p_count = p_count;
+    }
+
+    public String getSum_price() {
+        return sum_price;
+    }
+
+    public void setSum_price(String sum_price) {
+        this.sum_price = sum_price;
+    }
+
+    public String getFreight() {
+        return freight;
+    }
+
+    public void setFreight(String freight) {
+        this.freight = freight;
     }
 }

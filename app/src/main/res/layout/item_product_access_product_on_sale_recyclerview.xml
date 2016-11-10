@@ -71,6 +71,7 @@
                     android:textColor="@color/subtitle_grey" />
 
                 <TextView
+                    android:id="@+id/tv_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/meter"

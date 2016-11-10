@@ -66,7 +66,7 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
-            }).setPositiveButton(R.string.wrong_click, new DialogInterface.OnClickListener() {
+            }).setNegativeButton(R.string.wrong_click, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

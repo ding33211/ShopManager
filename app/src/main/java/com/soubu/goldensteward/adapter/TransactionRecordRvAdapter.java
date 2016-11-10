@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.server.CustomerServerParams;
-import com.soubu.goldensteward.module.server.OrderServerParams;
+import com.soubu.goldensteward.module.server.ProductInCustomerDetailServerParams;
 import com.soubu.goldensteward.utils.ConvertUtil;
 import com.soubu.goldensteward.utils.GlideUtils;
 
@@ -20,7 +19,7 @@ import java.util.Date;
  * Created by lakers on 16/10/31.
  */
 
-public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<OrderServerParams> {
+public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<ProductInCustomerDetailServerParams> {
 
     private String[] mStates;
 
@@ -38,7 +37,7 @@ public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<OrderSer
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
             ItemViewHolder holder1 = (ItemViewHolder)holder;
-            OrderServerParams params = mList.get(position);
+            ProductInCustomerDetailServerParams params = mList.get(position);
             holder1.tvState.setText(mStates[Integer.valueOf(params.getStatus()) - 1]);
             holder1.tvTime.setText(params.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(params.getAdd_time()) * 1000)));
             holder1.tvPrice.setText(params.getPrice());

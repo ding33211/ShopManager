@@ -1,15 +1,9 @@
-package com.soubu.goldensteward.module;
+package com.soubu.goldensteward.module.server;
 
 /**
  * Created by dingsigang on 16-11-9.
  */
-public class TurnOverOrderRvItem {
-    String status;
-    String sed_status;
-    String time;
-    String p_count;
-    String sum_price;
-    String freight;
+public class ProductInOrderListServerParams {
     String pic;
     String name;
     String phone;
@@ -18,30 +12,43 @@ public class TurnOverOrderRvItem {
     String type;
     String price;
     String discount;
-    int rvType;
 
-    public int getRvType() {
-        return rvType;
+    String title;
+    String unit;
+    String visit;
+    String collection;
+    String time;
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setRvType(int rvType) {
-        this.rvType = rvType;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getStatus() {
-        return status;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public String getSed_status() {
-        return sed_status;
+    public String getVisit() {
+        return visit;
     }
 
-    public void setSed_status(String sed_status) {
-        this.sed_status = sed_status;
+    public void setVisit(String visit) {
+        this.visit = visit;
+    }
+
+    public String getCollection() {
+        return collection;
+    }
+
+    public void setCollection(String collection) {
+        this.collection = collection;
     }
 
     public String getTime() {
@@ -50,30 +57,6 @@ public class TurnOverOrderRvItem {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getP_count() {
-        return p_count;
-    }
-
-    public void setP_count(String p_count) {
-        this.p_count = p_count;
-    }
-
-    public String getSum_price() {
-        return sum_price;
-    }
-
-    public void setSum_price(String sum_price) {
-        this.sum_price = sum_price;
-    }
-
-    public String getFreight() {
-        return freight;
-    }
-
-    public void setFreight(String freight) {
-        this.freight = freight;
     }
 
     public String getPic() {

@@ -122,19 +122,23 @@
     <string name="find_pwd_help">若无法收到验证码,请联系搜布客服</string>
 
     <string name="turnover_volume">成交额</string>
+    <string name="turnover_volume_unit">万元</string>
     <string name="account_balance">账户余额</string>
     <string name="accumulated_income">累计收入</string>
     <string name="store_visitor">店铺访客</string>
+    <string name="store_visitor_unit">人</string>
     <string name="accumulated_visitor">累计访客数</string>
     <string name="today_visitor">今日访客数</string>
     <string name="last_week_visitor">近一周访客数</string>
     <string name="last_month_visitor">近一月访客数</string>
     <string name="product_access">产品访问</string>
+    <string name="product_access_unit">次</string>
     <string name="accumulated_product_access">累计访问量</string>
     <string name="today_product_access">今日访问量</string>
     <string name="last_week_product_access">近一周访问量</string>
     <string name="last_month_product_access">近一月访问量</string>
     <string name="return_rate">退货率</string>
+    <string name="return_rate_unit">%</string>
     <string name="accumulated_return_rate">累计退货率</string>
     <string name="last_week_return_rate">近一周退货率</string>
     <string name="last_month_return_rate">近一月退货率</string>

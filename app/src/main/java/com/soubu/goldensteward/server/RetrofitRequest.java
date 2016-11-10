@@ -8,7 +8,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
-import com.soubu.goldensteward.module.server.CustomerDeailDataObject;
+import com.soubu.goldensteward.module.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
@@ -16,6 +16,11 @@ import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
+import com.soubu.goldensteward.module.server.OrderDataArray;
+import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
+import com.soubu.goldensteward.module.server.WithCountDataArray;
+import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
@@ -272,7 +277,7 @@ public class RetrofitRequest {
      * 获取用户详情
      */
     public void getCustomerDetail(CustomerServerParams params) {
-        Call<BaseResp<CustomerDeailDataObject>> call = RetrofitService.getInstance()
+        Call<BaseResp<CustomerDetailDataObject>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getCustomerDetail(new Gson().toJson(params));
         enqueueClue(call, true);
@@ -305,6 +310,70 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<TurnOverServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getTurnOver();
+        enqueueClue(call, true);
+    }
+
+
+    /**
+     * 订单列表
+     */
+    public void getOrderList(int type) {
+        ProductInOrderListServerParams params = new ProductInOrderListServerParams();
+        params.setType(type + "");
+        Call<BaseResp<OrderDataArray>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getOrderList(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 店铺访客
+     */
+    public void getShopVisit() {
+        Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getShopVisit();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 好友列表
+     */
+    public void getVisitFriends() {
+        Call<BaseResp<WithCountDataArray<VisitFriendsServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getVisitFriends();
+        enqueueClue(call, true);
+    }
+
+
+    /**
+     * 产品访问
+     */
+    public void getProductVisit() {
+        Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getProductVisit();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 在售列表
+     */
+    public void getProductListOnSale() {
+        Call<BaseResp<WithCountDataArray<ProductInOrderListServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getProductListOnSale();
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 退货率
+     */
+    public void getReturnRates() {
+        Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getReturnRates();
         enqueueClue(call, true);
     }
 

@@ -3,7 +3,7 @@ package com.soubu.goldensteward.server;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
-import com.soubu.goldensteward.module.server.CustomerDeailDataObject;
+import com.soubu.goldensteward.module.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
@@ -11,9 +11,14 @@ import com.soubu.goldensteward.module.server.MainProductTagServerParams;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
+import com.soubu.goldensteward.module.server.OrderDataArray;
+import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
+import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
+import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
 
 import retrofit2.Call;
@@ -108,7 +113,7 @@ public interface RetrofitApi {
     //获取客户详情
     @FormUrlEncoded
     @POST("Customer/customer_detail")
-    Call<BaseResp<CustomerDeailDataObject>> getCustomerDetail(@Field("params") String params);
+    Call<BaseResp<CustomerDetailDataObject>> getCustomerDetail(@Field("params") String params);
 
     //获取我的收入
     @POST("Wallet/my_income")
@@ -121,4 +126,29 @@ public interface RetrofitApi {
     //获取成交额
     @POST("Report/turnover")
     Call<BaseResp<BaseDataArray<TurnOverServerParams>>> getTurnOver();
+
+    //获取订单列表
+    @FormUrlEncoded
+    @POST("Report/order_list")
+    Call<BaseResp<OrderDataArray>> getOrderList(@Field("params") String params);
+
+    //获取店铺访问接口
+    @POST("Report/shop_visit")
+    Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> getShopVisit();
+
+    //获取好友列表
+    @POST("Report/visit_friends")
+    Call<BaseResp<WithCountDataArray<VisitFriendsServerParams>>> getVisitFriends();
+
+    //获取产品访问
+    @POST("Report/product_visit")
+    Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> getProductVisit();
+
+    //获取在手列表
+    @POST("Report/product_list")
+    Call<BaseResp<WithCountDataArray<ProductInOrderListServerParams>>> getProductListOnSale();
+
+    //获取退货率
+    @POST("Report/return_rates")
+    Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> getReturnRates();
 }

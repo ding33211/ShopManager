@@ -68,4 +68,9 @@
         <item>大货</item>
     </string-array>
 
+    <string-array name="freight_state">
+        <item>包邮</item>
+        <item>到付</item>
+    </string-array>
+
 </resources>

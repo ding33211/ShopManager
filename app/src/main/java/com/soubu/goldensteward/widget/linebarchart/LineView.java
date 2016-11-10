@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.drawable.NinePatchDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -20,11 +21,19 @@ import com.soubu.goldensteward.utils.ConvertUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LineView extends View {
+    //存储各个底部栏的日期
+    private List<Date> mDates;
+    //底部栏的size
+    private int mBottomSize;
+    //单位
+    private String mUnit;
+
     private int mViewHeight;
     private int bottomLineY;
     private int verticalGridNum = -1;
@@ -74,7 +83,7 @@ public class LineView extends View {
     private int selectedBarIndex = -1;
     private int selectedBarListIndex = -1;
 
-    private int topLineLength = ConvertUtil.dip2px(getContext(), 12); // | | ←this
+    private int topLineLength = ConvertUtil.dip2px(getContext(), 20); // | | ←this
     //-+-+-
     private int sideLineLength = ConvertUtil.dip2px(getContext(), 45) / 3 * 2;// --+--+--+--+--+--+--
     //  ↑this
@@ -87,7 +96,7 @@ public class LineView extends View {
     private final int bottomLineLength = ConvertUtil.sp2px(getContext(), 10);
     private final int DOT_INNER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 2);
     private final int DOT_OUTER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 5);
-    private final int MIN_TOP_LINE_LENGTH = ConvertUtil.dip2px(getContext(), 12);
+    private final int MIN_TOP_LINE_LENGTH = ConvertUtil.dip2px(getContext(), 16);
     private final int MIN_VERTICAL_GRID_NUM = 4;
     private final int MIN_HORIZONTAL_GRID_NUM = 1;
     private final int BAR_SIDE_MARGIN = ConvertUtil.dip2px(getContext(), 18);
@@ -178,15 +187,23 @@ public class LineView extends View {
         fgPaint.setAntiAlias(true);
     }
 
+    //由于底部栏的具体长短可能存在异步的情况，因此在此处先将size定义好
+    public void setBottomTextSize(int size){
+        mBottomSize = size;
+    }
+
     /**
      * dataList will be reset when called is method.
      *
-     * @param bottomTextList The String ArrayList in the bottom.
+     * @param dateList The Date ArrayList in the bottom.
      */
-    public void setBottomTextList(ArrayList<String> bottomTextList) {
+    public void setBottomTextList(ArrayList<Date> dateList) {
         this.dataList = null;
-        this.bottomTextList = bottomTextList;
-
+        bottomTextList.clear();
+        mDates = dateList;
+        for(Date date : dateList){
+            bottomTextList.add(ConvertUtil.dateToMMPointDD(date));
+        }
         Rect r = new Rect();
         int longestWidth = 0;
         String longestStr = "";
@@ -213,7 +230,6 @@ public class LineView extends View {
                 sideLineLength = longestWidth / 2;
             }
         }
-
         refreshXCoordinateList(getHorizontalGridNum());
     }
 
@@ -281,7 +297,7 @@ public class LineView extends View {
     }
 
     private int getHorizontalGridNum() {
-        int horizontalGridNum = bottomTextList.size() - 1;
+        int horizontalGridNum = mBottomSize - 1;
         if (horizontalGridNum < MIN_HORIZONTAL_GRID_NUM) {
             horizontalGridNum = MIN_HORIZONTAL_GRID_NUM;
         }
@@ -340,7 +356,8 @@ public class LineView extends View {
         // But this code not so good.
         if ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin) /
                 (verticalGridNum + 2) < getPopupHeight()) {
-            topLineLength = getPopupHeight() + DOT_OUTER_CIR_RADIUS + DOT_INNER_CIR_RADIUS + 2;
+            //需要最高的依然可以完整的显式点击数据，因此 + MIN_TOP_LINE_LENGTH
+            topLineLength = getPopupHeight() + DOT_OUTER_CIR_RADIUS + DOT_INNER_CIR_RADIUS + 2 + MIN_TOP_LINE_LENGTH;
         } else {
             topLineLength = MIN_TOP_LINE_LENGTH;
         }
@@ -348,6 +365,7 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.e("xxxxxxxx", "onDraw");
         drawBackgroundLines(canvas);
         drawRect(canvas);
         drawLines(canvas);
@@ -365,9 +383,7 @@ public class LineView extends View {
             selectedBarIndex = -1;
             selectedBarListIndex = -1;
         }
-
         drawAxis();
-
     }
 
     private void drawAxis() {
@@ -387,6 +403,7 @@ public class LineView extends View {
         }
         Collections.sort(list);
         int j = 0;
+        leftScaleMap.clear();
         for (int i = list.size() - 1; i >= 0; i--) {
             leftScaleMap.put(list.get(i), dataOfAGirdLeft * j++ + "");
         }
@@ -396,6 +413,7 @@ public class LineView extends View {
     private void drawRect(Canvas canvas) {
         Rect rect;
         bars.clear();
+        Log.e("xxxxxxx", "drawRect   :    percentList " + percentList);
         if (percentList != null && !percentList.isEmpty()) {
             int size = percentList.size();
             List<Integer> leftList = new ArrayList<>();
@@ -429,6 +447,7 @@ public class LineView extends View {
                             backgroundGridWidth * i + rightList.get(j),
                             bottomLineY);
                     bars.add(rect);
+                    Log.e("xxxxxxx", "drawRect   :    i = " + i + "    left   :  " + rect.left);
                     canvas.drawRect(rect, fgPaint);
                 }
             }
@@ -436,6 +455,9 @@ public class LineView extends View {
         }
     }
 
+    public void setUnit(String unit){
+        mUnit = unit;
+    }
 
     public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList) {
         if (list == null || list.size() == 0) {
@@ -445,9 +467,9 @@ public class LineView extends View {
         this.dataOfAGirdLeft = dataOfAGirdLeft;
         barList = list;
         barColorList = colorList;
-        if (verticalGridNum == -1) {
+//        if (verticalGridNum == -1) {
             refreshAfterDataChanged();
-        }
+//        }
         percentList = new ArrayList<>();
         targetPercentList = new ArrayList<>();
         int max;
@@ -466,7 +488,9 @@ public class LineView extends View {
             percentList.add(aPercentList);
             targetPercentList.add(targetList);
         }
+        Log.e("xxxxxxxx", "removeCallbacks   !!");
         removeCallbacks(barAnimator);
+        Log.e("xxxxxxxx", "post   !!");
         post(barAnimator);
     }
 
@@ -506,8 +530,8 @@ public class LineView extends View {
         int x = (bars.get(barIndex).right + bars.get(barIndex).left) / 2;
         int y = bars.get(barIndex).top;
         Rect popupTextRect = new Rect();
-        String text = "2016-09-02";
-        String text2 = num + "万元";
+        String text = ConvertUtil.dateToYYYY_MM_DD(mDates.get(barIndex));
+        String text2 = num + mUnit;
         int length = text.length();
         if (text2.length() > length) {
             length = text2.length();
@@ -582,7 +606,6 @@ public class LineView extends View {
                 canvas.drawText(bottomTextList.get(i), sideLineLength + backgroundGridWidth * i, mViewHeight - bottomTextDescent, bottomTextPaint);
             }
         }
-
         if (!drawDotLine) {
             //draw solid lines
             List<Integer> list = new ArrayList<>();
@@ -601,6 +624,7 @@ public class LineView extends View {
             }
             if (list.size() > 0) {
                 int j = 0;
+                rightScaleMap.clear();
                 for (int i = list.size() - 1; i >= 0; i--) {
                     rightScaleMap.put(list.get(i), j++ * dataOfAGridRight + "");
                 }
@@ -614,6 +638,7 @@ public class LineView extends View {
         int mViewWidth = measureWidth(widthMeasureSpec);
         mViewHeight = measureHeight(heightMeasureSpec);
         refreshAfterDataChanged();
+        Log.e("xxxxxxx", "width   :   " + mViewWidth);
         setMeasuredDimension(mViewWidth, mViewHeight);
     }
 

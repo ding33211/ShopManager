@@ -9,6 +9,13 @@ import java.util.List;
  * Created by dingsigang on 16-10-20.
  */
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
+    public static final int TYPE_TOP = 0x00;
+    public static final int TYPE_MID = 0x01;
+    public static final int TYPE_BOT = 0x02;
+    public static final int TYPE_ONLY = 0x03;
+
+
+
     OnRvItemClickListener mListener;
 
     List<T> mList;

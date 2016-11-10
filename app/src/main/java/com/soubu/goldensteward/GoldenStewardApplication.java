@@ -14,6 +14,7 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.bugtags.library.Bugtags;
 import com.soubu.goldensteward.base.greendao.DBHelper;
 import com.soubu.goldensteward.base.greendao.User;
 import com.soubu.goldensteward.base.greendao.UserDao;
@@ -59,6 +60,8 @@ public class GoldenStewardApplication extends Application implements Application
         ShowWidgetUtil.register(this);
         AppConfig.init(sInstance);
         initOSSConfig();
+        Bugtags.start("341caa3e04f777e96c831323ebe82e8a", this, Bugtags.BTGInvocationEventBubble);
+
     }
 
     // 获取ApplicationContext

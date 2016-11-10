@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
+import com.bugtags.library.Bugtags;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.server.ServerErrorUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
@@ -28,12 +30,16 @@ public class BaseActivity extends AppCompatActivity {
         super.onResume();
         //友盟埋点初始化
 //        MobclickAgent.onResume(this);
+        Bugtags.onResume(this);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         ShowWidgetUtil.dismissProgressDialog();
+        Bugtags.onPause(this);
+
 //        MobclickAgent.onPause(this);
     }
 
@@ -87,5 +93,12 @@ public class BaseActivity extends AppCompatActivity {
     public void onClickCustomerServicePhone(View view){
         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + getString(R.string.customer_service_phone_number)));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 }

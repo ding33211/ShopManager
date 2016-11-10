@@ -1,6 +1,8 @@
 package com.soubu.goldensteward.delegate;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     List<String> mPhones;
     EditText etChildPhone;
     View vBottomLine;
+    EditText etMainPhone;
 
 
     @Override
@@ -48,6 +51,27 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
         mController = new FlowLayoutController(mFlPhones);
         mController.setOnEventCallBack(this);
         mPhones = new ArrayList<>();
+        etMainPhone = get(R.id.et_main_phone);
+        etMainPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(s)){
+                    get(R.id.iv_clear).setVisibility(View.INVISIBLE);
+                } else {
+                    get(R.id.iv_clear).setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     public void addPhoneItem(String phone) {
@@ -94,7 +118,7 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     }
 
     public boolean checkComplete(MergeServerParams params) {
-        String mainPhone = ((EditText) get(R.id.et_main_phone)).getText().toString();
+        String mainPhone = etMainPhone.getText().toString();
         if (TextUtils.isEmpty(mainPhone)) {
             ShowWidgetUtil.showShort(R.string.please_input_phone_for_main_account);
             return false;
