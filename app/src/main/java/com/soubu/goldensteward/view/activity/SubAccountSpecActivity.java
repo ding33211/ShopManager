@@ -1,6 +1,9 @@
 package com.soubu.goldensteward.view.activity;
 
 import android.content.res.Resources;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
@@ -24,6 +27,12 @@ public class SubAccountSpecActivity extends ActivityPresenter<SubAccountActivity
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.spec_info);
+        viewDelegate.setSettingMenuListener(R.menu.sub_account_spec, new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
     }
 
     @Override

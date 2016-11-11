@@ -279,6 +279,9 @@
     <string name="today_offer_num">今日报价数</string>
     <string name="loading">正在加载...</string>
     <string name="something_can_not_empty">%s不能为空</string>
+    <string name="edit_account_name">修改名称</string>
+    <string name="reset_account_pwd">重置密码</string>
+    <string name="delete_account">删除账号</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

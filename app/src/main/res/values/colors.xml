@@ -7,6 +7,7 @@
     <color name="search_text_color">#666666</color>
     <color name="three_translucent_white">#4dffffff</color>
     <color name="two_translucent_black">#33000000</color>
+    <color name="eight_translucent_black">#aa000000</color>
     <color name="title_black">#333333</color>
     <!-- 首页底部bar背景色-->
     <color name="bottom_bar_normal_bg">#fcfcfc</color>

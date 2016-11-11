@@ -41,13 +41,14 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
         viewDelegate.setRvItemOnClickListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
             @Override
             public void onClick(final int position) {
-                ShowWidgetUtil.showCustomInputDialog(getActivity(), mList.get(position).getTitleRes(), mList.get(position).getContent(), new ShowWidgetUtil.OnClickCustomInputConfirm() {
-                    @Override
-                    public void onConfirm(String content) {
-                        saveInfo(content, position);
-
-                    }
-                });
+                if (mList.get(position).getItemType() == InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE) {
+                    ShowWidgetUtil.showCustomInputDialog(getActivity(), mList.get(position).getTitleRes(), mList.get(position).getContent(), new ShowWidgetUtil.OnClickCustomInputConfirm() {
+                        @Override
+                        public void onConfirm(String content) {
+                            saveInfo(content, position);
+                        }
+                    });
+                }
             }
         });
     }
@@ -66,7 +67,7 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
 
 
     private void saveInfo(String content, int position) {
-        if(!mHaveChanged){
+        if (!mHaveChanged) {
             mHaveChanged = true;
         }
         switch (position) {
@@ -130,15 +131,15 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
         viewDelegate.setData(mList);
     }
 
-    public UserServerParams getParams(){
+    public UserServerParams getParams() {
         return mParams;
     }
 
-    public boolean isChanged(){
+    public boolean isChanged() {
         return mHaveChanged;
     }
 
-    public void updateToDb(){
+    public void updateToDb() {
         mUserDao.update(mUser);
     }
 }

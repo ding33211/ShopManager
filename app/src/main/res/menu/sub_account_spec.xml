@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/edit_account"
+        android:title="@string/edit_account_name"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_reset"
+        android:icon="@drawable/reset_account_pwd"
+        android:title="@string/reset_account_pwd"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/delete_account"
+        android:title="@string/delete_account"
+        app:showAsAction="always" />
+</menu>

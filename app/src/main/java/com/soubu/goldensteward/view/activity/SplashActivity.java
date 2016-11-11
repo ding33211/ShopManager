@@ -135,9 +135,9 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     private JSONObject initJsonData() {
         try {
             StringBuffer sb = new StringBuffer();
-            InputStream is = getAssets().open("city.json");
+            InputStream is = getAssets().open("areas.json");
             int len = -1;
-            byte[] buf = new byte[1024];
+            byte[] buf = new byte[is.available()];
             while ((len = is.read(buf)) != -1) {
                 sb.append(new String(buf, 0, len, "UTF-8"));
             }

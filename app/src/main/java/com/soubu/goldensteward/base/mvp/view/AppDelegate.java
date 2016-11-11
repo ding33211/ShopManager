@@ -17,6 +17,7 @@ package com.soubu.goldensteward.base.mvp.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -29,6 +30,8 @@ import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
+
+import java.lang.reflect.Field;
 
 
 /**
@@ -233,6 +236,14 @@ public abstract class AppDelegate implements IDelegate {
                 PopupMenu popupMenu = new PopupMenu(imageView.getContext(), v);
                 popupMenu.getMenuInflater().inflate(menuRes, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(listener);
+                try {
+                    Field mPopup = popupMenu.getClass().getDeclaredField("mPopup");
+                    mPopup.setAccessible(true);
+                    MenuPopupHelper mHelper = (MenuPopupHelper) mPopup.get(popupMenu);
+                    mHelper.setForceShowIcon(true);
+                } catch (Exception e) {
+
+                }
                 popupMenu.show();
             }
         });

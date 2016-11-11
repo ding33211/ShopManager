@@ -223,7 +223,7 @@ public class BitmapUtils {
             if (isNeedScale) {
                 String time = String.valueOf(System.currentTimeMillis());
                 //srcPath = AppConfig.CACHE_DIR + File.separator + "sobu_cache_img_" + time + ".jpg";
-                srcPath = Environment.getExternalStorageDirectory() + "/DCIM/Sobu/" + time + ".jpg";
+                srcPath = Environment.getExternalStorageDirectory() + "/DCIM/SoubuShopManager/Compress/" + time + ".jpg";
                 bitmap = scaleBitmap(bitmap, w, h);
                 Log.e("ffdd", bitmap == null ? "bitmap null" : "bitmap not null ");
             }

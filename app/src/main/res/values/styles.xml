@@ -10,20 +10,33 @@
         <item name="windowNoTitle">true</item>
         <item name="toolbarStyle">@style/ClubToolbar</item>
         <item name="actionBarSize">48dip</item>
-        <!--<item name="android:popupMenuStyle">@style/myPopupMenuStyle</item>-->
-        <!--<item name="popupMenuStyle">@style/myPopupMenuStyle</item>-->
+        <item name="android:popupMenuStyle">@style/myPopupMenuStyle</item>
+        <item name="popupMenuStyle">@style/myPopupMenuStyle</item>
+        <!--<item name="android:popupBackground">@color/two_translucent_black</item>-->
         <item name="textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
-        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
-
+        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:dropDownListViewStyle">@style/MyListViewStyle</item>
         <item name="textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
-        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall
+        </item>
+    </style>
+
+    <style name="myPopupMenuStyle" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/eight_translucent_black</item>
+    </style>
+
+    <style name="MyListViewStyle">
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:divider">@android:color/white</item>
     </style>
 
     <style name="myPopupMenuTextAppearanceSmall" parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small">
-        <item name="android:textColor">@color/title_black</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="myPopupMenuTextAppearanceLarge" parent="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
-        <item name="android:textColor">@color/title_black</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
@@ -66,30 +79,30 @@
     </style>
     <!--<style name="ProgressDialogTheme" parent="android:style/Theme.Dialog">-->
 
-        <!--&lt;!&ndash; 有无边框 &ndash;&gt;-->
-        <!--<item name="android:windowFrame">@android:color/transparent</item>-->
-        <!--&lt;!&ndash; 是否悬浮在activity上 &ndash;&gt;-->
-        <!--<item name="android:windowIsFloating">false</item>-->
-        <!--&lt;!&ndash; 是否半透明 &ndash;&gt;-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--&lt;!&ndash; 设置有无标题 &ndash;&gt;-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--&lt;!&ndash; 设置背景透明 &ndash;&gt;-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-        <!--&lt;!&ndash; 设置背景是否模糊显示 &ndash;&gt;-->
-        <!--<item name="android:backgroundDimEnabled">false</item>-->
+    <!--&lt;!&ndash; 有无边框 &ndash;&gt;-->
+    <!--<item name="android:windowFrame">@android:color/transparent</item>-->
+    <!--&lt;!&ndash; 是否悬浮在activity上 &ndash;&gt;-->
+    <!--<item name="android:windowIsFloating">false</item>-->
+    <!--&lt;!&ndash; 是否半透明 &ndash;&gt;-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--&lt;!&ndash; 设置有无标题 &ndash;&gt;-->
+    <!--<item name="android:windowNoTitle">true</item>-->
+    <!--&lt;!&ndash; 设置背景透明 &ndash;&gt;-->
+    <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--&lt;!&ndash; 设置背景是否模糊显示 &ndash;&gt;-->
+    <!--<item name="android:backgroundDimEnabled">false</item>-->
     <!--</style>-->
     <!--<style name="CustomAlertDialogStyle">-->
-        <!--<item name="android:bottomBright">@android:color/transparent</item>-->
-        <!--<item name="android:bottomDark">@android:color/transparent</item>-->
-        <!--<item name="android:bottomMedium">@android:color/transparent</item>-->
-        <!--<item name="android:centerBright">@android:color/transparent</item>-->
-        <!--<item name="android:centerDark">@android:color/transparent</item>-->
-        <!--<item name="android:centerMedium">@android:color/transparent</item>-->
-        <!--<item name="android:fullBright">@android:color/transparent</item>-->
-        <!--<item name="android:fullDark">@android:color/transparent</item>-->
-        <!--<item name="android:topBright">@android:color/transparent</item>-->
-        <!--<item name="android:topDark">@android:color/transparent</item>-->
+    <!--<item name="android:bottomBright">@android:color/transparent</item>-->
+    <!--<item name="android:bottomDark">@android:color/transparent</item>-->
+    <!--<item name="android:bottomMedium">@android:color/transparent</item>-->
+    <!--<item name="android:centerBright">@android:color/transparent</item>-->
+    <!--<item name="android:centerDark">@android:color/transparent</item>-->
+    <!--<item name="android:centerMedium">@android:color/transparent</item>-->
+    <!--<item name="android:fullBright">@android:color/transparent</item>-->
+    <!--<item name="android:fullDark">@android:color/transparent</item>-->
+    <!--<item name="android:topBright">@android:color/transparent</item>-->
+    <!--<item name="android:topDark">@android:color/transparent</item>-->
     <!--</style>-->
 
 </resources>
