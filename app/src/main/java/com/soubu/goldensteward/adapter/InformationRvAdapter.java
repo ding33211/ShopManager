@@ -37,7 +37,6 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
         View vChoose = v.findViewById(R.id.iv_choose);
         View vAvatar = v.findViewById(R.id.iv_avatar);
         View vContent = v.findViewById(R.id.tv_content);
-        View vMarginTop = v.findViewById(R.id.v_margin_top);
         View vMultiLineContent = v.findViewById(R.id.tv_multiline_content);
         switch (viewType) {
             case TYPE_ITEM_CAN_NOT_CHOOSE:
@@ -47,10 +46,8 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
                 break;
             case TYPE_ITEM_AVATAR:
                 vContent.setVisibility(View.GONE);
-                vMarginTop.setVisibility(View.VISIBLE);
                 break;
             case TYPE_ITEM_COMPANY_PROFILE:
-                vMarginTop.setVisibility(View.VISIBLE);
             case TYPE_ITEM_CONTENT_MULTILINE:
                 vMultiLineContent.setVisibility(View.VISIBLE);
                 vChoose.setVisibility(View.GONE);
@@ -70,16 +67,29 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
                 || getItemViewType(holder.getLayoutPosition() + 1) == TYPE_ITEM_COMPANY_PROFILE) {
             holder1.vItemBottomLine.setVisibility(View.INVISIBLE);
         }
-        holder1.tvTitle.setText(mList.get(position).getTitleRes());
+        InformationRvItem item = mList.get(position);
+        //顶部空白需要不同的情况做不同适配
+        switch (item.getTitleRes()) {
+            case R.string.store_name:
+            case R.string.company_logo:
+            case R.string.company_profile:
+                holder1.vMarginTop.setVisibility(View.VISIBLE);
+                break;
+            default:
+                holder1.vMarginTop.setVisibility(View.GONE);
+                break;
+        }
+
+        holder1.tvTitle.setText(item.getTitleRes());
         String content = mList.get(position).getContent();
-        if(mList.get(position).getArrayRes() != 0){
+        if (mList.get(position).getArrayRes() != 0) {
             holder1.tvContent.setText(GoldenStewardApplication.getContext().getResources().getTextArray(mList.get(position).getArrayRes())[Integer.valueOf(content) - 1]);
         } else {
             holder1.tvContent.setText(content);
         }
-        holder1.tvMultiLineContent.setText(mList.get(position).getContent());
-        if(getItemViewType(position) == TYPE_ITEM_AVATAR){
-            if(!TextUtils.isEmpty(content)){
+        holder1.tvMultiLineContent.setText(item.getContent());
+        if (getItemViewType(position) == TYPE_ITEM_AVATAR) {
+            if (!TextUtils.isEmpty(content)) {
                 GlideUtils.loadRoundedImage(GoldenStewardApplication.getContext(), holder1.ivAvatar, content, R.drawable.common_header, R.drawable.common_header);
             }
         }
@@ -92,6 +102,7 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
         public TextView tvMultiLineContent;
         public ImageView ivAvatar;
         public View vItemBottomLine;
+        public View vMarginTop;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -100,12 +111,13 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
             tvMultiLineContent = (TextView) itemView.findViewById(R.id.tv_multiline_content);
             vItemBottomLine = itemView.findViewById(R.id.v_bottom_line);
             ivAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
+            vMarginTop = itemView.findViewById(R.id.v_margin_top);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if(mListener != null){
+            if (mListener != null) {
                 mListener.onClick(getLayoutPosition());
             }
         }

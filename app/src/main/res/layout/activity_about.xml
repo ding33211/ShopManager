@@ -70,27 +70,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_grey_stroke_corners"
+        android:background="@drawable/bg_grey_stroke_white_solid_corners"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_above="@+id/tv_service_protocol"
         android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/tv_score_for_me"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/score_for_me" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_score_for_me"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/score_for_me" />-->
 
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/subtitle_grey" />
+        <!--<View-->
+            <!--android:layout_width="0.5dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/subtitle_grey" />-->
 
         <TextView
             android:id="@+id/tv_contact_customer_service"

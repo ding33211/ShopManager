@@ -68,6 +68,20 @@
                 android:maxLength="6"
                 android:textColorHint="@color/subtitle_grey"
                 android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/iv_clear_new_pwd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:src="@drawable/clear"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_transfer_new_pwd"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:src="@drawable/password_hide" />
         </LinearLayout>
 
         <View
@@ -76,6 +90,7 @@
             android:background="@color/item_line_grey" />
 
         <LinearLayout
+            android:id="@+id/ll_pwd_again"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical">

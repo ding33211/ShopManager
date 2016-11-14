@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:id="@+id/tv_must"
@@ -33,17 +33,18 @@
             <EditText
                 android:id="@+id/et_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@null"
-                android:hint="@string/store_name"
                 android:clickable="false"
+                android:hint="@string/store_name"
                 android:textColorHint="@color/line_color"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
                 android:text="@string/company_logo"
                 android:textColor="@color/title_black"
                 android:textSize="16sp"
@@ -53,7 +54,6 @@
                 android:id="@+id/ll_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical">
@@ -74,11 +74,19 @@
                     android:id="@+id/iv_choose"
                     android:layout_width="40dp"
                     android:layout_height="24dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:src="@drawable/arrow_choose" />
+
+                <ImageView
+                    android:id="@+id/iv_clear"
+                    android:layout_width="48dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/clear"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -87,11 +95,11 @@
             android:id="@+id/et_multiline_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:background="@null"
             android:clickable="false"
             android:gravity="top"
             android:textColorHint="@color/line_color"
-            android:layout_marginBottom="12dp"
             android:visibility="gone" />
     </LinearLayout>
 

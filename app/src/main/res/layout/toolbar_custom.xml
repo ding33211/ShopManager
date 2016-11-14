@@ -86,7 +86,7 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/v_decoration"
             android:text="title"
-            android:textColor="@android:color/white"
+            android:textColor="@color/filter_selected_color"
             android:textSize="20sp" />
 
         <LinearLayout

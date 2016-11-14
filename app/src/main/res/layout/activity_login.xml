@@ -52,7 +52,6 @@
                     android:id="@+id/iv_clear"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginRight="20dp"
                     android:src="@drawable/clear"
                     android:visibility="invisible" />
             </LinearLayout>

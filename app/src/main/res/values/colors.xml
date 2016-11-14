@@ -13,7 +13,7 @@
     <color name="bottom_bar_normal_bg">#fcfcfc</color>
     <color name="subtitle_grey">#999999</color>
     <color name="filter_selected_color">#f5f5f5</color>
-    <color name="line_color">#cccccc</color>
+    <color name="line_color">#e3e3e3</color>
     <color name="item_line_grey">#e5e5e5</color>
     <color name="orange_1">#fe8a36</color>
     <color name="bank_account_blue">#6a7ca0</color>

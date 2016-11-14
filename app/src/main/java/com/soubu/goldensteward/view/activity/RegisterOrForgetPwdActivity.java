@@ -2,9 +2,12 @@ package com.soubu.goldensteward.view.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
@@ -31,6 +34,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     private int mType;
     private UserServerParams mParams;
     private View mVSendCode;
+    private boolean mDisplayPwd;
 
 
     @Override
@@ -41,7 +45,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_next_step);
+        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_next_step, R.id.iv_clear, R.id.iv_clear_pwd, R.id.iv_transfer_pwd);
     }
 
     @Override
@@ -49,7 +53,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
         super.initToolbar();
         mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, 0);
         if (mType == TYPE_REGISTER) {
-            viewDelegate.setTitle(R.string.supplier_register);
+            viewDelegate.setTitle(R.string.register);
         } else {
             viewDelegate.setTitle(R.string.forget_password);
             ((Button) viewDelegate.get(R.id.btn_next_step)).setText(R.string.find_pwd);
@@ -65,6 +69,23 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_clear:
+                ((EditText) viewDelegate.get(R.id.et_phone)).setText("");
+                break;
+            case R.id.iv_clear_pwd:
+                ((EditText) viewDelegate.get(R.id.et_pwd)).setText("");
+                break;
+            case R.id.iv_transfer_pwd:
+                if (!mDisplayPwd) {
+                    ((EditText) viewDelegate.get(R.id.et_pwd)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_show);
+                    mDisplayPwd = true;
+                } else {
+                    ((EditText) viewDelegate.get(R.id.et_pwd)).setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_hide);
+                    mDisplayPwd = false;
+                }
+                break;
             case R.id.tv_send_verify_code:
                 String phone = ((EditText) viewDelegate.get(R.id.et_phone)).getText().toString();
                 if (RegularUtil.isMobile(phone)) {

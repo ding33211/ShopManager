@@ -3,8 +3,10 @@ package com.soubu.goldensteward.adapter;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,12 +55,13 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_register_supplier_recyclerview, parent, false);
         View tvTitle = v.findViewById(R.id.tv_title);
-        View etTitle = v.findViewById(R.id.et_title);
+        final EditText etTitle = (EditText) v.findViewById(R.id.et_title);
         View vRight = v.findViewById(R.id.ll_right);
         View vMust = v.findViewById(R.id.tv_must);
         View etMultiLine = v.findViewById(R.id.et_multiline_content);
-        ImageView ivChoose = (ImageView) v.findViewById(R.id.iv_choose);
+        final ImageView ivChoose = (ImageView) v.findViewById(R.id.iv_choose);
         View vChoose = v.findViewById(R.id.tv_content);
+        final View vClear = v.findViewById(R.id.iv_clear);
         if (viewType > 0x10) {
             vMust.setVisibility(View.VISIBLE);
         } else {
@@ -69,14 +72,43 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
             case TYPE_ITEM_MUST_FILL:
                 tvTitle.setVisibility(View.GONE);
                 etTitle.setVisibility(View.VISIBLE);
-                vRight.setVisibility(View.GONE);
+                vRight.setVisibility(View.VISIBLE);
+                vChoose.setVisibility(View.GONE);
+                etTitle.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (TextUtils.isEmpty(s)) {
+                            vClear.setVisibility(View.INVISIBLE);
+                        } else {
+                            vClear.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                vClear.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        etTitle.setText("");
+                    }
+                });
+                ivChoose.setVisibility(View.GONE);
+                vClear.setVisibility(View.INVISIBLE);
                 break;
             case TYPE_ITEM_LOCATE:
                 ivChoose.setImageResource(R.drawable.login_location);
                 ivChoose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(mClickLocationViewListener != null){
+                        if (mClickLocationViewListener != null) {
                             mClickLocationViewListener.onClickLocationView();
                         }
                     }
@@ -305,11 +337,11 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
 
     OnClickLocationViewListener mClickLocationViewListener;
 
-    public interface OnClickLocationViewListener{
+    public interface OnClickLocationViewListener {
         void onClickLocationView();
     }
 
-    public void setOnClickLocationViewListener(OnClickLocationViewListener listener){
+    public void setOnClickLocationViewListener(OnClickLocationViewListener listener) {
         mClickLocationViewListener = listener;
     }
 

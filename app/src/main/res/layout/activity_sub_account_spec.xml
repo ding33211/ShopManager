@@ -5,50 +5,72 @@
     android:background="@color/filter_selected_color"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/sub_header_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="客服名称"
-            android:textColor="@color/title_black"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:background="@android:color/transparent">
 
-    <GridView
-        android:id="@+id/gv_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/line_color"
-        android:horizontalSpacing="1dp"
-        android:numColumns="2"
-        android:verticalSpacing="1dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_time_last_week" />
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/sub_header_icon" />
 
-    <ListView
-        android:id="@+id/lv_content"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="客服名称"
+                        android:textColor="@color/title_black"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <com.soubu.goldensteward.widget.GridViewInScrollView
+                    android:id="@+id/gv_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/line_color"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="2"
+                    android:verticalSpacing="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/filter_selected_color"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_time_last_week" />
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
+
 </LinearLayout>

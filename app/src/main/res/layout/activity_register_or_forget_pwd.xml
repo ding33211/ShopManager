@@ -41,6 +41,13 @@
                         android:inputType="phone"
                         android:textColorHint="@color/line_color" />
 
+                    <ImageView
+                        android:id="@+id/iv_clear"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/clear"
+                        android:visibility="invisible" />
+
                 </LinearLayout>
 
                 <View
@@ -100,6 +107,19 @@
                     android:inputType="textPassword"
                     android:maxLength="20"
                     android:textColorHint="@color/line_color" />
+
+                <ImageView
+                    android:id="@+id/iv_clear_pwd"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/clear"
+                    android:visibility="invisible" />
+                <ImageView
+                    android:id="@+id/iv_transfer_pwd"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/password_hide" />
 
             </LinearLayout>
 

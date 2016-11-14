@@ -39,8 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="daafafajfioajlnaiojpvmalnvpiajfipjapsjfascpiojadadadadadadadadaddadaddadpo"
                 android:textColor="@color/subtitle_grey"
+                android:textSize="16sp"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -68,18 +68,18 @@
                 android:id="@+id/iv_avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/common_header"/>
+                android:src="@drawable/common_header" />
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:singleLine="true"
-                android:gravity="right"
                 android:layout_weight="1"
+                android:gravity="right"
+                android:singleLine="true"
                 android:text="123ddad"
-                android:textColor="@color/line_color"
+                android:textColor="@color/subtitle_grey"
                 android:textSize="16sp" />
 
             <ImageView

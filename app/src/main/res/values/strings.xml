@@ -180,6 +180,7 @@
     <string name="register_pre_protocol">我已阅读并接受</string>
     <string name="register_protocol"><u>搜布用户协议</u></string>
     <string name="supplier_register">供应商注册</string>
+    <string name="register">注册</string>
     <string name="refer_store">关联店铺</string>
     <string name="find_pwd">找回密码</string>
     <string name="alert">提示</string>

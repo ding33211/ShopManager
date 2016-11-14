@@ -42,8 +42,8 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initData() {
+        super.initData();
         String phone = GoldenStewardApplication.getContext().getPhone();
         mParams.setPhone(phone);
         viewDelegate.initPhone(phone.substring(0, 3) + "****" + phone.substring(7));

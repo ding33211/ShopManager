@@ -88,6 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:text="136******2214" />
 
                 <TextView
@@ -191,10 +192,10 @@
     </LinearLayout>
 
     <Button
-        style="@style/OrangeButton"
         android:id="@+id/btn_confirm"
+        style="@style/OrangeButton"
         android:layout_below="@+id/ll_top"
-        android:text="@string/verify"/>
+        android:text="@string/verify" />
 
     <include
         android:id="@+id/include"

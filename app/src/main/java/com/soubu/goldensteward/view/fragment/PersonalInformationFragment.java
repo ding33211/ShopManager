@@ -111,6 +111,7 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
         item = new InformationRvItem();
         item.setTitleRes(R.string.position);
         item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setArrayRes(R.array.job);
         item.setContent(user.getJob());
         mList.add(item);
         item = new InformationRvItem();

@@ -1,6 +1,8 @@
 package com.soubu.goldensteward.delegate;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,6 +17,8 @@ import com.soubu.goldensteward.utils.ShowWidgetUtil;
  */
 
 public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
+    EditText mEtPhone;
+    EditText mEtPwd;
     View mCheck;
 
     @Override
@@ -39,6 +43,48 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
                 }
             }
         });
+        mEtPhone = get(R.id.et_phone);
+        mEtPwd = get(R.id.et_pwd);
+        mEtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextUtils.isEmpty(s)){
+                    get(R.id.iv_clear).setVisibility(View.INVISIBLE);
+                } else {
+                    get(R.id.iv_clear).setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mEtPwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextUtils.isEmpty(s)){
+                    get(R.id.iv_clear_pwd).setVisibility(View.INVISIBLE);
+                } else {
+                    get(R.id.iv_clear_pwd).setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -55,7 +101,7 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
 
     public boolean checkComplete(UserServerParams params) {
 
-        String phone = ((EditText) get(R.id.et_phone)).getText().toString();
+        String phone = mEtPhone.getText().toString();
         if (!RegularUtil.isMobile(phone)) {
             ShowWidgetUtil.showShort(R.string.wrong_phone);
             return false;
@@ -65,7 +111,7 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showShort(R.string.wrong_empty_code);
             return false;
         }
-        String pwd = ((EditText) get(R.id.et_pwd)).getText().toString();
+        String pwd = mEtPwd.getText().toString();
         if(TextUtils.isEmpty(pwd)){
             ShowWidgetUtil.showShort(R.string.empty_pwd);
             return false;

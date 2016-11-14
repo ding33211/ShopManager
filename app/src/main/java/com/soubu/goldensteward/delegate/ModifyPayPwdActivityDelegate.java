@@ -21,6 +21,8 @@ public class ModifyPayPwdActivityDelegate extends AppDelegate {
     EditText mEtOldPwd;
     EditText mEtNewPwd;
     EditText mEtAgainNewPwd;
+    //是否是修改登录密码
+    boolean isModifyPwd = false;
 
     @Override
     public int getRootLayoutId() {
@@ -56,15 +58,17 @@ public class ModifyPayPwdActivityDelegate extends AppDelegate {
     }
 
     public void initPwdWidget() {
+        isModifyPwd = true;
         mEtOldPwd.setHint(R.string.please_input_original_pwd);
         mEtOldPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mEtOldPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         mEtNewPwd.setHint(R.string.please_input_new_pwd);
         mEtNewPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mEtNewPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
-        mEtAgainNewPwd.setHint(R.string.please_input_new_pwd_again);
-        mEtAgainNewPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mEtAgainNewPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+        get(R.id.ll_pwd_again).setVisibility(View.GONE);
+//        mEtAgainNewPwd.setHint(R.string.please_input_new_pwd_again);
+//        mEtAgainNewPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//        mEtAgainNewPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
     }
 
 
@@ -79,14 +83,16 @@ public class ModifyPayPwdActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showShort(R.string.please_input_new_pwd);
             return false;
         }
-        String againNewPwd = mEtAgainNewPwd.getText().toString();
-        if(TextUtils.isEmpty(againNewPwd)){
-            ShowWidgetUtil.showShort(R.string.please_input_new_pwd_again);
-            return false;
-        }
-        if(!TextUtils.equals(newPwd, againNewPwd)){
-            ShowWidgetUtil.showShort(R.string.pwd_not_equal);
-            return false;
+        if(!isModifyPwd){
+            String againNewPwd = mEtAgainNewPwd.getText().toString();
+            if(TextUtils.isEmpty(againNewPwd)){
+                ShowWidgetUtil.showShort(R.string.please_input_new_pwd_again);
+                return false;
+            }
+            if(!TextUtils.equals(newPwd, againNewPwd)){
+                ShowWidgetUtil.showShort(R.string.pwd_not_equal);
+                return false;
+            }
         }
         if(!RegularUtil.isPassword(newPwd)){
             ShowWidgetUtil.showShort(R.string.wrong_pwd);

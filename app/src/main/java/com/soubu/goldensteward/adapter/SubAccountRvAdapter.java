@@ -252,7 +252,7 @@ public class SubAccountRvAdapter extends BaseRecyclerViewAdapter<SubAccountModul
 
         @Override
         public void onClick(View v) {
-            if(mListener != null){
+            if(mListener != null && mList.get(getLayoutPosition()).getType() != SubAccountModule.TYPE_REVIEW){
                 mListener.onClick(getLayoutPosition());
             }
         }

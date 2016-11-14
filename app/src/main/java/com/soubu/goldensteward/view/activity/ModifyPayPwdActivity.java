@@ -25,7 +25,8 @@ import static android.icu.text.UnicodeSet.CASE;
  * Created by dingsigang on 16-10-20.
  */
 public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivityDelegate> implements View.OnClickListener {
-    private boolean mDisplayPwd;
+    private boolean mDisplayOldPwd;
+    private boolean mDisplayNewPwd;
 
     public static final int TYPE_PWD = 0x00;
     public static final int TYPE_PAY_PWD = 0x01;
@@ -56,10 +57,11 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
         }
     }
 
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_confirm);
+        viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_confirm, R.id.iv_clear_new_pwd, R.id.iv_transfer_new_pwd);
     }
 
     @Override
@@ -68,15 +70,29 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
             case R.id.iv_clear:
                 ((EditText) viewDelegate.get(R.id.et_original_pwd)).setText("");
                 break;
+            case R.id.iv_clear_new_pwd:
+                ((EditText) viewDelegate.get(R.id.et_new_pwd)).setText("");
+                break;
             case R.id.iv_transfer_pwd:
-                if (!mDisplayPwd) {
+                if (!mDisplayOldPwd) {
                     ((EditText) viewDelegate.get(R.id.et_original_pwd)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_show);
-                    mDisplayPwd = true;
+                    mDisplayOldPwd = true;
                 } else {
                     ((EditText) viewDelegate.get(R.id.et_original_pwd)).setTransformationMethod(PasswordTransformationMethod.getInstance());
                     ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_hide);
-                    mDisplayPwd = false;
+                    mDisplayOldPwd = false;
+                }
+                break;
+            case R.id.iv_transfer_new_pwd:
+                if (!mDisplayNewPwd) {
+                    ((EditText) viewDelegate.get(R.id.et_new_pwd)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_new_pwd)).setImageResource(R.drawable.password_show);
+                    mDisplayNewPwd = true;
+                } else {
+                    ((EditText) viewDelegate.get(R.id.et_new_pwd)).setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_new_pwd)).setImageResource(R.drawable.password_hide);
+                    mDisplayNewPwd = false;
                 }
                 break;
             case R.id.btn_confirm:

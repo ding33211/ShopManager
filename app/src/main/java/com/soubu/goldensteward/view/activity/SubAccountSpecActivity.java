@@ -60,6 +60,10 @@ public class SubAccountSpecActivity extends ActivityPresenter<SubAccountActivity
         timeList.add("2016-09-03  17:54:20");
         timeList.add("2016-09-03  17:54:20");
         timeList.add("2016-09-03  17:54:20");
+        timeList.add("2016-09-03  17:54:20");
+        timeList.add("2016-09-03  17:54:20");
+        timeList.add("2016-09-03  17:54:20");
+        timeList.add("2016-09-03  17:54:20");
         viewDelegate.setLoginList(timeList);
     }
 }
