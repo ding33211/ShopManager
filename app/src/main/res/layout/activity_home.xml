@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.soubu.goldensteward.view.activity.HomeActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/main_bottom"
@@ -63,7 +61,7 @@
                 android:onClick="onTabClicked"
                 android:paddingTop="8dip"
                 android:scaleType="matrix"
-                android:text="@string/sub_account"
+                android:text="@string/refer_store"
                 android:textColor="@color/selector_home_bottom_text_color"
                 android:textSize="12sp" />
 

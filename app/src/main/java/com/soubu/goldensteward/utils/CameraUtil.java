@@ -27,13 +27,23 @@ public class CameraUtil {
     private static final File PHOTO_DIR = new File(Environment.getExternalStorageDirectory() + "/DCIM/SoubuShopManager/");
 
     /**
+     * 拍照的照片存储位置
+     */
+    private static final File PHOTO_COMPRESS = new File(Environment.getExternalStorageDirectory() + "/DCIM/SoubuShopManager/compress/");
+
+
+    /**
      * 拍照获取图片
      */
     public static void doTakePhoto(Activity context) {
 
         try {
-            if (!PHOTO_DIR.exists())
+            if (!PHOTO_DIR.exists()) {
                 PHOTO_DIR.mkdirs();// 创建照片的存储目录 BV
+            }
+            if (!PHOTO_COMPRESS.exists()) {
+                PHOTO_COMPRESS.mkdirs();
+            }
             mCurrentFile = new File(PHOTO_DIR, "ShopManager_" + System.currentTimeMillis() + ".jpg");// 给新照的照片文件命名
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCurrentFile));
@@ -48,6 +58,9 @@ public class CameraUtil {
         try {
             if (!PHOTO_DIR.exists())
                 PHOTO_DIR.mkdirs();// 创建照片的存储目录 BV
+            if (!PHOTO_COMPRESS.exists()) {
+                PHOTO_COMPRESS.mkdirs();
+            }
             mCurrentFile = new File(PHOTO_DIR, "ShopManager_" + System.currentTimeMillis() + ".jpg");// 给新照的照片文件命名
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCurrentFile));
@@ -57,7 +70,7 @@ public class CameraUtil {
         }
     }
 
-    public static File getTakePhoto(){
+    public static File getTakePhoto() {
         File file = mCurrentFile;
         mCurrentFile = null;
         return file;
@@ -70,6 +83,9 @@ public class CameraUtil {
     public static void doChoosePhoto(Activity context) {
 
         try {
+            if (!PHOTO_COMPRESS.exists()) {
+                PHOTO_COMPRESS.mkdirs();
+            }
             // 激活系统图库，选择一张图片
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
@@ -82,6 +98,9 @@ public class CameraUtil {
 
     public static void doChoosePhoto(Fragment context) {
         try {
+            if (!PHOTO_COMPRESS.exists()) {
+                PHOTO_COMPRESS.mkdirs();
+            }
             // 激活系统图库，选择一张图片
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
@@ -91,9 +110,6 @@ public class CameraUtil {
             Toast.makeText(context.getActivity(), "所选择的照片不存在", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
 
 }

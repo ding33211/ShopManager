@@ -209,7 +209,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
 
     @OnNeverAskAgain({Manifest.permission.CAMERA})
     void showGoToSettingDialog() {
-        PermissionUtil.showGoToSettingDialog(getActivity(), R.string.permission_explain_camera, true);
+        PermissionUtil.showGoToSettingDialog(getActivity(), R.string.permission_explain_camera, false);
     }
 
     @Override

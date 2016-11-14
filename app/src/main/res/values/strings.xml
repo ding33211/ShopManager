@@ -7,7 +7,6 @@
     <string name="button_deny">拒绝</string>
     <string name="button_ok">好的</string>
     <string name="home_page">首页</string>
-    <string name="sub_account">子账户</string>
     <string name="marketing">推广</string>
     <string name="click_again_to_quit">再按一次退出金管家</string>
     <string name="turnover_volume_today">今日成交额(元)</string>
@@ -147,7 +146,6 @@
     <string name="last_week_collect_num">近一周收藏数</string>
     <string name="last_week">近一周</string>
     <string name="last_month">近一月</string>
-    <string name="turnover_volume_wan_yuan">成交额(万元)</string>
     <string name="all">全部</string>
     <string name="pending_payment">待付款</string>
     <string name="pending_shipped">待发货</string>
@@ -174,6 +172,8 @@
     <string name="permission_explain_storage">我们需要读取您的存储文件来让您更好的使用我们的应用</string>
     <string name="permission_explain_camera">您只有打开了允许了相机权限才可以使用相机</string>
     <string name="please_input_phone_for_main_account">请输入主账户的手机号</string>
+    <string name="store_would_refer">将要关联的店铺(可添加多个)</string>
+    <string name="add">添加</string>
     <string name="please_input_verification_code">请输入验证码</string>
     <string name="register_pwd_desc">请设置6-20位密码</string>
     <string name="next_step">下一步</string>
@@ -215,7 +215,7 @@
     <string name="wrong_id">身份证号码格式不正确</string>
     <string name="make_sure_return_to_login">确定要返回到登录界面么</string>
     <string name="store_owner_verify_step1_desc">审核结果将通过短信发送至该手机</string>
-    <string name="store_owner_verify">店主认证</string>
+    <string name="store_owner_verify">店铺认证</string>
     <string name="upload_certificates">上传证件</string>
     <string name="please_choose_company_type">请选择单位类型</string>
     <string name="please_choose_certification_type">请选择证件类型</string>
@@ -225,12 +225,14 @@
     <string name="please_choose_id_front">请选择正面照</string>
     <string name="please_choose_id_back">请选择反面照</string>
 
-    <string name="merge_store">店铺合并</string>
+    <string name="merge_refer">店铺关联</string>
     <string name="business_license_and_organization_code_certificate">营业执照及组织机构代码证</string>
     <string name="many_license_in_one">多证合一照或个体工商户证件</string>
-    <string name="please_input_phone_for_merge">请输入被合并的手机号</string>
+    <string name="please_input_phone_for_refer">请输入将要关联的手机号</string>
     <string name="submit_application">提交申请</string>
-    <string name="store_merge_desc">1.请将您所有需要合并的子账户都添加完整 \n2.审核结果将通过短信发送至该手机，通过后即可登录APP</string>
+
+    <string name="store_merge_desc">1.关联店铺申请将提交至官方审核，审核通过的店铺会<font fgcolor='#ff6500'>绑定至金管家</font>\n2.审核结果将通过短信发送至<font fgcolor='#ff6500'>金管家的注册手机</font></string>
+
     <string name="appeal_desc">您的信息正在审核，审核结果将以短信形式发送到金管家的注册手机</string>
     <string name="choose_main_products">选择主营产品</string>
     <string name="custom_product_name">自定义品名</string>
@@ -283,6 +285,7 @@
     <string name="edit_account_name">修改名称</string>
     <string name="reset_account_pwd">重置密码</string>
     <string name="delete_account">删除账号</string>
+    <string name="register_phone">注册手机号</string>
 
 
     <string name="error_400_message">客户端请求错误</string>
