@@ -21,6 +21,7 @@ import com.soubu.goldensteward.utils.WindowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by lakers on 16/10/27.
@@ -97,6 +98,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                 vClear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        etTitle.requestFocus();
                         etTitle.setText("");
                     }
                 });
@@ -116,7 +118,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                 vChoose.setVisibility(View.GONE);
                 tvTitle.setVisibility(View.GONE);
                 etTitle.setVisibility(View.VISIBLE);
-                ((EditText) etTitle).setCursorVisible(false);
+                etTitle.setCursorVisible(false);
                 vRight.setVisibility(View.VISIBLE);
                 break;
             case TYPE_ITEM_CAN_CHOOSE:
@@ -186,7 +188,6 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
                 }
                 holder1.etMultiLineContent.setHint(content);
             }
-
             holder1.etTitle.setInputType(mList.get(holder.getLayoutPosition()).getEditType() | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             holder1.etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -219,13 +220,13 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     private void onEditTextLostFocus(View editText, int pos) {
         if (editText != null && editText instanceof EditText) {
             String temp = ((EditText) editText).getText().toString();
-            if (!TextUtils.isEmpty(temp)) {
-                OnContentObserver listener = (OnContentObserver) editText.getTag();
-                if (listener != null) {
-                    listener.onContentChange(pos, temp);
-                }
-//                mList.get(pos).setContent(temp);
+//            if (!TextUtils.isEmpty(temp)) {
+            OnContentObserver listener = (OnContentObserver) editText.getTag();
+            if (listener != null) {
+                listener.onContentChange(pos, temp);
             }
+//                mList.get(pos).setContent(temp);
+//            }
             WindowUtil.hideSoftInput(mActivity);
         }
     }

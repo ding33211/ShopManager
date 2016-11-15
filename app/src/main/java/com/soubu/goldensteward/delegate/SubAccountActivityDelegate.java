@@ -11,6 +11,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
 import com.soubu.goldensteward.adapter.LoginTimeRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
+import com.soubu.goldensteward.widget.DividerItemDecoration;
 
 import java.util.List;
 
@@ -32,18 +33,20 @@ public class SubAccountActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         mAdapter = new CustomGridViewAdapter(this.getActivity());
-        ((GridView)get(R.id.gv_container)).setAdapter(mAdapter);
+        ((GridView) get(R.id.gv_container)).setAdapter(mAdapter);
         mRecyclerAdapter = new LoginTimeRvAdapter();
         RecyclerView rvContent = get(R.id.rv_content);
         rvContent.setAdapter(mRecyclerAdapter);
         rvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvContent.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 2));
+
     }
 
-    public void setTodayData(List<Integer> iconList, List<String> titleList, List<String> subTitleList){
+    public void setTodayData(List<Integer> iconList, List<String> titleList, List<String> subTitleList) {
         mAdapter.setData(iconList, titleList, subTitleList);
     }
 
-    public void setLoginList(List<String> list){
+    public void setLoginList(List<String> list) {
         mRecyclerAdapter.setData(list);
         mRecyclerAdapter.notifyDataSetChanged();
     }

@@ -42,7 +42,6 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
         mRvContent.setAdapter(mAdapter);
     }
 
-
     public void setStep1Data(List<RegisterRvItem> list) {
         mList1 = list;
         mAdapter.setData(list);

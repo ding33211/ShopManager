@@ -34,7 +34,6 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
     List<List<TagInFlowLayoutModule>> mTags = new ArrayList<>();
     MainProductParams[] mChooseParams;
     private Integer mCurrentPosition = 0;
-    private int mSelectedCount = 0;
     //存放选中的大类的index
     List<Integer> mSelectedBigTagList = new ArrayList<>();
 
@@ -136,11 +135,12 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
         }
         viewDelegate.setCategorySelected(mSelectedBigTagList);
         viewDelegate.setCategory(bigTags);
+        int count = mAddList.get(mCurrentPosition);
         if (mSelectedBigTagList.size() != 0) {
             viewDelegate.setSelectedPosition(mSelectedBigTagList.get(0));
-            viewDelegate.refreshTags(mTags.get(mSelectedBigTagList.get(0)));
+            viewDelegate.refreshTags(mTags.get(mSelectedBigTagList.get(0)), count != 3);
         } else {
-            viewDelegate.refreshTags(mTags.get(0));
+            viewDelegate.refreshTags(mTags.get(0), count != 3);
         }
 
     }
@@ -155,7 +155,8 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
                 viewDelegate.setCategorySelected(mSelectedBigTagList);
                 if (mSelectedBigTagList.size() < 2 || mSelectedBigTagList.contains(position)) {
                     mCurrentPosition = position;
-                    viewDelegate.refreshTags(mTags.get(position));
+                    int count = mAddList.get(mCurrentPosition);
+                    viewDelegate.refreshTags(mTags.get(position), count != 3);
                     return true;
                 } else {
                     ShowWidgetUtil.showShort(R.string.much_more_big_tag);
@@ -206,32 +207,30 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
 
             @Override
             public boolean onSelected(TagInFlowLayoutModule tag) {
-                //最多只能选择8个小标签
-                if (mSelectedCount == 8) {
+                //每个大类最多只能选择8个小标签
+                int count = mSelectedList.get(mCurrentPosition);
+                if (count == 8) {
                     ShowWidgetUtil.showShort(R.string.much_more_small_tag);
                     return false;
-                } else {
-                    mSelectedCount++;
-                    int count = mSelectedList.get(mCurrentPosition);
-                    if (count++ == 0) {
-                        if (!mSelectedBigTagList.contains(mCurrentPosition)) {
-                            mSelectedBigTagList.add(mCurrentPosition);
-                        }
-                    }
-                    mSelectedList.set(mCurrentPosition, count);
-                    return true;
                 }
+                if (count++ == 0) {
+                    if (!mSelectedBigTagList.contains(mCurrentPosition)) {
+                        mSelectedBigTagList.add(mCurrentPosition);
+                    }
+                }
+                mSelectedList.set(mCurrentPosition, count);
+                return true;
             }
 
             @Override
             public void onUnSelected(TagInFlowLayoutModule tag) {
-                mSelectedCount--;
                 int count = mSelectedList.get(mCurrentPosition);
                 if (--count == 0) {
                     if (mSelectedBigTagList.contains(mCurrentPosition)) {
                         mSelectedBigTagList.remove(mCurrentPosition);
                     }
                 }
+                mSelectedList.set(mCurrentPosition, count);
             }
         });
 

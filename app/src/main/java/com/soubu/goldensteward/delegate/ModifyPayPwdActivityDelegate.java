@@ -43,7 +43,7 @@ public class ModifyPayPwdActivityDelegate extends AppDelegate {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     get(R.id.iv_clear).setVisibility(View.INVISIBLE);
                 } else {
                     get(R.id.iv_clear).setVisibility(View.VISIBLE);
@@ -66,35 +66,36 @@ public class ModifyPayPwdActivityDelegate extends AppDelegate {
         mEtNewPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mEtNewPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         get(R.id.ll_pwd_again).setVisibility(View.GONE);
+        get(R.id.v_again_line).setVisibility(View.GONE);
 //        mEtAgainNewPwd.setHint(R.string.please_input_new_pwd_again);
 //        mEtAgainNewPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 //        mEtAgainNewPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
     }
 
 
-    public boolean checkComplete(ModifyPwdServerParams params){
+    public boolean checkComplete(ModifyPwdServerParams params) {
         String oldPwd = mEtOldPwd.getText().toString();
-        if(TextUtils.isEmpty(oldPwd)){
+        if (TextUtils.isEmpty(oldPwd)) {
             ShowWidgetUtil.showShort(R.string.please_input_original_pwd);
             return false;
         }
         String newPwd = mEtNewPwd.getText().toString();
-        if(TextUtils.isEmpty(newPwd)){
+        if (TextUtils.isEmpty(newPwd)) {
             ShowWidgetUtil.showShort(R.string.please_input_new_pwd);
             return false;
         }
-        if(!isModifyPwd){
+        if (!isModifyPwd) {
             String againNewPwd = mEtAgainNewPwd.getText().toString();
-            if(TextUtils.isEmpty(againNewPwd)){
+            if (TextUtils.isEmpty(againNewPwd)) {
                 ShowWidgetUtil.showShort(R.string.please_input_new_pwd_again);
                 return false;
             }
-            if(!TextUtils.equals(newPwd, againNewPwd)){
+            if (!TextUtils.equals(newPwd, againNewPwd)) {
                 ShowWidgetUtil.showShort(R.string.pwd_not_equal);
                 return false;
             }
         }
-        if(!RegularUtil.isPassword(newPwd)){
+        if (!RegularUtil.isPassword(newPwd)) {
             ShowWidgetUtil.showShort(R.string.wrong_pwd);
             return false;
         }

@@ -44,7 +44,7 @@
     <string name="wrong_phone">请输入正确的手机号</string>
     <string name="wrong_empty_code">验证码不能为空</string>
     <string name="empty_pwd">密码为空</string>
-    <string name="wrong_pwd">密码格式不正确</string>
+    <string name="wrong_pwd">请输入6-20位包含数字和字母的密码</string>
     <string name="wrong_email">邮箱格式不正确</string>
     <string name="much_more_big_tag">您最多只能选择两个大类</string>
     <string name="much_more_small_tag">您最多只能选择8个标签</string>

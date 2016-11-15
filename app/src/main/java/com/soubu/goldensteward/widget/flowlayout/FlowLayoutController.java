@@ -132,7 +132,7 @@ public class FlowLayoutController {
     }
 
 
-    public void addTags(List<TagInFlowLayoutModule> list) {
+    public void addTags(List<TagInFlowLayoutModule> list, boolean needAddItem) {
         if (list == null) {
             return;
         } else {
@@ -140,7 +140,9 @@ public class FlowLayoutController {
             for (TagInFlowLayoutModule tag : list) {
                 addTagItem(tag);
             }
-            addAddItem();
+            if(needAddItem){
+                addAddItem();
+            }
         }
     }
 
