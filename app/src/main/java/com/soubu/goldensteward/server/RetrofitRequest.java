@@ -1,5 +1,6 @@
 package com.soubu.goldensteward.server;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.view.activity.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -62,7 +64,7 @@ public class RetrofitRequest {
 
 
     private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent) {
-        if(!PhoneUtil.isConnected(GoldenStewardApplication.getContext())){
+        if (!PhoneUtil.isConnected(GoldenStewardApplication.getContext())) {
             ShowWidgetUtil.showShort(R.string.please_check_internet);
             return;
         }
@@ -70,17 +72,24 @@ public class RetrofitRequest {
         call.enqueue(new Callback<BaseResp<T>>() {
             @Override
             public void onResponse(Call<BaseResp<T>> call, Response<BaseResp<T>> response) {
-                Log.e(TAG, "1111111111111");
-                if (response.body().status != HttpURLConnection.HTTP_OK) {
-                    Log.e(TAG, "errorBody  :   " + response.body().msg + "   status  :  " + response.body().status);
-                    ShowWidgetUtil.showShort(response.body().msg);
-                    if (needEventPost) {
-                        EventBus.getDefault().post(response.body().status);
+                if (response.isSuccessful()) {
+                    if (response.body().status == -1) {
+                        Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
+                        GoldenStewardApplication.getNowContext().startActivity(intent);
+                    }
+                    if (response.body().status != HttpURLConnection.HTTP_OK) {
+                        Log.e(TAG, "errorBody  :   " + response.body().msg + "   status  :  " + response.body().status);
+                        ShowWidgetUtil.showShort(response.body().msg);
+                        if (needEventPost) {
+                            EventBus.getDefault().post(response.body().status);
+                        }
+                    } else {
+                        if (needEventPost) {
+                            EventBus.getDefault().post(response.body());
+                        }
                     }
                 } else {
-                    if (needEventPost) {
-                        EventBus.getDefault().post(response.body());
-                    }
+                    ServerErrorUtil.handleServerError(response.code());
                 }
                 ShowWidgetUtil.dismissProgressDialog();
             }

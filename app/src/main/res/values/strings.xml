@@ -232,7 +232,6 @@
     <string name="submit_application">提交申请</string>
 
     <string name="store_merge_desc">1.关联店铺申请将提交至官方审核，审核通过的店铺会<font fgcolor='#ff6500'>绑定至金管家</font>\n2.审核结果将通过短信发送至<font fgcolor='#ff6500'>金管家的注册手机</font></string>
-
     <string name="appeal_desc">您的信息正在审核，审核结果将以短信形式发送到金管家的注册手机</string>
     <string name="choose_main_products">选择主营产品</string>
     <string name="custom_product_name">自定义品名</string>
@@ -286,6 +285,7 @@
     <string name="reset_account_pwd">重置密码</string>
     <string name="delete_account">删除账号</string>
     <string name="register_phone">注册手机号</string>
+    <string name="report_rv_footer_desc">以上为近一月记录</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

@@ -34,6 +34,8 @@ public class LineView extends View {
     //单位
     private String mUnit;
 
+    private ArrayList<ArrayList<String>> mContentList = new ArrayList<>();
+
     private int mViewHeight;
     private int bottomLineY;
     private int verticalGridNum = -1;
@@ -64,6 +66,8 @@ public class LineView extends View {
     private ArrayList<Dot> drawDotList = new ArrayList<Dot>();
 
     private ArrayList<Rect> bars = new ArrayList<>();
+    //用来保存触摸区域的bars
+    private ArrayList<Rect> touchBars = new ArrayList<>();
 
     private Paint bottomTextPaint = new Paint();
     private int bottomTextDescent;
@@ -188,7 +192,7 @@ public class LineView extends View {
     }
 
     //由于底部栏的具体长短可能存在异步的情况，因此在此处先将size定义好
-    public void setBottomTextSize(int size){
+    public void setBottomTextSize(int size) {
         mBottomSize = size;
     }
 
@@ -201,7 +205,7 @@ public class LineView extends View {
         this.dataList = null;
         bottomTextList.clear();
         mDates = dateList;
-        for(Date date : dateList){
+        for (Date date : dateList) {
             bottomTextList.add(ConvertUtil.dateToMMPointDD(date));
         }
         Rect r = new Rect();
@@ -378,8 +382,13 @@ public class LineView extends View {
         }
 
         if (showPopup && selectedBarIndex != -1) {
-            drawPopup(canvas,
-                    String.valueOf(barList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+            if (mContentList.size() == 0) {
+                drawPopup(canvas,
+                        String.valueOf(barList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+            } else {
+                drawPopup(canvas,
+                        String.valueOf(mContentList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+            }
             selectedBarIndex = -1;
             selectedBarListIndex = -1;
         }
@@ -412,7 +421,9 @@ public class LineView extends View {
 
     private void drawRect(Canvas canvas) {
         Rect rect;
+        Rect touchRect;
         bars.clear();
+        touchBars.clear();
         Log.e("xxxxxxx", "drawRect   :    percentList " + percentList);
         if (percentList != null && !percentList.isEmpty()) {
             int size = percentList.size();
@@ -447,6 +458,12 @@ public class LineView extends View {
                             backgroundGridWidth * i + rightList.get(j),
                             bottomLineY);
                     bars.add(rect);
+                    touchRect = new Rect();
+                    touchRect.set(backgroundGridWidth * i + leftList.get(j),
+                            topLineLength,
+                            backgroundGridWidth * i + rightList.get(j),
+                            bottomLineY);
+                    touchBars.add(touchRect);
                     Log.e("xxxxxxx", "drawRect   :    i = " + i + "    left   :  " + rect.left);
                     canvas.drawRect(rect, fgPaint);
                 }
@@ -455,21 +472,23 @@ public class LineView extends View {
         }
     }
 
-    public void setUnit(String unit){
+    public void setUnit(String unit) {
         mUnit = unit;
     }
 
-    public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList) {
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList, ArrayList<ArrayList<String>> contentList) {
         if (list == null || list.size() == 0) {
             return;
         }
+        mContentList = contentList;
         this.leftAxisView = leftAxisView;
         this.dataOfAGirdLeft = dataOfAGirdLeft;
         barList = list;
         barColorList = colorList;
 //        if (verticalGridNum == -1) {
-            refreshAfterDataChanged();
+        refreshAfterDataChanged();
 //        }
+
         percentList = new ArrayList<>();
         targetPercentList = new ArrayList<>();
         int max;
@@ -715,12 +734,12 @@ public class LineView extends View {
     }
 
     private int findBarIndexAt(int x, int y) {
-        if (bars.isEmpty()) {
+        if (touchBars.isEmpty()) {
             return -1;
         }
         Region r;
-        for (int i = 0; i < bars.size(); i++) {
-            r = new Region(bars.get(i));
+        for (int i = 0; i < touchBars.size(); i++) {
+            r = new Region(touchBars.get(i));
             if (r.contains(x, y)) {
                 return i;
             }

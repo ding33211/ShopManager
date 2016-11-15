@@ -40,7 +40,13 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     private ArrayList<Date> mLastMonthBottom;
     private ArrayList<ArrayList<Integer>> mLastWeekData;
     private ArrayList<ArrayList<Integer>> mLastMonthData;
+    private ArrayList<ArrayList<String>> mLastWeekContent;
+    private ArrayList<ArrayList<String>> mLastMonthContent;
     private ArrayList<Integer> mColorList;
+
+    //近一周和近一月的间隔
+    private int mWeekSpace;
+    private int mMonthSpace;
 
     //是否是近一周状态
     private boolean mIsWeek = true;
@@ -80,6 +86,8 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
         mLastWeekData = new ArrayList<>();
         mLastMonthBottom = new ArrayList<>();
         mLastMonthData = new ArrayList<>();
+        mLastWeekContent = new ArrayList<>();
+        mLastMonthContent = new ArrayList<>();
         mColorList = new ArrayList<>();
         mColorList.add(getResources().getColor(R.color.colorPrimary));
         switch (mType) {
@@ -157,11 +165,18 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
 
     private void initTurnOverData(TurnOverServerParams[] params) {
         ArrayList<Integer> monthList = new ArrayList<>();
+        ArrayList<String> monthContentList = new ArrayList<>();
+        int max = 0;
         for (TurnOverServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            monthList.add(Integer.valueOf(param.getPrice()));
+            int value = Float.valueOf(param.getPrice()).intValue();
+            if (value > max) {
+                max = value;
+            }
+            monthList.add(value);
+            monthContentList.add(param.getPrice());
         }
-        initLineView(monthList);
+        initLineView(monthList, monthContentList);
     }
 
     private void initShopVisitData(ShopVisitorServerParams[] params) {
@@ -170,7 +185,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
             monthList.add(Integer.valueOf(param.getVisit_count()));
         }
-        initLineView(monthList);
+        initLineView(monthList, null);
     }
 
     private void initReturnRateData(ShopVisitorServerParams[] params) {
@@ -179,23 +194,33 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
             monthList.add(Integer.valueOf(param.getReturn_rates().substring(0, param.getReturn_rates().length() - 1)));
         }
-        initLineView(monthList);
+        initLineView(monthList, null);
     }
 
-    private void initLineView(ArrayList<Integer> monthList) {
+    private void initLineView(ArrayList<Integer> monthList, ArrayList<String> monthContentList) {
         ArrayList<Integer> weekList = new ArrayList<>();
+        ArrayList<String> weekContentList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             mLastWeekBottom.add(mLastMonthBottom.get(i));
             weekList.add(monthList.get(i));
+            if (monthContentList != null) {
+                weekContentList.add(monthContentList.get(i));
+            }
         }
         Collections.reverse(mLastMonthBottom);
         Collections.reverse(mLastWeekBottom);
         Collections.reverse(monthList);
         Collections.reverse(weekList);
+        if (monthContentList != null) {
+            Collections.reverse(monthContentList);
+            Collections.reverse(weekContentList);
+            mLastWeekContent.add(weekContentList);
+            mLastMonthContent.add(monthContentList);
+        }
         mLastWeekData.add(weekList);
         mLastMonthData.add(monthList);
         viewDelegate.setBottomTextList(mLastWeekBottom);
-        viewDelegate.setBarDataList(mLastWeekData, 20, mColorList);
+        viewDelegate.setBarDataList(mLastWeekData, 20, mColorList, mLastWeekContent);
     }
 
     @Override
@@ -212,7 +237,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                     viewDelegate.clickLastWeek();
                     viewDelegate.setLineViewBottomSize(7);
                     viewDelegate.setBottomTextList(mLastWeekBottom);
-                    viewDelegate.setBarDataList(mLastWeekData, 20, mColorList);
+                    viewDelegate.setBarDataList(mLastWeekData, 20, mColorList, mLastWeekContent);
                     mIsWeek = true;
                 }
                 break;
@@ -221,7 +246,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                     viewDelegate.clickLastMonth();
                     viewDelegate.setLineViewBottomSize(31);
                     viewDelegate.setBottomTextList(mLastMonthBottom);
-                    viewDelegate.setBarDataList(mLastMonthData, 20, mColorList);
+                    viewDelegate.setBarDataList(mLastMonthData, 20, mColorList, mLastMonthContent);
                     mIsWeek = false;
                 }
                 break;

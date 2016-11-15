@@ -15,8 +15,13 @@ import com.soubu.goldensteward.module.ReturnRateAllEvaluateRvItem;
  */
 
 public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<ReturnRateAllEvaluateRvItem> {
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == TYPE_FOOTER) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_footer_in_report, parent, false);
+            return new FooterViewHolder(v);
+        }
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_return_rate_all_evaluate_recyclerview, parent, false);
         return new ItemViewHolder(v);
     }
@@ -26,7 +31,22 @@ public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<Retu
 
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            if (isShowFooter()) {
+                return TYPE_FOOTER;
+            }
+        }
+        return TYPE_ONLY;
+    }
+
+    @Override
+    public boolean isShowFooter() {
+        return true;
+    }
+
+    class ItemViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivCompanyIcon;
         TextView tvName;

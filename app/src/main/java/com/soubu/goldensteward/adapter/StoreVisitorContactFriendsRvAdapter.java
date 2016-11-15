@@ -23,6 +23,10 @@ import java.util.Date;
 public class StoreVisitorContactFriendsRvAdapter extends BaseRecyclerViewAdapter<VisitFriendsServerParams> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == TYPE_FOOTER){
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_footer_in_report, parent, false);
+            return new FooterViewHolder(v);
+        }
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_store_visitor_contact_friends_recyclerview, parent, false);
         return new ItemViewHolder(v);
     }
@@ -50,5 +54,20 @@ public class StoreVisitorContactFriendsRvAdapter extends BaseRecyclerViewAdapter
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
         }
+    }
+
+    @Override
+    public boolean isShowFooter() {
+        return true;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            if (isShowFooter()) {
+                return TYPE_FOOTER;
+            }
+        }
+        return TYPE_ONLY;
     }
 }

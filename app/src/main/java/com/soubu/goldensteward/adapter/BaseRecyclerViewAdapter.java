@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
     public static final int TYPE_BOT = 0x02;
     public static final int TYPE_ONLY = 0x03;
 
-
+    public static final int TYPE_FOOTER = 0x10;
 
     OnRvItemClickListener mListener;
 
@@ -32,9 +33,13 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
+    public boolean isShowFooter() {
+        return false;
+    }
+
     @Override
     public int getItemCount() {
-        return mList.size();
+        return isShowFooter() ? mList.size() + 1 : mList.size();
     }
 
 
@@ -42,8 +47,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
         void onClick(int position);
     }
 
-    public void setOnRvItemClickListener(OnRvItemClickListener listener){
+    public void setOnRvItemClickListener(OnRvItemClickListener listener) {
         mListener = listener;
+    }
+
+    class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view) {
+            super(view);
+        }
     }
 
 }

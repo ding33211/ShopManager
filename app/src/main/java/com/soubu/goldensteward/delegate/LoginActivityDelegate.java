@@ -35,7 +35,7 @@ public class LoginActivityDelegate extends AppDelegate {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     get(R.id.iv_clear).setVisibility(View.INVISIBLE);
                 } else {
                     get(R.id.iv_clear).setVisibility(View.VISIBLE);
@@ -49,6 +49,12 @@ public class LoginActivityDelegate extends AppDelegate {
         });
     }
 
+    public void refreshPhone(String phone) {
+        mEtPhone.setText(phone);
+        mEtPhone.clearFocus();
+        get(R.id.et_pwd).requestFocus();
+    }
+
     @Override
     public boolean ifNeedHideToolBar() {
         return true;
@@ -59,14 +65,14 @@ public class LoginActivityDelegate extends AppDelegate {
         return true;
     }
 
-    public boolean checkComplete(UserServerParams params){
+    public boolean checkComplete(UserServerParams params) {
         String phone = mEtPhone.getText().toString();
-        if(TextUtils.isEmpty(phone)){
+        if (TextUtils.isEmpty(phone)) {
             ShowWidgetUtil.showShort(R.string.please_input_your_phone_number);
             return false;
         }
         String password = ((EditText) get(R.id.et_pwd)).getText().toString();
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             ShowWidgetUtil.showShort(R.string.please_input_password);
             return false;
         }

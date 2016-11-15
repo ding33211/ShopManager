@@ -17,7 +17,7 @@ public class ProductInOrderListServerParams {
     String unit;
     String visit;
     String collection;
-    String time;
+    String alter_time;
 
     public String getTitle() {
         return title;
@@ -52,11 +52,11 @@ public class ProductInOrderListServerParams {
     }
 
     public String getTime() {
-        return time;
+        return alter_time;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.alter_time = time;
     }
 
     public String getPic() {

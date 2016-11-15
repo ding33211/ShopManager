@@ -22,8 +22,14 @@ import java.util.Date;
 public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapter<ProductInOrderListServerParams> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
-        return new ItemViewHolder(v);
+        if(viewType != TYPE_FOOTER){
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
+            return new ItemViewHolder(v);
+        } else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_footer_in_report, parent, false);
+            return new FooterViewHolder(v);
+        }
+
     }
 
     @Override
@@ -32,13 +38,23 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
             ItemViewHolder holder1 = (ItemViewHolder) holder;
             ProductInOrderListServerParams params = mList.get(position);
             GlideUtils.loadRoundedImage(holder1.ivProductImg.getContext(), holder1.ivProductImg, params.getPic(), R.mipmap.ic_launcher, R.mipmap.ic_launcher);
-            holder1.tvProductName.setText(params.getName());
+            holder1.tvProductName.setText(params.getTitle());
             holder1.tvUnitPrice.setText(params.getPrice());
             holder1.tvUnit.setText(params.getUnit());
             holder1.tvBrowse.setText(params.getVisit());
             holder1.tvCollection.setText(params.getCollection());
             holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getTime()) * 1000)));
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            if (isShowFooter()) {
+                return TYPE_FOOTER;
+            }
+        }
+        return TYPE_ONLY;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -62,5 +78,10 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
             tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);
             tvUnit = (TextView) itemView.findViewById(R.id.tv_unit);
         }
+    }
+
+    @Override
+    public boolean isShowFooter() {
+        return true;
     }
 }

@@ -97,8 +97,8 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         }
     }
 
-    public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList) {
-        mLineView.setBarDataList(list, mLeftAxisView, space, colorList);
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList, ArrayList<ArrayList<String>> contentList) {
+        mLineView.setBarDataList(list, mLeftAxisView, space, colorList, contentList);
     }
 
     public void setBottomTextList(ArrayList<Date> list) {

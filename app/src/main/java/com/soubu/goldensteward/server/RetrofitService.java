@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import com.soubu.goldensteward.BuildConfig;
 import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.utils.AppUtil;
 import com.soubu.goldensteward.utils.ConvertUtil;

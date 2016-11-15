@@ -33,6 +33,10 @@ public class TurnOverOrderRvAdapter extends BaseRecyclerViewAdapter<TurnOverOrde
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == TYPE_FOOTER){
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_footer_in_report, parent, false);
+            return new FooterViewHolder(v);
+        }
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_turnover_order_recyclerview, parent, false);
         View vTop = v.findViewById(R.id.ll_top);
         View vBot = v.findViewById(R.id.ll_bot);
@@ -72,7 +76,17 @@ public class TurnOverOrderRvAdapter extends BaseRecyclerViewAdapter<TurnOverOrde
 
     @Override
     public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            if (isShowFooter()) {
+                return TYPE_FOOTER;
+            }
+        }
         return mList.get(position).getRvType();
+    }
+
+    @Override
+    public boolean isShowFooter() {
+        return true;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

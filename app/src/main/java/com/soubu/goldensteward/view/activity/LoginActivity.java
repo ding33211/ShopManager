@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.view.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -39,6 +40,15 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_login, R.id.tv_register, R.id.tv_forget_pwd);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        String phone = GoldenStewardApplication.getContext().getPhone();
+        if (!TextUtils.isEmpty(phone)) {
+            viewDelegate.refreshPhone(phone);
+        }
     }
 
     @Override
@@ -97,7 +107,11 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 finish();
 //                    }
             }
-
         }
+    }
+
+    @Override
+    public boolean keyDownTwiceFinish() {
+        return true;
     }
 }
