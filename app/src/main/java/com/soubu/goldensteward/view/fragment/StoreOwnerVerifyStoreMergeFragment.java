@@ -6,7 +6,14 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyStoreMergeFragmentDelegate;
+import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.MergeServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
+import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by lakers on 16/10/28.
@@ -16,10 +23,19 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
         implements View.OnClickListener {
     OnClickFinishListener mOnClickFinishListener;
     Context mContext;
+    private boolean mFromLogin;
 
     @Override
     protected Class<StoreOwnerVerifyStoreMergeFragmentDelegate> getDelegateClass() {
         return StoreOwnerVerifyStoreMergeFragmentDelegate.class;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        if (mFromLogin) {
+            viewDelegate.moveTop();
+        }
     }
 
     @Override
@@ -42,7 +58,7 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
         switch (v.getId()) {
             case R.id.btn_next_step:
                 MergeServerParams params = new MergeServerParams();
-                if(viewDelegate.checkComplete(params)){
+                if (viewDelegate.checkComplete(params)) {
                     if (mOnClickFinishListener != null) {
                         mOnClickFinishListener.onClickFinish(params);
                     }
@@ -57,5 +73,17 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
     public interface OnClickFinishListener {
         void onClickFinish(MergeServerParams params);
     }
+
+    public void setFromLogin(boolean fromLogin) {
+        mFromLogin = fromLogin;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCheckSuccess(BaseResp resp) {
+        if (resp.getResult() instanceof WalletHomeInfoServerParams) {
+            viewDelegate.onCheckSuccess();
+        }
+    }
+
 
 }

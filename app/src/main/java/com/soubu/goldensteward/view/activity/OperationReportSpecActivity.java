@@ -176,37 +176,56 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             monthList.add(value);
             monthContentList.add(param.getPrice());
         }
+        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
         initLineView(monthList, monthContentList);
     }
 
     private void initShopVisitData(ShopVisitorServerParams[] params) {
         ArrayList<Integer> monthList = new ArrayList<>();
+        int max = 0;
         for (ShopVisitorServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            monthList.add(Integer.valueOf(param.getVisit_count()));
+            int value = Integer.valueOf(param.getVisit_count());
+            if (value > max) {
+                max = value;
+            }
+            monthList.add(value);
         }
+        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
         initLineView(monthList, null);
     }
 
     private void initReturnRateData(ShopVisitorServerParams[] params) {
         ArrayList<Integer> monthList = new ArrayList<>();
+        int max = 0;
         for (ShopVisitorServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            monthList.add(Integer.valueOf(param.getReturn_rates().substring(0, param.getReturn_rates().length() - 1)));
+            int value = Integer.valueOf(param.getReturn_rates().substring(0, param.getReturn_rates().length() - 1));
+            if (value > max) {
+                max = value;
+            }
+            monthList.add(value);
         }
+        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
         initLineView(monthList, null);
     }
 
     private void initLineView(ArrayList<Integer> monthList, ArrayList<String> monthContentList) {
         ArrayList<Integer> weekList = new ArrayList<>();
         ArrayList<String> weekContentList = new ArrayList<>();
+        int max = 0;
         for (int i = 0; i < 7; i++) {
             mLastWeekBottom.add(mLastMonthBottom.get(i));
-            weekList.add(monthList.get(i));
+            int value = monthList.get(i);
+            if (value > max) {
+                max = value;
+            }
+            weekList.add(value);
             if (monthContentList != null) {
                 weekContentList.add(monthContentList.get(i));
             }
         }
+        mWeekSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
         Collections.reverse(mLastMonthBottom);
         Collections.reverse(mLastWeekBottom);
         Collections.reverse(monthList);
@@ -220,7 +239,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
         mLastWeekData.add(weekList);
         mLastMonthData.add(monthList);
         viewDelegate.setBottomTextList(mLastWeekBottom);
-        viewDelegate.setBarDataList(mLastWeekData, 20, mColorList, mLastWeekContent);
+        viewDelegate.setBarDataList(mLastWeekData, mWeekSpace, mColorList, mLastWeekContent);
     }
 
     @Override
@@ -237,7 +256,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                     viewDelegate.clickLastWeek();
                     viewDelegate.setLineViewBottomSize(7);
                     viewDelegate.setBottomTextList(mLastWeekBottom);
-                    viewDelegate.setBarDataList(mLastWeekData, 20, mColorList, mLastWeekContent);
+                    viewDelegate.setBarDataList(mLastWeekData, mWeekSpace, mColorList, mLastWeekContent);
                     mIsWeek = true;
                 }
                 break;
@@ -246,7 +265,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                     viewDelegate.clickLastMonth();
                     viewDelegate.setLineViewBottomSize(31);
                     viewDelegate.setBottomTextList(mLastMonthBottom);
-                    viewDelegate.setBarDataList(mLastMonthData, 20, mColorList, mLastMonthContent);
+                    viewDelegate.setBarDataList(mLastMonthData, mMonthSpace, mColorList, mLastMonthContent);
                     mIsWeek = false;
                 }
                 break;

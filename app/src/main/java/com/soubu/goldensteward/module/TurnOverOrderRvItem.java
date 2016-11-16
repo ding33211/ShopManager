@@ -18,7 +18,16 @@ public class TurnOverOrderRvItem {
     String type;
     String price;
     String discount;
+    String consignee;
     int rvType;
+
+    public String getConsignee() {
+        return consignee;
+    }
+
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
+    }
 
     public int getRvType() {
         return rvType;

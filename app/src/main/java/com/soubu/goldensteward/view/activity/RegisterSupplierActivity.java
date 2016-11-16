@@ -330,17 +330,14 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void goNext(BaseResp resp){
-        if(resp.getResult() instanceof UserServerParams){
-            if(resp.status == 200){
-                UserServerParams params = (UserServerParams) resp.getResult();
-                GoldenStewardApplication.getContext().setUid(params.getUid());
-                GoldenStewardApplication.getContext().setToken(params.getToken());
-                GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
-                Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
-                startActivity(intent);
-                finish();
-            }
+    public void goNext(BaseResp resp) {
+        if (resp.getResult() instanceof UserServerParams) {
+            UserServerParams params = (UserServerParams) resp.getResult();
+            GoldenStewardApplication.getContext().setToken(params.getToken());
+            GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
+            Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
+            startActivity(intent);
+            finish();
             ShowWidgetUtil.showShort(resp.msg);
         }
     }

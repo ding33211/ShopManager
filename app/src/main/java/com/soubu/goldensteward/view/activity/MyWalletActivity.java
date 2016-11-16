@@ -68,12 +68,12 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setRightMenuOne(R.drawable.wallet_help, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        viewDelegate.setRightMenuOne(R.drawable.wallet_help, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         viewDelegate.setOnClickListener(this, R.id.ll_withdraw, R.id.ll_income_and_expenses, R.id.ll_security_center);
     }
 

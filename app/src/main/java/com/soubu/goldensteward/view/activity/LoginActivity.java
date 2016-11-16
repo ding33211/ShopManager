@@ -95,17 +95,51 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
             if (data.getData() instanceof UserServerParams) {
                 GoldenStewardApplication.getContext().setToken(data.getToken());
                 final UserServerParams params = (UserServerParams) data.getData();
+                int certification = Integer.valueOf(params.getCertification());
+                int child_state = Integer.valueOf(params.getChild_status());
+//                Intent intent;
+//                if (certification == -1) {
+//                    intent = new Intent(this, RegisterSupplierActivity.class);
+//                    startActivity(intent);
+//                } else if (certification == 0) {
+//                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
+//                    if (child_state == -1 || child_state == 2) {
+//                        intent.putExtra(Constant.EXTRA_INDEX, 2);
+//                    } else {
+//                        intent.putExtra(Constant.EXTRA_INDEX, 3);
+//                    }
+//                    startActivity(intent);
+//                } else {
+//                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
+//                    if (child_state == -1 || child_state == 2) {
+//                        intent.putExtra(Constant.EXTRA_INDEX, 2);
+//                        startActivity(intent);
+//                    } else if (child_state == 0) {
+//                        intent.putExtra(Constant.EXTRA_INDEX, 3);
+//                        startActivity(intent);
+//                    } else {
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                GoldenStewardApplication.getContext().saveUserInfo(params);
+//                            }
+//                        }).start();
+//                        intent = new Intent(this, HomeActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         GoldenStewardApplication.getContext().saveUserInfo(params);
                     }
                 }).start();
-//                    if (Integer.valueOf(params.getCertification()) == 1) {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();
-//                    }
             }
         }
     }

@@ -171,7 +171,7 @@
     <string name="forget_password">忘记密码</string>
     <string name="permission_explain_storage">我们需要读取您的存储文件来让您更好的使用我们的应用</string>
     <string name="permission_explain_camera">您只有打开了允许了相机权限才可以使用相机</string>
-    <string name="please_input_phone_for_main_account">请输入主账户的手机号</string>
+    <string name="please_input_child_phone">请输入关联店铺账号</string>
     <string name="store_would_refer">将要关联的店铺(可添加多个)</string>
     <string name="add">添加</string>
     <string name="please_input_verification_code">请输入验证码</string>
@@ -294,4 +294,5 @@
     <string name="error_404_message">请求接口不存在</string>
     <string name="error_422_message">请求参数错误</string>
     <string name="error_500_message">服务器错误</string>
+    <string name="error_socket_timeout_message">服务器连接超时</string>
 </resources>

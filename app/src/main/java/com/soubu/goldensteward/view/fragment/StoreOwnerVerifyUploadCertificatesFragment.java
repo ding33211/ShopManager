@@ -47,6 +47,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
     Context mContext;
     ProgressImageView mIvLastClick;
     int mLastImgRes;
+    int mPlaceHolderRes;
     private int mFileType = 1;
     private String[] mPaths = new String[5];
     private int mClickIndex;
@@ -94,22 +95,27 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
             case R.id.iv_business_license:
                 mClickIndex = 0;
                 clickImage = true;
+                mPlaceHolderRes = R.drawable.auth_camera_license;
                 break;
             case R.id.iv_business_code:
                 mClickIndex = 1;
                 clickImage = true;
+                mPlaceHolderRes = R.drawable.auth_camera_code;
                 break;
             case R.id.iv_camera_hand:
                 mClickIndex = 2;
                 clickImage = true;
+                mPlaceHolderRes = R.drawable.auth_camera_hand;
                 break;
             case R.id.iv_camera_front:
                 mClickIndex = 3;
                 clickImage = true;
+                mPlaceHolderRes = R.drawable.auth_camera_front;
                 break;
             case R.id.iv_camera_back:
                 mClickIndex = 4;
                 clickImage = true;
+                mPlaceHolderRes = R.drawable.auth_camera_back;
                 break;
             case R.id.ll_help1:
                 if (mFileType == 1) {
@@ -221,7 +227,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
     }
 
     private void uploadData(final String path, final Uri uri) {
-        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, mLastImgRes, mLastImgRes);
+        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, mPlaceHolderRes, mLastImgRes);
         OssUtil.uploadSingleImage(path, OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
             @Override
             public void onSuccess(String fileName) {

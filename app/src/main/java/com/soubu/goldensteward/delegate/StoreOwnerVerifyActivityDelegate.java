@@ -2,6 +2,7 @@ package com.soubu.goldensteward.delegate;
 
 import android.support.v4.app.Fragment;
 
+import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.utils.WindowUtil;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyBaseInfoFragment;
 import com.soubu.goldensteward.view.fragment.StoreOwnerVerifyStoreAppealFragment;
@@ -32,9 +33,12 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
         mBaseInfoFragment = new StoreOwnerVerifyBaseInfoFragment();
         mUploadBaseInfoFragment = new StoreOwnerVerifyUploadCertificatesFragment();
         mStoreMergeFragment = new StoreOwnerVerifyStoreMergeFragment();
+        if (mCurrentIndex == 2) {
+            mStoreMergeFragment.setFromLogin(true);
+        }
         mStoreAppealFragment = new StoreOwnerVerifyStoreAppealFragment();
         mFragments = new Fragment[]{mBaseInfoFragment, mUploadBaseInfoFragment, mStoreMergeFragment, mStoreAppealFragment};
-        addFragment(mBaseInfoFragment, mTags[mCurrentIndex]);
+        addFragment(mFragments[mCurrentIndex], mTags[mCurrentIndex]);
     }
 
 
@@ -43,9 +47,12 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
         WindowUtil.hideSoftInput(this.getActivity());
     }
 
+    public void setCurrentIndex(int currentIndex) {
+        mCurrentIndex = currentIndex;
+    }
 
     public boolean backPopFragment() {
-        if (mCurrentIndex != 1 ) {
+        if (mCurrentIndex != 1) {
             return false;
         } else {
             showFragment(mTags[mCurrentIndex--], mTags[mCurrentIndex], mFragments[mCurrentIndex]);
@@ -54,7 +61,7 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
         }
     }
 
-    public void setFileType(String type){
+    public void setFileType(String type) {
         mUploadBaseInfoFragment.setFileType(type);
     }
 

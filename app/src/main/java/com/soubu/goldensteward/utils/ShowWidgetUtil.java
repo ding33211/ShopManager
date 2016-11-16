@@ -265,8 +265,7 @@ public class ShowWidgetUtil {
 
     public static void showCustomDialog(int customViewRes, boolean clickContentCancelable) {
         dismissProgressDialogNow();
-        dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+        dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), R.style.ProgressDialogTheme);
         dialog.setCanceledOnTouchOutside(clickContentCancelable);
         dialog.setCancelable(clickContentCancelable);
         dialog.show();
@@ -275,8 +274,7 @@ public class ShowWidgetUtil {
 
     public static void showCustomDialog(View customView, boolean clickContentCancelable) {
         dismissProgressDialogNow();
-        dialog = new ProgressDialog(GoldenStewardApplication.getContext(), R.style.ProgressDialogTheme);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+        dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), R.style.ProgressDialogTheme);
         dialog.setCanceledOnTouchOutside(clickContentCancelable);
         dialog.setCancelable(clickContentCancelable);
         dialog.show();

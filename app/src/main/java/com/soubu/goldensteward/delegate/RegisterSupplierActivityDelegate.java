@@ -16,6 +16,7 @@ import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by lakers on 16/10/27.
@@ -168,6 +169,10 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                     params.setCompany_size(Integer.valueOf(content) + 1 + "");
                     break;
                 case R.string.company_profile:
+                    if(TextUtils.isEmpty(mAdapter.getMultiLineContent())){
+                        ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, this.getActivity().getString(titleRes)));
+                        break;
+                    }
                     params.setCompany_profile(mAdapter.getMultiLineContent());
                     break;
             }

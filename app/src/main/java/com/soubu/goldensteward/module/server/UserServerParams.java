@@ -6,12 +6,10 @@ import java.io.Serializable;
  * Created by lakers on 16/10/31.
  */
 
-public class UserServerParams extends BaseDeltaCopyParams implements Serializable{
+public class UserServerParams extends BaseDeltaCopyParams implements Serializable {
     String name;
     String portrait;
     String phone;
-    String password;
-    String code;
     String main_product;
     String province;
     String province_id;
@@ -30,15 +28,25 @@ public class UserServerParams extends BaseDeltaCopyParams implements Serializabl
     String company_profile;
     String certification;
     String fail_cause;
-    String uid;
+    String child_status;
     String token;
+    String code;
+    String password;
 
-    public String getUid() {
-        return uid;
+    public String getCode() {
+        return code;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getToken() {
@@ -47,6 +55,14 @@ public class UserServerParams extends BaseDeltaCopyParams implements Serializabl
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getChild_status() {
+        return child_status;
+    }
+
+    public void setChild_status(String child_status) {
+        this.child_status = child_status;
     }
 
     public String getPortrait() {
@@ -87,22 +103,6 @@ public class UserServerParams extends BaseDeltaCopyParams implements Serializabl
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getMain_product() {

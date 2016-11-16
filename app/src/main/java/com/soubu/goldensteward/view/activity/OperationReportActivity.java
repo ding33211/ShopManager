@@ -43,9 +43,10 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
     protected void initData() {
         super.initData();
         RetrofitRequest.getInstance().getOperationReport();
+        initReportData(new OperationReportServerParams());
     }
 
-    private void initReportData(OperationReportServerParams params){
+    private void initReportData(OperationReportServerParams params) {
         mList = new ArrayList<>();
         mList.add(createItem(getString(R.string.turnover_volume),
                 new String[]{getString(R.string.account_balance), getString(R.string.accumulated_income)},
@@ -57,8 +58,8 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
                 new String[]{getString(R.string.accumulated_product_access), getString(R.string.today_product_access), getString(R.string.last_week_product_access), getString(R.string.last_month_product_access)},
                 new String[]{params.getProduct_visit(), params.getToday_product_visit(), params.getWeek_product_visit(), params.getMonth_product_visit()}));
         mList.add(createItem(getString(R.string.return_rate),
-                new String[]{getString(R.string.accumulated_return_rate), getString(R.string.today_return_rate), getString(R.string.last_week_return_rate), getString(R.string.last_month_return_rate)},
-                new String[]{params.getRefunds(), params.getToday_refunds(), params.getWeek_refunds(), params.getMonth_refunds()}));
+                new String[]{getString(R.string.accumulated_return_rate), getString(R.string.last_month_return_rate)},
+                new String[]{params.getRefunds(), params.getMonth_refunds()}));
         OperationReportRvItem item = createItem(getString(R.string.more_data),
                 new String[]{getString(R.string.last_week_offer_num), getString(R.string.last_week_collect_num)},
                 new String[]{params.getWeek_offer(), params.getCollection()});
@@ -67,7 +68,7 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
         viewDelegate.setData(mList);
     }
 
-    private OperationReportRvItem createItem(String label, String[] title, String[] subTitle){
+    private OperationReportRvItem createItem(String label, String[] title, String[] subTitle) {
         OperationReportRvItem item = new OperationReportRvItem();
         item.setLabel(label);
         List<String> titleList = Arrays.asList(title);
@@ -78,8 +79,8 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getReportSuccess(BaseResp resp){
-        if(resp.getResult() instanceof BaseDataObject && ((BaseDataObject) resp.getResult()).getData() instanceof OperationReportServerParams){
+    public void getReportSuccess(BaseResp resp) {
+        if (resp.getResult() instanceof BaseDataObject && ((BaseDataObject) resp.getResult()).getData() instanceof OperationReportServerParams) {
             OperationReportServerParams params = (OperationReportServerParams) ((BaseDataObject) resp.getResult()).getData();
             initReportData(params);
         }
@@ -93,7 +94,7 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(OperationReportActivity.this, OperationReportSpecActivity.class);
-                switch (position){
+                switch (position) {
                     case 0:
                         intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
                         break;

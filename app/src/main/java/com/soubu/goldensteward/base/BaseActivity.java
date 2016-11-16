@@ -1,9 +1,12 @@
 package com.soubu.goldensteward.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -12,10 +15,14 @@ import android.view.View;
 import com.bugtags.library.Bugtags;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.server.ServerErrorUtil;
+import com.soubu.goldensteward.utils.ActivityContainer;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 基类activity,放公有方法
@@ -24,6 +31,13 @@ public class BaseActivity extends AppCompatActivity {
 
     public boolean mEventBusJustForThis = false;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        ActivityContainer.getInstance().addActivity(this);
+
+    }
 
     @Override
     protected void onResume() {
@@ -43,10 +57,15 @@ public class BaseActivity extends AppCompatActivity {
 //        MobclickAgent.onPause(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityContainer.getInstance().removeActivity(this);
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Integer errorCode) {
-        if(!mEventBusJustForThis){
+        if (!mEventBusJustForThis) {
             return;
         } else {
             mEventBusJustForThis = false;
@@ -68,7 +87,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyDownTwiceFinish()){
+        if (keyDownTwiceFinish()) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (!mNeedQuit) {
                     mNeedQuit = true;
@@ -76,21 +95,20 @@ public class BaseActivity extends AppCompatActivity {
                     // 利用handler延迟发送更改状态信息
                     mHandler.sendEmptyMessageDelayed(0, 2000);
                 } else {
-                    finish();
-                    System.exit(0);
+                    ActivityContainer.getInstance().finishAllActivity();
                 }
             }
         } else {
-            super.onKeyDown(keyCode,event);
+            super.onKeyDown(keyCode, event);
         }
         return true;
     }
 
-    public boolean keyDownTwiceFinish(){
+    public boolean keyDownTwiceFinish() {
         return false;
     }
 
-    public void onClickCustomerServicePhone(View view){
+    public void onClickCustomerServicePhone(View view) {
         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + getString(R.string.customer_service_phone_number)));
         startActivity(intent);
     }
@@ -101,4 +119,5 @@ public class BaseActivity extends AppCompatActivity {
         Bugtags.onDispatchTouchEvent(this, event);
         return super.dispatchTouchEvent(event);
     }
+
 }

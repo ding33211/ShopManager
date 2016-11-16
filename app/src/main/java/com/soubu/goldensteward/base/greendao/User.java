@@ -31,7 +31,6 @@ public class User {
     private String turnover;
     private String fixed_telephone;
     private String company_profile;
-    private String uid;
 
     @Generated
     public User() {
@@ -42,7 +41,7 @@ public class User {
     }
 
     @Generated
-    public User(Long id, String name, String portrait, String phone, String main_product, String province, String province_id, String city, String city_id, String address, String contact_name, String job, String company, String company_size, String operation_mode, String mail, String main_industry, String turnover, String fixed_telephone, String company_profile, String uid) {
+    public User(Long id, String name, String portrait, String phone, String main_product, String province, String province_id, String city, String city_id, String address, String contact_name, String job, String company, String company_size, String operation_mode, String mail, String main_industry, String turnover, String fixed_telephone, String company_profile) {
         this.id = id;
         this.name = name;
         this.portrait = portrait;
@@ -63,7 +62,6 @@ public class User {
         this.turnover = turnover;
         this.fixed_telephone = fixed_telephone;
         this.company_profile = company_profile;
-        this.uid = uid;
     }
 
     public Long getId() {
@@ -224,14 +222,6 @@ public class User {
 
     public void setCompany_profile(String company_profile) {
         this.company_profile = company_profile;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
 }

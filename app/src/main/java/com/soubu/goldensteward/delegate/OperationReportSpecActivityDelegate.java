@@ -61,12 +61,12 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
 
     }
 
-    public void setColorInfo(String title, String unit){
-        ((TextView)get(R.id.tv_color_info)).setText(title + "(" + unit + ")");
+    public void setColorInfo(String title, String unit) {
+        ((TextView) get(R.id.tv_color_info)).setText(title + "(" + unit + ")");
         mLineView.setUnit(unit);
     }
 
-    public void refreshTabTitle(String[] titles){
+    public void refreshTabTitle(String[] titles) {
         TabLayout tabLayout = get(R.id.tl_title);
         tabLayout.setVisibility(View.VISIBLE);
         get(R.id.v_tab_layout_margin).setVisibility(View.VISIBLE);
@@ -75,7 +75,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(mCurrentTabIndex != tab.getPosition()){
+                if (mCurrentTabIndex != tab.getPosition()) {
                     mCurrentTabIndex = tab.getPosition();
                     RetrofitRequest.getInstance().getOrderList(tab.getPosition());
                 }
@@ -128,44 +128,61 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         TurnOverOrderRvAdapter mAdapter = new TurnOverOrderRvAdapter(getActivity());
         List<TurnOverOrderRvItem> list = new ArrayList<>();
         for (OrderServerParams param : params) {
-            int i = 0;
-            for (ProductInOrderListServerParams params1 : param.getDetail()) {
-                TurnOverOrderRvItem item = new TurnOverOrderRvItem();
-                item.setStatus(param.getStatus());
-                item.setSed_status(param.getSed_status());
-                item.setTime(param.getTime());
-                item.setP_count(param.getP_count());
-                item.setSum_price(param.getSum_price());
-                item.setFreight(param.getFreight());
-                item.setPic(params1.getPic());
-                item.setName(params1.getName());
-                item.setPhone(params1.getPhone());
-                item.setProvince(params1.getProvince());
-                item.setCity(params1.getCity());
-                item.setType(params1.getType());
-                item.setPrice(params1.getPrice());
-                item.setDiscount(params1.getDiscount());
-                if (i == 0) {
-                    if (i == param.getDetail().length - 1) {
-                        item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
-                    } else {
-                        item.setRvType(BaseRecyclerViewAdapter.TYPE_TOP);
-                    }
-                } else if (i == param.getDetail().length - 1) {
-                    item.setRvType(BaseRecyclerViewAdapter.TYPE_BOT);
-                } else {
-                    item.setRvType(BaseRecyclerViewAdapter.TYPE_MID);
-                }
-                list.add(item);
-                i++;
-            }
+            TurnOverOrderRvItem item = new TurnOverOrderRvItem();
+            item.setStatus(param.getStatus());
+            item.setTime(param.getAdd_time());
+            item.setCity(param.getCity());
+            item.setProvince(param.getProvince());
+            item.setDiscount(param.getDiscount());
+            item.setSum_price(param.getTotal_price());
+            item.setFreight(param.getShip_type());
+            item.setName(param.getName());
+            item.setPhone(param.getPhone());
+            item.setPic(param.getPic());
+            item.setSed_status(param.getSec_status());
+            item.setType(param.getOrder_type());
+            item.setConsignee(param.getConsignee());
+            item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
+            list.add(item);
+
+//            int i = 0;
+//            for (ProductInOrderListServerParams params1 : param.getDetail()) {
+//                TurnOverOrderRvItem item = new TurnOverOrderRvItem();
+//                item.setStatus(param.getStatus());
+//                item.setSed_status(param.getSed_status());
+//                item.setTime(param.getTime());
+//                item.setP_count(param.getP_count());
+//                item.setSum_price(param.getSum_price());
+//                item.setFreight(param.getFreight());
+//                item.setPic(params1.getPic());
+//                item.setName(params1.getName());
+//                item.setPhone(params1.getPhone());
+//                item.setProvince(params1.getProvince());
+//                item.setCity(params1.getCity());
+//                item.setType(params1.getType());
+//                item.setPrice(params1.getPrice());
+//                item.setDiscount(params1.getDiscount());
+//                if (i == 0) {
+//                    if (i == param.getDetail().length - 1) {
+//                        item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
+//                    } else {
+//                        item.setRvType(BaseRecyclerViewAdapter.TYPE_TOP);
+//                    }
+//                } else if (i == param.getDetail().length - 1) {
+//                    item.setRvType(BaseRecyclerViewAdapter.TYPE_BOT);
+//                } else {
+//                    item.setRvType(BaseRecyclerViewAdapter.TYPE_MID);
+//                }
+//                list.add(item);
+//                i++;
+//            }
         }
         mAdapter.setData(list);
         mRvContent.setAdapter(mAdapter);
     }
 
 
-    public void initLabel(String label){
+    public void initLabel(String label) {
         mTvLabel.setText(label);
     }
 

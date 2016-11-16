@@ -54,10 +54,15 @@ public interface RetrofitApi {
     @POST("Certification/submit_certification")
     Call<BaseResp<VerificationServerParams>> submitCertification(@Field("params") String params);
 
-    //子账户认证
+    //子账户关联
     @FormUrlEncoded
     @POST("Child/submit_merge_child")
     Call<BaseResp<MergeServerParams>> submitMergeChild(@Field("params") String params);
+
+    //子账户验证
+    @FormUrlEncoded
+    @POST("Child/check_phone")
+    Call<BaseResp<WalletHomeInfoServerParams>> checkChildPhone(@Field("params") String params);
 
     //登录
     @FormUrlEncoded

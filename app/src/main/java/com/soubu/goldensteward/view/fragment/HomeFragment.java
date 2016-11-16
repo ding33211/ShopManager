@@ -77,7 +77,7 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
         titleList.add(resources.getString(R.string.today_visitor_num));
         titleList.add(resources.getString(R.string.today_product_visit));
         titleList.add(resources.getString(R.string.today_order_num));
-        titleList.add(resources.getString(R.string.today_return_rate));
+        titleList.add(resources.getString(R.string.last_month_return_rate));
         List<String> subTitleList = new ArrayList<>();
         subTitleList.add(params.getVisit());
         subTitleList.add(params.getProduct_visit());

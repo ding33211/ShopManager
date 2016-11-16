@@ -32,7 +32,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     public static final int TYPE_ITEM_MUST_FILL = 0x11;  // 必填
     public static final int TYPE_ITEM_MUST_CHOOSE = 0x12;  // 必选
     public static final int TYPE_ITEM_CAN_CHOOSE = 0x03;  // 可选
-    public static final int TYPE_ITEM_MULTILINE = 0x04;  // 多行
+    public static final int TYPE_ITEM_MULTILINE = 0x14;  // 多行
     public static final int TYPE_ITEM_LOCATE = 0x13;
 
     private String mArea;

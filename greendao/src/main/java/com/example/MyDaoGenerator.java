@@ -10,7 +10,7 @@ public class MyDaoGenerator {
         Schema schema = new Schema(1, "com.soubu.goldensteward.base.greendao");
         addTable(schema);
         //生成相关文件的具体路径
-        new DaoGenerator().generateAll(schema, "../ShopManager/app/src/main/java");
+        new DaoGenerator().generateAll(schema, "../Soubu-ShopManager-Android/app/src/main/java");
     }
 
     //客户表
@@ -47,7 +47,6 @@ public class MyDaoGenerator {
         user.addStringProperty("turnover");
         user.addStringProperty("fixed_telephone");
         user.addStringProperty("company_profile");
-        user.addStringProperty("uid");
 
 
 //        //员工列表

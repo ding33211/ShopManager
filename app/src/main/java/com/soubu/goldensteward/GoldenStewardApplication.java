@@ -138,7 +138,6 @@ public class GoldenStewardApplication extends Application implements Application
             user = list.get(0);
         }
         user.setName(params.getName());
-        user.setUid(params.getUid());
         user.setAddress(params.getAddress());
         user.setCity(params.getCity());
         user.setCity_id(params.getCity_id());

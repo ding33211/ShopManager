@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.module.server.MergeServerParams;
+import com.soubu.goldensteward.module.server.UserServerParams;
+import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;
@@ -70,6 +72,10 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
 //        });
     }
 
+    public void moveTop() {
+        get(R.id.include).setVisibility(View.GONE);
+    }
+
     public void addPhoneItem(String phone) {
         mController.addPhoneItem(phone, true);
     }
@@ -78,11 +84,17 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     public void clickAdd() {
         String phone = etChildPhone.getText().toString();
         if (RegularUtil.isMobile(phone)) {
-            addPhoneItem(phone);
-            etChildPhone.setText("");
+            UserServerParams params = new UserServerParams();
+            params.setPhone(phone);
+            RetrofitRequest.getInstance().checkChildPhone(params);
         } else {
             ShowWidgetUtil.showShort(R.string.wrong_phone);
         }
+    }
+
+    public void onCheckSuccess() {
+        addPhoneItem(etChildPhone.getText().toString());
+        etChildPhone.setText("");
     }
 
     @Override
@@ -114,15 +126,16 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
     }
 
     public boolean checkComplete(MergeServerParams params) {
-//        String mainPhone = etMainPhone.getText().toString();
-//        if (TextUtils.isEmpty(mainPhone)) {
-//            ShowWidgetUtil.showShort(R.string.please_input_phone_for_main_account);
-//            return false;
-//        }
-//        params.setMain_phone(mainPhone);
+        if (mPhones.size() == 0) {
+            ShowWidgetUtil.showShort(R.string.please_input_child_phone);
+            return false;
+        }
         params.setChild_phone(mPhones.toArray(new String[mPhones.size()]));
         return true;
     }
 
-
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

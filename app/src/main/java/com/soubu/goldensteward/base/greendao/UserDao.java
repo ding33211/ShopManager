@@ -42,7 +42,6 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Turnover = new Property(17, String.class, "turnover", false, "TURNOVER");
         public final static Property Fixed_telephone = new Property(18, String.class, "fixed_telephone", false, "FIXED_TELEPHONE");
         public final static Property Company_profile = new Property(19, String.class, "company_profile", false, "COMPANY_PROFILE");
-        public final static Property Uid = new Property(20, String.class, "uid", false, "UID");
     }
 
 
@@ -77,8 +76,7 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"MAIN_INDUSTRY\" TEXT," + // 16: main_industry
                 "\"TURNOVER\" TEXT," + // 17: turnover
                 "\"FIXED_TELEPHONE\" TEXT," + // 18: fixed_telephone
-                "\"COMPANY_PROFILE\" TEXT," + // 19: company_profile
-                "\"UID\" TEXT);"); // 20: uid
+                "\"COMPANY_PROFILE\" TEXT);"); // 19: company_profile
     }
 
     /** Drops the underlying database table. */
@@ -190,11 +188,6 @@ public class UserDao extends AbstractDao<User, Long> {
         if (company_profile != null) {
             stmt.bindString(20, company_profile);
         }
- 
-        String uid = entity.getUid();
-        if (uid != null) {
-            stmt.bindString(21, uid);
-        }
     }
 
     @Override
@@ -300,11 +293,6 @@ public class UserDao extends AbstractDao<User, Long> {
         if (company_profile != null) {
             stmt.bindString(20, company_profile);
         }
- 
-        String uid = entity.getUid();
-        if (uid != null) {
-            stmt.bindString(21, uid);
-        }
     }
 
     @Override
@@ -334,8 +322,7 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // main_industry
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // turnover
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // fixed_telephone
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // company_profile
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20) // uid
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // company_profile
         );
         return entity;
     }
@@ -362,7 +349,6 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setTurnover(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setFixed_telephone(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
         entity.setCompany_profile(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setUid(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
      }
     
     @Override

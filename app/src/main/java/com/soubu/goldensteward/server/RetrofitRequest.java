@@ -98,7 +98,11 @@ public class RetrofitRequest {
             public void onFailure(Call<BaseResp<T>> call, Throwable t) {
                 Log.e(TAG, "1111111111111" + t.toString());
                 ShowWidgetUtil.dismissProgressDialog();
-                ShowWidgetUtil.showShort(t.toString());
+                if (t.toString().contains("SocketTimeout")) {
+                    ShowWidgetUtil.showShort(R.string.error_socket_timeout_message);
+                } else {
+                    ShowWidgetUtil.showShort(t.toString());
+                }
             }
         });
     }
@@ -166,6 +170,17 @@ public class RetrofitRequest {
         Call<BaseResp<MergeServerParams>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .submitMergeChild(new Gson().toJson(params));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 子账户验证
+     */
+    public void checkChildPhone(UserServerParams params) {
+        //TODO 此处用于eventbus辨识，之后会对总体的eventbus机制进行修改
+        Call<BaseResp<WalletHomeInfoServerParams>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .checkChildPhone(new Gson().toJson(params));
         enqueueClue(call, true);
     }
 
