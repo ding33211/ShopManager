@@ -171,7 +171,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                 case R.string.company_profile:
                     if(TextUtils.isEmpty(mAdapter.getMultiLineContent())){
                         ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, this.getActivity().getString(titleRes)));
-                        break;
+                        return false;
                     }
                     params.setCompany_profile(mAdapter.getMultiLineContent());
                     break;
