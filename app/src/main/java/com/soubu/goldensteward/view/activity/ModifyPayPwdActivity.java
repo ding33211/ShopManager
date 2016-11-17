@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ModifyPayPwdActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
@@ -17,9 +19,6 @@ import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static android.icu.text.UnicodeSet.CASE;
 
 /**
  * Created by dingsigang on 16-10-20.
@@ -97,9 +96,9 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
                 break;
             case R.id.btn_confirm:
                 ModifyPwdServerParams params = new ModifyPwdServerParams();
-                if(viewDelegate.checkComplete(params)){
-                    if(mType == TYPE_PWD){
-                        RetrofitRequest.getInstance().modifyLoginPwd(params);
+                if (viewDelegate.checkComplete(params)) {
+                    if (mType == TYPE_PWD) {
+                        RetrofitRequest.getInstance().changeLoginPwd(params);
                     } else {
 
                     }
@@ -109,9 +108,11 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modify(BaseResp resp){
-        if(resp.getResult() instanceof ModifyPwdServerParams){
-            ShowWidgetUtil.showShort(resp.getMsg());
+    public void modify(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.CHANGE_LOGIN_PWD) {
+            ShowWidgetUtil.showShort(resp1.getMsg());
             finish();
         }
     }

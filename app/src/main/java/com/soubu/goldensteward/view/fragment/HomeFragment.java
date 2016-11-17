@@ -2,6 +2,7 @@ package com.soubu.goldensteward.view.fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -12,7 +13,9 @@ import com.soubu.goldensteward.base.greendao.User;
 import com.soubu.goldensteward.base.greendao.UserDao;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.HomeFragmentDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
@@ -48,11 +51,10 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
         RetrofitRequest.getInstance().getHomeInfo();
     }
 
-
-    private void initTopBar(){
+    private void initTopBar() {
         UserDao dao = DBHelper.getInstance(getActivity()).getUserDao();
         List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(GoldenStewardApplication.getContext().getPhone())).list();
-        if(list.size() > 0){
+        if (list.size() > 0) {
             String name = list.get(0).getName();
             String url = list.get(0).getPortrait();
             viewDelegate.refreshCompany(name, url);
@@ -60,17 +62,22 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onServerSuccess(BaseResp resp){
-        if(resp.getResult() instanceof BaseDataObject){
-            BaseDataObject dataObject = (BaseDataObject) resp.getResult();
-            if(dataObject.getData() instanceof HomeInfoServerParams){
+    public void onServerSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_HOME_INFO) {
+            BaseDataObject dataObject = (BaseDataObject) resp1.getResult();
+            if (dataObject.getData() instanceof HomeInfoServerParams) {
                 HomeInfoServerParams params = (HomeInfoServerParams) dataObject.getData();
                 initHomeInfo(params);
             }
         }
+        if (code == EventBusConfig.CHANGE_USER_INFO || code == EventBusConfig.CHANGE_ADDRESS) {
+            initTopBar();
+        }
     }
 
-    private void initHomeInfo(HomeInfoServerParams params){
+    private void initHomeInfo(HomeInfoServerParams params) {
         viewDelegate.refreshMoney(params.getMoney());
         List<String> titleList = new ArrayList<>();
         Resources resources = getActivity().getResources();
@@ -117,7 +124,7 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = null;
-                switch (position){
+                switch (position) {
                     case 0:
                         intent = new Intent(getActivity(), MyWalletActivity.class);
                         break;
@@ -134,4 +141,5 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
             }
         });
     }
+
 }

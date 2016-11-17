@@ -8,7 +8,9 @@ import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
 import com.soubu.goldensteward.adapter.OperationReportRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RecyclerViewActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.OperationReportRvItem;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -79,9 +81,11 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getReportSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataObject && ((BaseDataObject) resp.getResult()).getData() instanceof OperationReportServerParams) {
-            OperationReportServerParams params = (OperationReportServerParams) ((BaseDataObject) resp.getResult()).getData();
+    public void getReportSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_OPERATION_REPORT) {
+            OperationReportServerParams params = (OperationReportServerParams) ((BaseDataObject) resp1.getResult()).getData();
             initReportData(params);
         }
     }

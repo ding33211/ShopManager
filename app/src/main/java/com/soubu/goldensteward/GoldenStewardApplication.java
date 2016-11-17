@@ -31,6 +31,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import static com.baidu.location.h.j.P;
+import static com.baidu.location.h.j.u;
 
 /**
  * Created by dingsigang on 16-10-18.
@@ -46,7 +47,8 @@ public class GoldenStewardApplication extends Application implements Application
     //此处的账户名就是手机号
     private static String mPhone;
     public static OSS oss;
-
+    private UserDao dao;
+    private User user;
     public static final String OSS_BUCKET_HOST_ID = OssConst.END_POINT;
     private static final String accessKey = OssConst.ACCESSKEYID;
     private static final String secretKey = OssConst.ACCESSKEYSECRET;
@@ -112,6 +114,8 @@ public class GoldenStewardApplication extends Application implements Application
         mPhone = name;
         SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_USER_PHONE, name).commit();
+        user.setPhone(name);
+        dao.update(user);
     }
 
 
@@ -130,10 +134,9 @@ public class GoldenStewardApplication extends Application implements Application
 
 
     public void saveUserInfo(UserServerParams params) {
-        setPhone(params.getPhone());
-        UserDao dao = DBHelper.getInstance(sInstance).getUserDao();
+        dao = DBHelper.getInstance(sInstance).getUserDao();
         List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(params.getPhone())).list();
-        User user = new User();
+        user = new User();
         if (list.size() > 0) {
             user = list.get(0);
         }
@@ -163,6 +166,8 @@ public class GoldenStewardApplication extends Application implements Application
         } else {
             dao.insert(user);
         }
+
+        setPhone(params.getPhone());
     }
 
     public static Context getNowContext() {

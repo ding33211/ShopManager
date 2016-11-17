@@ -21,6 +21,7 @@
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <LinearLayout
+                    android:id="@+id/ll_top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

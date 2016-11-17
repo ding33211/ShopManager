@@ -14,6 +14,7 @@ import com.soubu.goldensteward.module.server.OperationReportServerParams;
 import com.soubu.goldensteward.module.server.OrderDataArray;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
+import com.soubu.goldensteward.module.server.SubAccountServerParams;
 import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
@@ -32,13 +33,13 @@ public interface RetrofitApi {
     //获取验证码
     @FormUrlEncoded
     @POST("User/send_sms")
-    Call<BaseResp<UserServerParams>> getVerifyCode(@Field("params") String params);
+    Call<BaseResp<Object>> getVerifyCode(@Field("params") String params);
 
 
     //验证验证码
     @FormUrlEncoded
     @POST("User/check_code")
-    Call<BaseResp<UserServerParams>> checkCode(@Field("params") String params);
+    Call<BaseResp<Object>> checkCode(@Field("params") String params);
 
     //获取主营产品tag
     @POST("User/get_main_tag")
@@ -52,17 +53,17 @@ public interface RetrofitApi {
     //认证
     @FormUrlEncoded
     @POST("Certification/submit_certification")
-    Call<BaseResp<VerificationServerParams>> submitCertification(@Field("params") String params);
+    Call<BaseResp<Object>> submitCertification(@Field("params") String params);
 
     //子账户关联
     @FormUrlEncoded
     @POST("Child/submit_merge_child")
-    Call<BaseResp<MergeServerParams>> submitMergeChild(@Field("params") String params);
+    Call<BaseResp<Object>> submitMergeChild(@Field("params") String params);
 
     //子账户验证
     @FormUrlEncoded
     @POST("Child/check_phone")
-    Call<BaseResp<WalletHomeInfoServerParams>> checkChildPhone(@Field("params") String params);
+    Call<BaseResp<Object>> checkChildPhone(@Field("params") String params);
 
     //登录
     @FormUrlEncoded
@@ -72,17 +73,17 @@ public interface RetrofitApi {
     //修改登录密码
     @FormUrlEncoded
     @POST("User/change_login_password")
-    Call<BaseResp<ModifyPwdServerParams>> changeLoginPwd(@Field("params") String params);
+    Call<BaseResp<Object>> changeLoginPwd(@Field("params") String params);
 
     //修改用户信息
     @FormUrlEncoded
     @POST("User/change_user_info")
-    Call<BaseResp<UserServerParams>> changeUserInfo(@Field("params") String params);
+    Call<BaseResp<Object>> changeUserInfo(@Field("params") String params);
 
     //修改用户地址
     @FormUrlEncoded
     @POST("User/change_address")
-    Call<BaseResp<UserServerParams>> changeAddress(@Field("params") String params);
+    Call<BaseResp<Object>> changeAddress(@Field("params") String params);
 
     //获取首页信息
     @POST("Index/index")
@@ -99,17 +100,17 @@ public interface RetrofitApi {
     //验证旧手机号
     @FormUrlEncoded
     @POST("Security/check_old_phone")
-    Call<BaseResp<BaseDataObject<UserServerParams>>> checkOldPhone(@Field("params") String params);
+    Call<BaseResp<Object>> checkOldPhone(@Field("params") String params);
 
     //修改手机号
     @FormUrlEncoded
     @POST("Security/change_phone")
-    Call<BaseResp<BaseDataObject<UserServerParams>>> changePhone(@Field("params") String params);
+    Call<BaseResp<Object>> changePhone(@Field("params") String params);
 
     //忘记密码
     @FormUrlEncoded
     @POST("Security/forget_password")
-    Call<BaseResp<BaseDataObject<UserServerParams>>> forgetPassword(@Field("params") String params);
+    Call<BaseResp<Object>> forgetPassword(@Field("params") String params);
 
     //获取我的用户列表
     @POST("Customer/customer_list")
@@ -156,4 +157,12 @@ public interface RetrofitApi {
     //获取退货率
     @POST("Report/return_rates")
     Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> getReturnRates();
+
+    //获取子账户列表
+    @POST("Child/child_list")
+    Call<BaseResp<BaseDataArray<SubAccountServerParams>>> getSubAccountList();
+
+    //获取修改手机号老号码验证码
+    @POST("User/change_phone_sms")
+    Call<BaseResp<Object>> getOldPhoneVerifyCode();
 }

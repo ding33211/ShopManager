@@ -6,7 +6,9 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.MyCustomersActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
@@ -59,9 +61,11 @@ public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getCustomerListSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataArray) {
-            mParams = (CustomerServerParams[]) ((BaseDataArray) resp.getResult()).getData();
+    public void getCustomerListSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_CUSTOMER_LIST) {
+            mParams = (CustomerServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
             viewDelegate.setData(Arrays.asList(mParams));
         }
     }

@@ -7,7 +7,9 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.IncomeOrExpensesRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.TabViewpagerActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
@@ -64,13 +66,14 @@ public class IncomeAndExpensesActivity extends ActivityPresenter<TabViewpagerAct
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataArray) {
-            if (((BaseDataArray) resp.getResult()).getData() instanceof IncomeOrExpensesServerParams[]) {
-                IncomeOrExpensesServerParams[] params = (IncomeOrExpensesServerParams[]) ((BaseDataArray) resp.getResult()).getData();
-                initIncomeOrExpenses(params);
-            }
+    public void changeSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_MY_INCOME || code == EventBusConfig.GET_MY_EXPENSES) {
+            IncomeOrExpensesServerParams[] params = (IncomeOrExpensesServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+            initIncomeOrExpenses(params);
         }
+
     }
 
     private void initIncomeOrExpenses(IncomeOrExpensesServerParams[] params) {

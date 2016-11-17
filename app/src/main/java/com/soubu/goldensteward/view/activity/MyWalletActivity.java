@@ -7,7 +7,9 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.MyWalletActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
@@ -35,9 +37,11 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getWalletInfoSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataObject && ((BaseDataObject) resp.getResult()).getData() instanceof WalletHomeInfoServerParams) {
-            WalletHomeInfoServerParams params = (WalletHomeInfoServerParams) ((BaseDataObject) resp.getResult()).getData();
+    public void getWalletInfoSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_MY_WALLET_INFO) {
+            WalletHomeInfoServerParams params = (WalletHomeInfoServerParams) ((BaseDataObject) resp1.getResult()).getData();
             initWalletInfo(params);
         }
     }

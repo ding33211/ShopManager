@@ -57,9 +57,29 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
         return true;
     }
 
+
+    public boolean checkNewPhone(UserServerParams params) {
+        String newPhone = mEtPhone.getText().toString();
+        if (TextUtils.isEmpty(newPhone)) {
+            ShowWidgetUtil.showShort(R.string.please_input_new_phone);
+            return false;
+        }
+        params.setPhone(newPhone);
+        return true;
+    }
+
     public void initSecondStep() {
         mEtPhone.setEnabled(true);
         mEtPhone.setHint(R.string.please_input_new_phone);
+        mEtPhone.setText("");
+        ShowWidgetUtil.stopVerifyCodeTimer();
+//        TextView tvSend = get(R.id.tv_send_verify_code);
+//        tvSend.setEnabled(true);
+//        tvSend.setTextColor(tvSend.getResources().getColor(R.color.colorPrimary));
+//        tvSend.setBackgroundResource(R.drawable.bg_orange_stroke_corners);
+//        tvSend.setText(R.string.get_verify_code);
+        EditText etCode = get(R.id.et_code);
+        etCode.setText("");
         ((Button) get(R.id.btn_confirm)).setText(R.string.modify_phone);
         ((TextView) get(R.id.tv_verify)).setText(R.string.verify_new_phone);
     }

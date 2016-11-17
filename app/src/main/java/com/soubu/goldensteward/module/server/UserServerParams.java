@@ -33,6 +33,17 @@ public class UserServerParams extends BaseDeltaCopyParams implements Serializabl
     String code;
     String password;
 
+    //此type仅仅用来区别发送验证码的type，若后续被字段覆盖，则单独抽出验证码module
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getCode() {
         return code;
     }

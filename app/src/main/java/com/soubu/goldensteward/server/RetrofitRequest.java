@@ -6,6 +6,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.module.BaseEventBusResp;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -18,14 +20,15 @@ import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
 import com.soubu.goldensteward.module.server.OrderDataArray;
-import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
-import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
+import com.soubu.goldensteward.module.server.SubAccountServerParams;
 import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
+import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.view.activity.LoginActivity;
@@ -58,12 +61,12 @@ public class RetrofitRequest {
         return mInstance;
     }
 
-    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost) {
-        enqueueClue(call, needEventPost, null);
+    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, int eventBusCode) {
+        enqueueClue(call, needEventPost, null, eventBusCode);
     }
 
 
-    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent) {
+    private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent, final int eventBusCode) {
         if (!PhoneUtil.isConnected(GoldenStewardApplication.getContext())) {
             ShowWidgetUtil.showShort(R.string.please_check_internet);
             return;
@@ -72,6 +75,7 @@ public class RetrofitRequest {
         call.enqueue(new Callback<BaseResp<T>>() {
             @Override
             public void onResponse(Call<BaseResp<T>> call, Response<BaseResp<T>> response) {
+                ShowWidgetUtil.dismissProgressDialog();
                 if (response.isSuccessful()) {
                     if (response.body().status == -1) {
                         Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
@@ -85,13 +89,12 @@ public class RetrofitRequest {
                         }
                     } else {
                         if (needEventPost) {
-                            EventBus.getDefault().post(response.body());
+                            EventBus.getDefault().post(new BaseEventBusResp(eventBusCode, response.body()));
                         }
                     }
                 } else {
                     ServerErrorUtil.handleServerError(response.code());
                 }
-                ShowWidgetUtil.dismissProgressDialog();
             }
 
             @Override
@@ -114,10 +117,10 @@ public class RetrofitRequest {
      * @param params 注册对象
      */
     public void getVerifyCode(UserServerParams params) {
-        Call<BaseResp<UserServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getVerifyCode(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_VERIFY_CODE);
     }
 
     /**
@@ -126,10 +129,10 @@ public class RetrofitRequest {
      * @param params 注册对象
      */
     public void checkCode(UserServerParams params) {
-        Call<BaseResp<UserServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .checkCode(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHECK_CODE);
     }
 
 
@@ -140,7 +143,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<MainProductTagServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getMainTag();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_MAIN_TAG);
     }
 
     /**
@@ -150,38 +153,37 @@ public class RetrofitRequest {
         Call<BaseResp<UserServerParams>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .register(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.REGISTER);
     }
 
     /**
      * 认证
      */
     public void submitCertification(VerificationServerParams params) {
-        Call<BaseResp<VerificationServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .submitCertification(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.SUBMIT_CERTIFICATION);
     }
 
     /**
      * 合并子店铺
      */
     public void submitMergeChild(MergeServerParams params) {
-        Call<BaseResp<MergeServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .submitMergeChild(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.SUBMIT_MERGE_CHILD);
     }
 
     /**
      * 子账户验证
      */
     public void checkChildPhone(UserServerParams params) {
-        //TODO 此处用于eventbus辨识，之后会对总体的eventbus机制进行修改
-        Call<BaseResp<WalletHomeInfoServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .checkChildPhone(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHECK_CHILD_PHONE);
     }
 
     /**
@@ -191,27 +193,27 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .login(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.LOGIN);
     }
 
     /**
      * 修改密码
      */
-    public void modifyLoginPwd(ModifyPwdServerParams params) {
-        Call<BaseResp<ModifyPwdServerParams>> call = RetrofitService.getInstance()
+    public void changeLoginPwd(ModifyPwdServerParams params) {
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .changeLoginPwd(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHANGE_LOGIN_PWD);
     }
 
     /**
      * 修改用户信息
      */
     public void changeUserInfo(UserServerParams params) {
-        Call<BaseResp<UserServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .changeUserInfo(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHANGE_USER_INFO);
     }
 
 
@@ -219,10 +221,10 @@ public class RetrofitRequest {
      * 修改用户地址
      */
     public void changeAddress(UserServerParams params) {
-        Call<BaseResp<UserServerParams>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .changeAddress(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHANGE_ADDRESS);
     }
 
 
@@ -233,7 +235,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataObject<HomeInfoServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getHomeInfo();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_HOME_INFO);
     }
 
 
@@ -244,47 +246,47 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataObject<OperationReportServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getOperationReport();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_OPERATION_REPORT);
     }
 
     /**
-     * 获取运营报表
+     * 获取钱包首页
      */
     public void getMyWalletInfo() {
         Call<BaseResp<BaseDataObject<WalletHomeInfoServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getMyWalletInfo();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_MY_WALLET_INFO);
     }
 
     /**
      * 验证旧手机
      */
     public void checkOldPhone(UserServerParams params) {
-        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .checkOldPhone(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHECK_OLD_PHONE);
     }
 
     /**
      * 修改手机号
      */
     public void changePhone(UserServerParams params) {
-        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .changePhone(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.CHANGE_PHONE);
     }
 
     /**
      * 忘记密码
      */
     public void forgetPassword(UserServerParams params) {
-        Call<BaseResp<BaseDataObject<UserServerParams>>> call = RetrofitService.getInstance()
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .forgetPassword(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.FORGET_PWD);
     }
 
     /**
@@ -294,7 +296,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<CustomerServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getCustomerList();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_CUSTOMER_LIST);
     }
 
     /**
@@ -304,7 +306,7 @@ public class RetrofitRequest {
         Call<BaseResp<CustomerDetailDataObject>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getCustomerDetail(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_CUSTOMER_DETAIL);
     }
 
     /**
@@ -314,7 +316,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getMyIncome();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_MY_INCOME);
     }
 
     /**
@@ -324,7 +326,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<IncomeOrExpensesServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getMyExpenses();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_MY_EXPENSES);
     }
 
     /**
@@ -334,7 +336,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<TurnOverServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getTurnOver();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_TURNOVER);
     }
 
 
@@ -347,7 +349,7 @@ public class RetrofitRequest {
         Call<BaseResp<OrderDataArray>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getOrderList(new Gson().toJson(params));
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_ORDER_LIST);
     }
 
     /**
@@ -357,7 +359,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getShopVisit();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_SHOP_VISIT);
     }
 
     /**
@@ -367,7 +369,7 @@ public class RetrofitRequest {
         Call<BaseResp<WithCountDataArray<VisitFriendsServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getVisitFriends();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_VISIT_FRIENDS);
     }
 
 
@@ -378,7 +380,7 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getProductVisit();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_PRODUCT_VISIT);
     }
 
     /**
@@ -388,7 +390,7 @@ public class RetrofitRequest {
         Call<BaseResp<WithCountDataArray<ProductInOrderListServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getProductListOnSale();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_PRODUCT_LIST_ON_SALE);
     }
 
     /**
@@ -398,7 +400,27 @@ public class RetrofitRequest {
         Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getReturnRates();
-        enqueueClue(call, true);
+        enqueueClue(call, true, EventBusConfig.GET_RETURN_RATES);
+    }
+
+    /**
+     * 子账户列表
+     */
+    public void getSubAccountList() {
+        Call<BaseResp<BaseDataArray<SubAccountServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getSubAccountList();
+        enqueueClue(call, true, EventBusConfig.GET_SUB_ACCOUNT_LIST);
+    }
+
+    /**
+     * 获取旧手机的验证码
+     */
+    public void getOldPhoneVerifyCode() {
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getOldPhoneVerifyCode();
+        enqueueClue(call, true, EventBusConfig.GET_OLD_PHONE_VERIFY_CODE);
     }
 
 }

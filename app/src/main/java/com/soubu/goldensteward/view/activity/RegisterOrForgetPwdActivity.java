@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RegisterOrForgetPwdActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
@@ -125,6 +127,11 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
 
     private void sendVerifyCode(String phone) {
         mParams.setPhone(phone);
+        if(mType == TYPE_REGISTER){
+            mParams.setType("1");
+        } else {
+            mParams.setType("2");
+        }
         RetrofitRequest.getInstance().getVerifyCode(mParams);
     }
 
@@ -133,21 +140,29 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(BaseResp resp) {
-        if (resp.getResult() instanceof UserServerParams) {
-            String msg = resp.getMsg();
+    public void refreshData(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        String msg = resp1.getMsg();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_VERIFY_CODE) {
+            if (TextUtils.equals(msg, "发送成功")) {
+                mVSendCode.setEnabled(false);
+                ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+                ShowWidgetUtil.showShort(msg);
+            }
+        }
+        if (code == EventBusConfig.CHECK_CODE) {
             if (TextUtils.equals(msg, "验证成功")) {
                 Intent intent = new Intent(this, RegisterSupplierActivity.class);
                 intent.putExtra(Constant.EXTRA_PARAMS, mParams);
                 startActivity(intent);
-            } else {
-                if (TextUtils.equals(msg, "发送成功")) {
-                    mVSendCode.setEnabled(false);
-                    ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
-                    ShowWidgetUtil.showShort(msg);
-                }
             }
         }
+        if(code == EventBusConfig.FORGET_PWD){
+            ShowWidgetUtil.showShort(R.string.modify_success);
+            finish();
+        }
+
     }
 
 }

@@ -33,11 +33,18 @@
             android:gravity="center_vertical"
             android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/common_header" />
+
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="客服名称"
                 android:textColor="@color/title_black"
                 android:textSize="20sp" />
@@ -47,7 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reviewing"
-                android:textColor="@color/line_color"/>
+                android:textColor="@color/line_color"
+                android:visibility="gone" />
         </LinearLayout>
 
         <View

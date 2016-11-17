@@ -181,9 +181,12 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         mRvContent.setAdapter(mAdapter);
     }
 
-
     public void initLabel(String label) {
         mTvLabel.setText(label);
+    }
+
+    public void initReturnRateView(){
+        get(R.id.ll_top).setVisibility(View.INVISIBLE);
     }
 
     public void initStoreVisitorRecyclerView(VisitFriendsServerParams[] params) {

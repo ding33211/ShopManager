@@ -12,7 +12,9 @@ import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.LoginActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -89,9 +91,11 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void login(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataObject) {
-            BaseDataObject data = (BaseDataObject) resp.getResult();
+    public void login(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.LOGIN) {
+            BaseDataObject data = (BaseDataObject) resp1.getResult();
             if (data.getData() instanceof UserServerParams) {
                 GoldenStewardApplication.getContext().setToken(data.getToken());
                 final UserServerParams params = (UserServerParams) data.getData();

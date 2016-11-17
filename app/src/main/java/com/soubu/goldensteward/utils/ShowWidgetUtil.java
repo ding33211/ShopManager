@@ -20,7 +20,6 @@
 package com.soubu.goldensteward.utils;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +30,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -137,11 +135,11 @@ public class ShowWidgetUtil {
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
-        if(hintRes != 0){
+        if (hintRes != 0) {
             etContent.setHint(hintRes);
         }
         etContent.setText(content);
-        if(textLength != 0){
+        if (textLength != 0) {
             etContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(textLength)});
         }
         View vCancel = customView.findViewById(R.id.btn_cancel);
@@ -176,8 +174,10 @@ public class ShowWidgetUtil {
     }
 
 
+    static CountDownTimer sTimer;
+
     public static void showVerifyCodeTimerStart(final TextView textView) {
-        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        sTimer = new CountDownTimer(60000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -195,13 +195,21 @@ public class ShowWidgetUtil {
         textView.setEnabled(false);
         textView.setTextColor(textView.getResources().getColor(R.color.subtitle_grey));
         textView.setBackgroundResource(R.drawable.bg_grey_stroke_corners);
-        timer.start();
+        sTimer.start();
+    }
+
+    public static void stopVerifyCodeTimer() {
+        if (sTimer != null) {
+            sTimer.cancel();
+            sTimer.onFinish();
+            sTimer = null;
+        }
     }
 
 
     private static ProgressDialog dialog;
 
-    public static void showProgressDialog(String strContent){
+    public static void showProgressDialog(String strContent) {
         showProgressDialog(strContent, 0);
     }
 
@@ -209,7 +217,7 @@ public class ShowWidgetUtil {
         dismissProgressDialogNow();
         try {
             if (dialog == null) {
-                if(style != 0){
+                if (style != 0) {
                     dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), style);
                 } else {
                     dialog = new ProgressDialog(GoldenStewardApplication.getNowContext(), R.style.ProgressDialogTheme);

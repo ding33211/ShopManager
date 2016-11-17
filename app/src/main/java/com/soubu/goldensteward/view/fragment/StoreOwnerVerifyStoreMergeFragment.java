@@ -6,7 +6,9 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyStoreMergeFragmentDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
@@ -79,8 +81,9 @@ public class StoreOwnerVerifyStoreMergeFragment extends FragmentPresenter<StoreO
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onCheckSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof WalletHomeInfoServerParams) {
+    public void onCheckSuccess(BaseEventBusResp resp) {
+        int code = resp.getCode();
+        if (code == EventBusConfig.CHECK_CHILD_PHONE) {
             viewDelegate.onCheckSuccess();
         }
     }

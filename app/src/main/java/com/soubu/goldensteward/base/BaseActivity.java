@@ -1,12 +1,12 @@
 package com.soubu.goldensteward.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -21,9 +21,6 @@ import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 基类activity,放公有方法
  */
@@ -31,13 +28,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public boolean mEventBusJustForThis = false;
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ActivityContainer.getInstance().addActivity(this);
-
     }
+
 
     @Override
     protected void onResume() {
@@ -45,7 +41,6 @@ public class BaseActivity extends AppCompatActivity {
         //友盟埋点初始化
 //        MobclickAgent.onResume(this);
         Bugtags.onResume(this);
-
     }
 
     @Override
@@ -53,7 +48,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
         ShowWidgetUtil.dismissProgressDialog();
         Bugtags.onPause(this);
-
 //        MobclickAgent.onPause(this);
     }
 

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.TabViewpagerActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
@@ -60,24 +62,26 @@ public class InformationActivity extends ActivityPresenter<TabViewpagerActivityD
             params.deltaCopy(mCiFragment.getParams());
             params.deltaCopy(mPiFragment.getParams());
             RetrofitRequest.getInstance().changeUserInfo(params);
-            if(mCiFragment.isAddressChanged()){
+            if (mCiFragment.isAddressChanged()) {
                 RetrofitRequest.getInstance().changeAddress(mCiFragment.getLocationParams());
             }
-        }  else {
+        } else {
             super.onBackPressed();
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof UserServerParams) {
+    public void changeSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.CHANGE_USER_INFO || code == EventBusConfig.CHANGE_ADDRESS) {
             //只做一次成功操作，因为可能同时存在改变信息和地址
-            if(mSucceed){
+            if (mSucceed) {
                 return;
             } else {
                 mSucceed = true;
             }
-            ShowWidgetUtil.showShort(resp.msg);
+            ShowWidgetUtil.showShort(resp1.msg);
             mPiFragment.updateToDb();
             mCiFragment.updateToDb();
             super.onBackPressed();

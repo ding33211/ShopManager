@@ -19,7 +19,9 @@ import com.soubu.goldensteward.base.greendao.AddressDao;
 import com.soubu.goldensteward.base.greendao.DBHelper;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RegisterSupplierActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.MainProductParams;
 import com.soubu.goldensteward.module.RegisterRvItem;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -330,15 +332,17 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void goNext(BaseResp resp) {
-        if (resp.getResult() instanceof UserServerParams) {
-            UserServerParams params = (UserServerParams) resp.getResult();
+    public void goNext(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.REGISTER) {
+            UserServerParams params = (UserServerParams) resp1.getResult();
             GoldenStewardApplication.getContext().setToken(params.getToken());
             GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
             Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
             startActivity(intent);
             finish();
-            ShowWidgetUtil.showShort(resp.msg);
+            ShowWidgetUtil.showShort(resp1.msg);
         }
     }
 

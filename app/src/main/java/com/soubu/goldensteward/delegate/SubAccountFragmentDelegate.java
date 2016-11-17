@@ -10,7 +10,10 @@ import android.widget.EditText;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.adapter.SubAccountRvAdapter;
+import com.soubu.goldensteward.module.server.SubAccountServerParams;
 import com.soubu.goldensteward.widget.RecyclerViewFastScroller;
+
+import java.util.List;
 
 /**
  * Created by dingsigang on 16-10-18.
@@ -28,7 +31,7 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new SubAccountRvAdapter(getActivity());
+        mAdapter = new SubAccountRvAdapter();
         RecyclerView recyclerView = get(R.id.rv_content);
         recyclerView.setAdapter(mAdapter);
         final RecyclerViewFastScroller fastScroller = get(R.id.fast_scroller);
@@ -71,8 +74,17 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
 //        });
     }
 
-    public void setOnRvItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
+    public void setOnRvItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
         mAdapter.setOnRvItemClickListener(listener);
     }
 
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
+
+    public void setData(List<SubAccountServerParams> list) {
+        mAdapter.setData(list);
+        mAdapter.notifyDataSetChanged();
+    }
 }

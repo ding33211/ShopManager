@@ -9,6 +9,8 @@ import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ModifyPhoneActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
@@ -59,7 +61,14 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_send_verify_code:
-                RetrofitRequest.getInstance().getVerifyCode(mParams);
+                if (!mStep2) {
+                    RetrofitRequest.getInstance().getOldPhoneVerifyCode();
+                } else {
+                    if (viewDelegate.checkNewPhone(mParams)) {
+                        mParams.setType("3");
+                        RetrofitRequest.getInstance().getVerifyCode(mParams);
+                    }
+                }
                 break;
             case R.id.btn_confirm:
                 if (!mStep2) {
@@ -67,7 +76,9 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
                         RetrofitRequest.getInstance().checkOldPhone(mParams);
                     }
                 } else {
-
+                    if (viewDelegate.checkOldPhone(mParams)) {
+                        RetrofitRequest.getInstance().changePhone(mParams);
+                    }
                 }
                 break;
 
@@ -75,20 +86,28 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void serverSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof UserServerParams) {
-            if (TextUtils.equals("发送成功", resp.msg)) {
-                ShowWidgetUtil.showShort(resp.msg);
-                ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
-            }
-        }
-        if (resp.getResult() instanceof WalletHomeInfoServerParams) {
-            if (TextUtils.equals("验证成功", resp.msg)) {
-
-
-
-                mStep2 = true;
-            }
+    public void serverSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        switch (code) {
+            case EventBusConfig.CHECK_OLD_PHONE:
+                if (TextUtils.equals("验证成功", resp1.msg)) {
+                    mStep2 = true;
+                    viewDelegate.initSecondStep();
+                }
+                break;
+            case EventBusConfig.GET_OLD_PHONE_VERIFY_CODE:
+            case EventBusConfig.GET_VERIFY_CODE:
+                if (TextUtils.equals("发送成功", resp1.msg)) {
+                    ShowWidgetUtil.showShort(resp1.msg);
+                    ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+                }
+                break;
+            case EventBusConfig.CHANGE_PHONE:
+                GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
+                ShowWidgetUtil.showShort(R.string.modify_success);
+                finish();
+                break;
         }
     }
 }

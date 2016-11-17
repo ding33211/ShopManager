@@ -59,6 +59,9 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(viewDelegate.ifNeedEventBus()){
+            EventBus.getDefault().register(this);
+        }
         viewDelegate.initWidget();
         initData();
         initView();
@@ -100,24 +103,11 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        if(viewDelegate.ifNeedEventBus()){
-            EventBus.getDefault().register(this);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         if(viewDelegate.ifNeedEventBus()){
             EventBus.getDefault().unregister(this);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
         viewDelegate = null;
     }
 

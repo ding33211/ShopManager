@@ -168,11 +168,10 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                     }
                     break;
                 case CameraUtil.REQUEST_CAMERA:
-                    if (data != null) {
                         File takePhoto = CameraUtil.getTakePhoto();
                         Uri uri = Uri.fromFile(takePhoto);
                         GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, R.drawable.auth_reload, R.drawable.auth_reload);
-                        OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
+                        OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_USER, new OssUtil.UploadCallBack() {
                             @Override
                             public void onSuccess(String fileName) {
                                 saveInfo(fileName, 0);
@@ -190,7 +189,6 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                                 mIvLastClick.setProgress(progress);
                             }
                         });
-                    }
                     break;
                 case REQUEST_LOCATION:
                     if (data != null) {

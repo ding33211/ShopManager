@@ -9,7 +9,9 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.ChooseMainProductsCategoryRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.ChooseMainProductsActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.TagInFlowLayoutModule;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -239,15 +241,16 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getMainTag(BaseResp resp) {
-        if (resp.getResult() instanceof BaseDataArray) {
-            BaseDataArray data = (BaseDataArray) resp.getResult();
+    public void getMainTag(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        if (code == EventBusConfig.GET_MAIN_TAG) {
+            BaseDataArray data = (BaseDataArray) resp1.getResult();
             Object o = data.getData();
             if (o instanceof MainProductTagServerParams[]) {
                 initTagView((MainProductTagServerParams[]) o);
             }
         }
-
     }
 
 

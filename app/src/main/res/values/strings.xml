@@ -51,6 +51,7 @@
     <string name="empty_content">输入的内容不能为空</string>
     <string name="please_input_new_phone">请输入新手机号</string>
     <string name="please_check_internet">请检查网络连接是否正常</string>
+    <string name="please_input_phone">请输入手机号</string>
 
 
     <string name="total_amount_of_account_yuan">账户总金额(元)</string>
@@ -144,8 +145,8 @@
     <string name="more_data">更多数据</string>
     <string name="last_week_offer_num">近一周报价数</string>
     <string name="last_week_collect_num">近一周收藏数</string>
-    <string name="last_week">近一周</string>
-    <string name="last_month">近一月</string>
+    <string name="last_week">近7天</string>
+    <string name="last_month">近30天</string>
     <string name="all">全部</string>
     <string name="pending_payment">待付款</string>
     <string name="pending_shipped">待发货</string>
@@ -286,6 +287,7 @@
     <string name="delete_account">删除账号</string>
     <string name="register_phone">注册手机号</string>
     <string name="report_rv_footer_desc">以上为近一月记录</string>
+    <string name="modify_success">修改成功</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

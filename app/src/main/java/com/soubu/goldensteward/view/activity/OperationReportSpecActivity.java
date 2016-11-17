@@ -6,7 +6,9 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.OperationReportSpecActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.OrderDataArray;
@@ -107,7 +109,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 viewDelegate.setColorInfo(getString(R.string.product_access), getString(R.string.product_access_unit));
                 break;
             case TYPE_REFUND_RATE:
-                RetrofitRequest.getInstance().getProductVisit();
+                RetrofitRequest.getInstance().getReturnRates();
                 viewDelegate.initReturnRateRecyclerView();
                 viewDelegate.setColorInfo(getString(R.string.return_rate), getString(R.string.return_rate_unit));
                 break;
@@ -116,49 +118,47 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getDataSuccess(BaseResp resp) {
-        if (resp.getResult() instanceof OrderDataArray) {
-            if (((BaseDataArray) resp.getResult()).getData() instanceof OrderServerParams[]) {
-                OrderServerParams[] params = (OrderServerParams[]) ((BaseDataArray) resp.getResult()).getData();
-                OrderDataArray result = (OrderDataArray) resp.getResult();
-                if (params.length > 0) {
+    public void getDataSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        switch (code){
+            case EventBusConfig.GET_TURNOVER:
+                TurnOverServerParams[] params = (TurnOverServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                initTurnOverData(params);
+                break;
+            case EventBusConfig.GET_ORDER_LIST:
+                OrderServerParams[] params1 = (OrderServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                OrderDataArray result = (OrderDataArray) resp1.getResult();
+                if (params1.length > 0) {
                     if (!mHaveInitTab) {
-                        String[] titles = new String[]{getString(R.string.all) + params.length, getString(R.string.pending_payment) + result.getWait_pay(),
+                        String[] titles = new String[]{getString(R.string.all) + params1.length, getString(R.string.pending_payment) + result.getWait_pay(),
                                 getString(R.string.pending_shipped) + result.getWait_send(), getString(R.string.refund_appeal) + result.getOther()};
                         viewDelegate.refreshTabTitle(titles);
                         mHaveInitTab = true;
                     }
-                    viewDelegate.initTurnOverVolumeRecyclerView(params);
+                    viewDelegate.initTurnOverVolumeRecyclerView(params1);
                 }
-            }
-        }
-        if (resp.getResult() instanceof WithCountDataArray) {
-            if (((WithCountDataArray) resp.getResult()).getData() instanceof VisitFriendsServerParams[]) {
-                WithCountDataArray result = (WithCountDataArray) resp.getResult();
-                viewDelegate.initLabel(getString(R.string.contact_friends) + result.getCount());
-                viewDelegate.initStoreVisitorRecyclerView((VisitFriendsServerParams[]) result.getData());
-            }
-            if (((WithCountDataArray) resp.getResult()).getData() instanceof ProductInOrderListServerParams[]) {
-                WithCountDataArray result = (WithCountDataArray) resp.getResult();
-                viewDelegate.initLabel(getString(R.string.products_on_sale) + result.getCount());
-                viewDelegate.initProductAccessRecyclerView((ProductInOrderListServerParams[]) result.getData());
-            }
-
-        }
-
-        if (resp.getResult() instanceof BaseDataArray) {
-            if (((BaseDataArray) resp.getResult()).getData() instanceof TurnOverServerParams[]) {
-                TurnOverServerParams[] params = (TurnOverServerParams[]) ((BaseDataArray) resp.getResult()).getData();
-                initTurnOverData(params);
-            }
-            if (((BaseDataArray) resp.getResult()).getData() instanceof ShopVisitorServerParams[]) {
-                ShopVisitorServerParams[] params = (ShopVisitorServerParams[]) ((BaseDataArray) resp.getResult()).getData();
-                if (params.length > 0 && TextUtils.isEmpty(params[0].getVisit_count())) {
-                    initReturnRateData(params);
-                } else if (params.length > 0) {
-                    initShopVisitData(params);
-                }
-            }
+                break;
+            case EventBusConfig.GET_PRODUCT_VISIT:
+            case EventBusConfig.GET_SHOP_VISIT:
+                ShopVisitorServerParams[] params2 = (ShopVisitorServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                initShopVisitData(params2);
+                break;
+            case EventBusConfig.GET_VISIT_FRIENDS:
+                WithCountDataArray result1 = (WithCountDataArray) resp1.getResult();
+                viewDelegate.initLabel(getString(R.string.contact_friends) + result1.getCount());
+                viewDelegate.initStoreVisitorRecyclerView((VisitFriendsServerParams[]) result1.getData());
+                break;
+            case EventBusConfig.GET_PRODUCT_LIST_ON_SALE:
+                WithCountDataArray result2 = (WithCountDataArray) resp1.getResult();
+                viewDelegate.initLabel(getString(R.string.products_on_sale) + result2.getCount());
+                viewDelegate.initProductAccessRecyclerView((ProductInOrderListServerParams[]) result2.getData());
+                break;
+            case EventBusConfig.GET_RETURN_RATES:
+                ShopVisitorServerParams[] params3 = (ShopVisitorServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                viewDelegate.initReturnRateView();
+                initReturnRateData(params3);
+                break;
         }
 
     }
@@ -191,7 +191,11 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             }
             monthList.add(value);
         }
-        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
+        if(max > 25){
+            mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
+        } else {
+
+        }
         initLineView(monthList, null);
     }
 

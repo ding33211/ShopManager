@@ -8,7 +8,9 @@ import android.text.TextUtils;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.StoreOwnerVerifyActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.MergeServerParams;
 import com.soubu.goldensteward.module.server.VerificationServerParams;
@@ -88,8 +90,9 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void gotoMerge(BaseResp resp) {
-        if (resp.getResult() instanceof VerificationServerParams || resp.getResult() instanceof MergeServerParams) {
+    public void gotoMerge(BaseEventBusResp resp) {
+        int code = resp.getCode();
+        if (code == EventBusConfig.SUBMIT_CERTIFICATION || code == EventBusConfig.SUBMIT_MERGE_CHILD ) {
             viewDelegate.clickNextStep();
         }
     }
