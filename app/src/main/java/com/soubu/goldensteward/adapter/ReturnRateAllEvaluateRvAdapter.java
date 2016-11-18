@@ -43,7 +43,7 @@ public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<Eval
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             EvaluateInReturnRateServerParams item = mList.get(position);
             viewHolder.gvImage.setVisibility(View.GONE);
-            if (item.getImgList() != null) {
+            if (item.getImgList() != null && item.getImgList().length > 0) {
                 ImageServerParams[] images = item.getImgList();
                 List<String> urls = new ArrayList<>();
                 for (ImageServerParams params : images) {
@@ -85,6 +85,14 @@ public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<Eval
                 viewHolder.tvReply.setText("商家回复：" + item.getReply());
                 viewHolder.tvReply.setVisibility(View.VISIBLE);
             }
+            if (RegularUtil.isInteger(item.getRole())) {
+                int role = Integer.valueOf(item.getRole());
+                if (role == 1) {
+                    viewHolder.ivShopSpec.setImageResource(R.drawable.purchaser_type_purchaser);
+                } else {
+                    viewHolder.ivShopSpec.setImageResource(R.drawable.supplier_type_supplier);
+                }
+            }
         }
     }
 
@@ -109,7 +117,7 @@ public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<Eval
         TextView tvName;
         ImageView ivVip;
         //        ImageView ivShopType;
-//        ImageView ivShopSpec;
+        ImageView ivShopSpec;
         TextView tvContent;
         TextView tvTime;
         TextView tvCustomerService;
@@ -124,7 +132,7 @@ public class ReturnRateAllEvaluateRvAdapter extends BaseRecyclerViewAdapter<Eval
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             ivVip = (ImageView) itemView.findViewById(R.id.iv_vip);
 //            ivShopType = (ImageView) itemView.findViewById(R.id.iv_shop_type);
-//            ivShopSpec = (ImageView) itemView.findViewById(R.id.iv_shop_spec);
+            ivShopSpec = (ImageView) itemView.findViewById(R.id.iv_shop_spec);
             tvContent = (TextView) itemView.findViewById(R.id.tv_content);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);

@@ -44,7 +44,7 @@ public class ModifyInfoActivityDelegate extends AppDelegate {
     public String checkComplete() {
         String content = mEtContent.getText().toString();
         if (TextUtils.isEmpty(content)) {
-            ShowWidgetUtil.showShort(R.string.empty_content);
+            ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, getTitle()));
             return null;
         }
         return content;

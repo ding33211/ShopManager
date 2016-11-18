@@ -43,13 +43,12 @@
     <string name="location_not_match_toast">定位未开启或者暂不支持该地区，请手动选择所在地</string>
     <string name="permission_explain_location">您如果需要使用系统自己的定位，请打开定位权限</string>
     <string name="wrong_phone">请输入正确的手机号</string>
-    <string name="wrong_empty_code">验证码不能为空</string>
-    <string name="empty_pwd">密码为空</string>
+    <string name="wrong_empty_code">请输入验证码</string>
+    <string name="empty_pwd">请输入密码</string>
     <string name="wrong_pwd">请输入6-20位包含数字和字母的密码</string>
     <string name="wrong_email">请输入正确的邮箱</string>
     <string name="much_more_big_tag">您最多只能选择两个大类</string>
     <string name="much_more_small_tag">您最多只能选择8个标签</string>
-    <string name="empty_content">输入的内容不能为空</string>
     <string name="please_input_new_phone">请输入新手机号</string>
     <string name="same_to_old_phone">与旧手机号相同，无法修改</string>
 
@@ -241,7 +240,6 @@
     <string name="choose_main_products">选择主营产品</string>
     <string name="custom_product_name">自定义品名</string>
     <string name="custom_product_rule">品名建议7个字以内</string>
-    <string name="input_empty_error">输入的内容不能为空</string>
     <string name="traded_order_count">成交订单</string>
     <string name="last_deal">最后下单</string>
     <string name="dan">单</string>

@@ -131,7 +131,7 @@ public class ShowWidgetUtil {
         showCustomInputDialog(activity, titleRes, hintRes, null, textLength, listener);
     }
 
-    public static void showCustomInputDialog(final Activity activity, int titleRes, int hintRes, String content, int textLength, final OnClickCustomInputConfirm listener) {
+    public static void showCustomInputDialog(final Activity activity, final int titleRes, int hintRes, String content, int textLength, final OnClickCustomInputConfirm listener) {
         View customView = LayoutInflater.from(activity).inflate(R.layout.dialog_custom_view, null);
         ((TextView) customView.findViewById(R.id.tv_title)).setText(titleRes);
         final EditText etContent = (EditText) customView.findViewById(R.id.et_content);
@@ -151,7 +151,7 @@ public class ShowWidgetUtil {
             public void onClick(View v) {
                 String content = etContent.getText().toString();
                 if (TextUtils.isEmpty(content)) {
-                    ShowWidgetUtil.showShort(R.string.input_empty_error);
+                    ShowWidgetUtil.showShort(activity.getString(R.string.something_can_not_empty, activity.getString(titleRes)));
                     return;
                 } else {
                     if (listener != null) {

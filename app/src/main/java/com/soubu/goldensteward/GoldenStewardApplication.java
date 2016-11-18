@@ -114,8 +114,10 @@ public class GoldenStewardApplication extends Application implements Application
         mPhone = name;
         SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_USER_PHONE, name).commit();
-        user.setPhone(name);
-        dao.update(user);
+        if (user != null) {
+            user.setPhone(name);
+            dao.update(user);
+        }
     }
 
 
@@ -166,7 +168,6 @@ public class GoldenStewardApplication extends Application implements Application
         } else {
             dao.insert(user);
         }
-
         setPhone(params.getPhone());
     }
 
