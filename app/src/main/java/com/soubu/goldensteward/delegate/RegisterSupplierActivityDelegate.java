@@ -119,6 +119,9 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
 
 
     public boolean checkComplete(UserServerParams params, int stepWhich) {
+        if(params == null){
+            return false;
+        }
         for (RegisterRvItem param : stepWhich == 1 ? mList1 : mList2) {
             String content = param.getContent();
             int titleRes = param.getTitleRes();

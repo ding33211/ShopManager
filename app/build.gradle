@@ -41,6 +41,7 @@ android {
 //应用 Bugtags 插件
 apply plugin: 'com.bugtags.library.plugin'
 //Bugtags 插件配置
+
 bugtags {
     //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考插件详细使用说明
     appKey "4c9c0ecb1faf11a9e160449041a0254a"  //这里是你的 appKey
@@ -71,5 +72,4 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
-
 }

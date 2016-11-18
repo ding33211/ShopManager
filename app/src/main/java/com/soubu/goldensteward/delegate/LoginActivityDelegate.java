@@ -1,10 +1,14 @@
 package com.soubu.goldensteward.delegate;
 
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;

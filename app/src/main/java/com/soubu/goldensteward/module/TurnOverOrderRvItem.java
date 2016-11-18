@@ -5,7 +5,7 @@ package com.soubu.goldensteward.module;
  */
 public class TurnOverOrderRvItem {
     String status;
-    String sed_status;
+    String sec_status;
     String time;
     String p_count;
     String sum_price;
@@ -20,6 +20,14 @@ public class TurnOverOrderRvItem {
     String discount;
     String consignee;
     int rvType;
+
+    public String getSec_status() {
+        return sec_status;
+    }
+
+    public void setSec_status(String sec_status) {
+        this.sec_status = sec_status;
+    }
 
     public String getConsignee() {
         return consignee;
@@ -45,13 +53,6 @@ public class TurnOverOrderRvItem {
         this.status = status;
     }
 
-    public String getSed_status() {
-        return sed_status;
-    }
-
-    public void setSed_status(String sed_status) {
-        this.sed_status = sed_status;
-    }
 
     public String getTime() {
         return time;

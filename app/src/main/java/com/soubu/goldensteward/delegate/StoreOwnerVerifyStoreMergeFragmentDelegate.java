@@ -1,5 +1,8 @@
 package com.soubu.goldensteward.delegate;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,27 +52,20 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
         mController = new FlowLayoutController(mFlPhones);
         mController.setOnEventCallBack(this);
         mPhones = new ArrayList<>();
-//        etMainPhone = get(R.id.et_main_phone);
-//        etMainPhone.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if(TextUtils.isEmpty(s)){
-//                    get(R.id.iv_clear).setVisibility(View.INVISIBLE);
-//                } else {
-//                    get(R.id.iv_clear).setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
+        TextView tvSpec = get(R.id.tv_store_merge_spec1);
+        TextView tvSpec2 = get(R.id.tv_store_merge_spec2);
+        SpannableString spannableString1 = new
+                SpannableString(getActivity().getResources().getString(R.string.store_merge_desc_1));
+        ForegroundColorSpan fcs = new
+                ForegroundColorSpan(getActivity().getResources().getColor(R.color.colorPrimary));
+        spannableString1.setSpan(fcs, spannableString1.toString().indexOf("店铺会") + 3,
+                spannableString1.toString().indexOf("金管家") + 3, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        tvSpec.setText(spannableString1);
+        SpannableString spannableString2 = new
+                SpannableString(getActivity().getResources().getString(R.string.store_merge_desc_2));
+        spannableString2.setSpan(fcs, spannableString2.toString().indexOf("发送至") + 3,
+                spannableString2.toString().indexOf("注册手机") + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        tvSpec2.setText(spannableString2);
     }
 
     public void moveTop() {

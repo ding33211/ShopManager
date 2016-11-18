@@ -63,7 +63,6 @@ public class GoldenStewardApplication extends Application implements Application
         AppConfig.init(sInstance);
         initOSSConfig();
         Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
-
     }
 
     // 获取ApplicationContext

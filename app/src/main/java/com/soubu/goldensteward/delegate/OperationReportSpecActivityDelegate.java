@@ -140,7 +140,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
             item.setName(param.getName());
             item.setPhone(param.getPhone());
             item.setPic(param.getPic());
-            item.setSed_status(param.getSec_status());
+            item.setSec_status(param.getSec_status());
             item.setType(param.getOrder_type());
             item.setConsignee(param.getConsignee());
             item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);

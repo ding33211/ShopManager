@@ -78,7 +78,7 @@ public class TurnOverOrderRvAdapter extends BaseRecyclerViewAdapter<TurnOverOrde
                 holder1.tvPostageMode.setText(item.getFreight());
                 holder1.vShipFee.setVisibility(View.VISIBLE);
             }
-            holder1.tvRefundState.setText(item.getSed_status());
+            holder1.tvRefundState.setText(item.getSec_status());
             holder1.tvTotal.setText(item.getP_count());
             holder1.vDiscount.setVisibility(View.GONE);
             if (RegularUtil.isInteger(item.getDiscount())) {

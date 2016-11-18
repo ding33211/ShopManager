@@ -38,6 +38,7 @@ public class ActivityContainer {
             }
         }
         activityStack.clear();
+        System.exit(0);
     }
 
 }
