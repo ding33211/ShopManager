@@ -13,6 +13,8 @@ import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
+import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
+import com.soubu.goldensteward.module.server.FeedBackServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
@@ -36,6 +38,8 @@ import com.soubu.goldensteward.view.activity.LoginActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -404,6 +408,16 @@ public class RetrofitRequest {
     }
 
     /**
+     * 获取评价
+     */
+    public void getAllEvaluateInReturnRate() {
+        Call<BaseResp<BaseDataArray<EvaluateInReturnRateServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getAllEvaluateInReturnRates();
+        enqueueClue(call, true, EventBusConfig.GET_ALL_EVALUATE_IN_RETURN_RATES);
+    }
+
+    /**
      * 子账户列表
      */
     public void getSubAccountList() {
@@ -414,6 +428,18 @@ public class RetrofitRequest {
     }
 
     /**
+     * 获取子账号详情
+     */
+    public void getSubAccountDetail(String id) {
+        Map map = new HashMap();
+        map.put("id", id);
+        Call<BaseResp<BaseDataObject<SubAccountServerParams>>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .getSubAccountDetail(new Gson().toJson(map));
+        enqueueClue(call, true, EventBusConfig.GET_SUB_ACCOUNT_DETAIL);
+    }
+
+    /**
      * 获取旧手机的验证码
      */
     public void getOldPhoneVerifyCode() {
@@ -421,6 +447,16 @@ public class RetrofitRequest {
                 .createApi(false)
                 .getOldPhoneVerifyCode();
         enqueueClue(call, true, EventBusConfig.GET_OLD_PHONE_VERIFY_CODE);
+    }
+
+    /**
+     * 获取旧手机的验证码
+     */
+    public void sendFeedBack(FeedBackServerParams params) {
+        Call<BaseResp<Object>> call = RetrofitService.getInstance()
+                .createApi(false)
+                .sendFeedBack(new Gson().toJson(params));
+        enqueueClue(call, true, EventBusConfig.SEND_FEEDBACK);
     }
 
 }

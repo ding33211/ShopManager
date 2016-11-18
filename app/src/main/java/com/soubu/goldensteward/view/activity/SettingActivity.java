@@ -21,7 +21,7 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.ll_feedback, R.id.ll_modify_pwd, R.id.ll_modify_phone, R.id.ll_about, R.id.ll_share, R.id.btn_logout);
+        viewDelegate.setOnClickListener(this, R.id.ll_feedback, R.id.ll_modify_pwd, R.id.ll_modify_phone, R.id.ll_about, R.id.btn_logout);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
     @Override
     public void onClick(View v) {
         Intent intent = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_feedback:
                 intent = new Intent(this, FeedBackActivity.class);
                 break;
@@ -47,12 +47,10 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
             case R.id.ll_about:
                 intent = new Intent(this, AboutActivity.class);
                 break;
-            case R.id.ll_share:
-                break;
             case R.id.btn_logout:
                 break;
         }
-        if(intent != null){
+        if (intent != null) {
             startActivity(intent);
         }
     }

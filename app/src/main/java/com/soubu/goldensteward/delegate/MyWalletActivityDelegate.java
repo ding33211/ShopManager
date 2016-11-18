@@ -4,7 +4,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
+import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MyWalletActivityDelegate extends AppDelegate {
     GridView mIncomeGridView;
-    CustomGridViewAdapter mAdapter;
+    HomeGridViewAdapter mAdapter;
 
     @Override
     public int getRootLayoutId() {
@@ -25,7 +25,7 @@ public class MyWalletActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         mIncomeGridView = get(R.id.gv_container);
-        mAdapter = new CustomGridViewAdapter(getActivity());
+        mAdapter = new HomeGridViewAdapter(getActivity());
         mIncomeGridView.setAdapter(mAdapter);
     }
 

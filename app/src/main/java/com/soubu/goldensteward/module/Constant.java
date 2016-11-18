@@ -13,6 +13,7 @@ public class Constant {
     public static final String EXTRA_CONTENT = "CONTENT";
     public static final String EXTRA_HINT = "HINT";
     public static final String EXTRA_INDEX = "INDEX";
+    public static final String EXTRA_SUB_ACCOUNT_ID = "SUB_ACCOUNT_ID";
 
     public static final String SHARED_PREFERENCE_DEFAULT = "DEFAULT";
     public static final String SP_KEY_TOKEN = "TOKEN";

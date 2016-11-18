@@ -20,6 +20,7 @@
     <string name="setting">设置</string>
     <string name="product_access_etc">产品访问等</string>
     <string name="transaction_record_display">交易记录展示</string>
+    <string name="order_type">交易类型</string>
     <string name="real_name_authentication_etc">实名认证等</string>
     <string name="personal_information">个人信息</string>
     <string name="information">信息</string>
@@ -45,11 +46,13 @@
     <string name="wrong_empty_code">验证码不能为空</string>
     <string name="empty_pwd">密码为空</string>
     <string name="wrong_pwd">请输入6-20位包含数字和字母的密码</string>
-    <string name="wrong_email">邮箱格式不正确</string>
+    <string name="wrong_email">请输入正确的邮箱</string>
     <string name="much_more_big_tag">您最多只能选择两个大类</string>
     <string name="much_more_small_tag">您最多只能选择8个标签</string>
     <string name="empty_content">输入的内容不能为空</string>
     <string name="please_input_new_phone">请输入新手机号</string>
+    <string name="same_to_old_phone">与旧手机号相同，无法修改</string>
+
     <string name="please_check_internet">请检查网络连接是否正常</string>
     <string name="please_input_phone">请输入手机号</string>
 
@@ -190,6 +193,7 @@
     <string name="account_info">账户信息</string>
     <string name="register_alert">(请慎重选择，注册成功后部分不可修改）</string>
     <string name="please_choose">请选择</string>
+    <string name="please_choose_feedback_type">请选择反馈类型</string>
     <string name="contact_name">联系人姓名</string>
     <string name="position_in">所在职位</string>
     <string name="company_info">公司信息</string>
@@ -213,7 +217,7 @@
     <string name="contact_method">联系方式</string>
     <string name="please_fill_id_num">请填写身份证号</string>
     <string name="please_fill_mobile">请填写手机号</string>
-    <string name="wrong_id">身份证号码格式不正确</string>
+    <string name="wrong_id">请输入正确的身份证号码</string>
     <string name="make_sure_return_to_login">确定要返回到登录界面么</string>
     <string name="store_owner_verify_step1_desc">审核结果将通过短信发送至该手机</string>
     <string name="store_owner_verify">店铺认证</string>
@@ -281,13 +285,15 @@
     <string name="today_chat_num">今日聊天数</string>
     <string name="today_offer_num">今日报价数</string>
     <string name="loading">正在加载...</string>
-    <string name="something_can_not_empty">%s不能为空</string>
+    <string name="something_can_not_empty">请输入%s</string>
+    <string name="please_choose_s">请选择%s</string>
     <string name="edit_account_name">修改名称</string>
     <string name="reset_account_pwd">重置密码</string>
     <string name="delete_account">删除账号</string>
     <string name="register_phone">注册手机号</string>
-    <string name="report_rv_footer_desc">以上为近一月记录</string>
+    <string name="report_rv_footer_desc">以上为近30天记录</string>
     <string name="modify_success">修改成功</string>
+    <string name="submit_success">提交成功</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

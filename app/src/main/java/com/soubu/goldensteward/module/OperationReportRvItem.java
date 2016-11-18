@@ -1,13 +1,13 @@
 package com.soubu.goldensteward.module;
 
-import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
+import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 
 /**
  * Created by dingsigang on 16-10-21.
  */
 public class OperationReportRvItem {
     String label;
-    CustomGridViewAdapter adapter;
+    HomeGridViewAdapter adapter;
     boolean clickable = true;
 
     public String getLabel() {
@@ -18,11 +18,11 @@ public class OperationReportRvItem {
         this.label = label;
     }
 
-    public CustomGridViewAdapter getAdapter() {
+    public HomeGridViewAdapter getAdapter() {
         return adapter;
     }
 
-    public void setAdapter(CustomGridViewAdapter adapter) {
+    public void setAdapter(HomeGridViewAdapter adapter) {
         this.adapter = adapter;
     }
 

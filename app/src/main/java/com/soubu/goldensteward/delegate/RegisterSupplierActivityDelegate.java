@@ -18,6 +18,8 @@ import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import static com.soubu.goldensteward.adapter.RegisterSupplierRvAdapter.TYPE_ITEM_MUST_CHOOSE;
+
 /**
  * Created by lakers on 16/10/27.
  */
@@ -100,7 +102,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
         mAdapter.notifyItemChanged(5);
     }
 
-    public void refreshMainProducts(String products){
+    public void refreshMainProducts(String products) {
         mList2.get(2).setContent(products);
         mAdapter.notifyItemChanged(2);
     }
@@ -116,20 +118,23 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
     }
 
 
-    public boolean checkComplete(UserServerParams params, int stepWhich){
-        for(RegisterRvItem param : stepWhich == 1 ? mList1 : mList2){
+    public boolean checkComplete(UserServerParams params, int stepWhich) {
+        for (RegisterRvItem param : stepWhich == 1 ? mList1 : mList2) {
             String content = param.getContent();
             int titleRes = param.getTitleRes();
             int type = param.getType();
             Log.e("xxxxxxx", this.getActivity().getString(titleRes) + "   :  " + content);
-
-            if(type > 0x10 && TextUtils.isEmpty(content)){
-                ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, this.getActivity().getString(titleRes)));
+            if (type > 0x10 && TextUtils.isEmpty(content)) {
+                if (type == TYPE_ITEM_MUST_CHOOSE) {
+                    ShowWidgetUtil.showShort(getActivity().getString(R.string.please_choose_s, this.getActivity().getString(titleRes)));
+                } else {
+                    ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, this.getActivity().getString(titleRes)));
+                }
                 return false;
             }
-            switch (titleRes){
+            switch (titleRes) {
                 case R.string.store_name:
-                   params.setName(content);
+                    params.setName(content);
                     break;
                 case R.string.contact_name:
                     params.setContact_name(content);
@@ -138,10 +143,10 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                     params.setJob(Integer.valueOf(content) + 1 + "");
                     break;
                 case R.string.email:
-                    if(RegularUtil.isEmail(content)){
+                    if (RegularUtil.isEmail(content)) {
                         params.setMail(content);
                     } else {
-                        if(!TextUtils.isEmpty(content)){
+                        if (!TextUtils.isEmpty(content)) {
                             ShowWidgetUtil.showShort(R.string.wrong_email);
                             return false;
                         }
@@ -169,7 +174,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                     params.setCompany_size(Integer.valueOf(content) + 1 + "");
                     break;
                 case R.string.company_profile:
-                    if(TextUtils.isEmpty(mAdapter.getMultiLineContent())){
+                    if (TextUtils.isEmpty(mAdapter.getMultiLineContent())) {
                         ShowWidgetUtil.showShort(getActivity().getString(R.string.something_can_not_empty, this.getActivity().getString(titleRes)));
                         return false;
                     }
@@ -181,7 +186,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
     }
 
 
-    public void setOnClickLocationViewListener(RegisterSupplierRvAdapter.OnClickLocationViewListener listener){
+    public void setOnClickLocationViewListener(RegisterSupplierRvAdapter.OnClickLocationViewListener listener) {
         mAdapter.setOnClickLocationViewListener(listener);
     }
 

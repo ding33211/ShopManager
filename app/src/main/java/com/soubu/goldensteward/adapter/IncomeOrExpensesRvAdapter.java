@@ -22,13 +22,13 @@ public class IncomeOrExpensesRvAdapter extends BaseRecyclerViewAdapter<IncomeOrE
     public static final int TYPE_INCOME = 0x00;
     public static final int TYPE_EXPENSES = 0x01;
     private int mType;
-    private String[] mStates;
-    private String[] mTypes;
+//    private String[] mStates;
+//    private String[] mTypes;
 
     public IncomeOrExpensesRvAdapter(int type, Context context) {
         mType = type;
-        mStates = context.getResources().getStringArray(R.array.order_state);
-        mTypes = context.getResources().getStringArray(R.array.product_type);
+//        mStates = context.getResources().getStringArray(R.array.order_state);
+//        mTypes = context.getResources().getStringArray(R.array.product_type);
     }
 
     @Override
@@ -49,19 +49,24 @@ public class IncomeOrExpensesRvAdapter extends BaseRecyclerViewAdapter<IncomeOrE
                 holder1.vItemBottomLine.setVisibility(View.INVISIBLE);
             }
             IncomeOrExpensesServerParams item = mList.get(position);
-            holder1.tvAmount.setText(item.getPrice());
-            if(RegularUtil.isInteger(item.getType())){
-                holder1.tvFor.setText(mTypes[Integer.valueOf(item.getType()) - 1] + "购买" + "-");
-            } else {
-                holder1.tvFor.setText(item.getType());
-            }
-            holder1.tvState.setText(mStates[Integer.valueOf(item.getStatus()) - 1]);
-            if (!TextUtils.isEmpty(item.getName())) {
-                holder1.tvDesc.setText(item.getName());
-            } else {
-                holder1.tvDesc.setText(item.getMessage());
-            }
+            holder1.tvState.setText(item.getStatus());
             holder1.tvTime.setText(item.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(item.getAdd_time()) * 1000)));
+            if (mType == TYPE_EXPENSES) {
+                holder1.tvAmount.setText(item.getPrice());
+                holder1.tvFor.setText(item.getType());
+            } else {
+                holder1.tvAmount.setText(item.getReal_get());
+                if (!TextUtils.isEmpty(item.getOrder_type())) {
+                    holder1.tvFor.setText(item.getOrder_type() + "购买");
+                    if (!TextUtils.isEmpty(item.getMessage())) {
+                        holder1.tvDesc.setText("-" + item.getMessage());
+                    }
+                } else {
+                    if (!TextUtils.isEmpty(item.getMessage())) {
+                        holder1.tvDesc.setText(item.getMessage());
+                    }
+                }
+            }
         }
     }
 

@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
+import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 import com.soubu.goldensteward.adapter.OperationReportRvAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RecyclerViewActivityDelegate;
@@ -75,7 +75,7 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
         item.setLabel(label);
         List<String> titleList = Arrays.asList(title);
         List<String> contentList = Arrays.asList(subTitle);
-        CustomGridViewAdapter adapter = new CustomGridViewAdapter(getApplicationContext(), null, titleList, contentList);
+        HomeGridViewAdapter adapter = new HomeGridViewAdapter(getApplicationContext(), null, titleList, contentList);
         item.setAdapter(adapter);
         return item;
     }

@@ -10,15 +10,16 @@
         android:id="@+id/iv_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/iv_logo">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,65 +33,66 @@
     </LinearLayout>
 
 
-
-
     <LinearLayout
         android:id="@+id/ll_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/address"/>
+            android:text="@string/address" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/colon"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginRight="4dp"
+            android:text="@string/colon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/soubu_address"/>
+            android:text="@string/soubu_address" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_service_protocol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/bank_account_blue"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/ll_address"
-        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:text="@string/soubu_service_protocol"/>
+        android:text="@string/soubu_service_protocol"
+        android:textColor="@color/bank_account_blue"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_grey_stroke_white_solid_corners"
+        android:layout_above="@+id/tv_service_protocol"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_above="@+id/tv_service_protocol"
-        android:layout_marginBottom="16dp">
+        android:background="@drawable/bg_grey_stroke_white_solid_corners">
 
         <!--<TextView-->
-            <!--android:id="@+id/tv_score_for_me"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/score_for_me" />-->
+        <!--android:id="@+id/tv_score_for_me"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/score_for_me" />-->
 
         <!--<View-->
-            <!--android:layout_width="0.5dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/subtitle_grey" />-->
+        <!--android:layout_width="0.5dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/subtitle_grey" />-->
 
         <TextView
             android:id="@+id/tv_contact_customer_service"

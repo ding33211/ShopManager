@@ -44,14 +44,12 @@
             android:id="@+id/tv_for"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="色卡"
             android:textColor="@color/subtitle_grey"/>
         <TextView
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="显示产品名称,若获取不到则显示用户留言用户留言用户留言用户留言用户留言"
             android:textColor="@color/subtitle_grey"/>
     </LinearLayout>
 

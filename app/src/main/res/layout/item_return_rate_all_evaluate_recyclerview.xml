@@ -15,21 +15,26 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/common_header" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:text="海之蓝纺织"
-                android:textColor="@color/title_black"
-                android:textSize="16sp" />
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="海之蓝纺织"
+                    android:textColor="@color/title_black"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -38,17 +43,24 @@
 
                 <ImageView
                     android:id="@+id/iv_vip"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginRight="4dp"
-                    android:src="@drawable/shop_tag_vip" />
+                    android:src="@drawable/role_0" />
 
-                <ImageView
-                    android:id="@+id/iv_shop_type"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@drawable/shop_tag_personal" />
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_vip"-->
+                <!--android:layout_width="16dp"-->
+                <!--android:layout_height="16dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:src="@drawable/shop_tag_vip" />-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_shop_type"-->
+                <!--android:layout_width="16dp"-->
+                <!--android:layout_height="16dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:src="@drawable/shop_tag_personal" />-->
 
                 <ImageView
                     android:id="@+id/iv_shop_spec"
@@ -60,14 +72,15 @@
     </LinearLayout>
 
     <RatingBar
+        android:id="@+id/rb_rating"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="10dp"
         android:numStars="5"
-        android:stepSize="1"
-        android:rating="3"/>
+        android:rating="3"
+        android:stepSize="1" />
 
     <TextView
         android:id="@+id/tv_content"
@@ -76,21 +89,40 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="我IE那个为我开的口是魔鬼  工具外摸个 默默为 法高搜为高劲松欧神诺欧冠决赛  莫司机方式" />
+        android:text="我IE那个为我开的口是魔鬼  工具外摸个 默默为 法高搜为高劲松欧神诺欧冠决赛  莫司机方式"
+        android:textColor="@color/title_black" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/tv_time"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="2015.09.10 08:20"
+            android:textColor="@color/line_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/order_type"
+            android:textColor="@color/line_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/colon"
+            android:textColor="@color/line_color" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textColor="@color/line_color" />
 
         <LinearLayout
@@ -120,4 +152,26 @@
                 android:textColor="@color/subtitle_grey" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.soubu.goldensteward.widget.GridViewInScrollView
+        android:id="@+id/gv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp"
+        android:numColumns="3"
+        android:verticalSpacing="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/filter_selected_color"
+        android:padding="4dp"
+        android:text="商家回复：大佛is按哦i采纳死哦吵闹is脑残搜info爱你哦爱十年飞洒哦按佛is按佛i阿森纳佛is按佛ian佛阿帆啊" />
 </LinearLayout>

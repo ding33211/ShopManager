@@ -33,6 +33,7 @@ public class MyWalletActivity extends ActivityPresenter<MyWalletActivityDelegate
     @Override
     protected void initData() {
         super.initData();
+        viewDelegate.getToolbar().setBackgroundResource(R.color.orange_wallet);
         RetrofitRequest.getInstance().getMyWalletInfo();
     }
 

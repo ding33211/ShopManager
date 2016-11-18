@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
+import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 import com.soubu.goldensteward.utils.GlideUtils;
 
 import java.util.List;
@@ -15,8 +15,8 @@ import java.util.List;
  * Created by dingsigang on 16-10-18.
  */
 public class HomeFragmentDelegate extends BaseFragmentDelegate {
-    CustomGridViewAdapter mTodayAdapter;
-    CustomGridViewAdapter mActionAdapter;
+    HomeGridViewAdapter mTodayAdapter;
+    HomeGridViewAdapter mActionAdapter;
     GridView mTodayGridView;
     GridView mActionGridView;
 
@@ -30,9 +30,9 @@ public class HomeFragmentDelegate extends BaseFragmentDelegate {
     public void initWidget() {
         super.initWidget();
         mTodayGridView = get(R.id.gv_today_data);
-        mTodayAdapter = new CustomGridViewAdapter(getActivity());
+        mTodayAdapter = new HomeGridViewAdapter(getActivity());
         mTodayGridView.setAdapter(mTodayAdapter);
-        mActionAdapter = new CustomGridViewAdapter(getActivity());
+        mActionAdapter = new HomeGridViewAdapter(getActivity());
         mActionGridView = get(R.id.gv_other_action);
         mActionGridView.setAdapter(mActionAdapter);
     }

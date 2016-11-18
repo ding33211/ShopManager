@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.view.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
@@ -11,6 +12,7 @@ import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
 import com.soubu.goldensteward.module.server.OrderDataArray;
 import com.soubu.goldensteward.module.server.OrderServerParams;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
@@ -19,13 +21,18 @@ import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+
+import static java.lang.Math.log;
+import static java.lang.Math.pow;
 
 /**
  * Created by dingsigang on 16-10-21.
@@ -110,7 +117,9 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 break;
             case TYPE_REFUND_RATE:
                 RetrofitRequest.getInstance().getReturnRates();
-                viewDelegate.initReturnRateRecyclerView();
+                RetrofitRequest.getInstance().getAllEvaluateInReturnRate();
+                viewDelegate.initReturnRateView();
+
                 viewDelegate.setColorInfo(getString(R.string.return_rate), getString(R.string.return_rate_unit));
                 break;
         }
@@ -121,7 +130,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     public void getDataSuccess(BaseEventBusResp resp) {
         BaseResp resp1 = (BaseResp) resp.getObject();
         int code = resp.getCode();
-        switch (code){
+        switch (code) {
             case EventBusConfig.GET_TURNOVER:
                 TurnOverServerParams[] params = (TurnOverServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
                 initTurnOverData(params);
@@ -156,8 +165,11 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 break;
             case EventBusConfig.GET_RETURN_RATES:
                 ShopVisitorServerParams[] params3 = (ShopVisitorServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
-                viewDelegate.initReturnRateView();
                 initReturnRateData(params3);
+                break;
+            case EventBusConfig.GET_ALL_EVALUATE_IN_RETURN_RATES:
+                EvaluateInReturnRateServerParams[] params4 = (EvaluateInReturnRateServerParams[])((BaseDataArray) resp1.getResult()).getData();
+                viewDelegate.initReturnRateRecyclerView(Arrays.asList(params4));
                 break;
         }
 
@@ -176,7 +188,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             monthList.add(value);
             monthContentList.add(param.getPrice());
         }
-        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
+        mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
         initLineView(monthList, monthContentList);
     }
 
@@ -191,11 +203,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             }
             monthList.add(value);
         }
-        if(max > 25){
-            mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
-        } else {
-
-        }
+        mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
         initLineView(monthList, null);
     }
 
@@ -210,7 +218,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             }
             monthList.add(value);
         }
-        mMonthSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
+        mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
         initLineView(monthList, null);
     }
 
@@ -229,7 +237,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 weekContentList.add(monthContentList.get(i));
             }
         }
-        mWeekSpace = max / 25 == 0 ? 20 : ((max / 25) + 1) * 5;
+        mWeekSpace = ConvertUtil.regulateSpace(0, max, 5);
         Collections.reverse(mLastMonthBottom);
         Collections.reverse(mLastWeekBottom);
         Collections.reverse(monthList);

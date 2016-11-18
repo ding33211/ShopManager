@@ -2,15 +2,15 @@ package com.soubu.goldensteward.delegate;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.adapter.CustomGridViewAdapter;
+import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 import com.soubu.goldensteward.adapter.LoginTimeRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
+import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.widget.DividerItemDecoration;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SubAccountActivityDelegate extends AppDelegate {
 
-    CustomGridViewAdapter mAdapter;
+    HomeGridViewAdapter mAdapter;
     LoginTimeRvAdapter mRecyclerAdapter;
 
     @Override
@@ -32,14 +32,19 @@ public class SubAccountActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new CustomGridViewAdapter(this.getActivity());
+        mAdapter = new HomeGridViewAdapter(this.getActivity());
         ((GridView) get(R.id.gv_container)).setAdapter(mAdapter);
         mRecyclerAdapter = new LoginTimeRvAdapter();
         RecyclerView rvContent = get(R.id.rv_content);
         rvContent.setAdapter(mRecyclerAdapter);
         rvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvContent.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 2));
+    }
 
+    public void setTop(String avatarUrl, String name, String phone) {
+        GlideUtils.loadRoundedImage(this.getActivity(), (ImageView) get(R.id.iv_avatar), avatarUrl, R.drawable.common_header, R.drawable.common_header);
+        ((TextView) get(R.id.tv_name)).setText(name);
+        ((TextView) get(R.id.tv_phone_num)).setText(phone);
     }
 
     public void setTodayData(List<Integer> iconList, List<String> titleList, List<String> subTitleList) {
@@ -49,5 +54,11 @@ public class SubAccountActivityDelegate extends AppDelegate {
     public void setLoginList(List<String> list) {
         mRecyclerAdapter.setData(list);
         mRecyclerAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
     }
 }

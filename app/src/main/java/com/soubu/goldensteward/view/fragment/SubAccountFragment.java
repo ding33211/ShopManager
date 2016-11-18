@@ -6,6 +6,7 @@ import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.base.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.delegate.SubAccountFragmentDelegate;
 import com.soubu.goldensteward.module.BaseEventBusResp;
+import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
@@ -17,11 +18,14 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by dingsigang on 16-10-18.
  */
 public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDelegate> {
+    List<SubAccountServerParams> mList;
+
     @Override
     protected Class<SubAccountFragmentDelegate> getDelegateClass() {
         return SubAccountFragmentDelegate.class;
@@ -40,6 +44,7 @@ public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDele
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getActivity(), SubAccountSpecActivity.class);
+                intent.putExtra(Constant.EXTRA_SUB_ACCOUNT_ID, mList.get(position).getUser_id());
                 startActivity(intent);
             }
         });
@@ -51,7 +56,8 @@ public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDele
         int code = resp.getCode();
         if (code == EventBusConfig.GET_SUB_ACCOUNT_LIST) {
             SubAccountServerParams[] params = (SubAccountServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
-            viewDelegate.setData(Arrays.asList(params));
+            mList = Arrays.asList(params);
+            viewDelegate.setData(mList);
         }
     }
 

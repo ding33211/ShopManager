@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff8400</color>
+    <color name="colorPrimary">#ff6500</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ff8400</color>
+    <color name="colorAccent">#ff6500</color>
 
     <color name="search_text_color">#666666</color>
     <color name="three_translucent_white">#4dffffff</color>
@@ -15,7 +15,8 @@
     <color name="filter_selected_color">#f5f5f5</color>
     <color name="line_color">#e3e3e3</color>
     <color name="item_line_grey">#e5e5e5</color>
-    <color name="orange_1">#FF901A</color>
+    <color name="orange_wallet_sub">#FF901A</color>
+    <color name="orange_wallet">#FF8400</color>
     <color name="bank_account_blue">#6a7ca0</color>
     <color name="warning_ground">#fff2dd</color>
 

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.utils.ConvertUtil;
+
+import java.util.Date;
 
 /**
  * Created by dingsigang on 16-11-11.
@@ -20,7 +23,10 @@ public class LoginTimeRvAdapter extends BaseRecyclerViewAdapter<String> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder holder1 = (ItemViewHolder) holder;
+            holder1.tvContent.setText(ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(mList.get(position)) * 1000)));
+        }
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

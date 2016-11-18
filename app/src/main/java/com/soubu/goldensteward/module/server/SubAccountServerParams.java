@@ -12,6 +12,51 @@ public class SubAccountServerParams implements PinyinLetterInterface {
     String name;
     String portrait;
     String sort;
+    String phone;
+    String income;
+    String order_count;
+    String offer_count;
+    String[] week_login;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getIncome() {
+        return income;
+    }
+
+    public void setIncome(String income) {
+        this.income = income;
+    }
+
+    public String getOrder_count() {
+        return order_count;
+    }
+
+    public void setOrder_count(String order_count) {
+        this.order_count = order_count;
+    }
+
+    public String getOffer_count() {
+        return offer_count;
+    }
+
+    public void setOffer_count(String offer_count) {
+        this.offer_count = offer_count;
+    }
+
+    public String[] getWeek_login() {
+        return week_login;
+    }
+
+    public void setWeek_login(String[] week_login) {
+        this.week_login = week_login;
+    }
 
     public String getUser_id() {
         return user_id;

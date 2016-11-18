@@ -17,6 +17,7 @@ import com.soubu.goldensteward.module.ProductAccessProductsOnSaleRvItem;
 import com.soubu.goldensteward.module.ReturnRateAllEvaluateRvItem;
 import com.soubu.goldensteward.module.StoreVisitorContactFriendsRvItem;
 import com.soubu.goldensteward.module.TurnOverOrderRvItem;
+import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
 import com.soubu.goldensteward.module.server.OrderServerParams;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
@@ -144,38 +145,6 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
             item.setConsignee(param.getConsignee());
             item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
             list.add(item);
-
-//            int i = 0;
-//            for (ProductInOrderListServerParams params1 : param.getDetail()) {
-//                TurnOverOrderRvItem item = new TurnOverOrderRvItem();
-//                item.setStatus(param.getStatus());
-//                item.setSed_status(param.getSed_status());
-//                item.setTime(param.getTime());
-//                item.setP_count(param.getP_count());
-//                item.setSum_price(param.getSum_price());
-//                item.setFreight(param.getFreight());
-//                item.setPic(params1.getPic());
-//                item.setName(params1.getName());
-//                item.setPhone(params1.getPhone());
-//                item.setProvince(params1.getProvince());
-//                item.setCity(params1.getCity());
-//                item.setType(params1.getType());
-//                item.setPrice(params1.getPrice());
-//                item.setDiscount(params1.getDiscount());
-//                if (i == 0) {
-//                    if (i == param.getDetail().length - 1) {
-//                        item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
-//                    } else {
-//                        item.setRvType(BaseRecyclerViewAdapter.TYPE_TOP);
-//                    }
-//                } else if (i == param.getDetail().length - 1) {
-//                    item.setRvType(BaseRecyclerViewAdapter.TYPE_BOT);
-//                } else {
-//                    item.setRvType(BaseRecyclerViewAdapter.TYPE_MID);
-//                }
-//                list.add(item);
-//                i++;
-//            }
         }
         mAdapter.setData(list);
         mRvContent.setAdapter(mAdapter);
@@ -185,8 +154,9 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         mTvLabel.setText(label);
     }
 
-    public void initReturnRateView(){
+    public void initReturnRateView() {
         get(R.id.ll_top).setVisibility(View.INVISIBLE);
+        mTvLabel.setText(R.string.all_evaluate);
     }
 
     public void initStoreVisitorRecyclerView(VisitFriendsServerParams[] params) {
@@ -203,17 +173,21 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         mRvContent.setAdapter(adapter);
     }
 
-    public void initReturnRateRecyclerView() {
-        mTvLabel.setText(R.string.all_evaluate);
+    public void initReturnRateRecyclerView(List<EvaluateInReturnRateServerParams> list) {
         ReturnRateAllEvaluateRvAdapter adapter = new ReturnRateAllEvaluateRvAdapter();
-        List<ReturnRateAllEvaluateRvItem> list = new ArrayList<>();
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
-        list.add(new ReturnRateAllEvaluateRvItem());
+//        List<ReturnRateAllEvaluateRvItem> list = new ArrayList<>();
+//        ReturnRateAllEvaluateRvItem item = new ReturnRateAllEvaluateRvItem();
+//        item.setUrls(new String[]{"http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg"});
+//        list.add(item);
+//        list.add(new ReturnRateAllEvaluateRvItem());
+//        list.add(new ReturnRateAllEvaluateRvItem());
+//        ReturnRateAllEvaluateRvItem item2 = new ReturnRateAllEvaluateRvItem();
+//        item2.setUrls(new String[]{"http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg"});
+//        list.add(item2);
+//        list.add(new ReturnRateAllEvaluateRvItem());
+//        list.add(new ReturnRateAllEvaluateRvItem());
+//        list.add(new ReturnRateAllEvaluateRvItem());
+//        list.add(new ReturnRateAllEvaluateRvItem());
         adapter.setData(list);
         mRvContent.setAdapter(adapter);
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 2));

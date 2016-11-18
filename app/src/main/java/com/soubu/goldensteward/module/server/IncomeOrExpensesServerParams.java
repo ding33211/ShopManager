@@ -5,11 +5,37 @@ package com.soubu.goldensteward.module.server;
  */
 public class IncomeOrExpensesServerParams {
     String price;
+    String real_get;
+    String order_num;
+    String order_type;
     String type;
     String status;
     String add_time;
-    String name;
     String message;
+
+    public String getReal_get() {
+        return real_get;
+    }
+
+    public void setReal_get(String real_get) {
+        this.real_get = real_get;
+    }
+
+    public String getOrder_num() {
+        return order_num;
+    }
+
+    public void setOrder_num(String order_num) {
+        this.order_num = order_num;
+    }
+
+    public String getOrder_type() {
+        return order_type;
+    }
+
+    public void setOrder_type(String order_type) {
+        this.order_type = order_type;
+    }
 
     public String getPrice() {
         return price;
@@ -41,14 +67,6 @@ public class IncomeOrExpensesServerParams {
 
     public void setAdd_time(String add_time) {
         this.add_time = add_time;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getMessage() {

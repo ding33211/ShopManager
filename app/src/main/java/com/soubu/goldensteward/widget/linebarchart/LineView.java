@@ -26,6 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Math.ceil;
+import static java.lang.Math.log;
+import static java.lang.Math.pow;
+
 public class LineView extends View {
     //存储各个底部栏的日期
     private List<Date> mDates;

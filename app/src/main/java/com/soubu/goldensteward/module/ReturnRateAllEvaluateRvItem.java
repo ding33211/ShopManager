@@ -13,6 +13,15 @@ public class ReturnRateAllEvaluateRvItem {
     String content;
     Date date;
     String customerService;
+    String[] urls;
+
+    public String[] getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String[] urls) {
+        this.urls = urls;
+    }
 
     public String getImgUrl() {
         return imgUrl;

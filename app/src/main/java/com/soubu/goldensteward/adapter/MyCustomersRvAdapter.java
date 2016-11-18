@@ -93,7 +93,7 @@ public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomerServer
             holder1.tvLetter.setText(params.getLetter());
             holder1.tvDealCount.setText(params.getOrder_count());
             GlideUtils.loadRoundedImage(holder1.ivAvatar.getContext(), holder1.ivAvatar, params.getPortrait(), R.drawable.common_header, R.drawable.common_header);
-            holder1.tvLastDeal.setText(params.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(params.getAdd_time()))).substring(1));
+            holder1.tvLastDeal.setText(params.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(params.getAdd_time()) * 1000)).substring(2));
         }
     }
 

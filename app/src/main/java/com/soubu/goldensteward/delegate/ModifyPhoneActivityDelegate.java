@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.module.server.UserServerParams;
@@ -62,6 +63,10 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
         String newPhone = mEtPhone.getText().toString();
         if (TextUtils.isEmpty(newPhone)) {
             ShowWidgetUtil.showShort(R.string.please_input_new_phone);
+            return false;
+        }
+        if(TextUtils.equals(newPhone, GoldenStewardApplication.getContext().getPhone())){
+            ShowWidgetUtil.showShort(R.string.same_to_old_phone);
             return false;
         }
         params.setPhone(newPhone);

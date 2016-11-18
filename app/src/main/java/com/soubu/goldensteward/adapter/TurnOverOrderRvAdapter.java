@@ -23,12 +23,12 @@ import java.util.Date;
  */
 public class TurnOverOrderRvAdapter extends BaseRecyclerViewAdapter<TurnOverOrderRvItem> {
 
-    private String[] mOrderStatus;
+//    private String[] mOrderStatus;
 //    private String[] mFreight;
 //    private String[] mProductType;
 
     public TurnOverOrderRvAdapter(Context context) {
-        mOrderStatus = context.getResources().getStringArray(R.array.order_state);
+//        mOrderStatus = context.getResources().getStringArray(R.array.order_state);
 //        mFreight = context.getResources().getStringArray(R.array.freight_state);
 //        mProductType = context.getResources().getStringArray(R.array.product_type);
     }
@@ -63,7 +63,7 @@ public class TurnOverOrderRvAdapter extends BaseRecyclerViewAdapter<TurnOverOrde
             ItemViewHolder holder1 = (ItemViewHolder) holder;
             TurnOverOrderRvItem item = mList.get(position);
             GlideUtils.loadRoundedImage(holder1.ivProductImage.getContext(), holder1.ivProductImage, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
-            holder1.tvOrderState.setText(mOrderStatus[Integer.valueOf(item.getStatus()) - 1]);
+            holder1.tvOrderState.setText(item.getStatus());
             holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(item.getTime()) * 1000)));
             holder1.tvCompany.setText(item.getName() + "(" + item.getConsignee() + ")");
             holder1.tvPhone.setText(item.getPhone());

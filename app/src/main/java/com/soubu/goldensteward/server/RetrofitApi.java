@@ -5,6 +5,7 @@ import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
+import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
@@ -158,11 +159,25 @@ public interface RetrofitApi {
     @POST("Report/return_rates")
     Call<BaseResp<BaseDataArray<ShopVisitorServerParams>>> getReturnRates();
 
+    //获取评价列表
+    @POST("Report/evaluate")
+    Call<BaseResp<BaseDataArray<EvaluateInReturnRateServerParams>>> getAllEvaluateInReturnRates();
+
     //获取子账户列表
     @POST("Child/child_list")
     Call<BaseResp<BaseDataArray<SubAccountServerParams>>> getSubAccountList();
 
+    //获取子账号详情
+    @FormUrlEncoded
+    @POST("Child/child_detail")
+    Call<BaseResp<BaseDataObject<SubAccountServerParams>>> getSubAccountDetail(@Field("params") String params);
+
     //获取修改手机号老号码验证码
     @POST("User/change_phone_sms")
     Call<BaseResp<Object>> getOldPhoneVerifyCode();
+
+    //意见反馈
+    @FormUrlEncoded
+    @POST("Other/feedback")
+    Call<BaseResp<Object>> sendFeedBack(@Field("params") String params);
 }

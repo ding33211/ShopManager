@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/orange_wallet"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/orange_1">
+        android:background="@color/orange_wallet_sub">
 
         <LinearLayout
             android:layout_width="0dp"

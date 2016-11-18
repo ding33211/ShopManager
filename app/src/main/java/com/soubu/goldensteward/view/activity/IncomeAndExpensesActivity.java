@@ -80,8 +80,8 @@ public class IncomeAndExpensesActivity extends ActivityPresenter<TabViewpagerAct
         if (params.length == 0) {
             return;
         }
-        //支出没有产品名称
-        if (params[0].getName() == null) {
+        //支出是price，收入是real_get
+        if (params[0].getReal_get() == null) {
             mExpensesFragment.setData(Arrays.asList(params));
         } else {
             mIncomeFragment.setData(Arrays.asList(params));
