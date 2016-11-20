@@ -1,12 +1,16 @@
 package com.soubu.goldensteward.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.SettingActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
+import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 /**
  * Created by lakers on 16/10/31.
@@ -48,6 +52,21 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
                 intent = new Intent(this, AboutActivity.class);
                 break;
             case R.id.btn_logout:
+                new AlertDialog.Builder(this).setTitle(R.string.alert).setMessage(R.string.logout_alert_message).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GoldenStewardApplication.getContext().setToken("");
+                        GoldenStewardApplication.getContext().clearUser();
+                        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
                 break;
         }
         if (intent != null) {

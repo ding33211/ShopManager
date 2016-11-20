@@ -37,29 +37,25 @@ public class FeedBackActivityDelegate extends AppDelegate implements View.OnClic
         buttons[mLastClickIndex].setSelected(false);
         switch (v.getId()) {
             case R.id.btn_feedback_1:
-                mLastClickIndex = 1;
+                mLastClickIndex = 0;
                 break;
             case R.id.btn_feedback_2:
-                mLastClickIndex = 2;
+                mLastClickIndex = 1;
                 break;
             case R.id.btn_feedback_3:
-                mLastClickIndex = 3;
+                mLastClickIndex = 2;
                 break;
             case R.id.btn_feedback_4:
-                mLastClickIndex = 4;
+                mLastClickIndex = 3;
                 break;
             case R.id.btn_feedback_5:
-                mLastClickIndex = 5;
+                mLastClickIndex = 4;
                 break;
             case R.id.btn_feedback_6:
-                mLastClickIndex = 6;
+                mLastClickIndex = 5;
                 break;
         }
         v.setSelected(true);
-    }
-
-    public int getChoosedTagIndex() {
-        return mLastClickIndex;
     }
 
     @Override
@@ -77,7 +73,7 @@ public class FeedBackActivityDelegate extends AppDelegate implements View.OnClic
             ShowWidgetUtil.showShort(R.string.please_input_your_valuable_advice);
             return false;
         }
-        params.setType(mLastClickIndex + "");
+        params.setType(mLastClickIndex + 1 + "");
         params.setContent(etContent.getText().toString());
         return true;
     }

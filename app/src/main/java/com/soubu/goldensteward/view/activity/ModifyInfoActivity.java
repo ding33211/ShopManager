@@ -200,7 +200,7 @@ public class ModifyInfoActivity extends ActivityPresenter<ModifyInfoActivityDele
                         // 获取地址信息
                         String area = null;
                         // 获取省，市Id
-                        List<Address> provinceList = mAddressDao.queryBuilder().where(AddressDao.Properties.Area_name.eq(bdLocation.getProvince().replace("省", "")), AddressDao.Properties.Parent_id.eq(0)).list();
+                        List<Address> provinceList = mAddressDao.queryBuilder().where(AddressDao.Properties.Area_name.eq(bdLocation.getProvince().replace("省", "").replace("市", "")), AddressDao.Properties.Parent_id.eq(0)).list();
                         List<Address> cityList = mAddressDao.queryBuilder().where(AddressDao.Properties.Area_name.eq(bdLocation.getCity().replace("市", "")), AddressDao.Properties.Parent_id.notEq(0)).list();
                         if (provinceList.size() == 0 || cityList.size() == 0) {
                             ShowWidgetUtil.showShort(R.string.location_not_match_toast);

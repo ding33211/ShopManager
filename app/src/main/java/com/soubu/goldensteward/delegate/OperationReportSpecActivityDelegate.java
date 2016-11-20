@@ -156,7 +156,6 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
 
     public void initReturnRateView() {
         get(R.id.ll_top).setVisibility(View.INVISIBLE);
-        mTvLabel.setText(R.string.all_evaluate);
     }
 
     public void initStoreVisitorRecyclerView(VisitFriendsServerParams[] params) {

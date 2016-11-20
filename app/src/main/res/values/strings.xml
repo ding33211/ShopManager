@@ -51,7 +51,8 @@
     <string name="much_more_small_tag">您最多只能选择8个标签</string>
     <string name="please_input_new_phone">请输入新手机号</string>
     <string name="same_to_old_phone">与旧手机号相同，无法修改</string>
-
+    <string name="please_input_image_code">请输入图形码</string>
+    <string name="wrong_image_code">请输入正确的图形码</string>
     <string name="please_check_internet">请检查网络连接是否正常</string>
     <string name="please_input_phone">请输入手机号</string>
 
@@ -181,7 +182,7 @@
     <string name="register_pwd_desc">请设置6-20位密码</string>
     <string name="next_step">下一步</string>
     <string name="register_pre_protocol">我已阅读并接受</string>
-    <string name="register_protocol"><u>搜布用户协议</u></string>
+    <string name="register_protocol">搜布用户协议</string>
     <string name="supplier_register">供应商注册</string>
     <string name="register">注册</string>
     <string name="refer_store">关联店铺</string>
@@ -276,10 +277,12 @@
     <string name="soubu_address">宁波市鄞州区钱湖天地TBD-A座5楼</string>
     <string name="soubu_service_protocol">搜布服务条款</string>
     <string name="contact_customer_service">联系客服</string>
+    <string name="logout_alert_message">确定退出当前账号么？</string>
+
 
     <string name="add_sub_account">添加子账户</string>
     <string name="reviewing">审核中</string>
-    <string name="login_time_last_week">登录时间（近一周）</string>
+    <string name="login_time_last_week">登录时间（近7天）</string>
     <string name="today_turnover">今日成交额</string>
     <string name="today_chat_num">今日聊天数</string>
     <string name="today_offer_num">今日报价数</string>
@@ -293,6 +296,7 @@
     <string name="report_rv_footer_desc">以上为近30天记录</string>
     <string name="modify_success">修改成功</string>
     <string name="submit_success">提交成功</string>
+    <string name="protocol">一、服务条款 \r\n\r\n     1．《搜布》软件产品是宁波搜布信息科技有限公司开发。本软件产品受中华人民共和国版权法及国际版权条约和其他知识产权法及条约的保护。用户获得的本软件产品的使用权。\r\n\r\n     2．用户不得删除本软件及其他副本上一切关于版权的信息对本软件进行反向工程，如反汇编、反编译等。\r\n\r\n     3．如果您未遵守本协议的任何一项条款，宁波搜布信息科技有限公司有权立即终止本协议，并保留通过法律手段追究责任。\r\n\r\n     4．使用本软件产品由用户自己承担风险，在适用法律允许的最大范围内，宁波搜布信息科技有限公司在任何情况下不就因使用或不能使用本软件产品所发生的特殊的、意外的、非直接或间接的损失承担赔偿责任。即使已事先被告知该损害发生的可能性。\r\n\r\n     5．用户须明白，使用本软件产品涉及到Internet服务，可能会受到各个环节不稳定因素的影响。因此服务存在因不可抗力、计算机病毒或黑客攻击、系统不稳定、用户所在位置、用户关机以及其他任何技术、互联网络、通信线路原因等造成的服务中断或不能满足用户要求的风险。用户须承担以上风险，本公司不作担保。对因此导致用户不能发送和接受阅读消息、或接发错消息，公司不承担任何责任。\r\n\r\n     6．用户须明白，在使用本软件产品存在有来自任何他人的包括威胁性的、诽谤性的、令人反感的或非法的内容或行为或对他人的权利侵犯（包括知识产权）的匿名或冒名的信息的风险，用户须承担以上风险，本公司对此服务不作任何类型的担保，不论是明确的或隐含的，包括所有有关信息真实性、适商性、适于某一特定用途、所有权和非侵权性的默示担保和条件，对因此导致任何因用户不正当或非法使用服务产生的直接、间接、偶然、特殊及后续的损害，不承担任何责任。\r\n\r\n     7．本公司定义的信息内容包括：文字、软件、声音、相片、录像、图表；在广告中全部内容；本公司为用户提供的商业信息，所有这些内容受版权、商标权、和其它知识产权和所有权法律的保护。所以，用户只能在本公司授权下才能使用这些内容，而不能擅自复制、修改、编撰这些内容、或创造与内容有关的衍生产品。\r\n\r\n二、用户使用须知 \r\n\r\n      特别提醒用户，使用互联网必须遵守国家有关的政策和法律，如刑法、国家安全法、保密法、计算机信息系统安全保护条例等，保护国家利益，保护国家安全，对于违法使用互联网络而引起的一切责任，由用户负全部责任。\r\n\r\n     1．用户不得使用《搜布》软件发送或传播敏感信息和违反国家法律制度的信息。\r\n\r\n     2．《搜布》软件同大多数因特网软件一样，易受到各种安全问题的困扰，包括：透露详细个人资料，被不法分子利用，造成现实生活中的骚扰、哄骗、破译密码等威胁。\r\n\r\n     3．用户应加强个人资料的保护意识，以免对个人生活造成不必要的骚扰。\r\n\r\n     4．使用《搜布》软件要注意个人密码和公开邮箱的密码保护（密码应多于8位，并包含字母和数字）。\r\n\r\n     5．用户注册好号码后，如果长期不使用，公司有权回收号码，以免造成资源浪费。\r\n\r\n     6．用户应规范、合法地使用《搜布》软件，如有在公共环境下捣乱、骚扰、欺骗、其他用户等行为，公司有权回收其号码。\r\n\r\n    7．用户不得利用《搜布》软件进行违法国家法律的活动。如有发现，宁波搜布信息科技有限公司会应公安部门要求，全力协助调查工作。\r\n\r\n三、宁波搜布信息科技有限公司特别提请用户注意，为了保障公司业务发展和调整的自主权，本公司拥有随时修改和中断服务而不需通知用户的权利，本公司行使修改和中断服务的权利不需对用户或第三方负责。用户必须在同意本条款的前提下，宁波搜布信息科技有限公司才开始对用户提供服务。\r\n\r\n四、宁波搜布信息科技有限公司具有对以上各项条款内容的最终解释权。\r\n\r\n感谢您的阅读，如有疑问请致电4000-17-0067咨询。</string>
 
 
     <string name="error_400_message">客户端请求错误</string>

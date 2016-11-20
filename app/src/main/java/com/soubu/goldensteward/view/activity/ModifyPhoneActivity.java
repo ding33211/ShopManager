@@ -3,8 +3,12 @@ package com.soubu.goldensteward.view.activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.google.gson.Gson;
 import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
@@ -14,7 +18,10 @@ import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+import com.soubu.goldensteward.server.ApiConfig;
+import com.soubu.goldensteward.server.HeaderEntity;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -49,12 +56,13 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
         String phone = GoldenStewardApplication.getContext().getPhone();
         mParams.setPhone(phone);
         viewDelegate.initPhone(phone.substring(0, 3) + "****" + phone.substring(7));
+        loadImageCode();
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_confirm);
+        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_confirm, R.id.iv_image_code);
     }
 
     @Override
@@ -62,7 +70,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
         switch (v.getId()) {
             case R.id.tv_send_verify_code:
                 if (!mStep2) {
-                    RetrofitRequest.getInstance().getOldPhoneVerifyCode();
+                    RetrofitRequest.getInstance().getOldPhoneVerifyCode(viewDelegate.getImageCode());
                 } else {
                     if (viewDelegate.checkNewPhone(mParams)) {
                         mParams.setType("3");
@@ -81,8 +89,18 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
                     }
                 }
                 break;
+            case R.id.iv_image_code:
+                loadImageCode();
+                break;
 
         }
+    }
+
+    private void loadImageCode() {
+        HeaderEntity entity = new HeaderEntity();
+        String head = new Gson().toJson(entity);
+        GlideUtils.loadImage(this, (ImageView) viewDelegate.get(R.id.iv_image_code), new GlideUrl(ApiConfig.API_HOST + "Other/get_verify_image?timestamp=" + System.currentTimeMillis()
+                , new LazyHeaders.Builder().addHeader("SHOP_MANAGER_AGENT", head).build()), 0, R.drawable.common_btn_imagecode_fail);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -94,6 +112,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
                 if (TextUtils.equals("验证成功", resp1.msg)) {
                     mStep2 = true;
                     viewDelegate.initSecondStep();
+                    loadImageCode();
                 }
                 break;
             case EventBusConfig.GET_OLD_PHONE_VERIFY_CODE:

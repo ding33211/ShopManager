@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.greendao.Address;
 import com.soubu.goldensteward.base.greendao.AddressDao;
@@ -12,6 +13,7 @@ import com.soubu.goldensteward.base.greendao.DBHelper;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.SplashActivityDelegate;
 import com.soubu.goldensteward.utils.PermissionUtil;
+import com.soubu.goldensteward.utils.PhoneUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +47,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("xxxxxxxx", "sha1    :    " + PhoneUtil.getSHA1(this));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,9 +60,15 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void load() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent, REQUEST_LOGIN);
+        if (GoldenStewardApplication.getContext().initUser()) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, REQUEST_LOGIN);
+        }
         finish();
+
     }
 
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法
@@ -104,16 +113,16 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     }
 
 
-    private void initProvinceAndCity(){
+    private void initProvinceAndCity() {
         AddressDao addressDao = DBHelper.getInstance(getApplicationContext()).getAddressDao();
         Log.e("xxxxxxxxxxxx", addressDao.count() + "");
-        if(addressDao.count() > 0){
+        if (addressDao.count() > 0) {
             return;
         } else {
             JSONObject addressJson = initJsonData();
             try {
                 JSONArray jsonArray = addressJson.getJSONArray("RECORDS");
-                for(int i = 0; i < jsonArray.length(); i ++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     Address address = new Address();
                     address.setArea_id(object.getInt("area_id"));
@@ -131,7 +140,9 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     }
 
 
-    /** 从assert文件夹中读取省市区的json文件，然后转化为json对象 */
+    /**
+     * 从assert文件夹中读取省市区的json文件，然后转化为json对象
+     */
     private JSONObject initJsonData() {
         try {
             StringBuffer sb = new StringBuffer();

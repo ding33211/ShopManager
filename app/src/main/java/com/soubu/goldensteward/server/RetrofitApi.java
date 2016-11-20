@@ -173,8 +173,9 @@ public interface RetrofitApi {
     Call<BaseResp<BaseDataObject<SubAccountServerParams>>> getSubAccountDetail(@Field("params") String params);
 
     //获取修改手机号老号码验证码
+    @FormUrlEncoded
     @POST("User/change_phone_sms")
-    Call<BaseResp<Object>> getOldPhoneVerifyCode();
+    Call<BaseResp<Object>> getOldPhoneVerifyCode(@Field("params") String params);
 
     //意见反馈
     @FormUrlEncoded

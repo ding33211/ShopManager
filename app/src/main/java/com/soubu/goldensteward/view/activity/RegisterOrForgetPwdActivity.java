@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.RegisterOrForgetPwdActivityDelegate;
@@ -18,7 +21,10 @@ import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
+import com.soubu.goldensteward.server.ApiConfig;
+import com.soubu.goldensteward.server.HeaderEntity;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.RegularUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
@@ -47,7 +53,8 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_next_step, R.id.iv_clear, R.id.iv_clear_pwd, R.id.iv_transfer_pwd);
+        viewDelegate.setOnClickListener(this, R.id.tv_send_verify_code, R.id.btn_next_step,
+                R.id.iv_clear, R.id.iv_clear_pwd, R.id.iv_transfer_pwd, R.id.tv_protocol, R.id.iv_image_code);
     }
 
     @Override
@@ -59,6 +66,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
         } else {
             viewDelegate.setTitle(R.string.forget_password);
             ((Button) viewDelegate.get(R.id.btn_next_step)).setText(R.string.find_pwd);
+            viewDelegate.get(R.id.ll_register_desc).setVisibility(View.GONE);
         }
     }
 
@@ -66,6 +74,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     protected void initData() {
         super.initData();
         mParams = new UserServerParams();
+        loadImageCode();
     }
 
     @Override
@@ -121,17 +130,32 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
 //                        }
 //                    }).show();
                 break;
-
+            case R.id.tv_protocol:
+                Intent intent = new Intent(this, ProtocolActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_image_code:
+                loadImageCode();
+                break;
         }
+    }
+
+
+    private void loadImageCode() {
+        HeaderEntity entity = new HeaderEntity();
+        String head = new Gson().toJson(entity);
+        GlideUtils.loadImage(this, (ImageView) viewDelegate.get(R.id.iv_image_code), new GlideUrl(ApiConfig.API_HOST + "Other/get_verify_image?timestamp=" + System.currentTimeMillis()
+                , new LazyHeaders.Builder().addHeader("SHOP_MANAGER_AGENT", head).build()), 0, R.drawable.common_btn_imagecode_fail);
     }
 
     private void sendVerifyCode(String phone) {
         mParams.setPhone(phone);
-        if(mType == TYPE_REGISTER){
+        if (mType == TYPE_REGISTER) {
             mParams.setType("1");
         } else {
             mParams.setType("2");
         }
+        mParams.setImage_code(viewDelegate.getImageCode());
         RetrofitRequest.getInstance().getVerifyCode(mParams);
     }
 
@@ -158,7 +182,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 startActivity(intent);
             }
         }
-        if(code == EventBusConfig.FORGET_PWD){
+        if (code == EventBusConfig.FORGET_PWD) {
             ShowWidgetUtil.showShort(R.string.modify_success);
             finish();
         }

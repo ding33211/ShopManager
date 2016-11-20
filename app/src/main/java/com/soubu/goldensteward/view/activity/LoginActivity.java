@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> implements View.OnClickListener {
     private boolean mDisplayPwd;
+    private UserServerParams mParams;
 
 
     @Override
@@ -48,6 +49,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     protected void initData() {
         super.initData();
         String phone = GoldenStewardApplication.getContext().getPhone();
+        mParams = new UserServerParams();
         if (!TextUtils.isEmpty(phone)) {
             viewDelegate.refreshPhone(phone);
         }
@@ -71,9 +73,8 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 }
                 break;
             case R.id.btn_login:
-                UserServerParams params = new UserServerParams();
-                if (viewDelegate.checkComplete(params)) {
-                    RetrofitRequest.getInstance().login(params);
+                if (viewDelegate.checkComplete(mParams)) {
+                    RetrofitRequest.getInstance().login(mParams);
                 }
                 break;
             case R.id.tv_register:
@@ -104,6 +105,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 Intent intent;
                 if (certification == -1) {
                     intent = new Intent(this, RegisterSupplierActivity.class);
+                    intent.putExtra(Constant.EXTRA_PARAMS, mParams);
                     startActivity(intent);
                 } else if (certification == 0) {
                     intent = new Intent(this, StoreOwnerVerifyActivity.class);

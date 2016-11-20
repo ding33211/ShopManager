@@ -10,9 +10,16 @@ apt {
 }
 
 android {
+    signingConfigs {
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile rootProject.file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
-
     defaultConfig {
         applicationId "com.soubu.goldensteward"
         minSdkVersion 15
@@ -29,6 +36,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     sourceSets {

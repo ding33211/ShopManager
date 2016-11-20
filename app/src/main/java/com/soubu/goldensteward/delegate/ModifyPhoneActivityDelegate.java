@@ -22,6 +22,7 @@ import static com.baidu.location.h.j.p;
 public class ModifyPhoneActivityDelegate extends AppDelegate {
 
     EditText mEtPhone;
+    EditText mEtImageCode;
 
     @Override
     public int getRootLayoutId() {
@@ -32,6 +33,7 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         mEtPhone = get(R.id.et_phone);
+        mEtImageCode = get(R.id.et_image_code);
         mEtPhone.setEnabled(false);
         get(R.id.ll_tab).setVisibility(View.GONE);
         get(R.id.ll_modify_phone_top).setVisibility(View.VISIBLE);
@@ -70,7 +72,12 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
             return false;
         }
         params.setPhone(newPhone);
+        params.setImage_code(getImageCode());
         return true;
+    }
+
+    public String getImageCode(){
+        return mEtImageCode.getText().toString();
     }
 
     public void initSecondStep() {

@@ -48,6 +48,10 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
                 vContent.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_COMPANY_PROFILE:
+                vMultiLineContent.setVisibility(View.VISIBLE);
+                vAvatar.setVisibility(View.GONE);
+                vContent.setVisibility(View.GONE);
+                break;
             case TYPE_ITEM_CONTENT_MULTILINE:
                 vMultiLineContent.setVisibility(View.VISIBLE);
                 vChoose.setVisibility(View.GONE);

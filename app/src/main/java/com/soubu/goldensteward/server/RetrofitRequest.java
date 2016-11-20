@@ -1,5 +1,7 @@
 package com.soubu.goldensteward.server;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 
@@ -45,6 +47,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.baidu.location.h.j.m;
+
 /**
  * Retrofit的网络请求类
  * Created by dingsigang on 16-8-17.
@@ -82,8 +86,15 @@ public class RetrofitRequest {
                 ShowWidgetUtil.dismissProgressDialog();
                 if (response.isSuccessful()) {
                     if (response.body().status == -1) {
-                        Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
-                        GoldenStewardApplication.getNowContext().startActivity(intent);
+                        new AlertDialog.Builder(GoldenStewardApplication.getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                GoldenStewardApplication.getContext().clearUser();
+                                Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
+                                GoldenStewardApplication.getNowContext().startActivity(intent);
+                            }
+                        }).show();
+
                     }
                     if (response.body().status != HttpURLConnection.HTTP_OK) {
                         Log.e(TAG, "errorBody  :   " + response.body().msg + "   status  :  " + response.body().status);
@@ -442,10 +453,12 @@ public class RetrofitRequest {
     /**
      * 获取旧手机的验证码
      */
-    public void getOldPhoneVerifyCode() {
+    public void getOldPhoneVerifyCode(String imageCode) {
+        Map map = new HashMap();
+        map.put("image_code", imageCode);
         Call<BaseResp<Object>> call = RetrofitService.getInstance()
                 .createApi(false)
-                .getOldPhoneVerifyCode();
+                .getOldPhoneVerifyCode(new Gson().toJson(map));
         enqueueClue(call, true, EventBusConfig.GET_OLD_PHONE_VERIFY_CODE);
     }
 
