@@ -150,12 +150,12 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 break;
             case EventBusConfig.GET_VISIT_FRIENDS:
                 WithCountDataArray result1 = (WithCountDataArray) resp1.getResult();
-                viewDelegate.initLabel(getString(R.string.contact_friends) + "(共" + result1.getCount() + "人）");
+                viewDelegate.initLabel(getString(R.string.contact_friends) + "(共" + result1.getCount() + "人)");
                 viewDelegate.initStoreVisitorRecyclerView((VisitFriendsServerParams[]) result1.getData());
                 break;
             case EventBusConfig.GET_PRODUCT_LIST_ON_SALE:
                 WithCountDataArray result2 = (WithCountDataArray) resp1.getResult();
-                viewDelegate.initLabel(getString(R.string.products_on_sale) + "(共" + result2.getCount() + "件）");
+                viewDelegate.initLabel(getString(R.string.products_on_sale) + "(共" + result2.getCount() + "件)");
                 viewDelegate.initProductAccessRecyclerView((ProductInOrderListServerParams[]) result2.getData());
                 break;
             case EventBusConfig.GET_RETURN_RATES:
@@ -166,7 +166,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 WithCountDataArray result3 = (WithCountDataArray) resp1.getResult();
                 EvaluateInReturnRateServerParams[] params4 = (EvaluateInReturnRateServerParams[]) result3.getData();
                 viewDelegate.initReturnRateRecyclerView(Arrays.asList(params4));
-                viewDelegate.initLabel(getString(R.string.all_evaluate) + "(共" + result3.getCount() + "条）");
+                viewDelegate.initLabel(getString(R.string.all_evaluate) + "(共" + result3.getCount() + "条)");
 
                 break;
         }

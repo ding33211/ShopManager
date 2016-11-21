@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -77,6 +78,7 @@ public class SubAccountSpecActivity extends ActivityPresenter<SubAccountActivity
             viewDelegate.setTodayData(null, titleList, subTitleList);
             List<String> timeList = new ArrayList<>();
             timeList.addAll(Arrays.asList(params.getWeek_login()));
+            Collections.reverse(timeList);
             viewDelegate.setLoginList(timeList);
         }
     }
