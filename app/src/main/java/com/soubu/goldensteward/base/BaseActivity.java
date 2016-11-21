@@ -90,6 +90,7 @@ public class BaseActivity extends AppCompatActivity {
                     mHandler.sendEmptyMessageDelayed(0, 2000);
                 } else {
                     ActivityContainer.getInstance().finishAllActivity();
+                    System.exit(0);
                 }
             }
         } else {

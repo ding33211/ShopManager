@@ -2,7 +2,6 @@ package com.soubu.goldensteward.view.activity;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,17 +16,14 @@ import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
-import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.server.ApiConfig;
-import com.soubu.goldensteward.server.HeaderEntity;
+import com.soubu.goldensteward.module.server.HeaderEntity;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.baidu.location.h.j.v;
 
 /**
  * Created by lakers on 16/10/31.

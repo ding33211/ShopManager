@@ -125,7 +125,7 @@
     <string name="find_pwd_help">若无法收到验证码,请联系搜布客服</string>
 
     <string name="turnover_volume">成交额</string>
-    <string name="turnover_volume_unit">万元</string>
+    <string name="turnover_volume_unit">元</string>
     <string name="account_balance">账户余额</string>
     <string name="accumulated_income">累计收入</string>
     <string name="store_visitor">店铺访客</string>

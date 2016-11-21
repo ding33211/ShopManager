@@ -2,6 +2,7 @@ package com.soubu.goldensteward.server;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,10 +12,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.bind.util.ISO8601Utils;
-import com.soubu.goldensteward.BuildConfig;
 import com.soubu.goldensteward.GoldenStewardApplication;
-import com.soubu.goldensteward.utils.AppUtil;
-import com.soubu.goldensteward.utils.ConvertUtil;
+import com.soubu.goldensteward.module.server.HeaderEntity;
 import com.soubu.goldensteward.utils.PhoneUtil;
 
 import java.io.File;
@@ -28,7 +27,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -88,7 +86,7 @@ public class RetrofitService {
 
                         @Override
                         public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                            if(TextUtils.isEmpty(json.getAsString())){
+                            if (TextUtils.isEmpty(json.getAsString())) {
                                 return null;
                             }
                             try {
@@ -156,8 +154,9 @@ public class RetrofitService {
 //                        }
 //                    }
                     HeaderEntity entity = new HeaderEntity();
+                    Log.e("xxxxxxx", entity.toString());
                     String head = new Gson().toJson(entity);
-
+                    Log.e("xxxxxxx", "head   :    " + head);
                     request = request.newBuilder()
                             .header("SHOP_MANAGER_AGENT", head)
                             .build();

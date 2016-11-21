@@ -10,7 +10,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.SettingActivityDelegate;
 import com.soubu.goldensteward.module.Constant;
-import com.soubu.goldensteward.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.utils.ActivityContainer;
 
 /**
  * Created by lakers on 16/10/31.
@@ -57,6 +57,7 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
                     public void onClick(DialogInterface dialog, int which) {
                         GoldenStewardApplication.getContext().setToken("");
                         GoldenStewardApplication.getContext().clearUser();
+                        ActivityContainer.getInstance().finishAllActivity();
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();

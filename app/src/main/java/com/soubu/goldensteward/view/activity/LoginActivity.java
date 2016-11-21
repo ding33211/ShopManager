@@ -104,7 +104,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 int child_state = Integer.valueOf(params.getChild_status());
                 Intent intent;
                 if (certification == -1) {
-                    intent = new Intent(this, RegisterSupplierActivity.class);
+                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
                     intent.putExtra(Constant.EXTRA_PARAMS, mParams);
                     startActivity(intent);
                 } else if (certification == 0) {

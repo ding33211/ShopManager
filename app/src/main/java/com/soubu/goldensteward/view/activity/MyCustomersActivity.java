@@ -13,19 +13,21 @@ import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.PinyinComparator;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by lakers on 16/10/29.
  */
 
 public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDelegate> {
-    private CustomerServerParams[] mParams;
+    private List<CustomerServerParams> mList;
 
     @Override
     protected Class<MyCustomersActivityDelegate> getDelegateClass() {
@@ -54,7 +56,7 @@ public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDe
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(MyCustomersActivity.this, CustomerSpecActivity.class);
-                intent.putExtra(Constant.EXTRA_PARAMS, mParams[position]);
+                intent.putExtra(Constant.EXTRA_PARAMS, mList.get(position));
                 startActivity(intent);
             }
         });
@@ -65,8 +67,10 @@ public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDe
         BaseResp resp1 = (BaseResp) resp.getObject();
         int code = resp.getCode();
         if (code == EventBusConfig.GET_CUSTOMER_LIST) {
-            mParams = (CustomerServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
-            viewDelegate.setData(Arrays.asList(mParams));
+            CustomerServerParams[] params = (CustomerServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+            mList = Arrays.asList(params);
+            Collections.sort(mList, new PinyinComparator());
+            viewDelegate.setData(mList);
         }
     }
 }

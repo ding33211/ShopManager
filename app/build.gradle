@@ -34,7 +34,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true//混淆编译
+            zipAlignEnabled true
+            //移除无用的资源文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -46,6 +49,43 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+    productFlavors {
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+
+        }
+//        anzhi {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhi"]
+//
+//        }
+//        wdj {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wdj"]
+//
+//        }
+//        xiaomi {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+//
+//        }
+//        huawei {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+//
+//        }
+//        yyb {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yyb"]
+//
+//        }
+//        digital360 {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "digital360"]
+//
+//        }
+//        oppo {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+//
+//        }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -61,6 +101,30 @@ bugtags {
 
     //网络跟踪功能配置(企业版)
     trackingNetworkEnabled true
+}
+
+def packageTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                File outputDirectory = new File(outputFile.parent);
+                def fileName
+                if (variant.buildType.name == "release") {
+                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}.apk"
+                } else {
+                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_beta.apk"
+                }
+                output.outputFile = new File(outputDirectory, fileName)
+            }
+        }
+    }
+
 }
 
 

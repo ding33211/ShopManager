@@ -81,7 +81,7 @@
 
                     <HorizontalScrollView
                         android:id="@+id/hsv_chart"
-                        android:layout_width="320dp"
+                        android:layout_width="310dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="16dp"
@@ -139,12 +139,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" -->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:text="123"/>-->
-
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

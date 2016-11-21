@@ -22,7 +22,7 @@ import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.ApiConfig;
-import com.soubu.goldensteward.server.HeaderEntity;
+import com.soubu.goldensteward.module.server.HeaderEntity;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.GlideUtils;
 import com.soubu.goldensteward.utils.RegularUtil;

@@ -30,10 +30,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import static android.R.id.list;
-import static com.baidu.location.h.j.P;
-import static com.baidu.location.h.j.u;
-
 /**
  * Created by dingsigang on 16-10-18.
  */
@@ -136,7 +132,7 @@ public class GoldenStewardApplication extends Application implements Application
 
 
     public void saveUserInfo(UserServerParams params) {
-        if(dao == null){
+        if (dao == null) {
             dao = DBHelper.getInstance(sInstance).getUserDao();
         }
         List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(params.getPhone())).list();
@@ -173,13 +169,15 @@ public class GoldenStewardApplication extends Application implements Application
         setPhone(params.getPhone());
     }
 
-    public void clearUser(){
-        dao.delete(user);
+    public void clearUser() {
+        if (dao != null) {
+            dao.delete(user);
+        }
     }
 
-    public boolean initUser(){
+    public boolean initUser() {
         dao = DBHelper.getInstance(sInstance).getUserDao();
-        if(!TextUtils.isEmpty(getPhone())){
+        if (!TextUtils.isEmpty(getPhone())) {
             List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(getPhone())).list();
             if (list.size() > 0) {
                 user = list.get(0);

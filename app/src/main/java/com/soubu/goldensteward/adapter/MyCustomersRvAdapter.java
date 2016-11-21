@@ -136,6 +136,5 @@ public class MyCustomersRvAdapter extends BaseRecyclerViewAdapter<CustomerServer
     @Override
     public void setData(List<CustomerServerParams> list) {
         super.setData(list);
-        Collections.sort(mList, new PinyinComparator());
     }
 }

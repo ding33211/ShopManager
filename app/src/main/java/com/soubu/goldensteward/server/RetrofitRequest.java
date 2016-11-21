@@ -33,6 +33,7 @@ import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.module.server.WithCountDataArray;
+import com.soubu.goldensteward.utils.ActivityContainer;
 import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.view.activity.LoginActivity;
@@ -90,11 +91,12 @@ public class RetrofitRequest {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 GoldenStewardApplication.getContext().clearUser();
+                                ActivityContainer.getInstance().finishAllActivity();
                                 Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
                                 GoldenStewardApplication.getNowContext().startActivity(intent);
                             }
                         }).show();
-
+                        return;
                     }
                     if (response.body().status != HttpURLConnection.HTTP_OK) {
                         Log.e(TAG, "errorBody  :   " + response.body().msg + "   status  :  " + response.body().status);
@@ -422,7 +424,7 @@ public class RetrofitRequest {
      * 获取评价
      */
     public void getAllEvaluateInReturnRate() {
-        Call<BaseResp<BaseDataArray<EvaluateInReturnRateServerParams>>> call = RetrofitService.getInstance()
+        Call<BaseResp<WithCountDataArray<EvaluateInReturnRateServerParams>>> call = RetrofitService.getInstance()
                 .createApi(false)
                 .getAllEvaluateInReturnRates();
         enqueueClue(call, true, EventBusConfig.GET_ALL_EVALUATE_IN_RETURN_RATES);

@@ -20,7 +20,7 @@ public class OperationReportServerParams {
     String week_refunds;
     String month_refunds;
     String week_offer;
-    String collection;
+    String week_collection;
 
     public String getShop_visit() {
         return shop_visit;
@@ -143,10 +143,10 @@ public class OperationReportServerParams {
     }
 
     public String getCollection() {
-        return collection;
+        return week_collection;
     }
 
     public void setCollection(String collection) {
-        this.collection = collection;
+        this.week_collection = collection;
     }
 }

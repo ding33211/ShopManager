@@ -98,12 +98,13 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         }
     }
 
-    public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList, ArrayList<ArrayList<String>> contentList) {
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList,
+                               ArrayList<ArrayList<String>> contentList) {
         mLineView.setBarDataList(list, mLeftAxisView, space, colorList, contentList);
     }
 
-    public void setBottomTextList(ArrayList<Date> list) {
-        mLineView.setBottomTextList(list);
+    public void setBottomTextList(ArrayList<Date> list ,String format) {
+        mLineView.setBottomTextList(list, format);
     }
 
     public void setLineViewBottomSize(int size) {

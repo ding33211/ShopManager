@@ -161,7 +161,7 @@ public interface RetrofitApi {
 
     //获取评价列表
     @POST("Report/evaluate")
-    Call<BaseResp<BaseDataArray<EvaluateInReturnRateServerParams>>> getAllEvaluateInReturnRates();
+    Call<BaseResp<WithCountDataArray<EvaluateInReturnRateServerParams>>> getAllEvaluateInReturnRates();
 
     //获取子账户列表
     @POST("Child/child_list")

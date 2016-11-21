@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.drawable.NinePatchDrawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +19,8 @@ import android.view.View;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.utils.ConvertUtil;
+import com.soubu.goldensteward.utils.MathDoubleUtil;
+import com.soubu.goldensteward.utils.RegularUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +40,9 @@ public class LineView extends View {
     private int mBottomSize;
     //单位
     private String mUnit;
+    //x轴坐标显示格式
+    private String mFromat;
+
 
     private ArrayList<ArrayList<String>> mContentList = new ArrayList<>();
 
@@ -205,12 +211,13 @@ public class LineView extends View {
      *
      * @param dateList The Date ArrayList in the bottom.
      */
-    public void setBottomTextList(ArrayList<Date> dateList) {
+    public void setBottomTextList(ArrayList<Date> dateList, String format) {
         this.dataList = null;
         bottomTextList.clear();
         mDates = dateList;
+        mFromat = format;
         for (Date date : dateList) {
-            bottomTextList.add(ConvertUtil.dateToMMPointDD(date));
+            bottomTextList.add(ConvertUtil.dateToCustom(date, format));
         }
         Rect r = new Rect();
         int longestWidth = 0;
@@ -417,8 +424,12 @@ public class LineView extends View {
         Collections.sort(list);
         int j = 0;
         leftScaleMap.clear();
+        double a = (double) dataOfAGirdLeft / 100;
         for (int i = list.size() - 1; i >= 0; i--) {
-            leftScaleMap.put(list.get(i), dataOfAGirdLeft * j++ + "");
+            String space = MathDoubleUtil.mul(a, (double) j) + "";
+            j++;
+            space = RegularUtil.subZeroAndDot(space);
+            leftScaleMap.put(list.get(i), space);
         }
 
     }
@@ -480,7 +491,8 @@ public class LineView extends View {
         mUnit = unit;
     }
 
-    public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList, ArrayList<ArrayList<String>> contentList) {
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft,
+                               ArrayList<Integer> colorList, ArrayList<ArrayList<String>> contentList) {
         if (list == null || list.size() == 0) {
             return;
         }
@@ -553,7 +565,12 @@ public class LineView extends View {
         int x = (bars.get(barIndex).right + bars.get(barIndex).left) / 2;
         int y = bars.get(barIndex).top;
         Rect popupTextRect = new Rect();
-        String text = ConvertUtil.dateToYYYY_MM_DD(mDates.get(barIndex));
+        String text;
+        if (TextUtils.equals(mFromat, "yy-MM")) {
+            text = ConvertUtil.dateToCustom(mDates.get(barIndex), mFromat);
+        } else {
+            text = ConvertUtil.dateToYYYY_MM_DD(mDates.get(barIndex));
+        }
         String text2 = num + mUnit;
         int length = text.length();
         if (text2.length() > length) {

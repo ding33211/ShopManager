@@ -6,14 +6,14 @@ package com.soubu.goldensteward.module.server;
 public class ShopVisitorServerParams {
     String visit_count;
     String date;
-    String return_rates;
+    String refund;
 
-    public String getReturn_rates() {
-        return return_rates;
+    public String getRefund() {
+        return refund;
     }
 
-    public void setReturn_rates(String return_rates) {
-        this.return_rates = return_rates;
+    public void setRefund(String refund) {
+        this.refund = refund;
     }
 
     public String getVisit_count() {

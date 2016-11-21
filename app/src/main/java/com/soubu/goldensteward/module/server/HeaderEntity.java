@@ -1,6 +1,6 @@
-package com.soubu.goldensteward.server;
+package com.soubu.goldensteward.module.server;
 
-import android.content.Context;
+import android.util.Log;
 
 import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.utils.AppUtil;
@@ -49,11 +49,11 @@ public class HeaderEntity {
     }
 
 
-
     public HeaderEntity() {
         os = "Android";
         device = PhoneUtil.getDeviceIMEI(GoldenStewardApplication.getContext());
         token = GoldenStewardApplication.getContext().getToken();
         version = AppUtil.getVersionName(GoldenStewardApplication.getContext()) + "";
+        Log.e("xxxxxxx", "os   :  " + os + "   device   :   " + device + "    token   :   " + token + "   version  :  " + version);
     }
 }

@@ -91,6 +91,15 @@ public class ConvertUtil {
         return formatter.format(date);
     }
 
+
+    public static String dateToCustom(Date date, String format){
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(date);
+    }
+
     public static String dateToYYYY_MM_DD_HH_mm(Date date) {
         if (date == null) {
             return null;

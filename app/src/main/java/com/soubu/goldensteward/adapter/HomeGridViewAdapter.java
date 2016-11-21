@@ -1,7 +1,6 @@
 package com.soubu.goldensteward.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.module.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,9 @@ public class HomeGridViewAdapter extends BaseAdapter {
             mIconList.clear();
             mIconList.addAll(iconList);
         }
+        mTitleList.clear();
         mTitleList.addAll(titleList);
+        mSubTitleList.clear();
         mSubTitleList.addAll(subTitleList);
         notifyDataSetChanged();
     }

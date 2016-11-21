@@ -1,7 +1,5 @@
 package com.soubu.goldensteward.view.activity;
 
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
@@ -30,9 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-
-import static java.lang.Math.log;
-import static java.lang.Math.pow;
 
 /**
  * Created by dingsigang on 16-10-21.
@@ -166,13 +161,13 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             case EventBusConfig.GET_RETURN_RATES:
                 ShopVisitorServerParams[] params3 = (ShopVisitorServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
                 initReturnRateData(params3);
-                //TODO 修改专用count字段
-                viewDelegate.initLabel(getString(R.string.all_evaluate) + "(共" + params3.length + "条）");
-
                 break;
             case EventBusConfig.GET_ALL_EVALUATE_IN_RETURN_RATES:
-                EvaluateInReturnRateServerParams[] params4 = (EvaluateInReturnRateServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                WithCountDataArray result3 = (WithCountDataArray) resp1.getResult();
+                EvaluateInReturnRateServerParams[] params4 = (EvaluateInReturnRateServerParams[]) result3.getData();
                 viewDelegate.initReturnRateRecyclerView(Arrays.asList(params4));
+                viewDelegate.initLabel(getString(R.string.all_evaluate) + "(共" + result3.getCount() + "条）");
+
                 break;
         }
 
@@ -184,48 +179,56 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
         int max = 0;
         for (TurnOverServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            int value = Float.valueOf(param.getPrice()).intValue();
-            if (value > max) {
+            float a = Float.valueOf(param.getPrice());
+            int value = (int) (a * 100);
+            if(value > max){
                 max = value;
             }
             monthList.add(value);
             monthContentList.add(param.getPrice());
         }
         mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
-        initLineView(monthList, monthContentList);
+        initLineView(monthList, monthContentList, "MM.dd");
     }
 
     private void initShopVisitData(ShopVisitorServerParams[] params) {
         ArrayList<Integer> monthList = new ArrayList<>();
+        ArrayList<String> monthContentList = new ArrayList<>();
         int max = 0;
         for (ShopVisitorServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            int value = Integer.valueOf(param.getVisit_count());
+            float a = Float.valueOf(param.getVisit_count());
+            int value = (int) (a * 100);
             if (value > max) {
                 max = value;
             }
             monthList.add(value);
+            monthContentList.add(param.getVisit_count());
+
         }
         mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
-        initLineView(monthList, null);
+        initLineView(monthList, monthContentList, "MM.dd");
     }
 
     private void initReturnRateData(ShopVisitorServerParams[] params) {
         ArrayList<Integer> monthList = new ArrayList<>();
+        ArrayList<String> monthContentList = new ArrayList<>();
         int max = 0;
         for (ShopVisitorServerParams param : params) {
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
-            int value = Integer.valueOf(param.getReturn_rates().substring(0, param.getReturn_rates().length() - 1));
+            float a = Float.valueOf(param.getRefund());
+            int value = (int) (a * 100);
             if (value > max) {
                 max = value;
             }
             monthList.add(value);
+            monthContentList.add(param.getRefund());
         }
         mMonthSpace = ConvertUtil.regulateSpace(0, max, 5);
-        initLineView(monthList, null);
+        initLineView(monthList, monthContentList, "yy-MM");
     }
 
-    private void initLineView(ArrayList<Integer> monthList, ArrayList<String> monthContentList) {
+    private void initLineView(ArrayList<Integer> monthList, ArrayList<String> monthContentList, String format) {
         ArrayList<Integer> weekList = new ArrayList<>();
         ArrayList<String> weekContentList = new ArrayList<>();
         int max = 0;
@@ -253,7 +256,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
         }
         mLastWeekData.add(weekList);
         mLastMonthData.add(monthList);
-        viewDelegate.setBottomTextList(mLastWeekBottom);
+        viewDelegate.setBottomTextList(mLastWeekBottom, format);
         viewDelegate.setBarDataList(mLastWeekData, mWeekSpace, mColorList, mLastWeekContent);
     }
 
@@ -270,7 +273,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 if (!mIsWeek) {
                     viewDelegate.clickLastWeek();
                     viewDelegate.setLineViewBottomSize(7);
-                    viewDelegate.setBottomTextList(mLastWeekBottom);
+                    viewDelegate.setBottomTextList(mLastWeekBottom, "MM.dd");
                     viewDelegate.setBarDataList(mLastWeekData, mWeekSpace, mColorList, mLastWeekContent);
                     mIsWeek = true;
                 }
@@ -279,7 +282,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
                 if (mIsWeek) {
                     viewDelegate.clickLastMonth();
                     viewDelegate.setLineViewBottomSize(31);
-                    viewDelegate.setBottomTextList(mLastMonthBottom);
+                    viewDelegate.setBottomTextList(mLastMonthBottom, "MM.dd");
                     viewDelegate.setBarDataList(mLastMonthData, mMonthSpace, mColorList, mLastMonthContent);
                     mIsWeek = false;
                 }

@@ -51,7 +51,9 @@ public class CustomerSpecActivity extends ActivityPresenter<CustomerSpecActivity
             mParams.deltaCopy(params);
             viewDelegate.initCustomerInfo(mParams);
             ProductInCustomerDetailServerParams[] orders = ((CustomerDetailDataObject) resp1.getResult()).getOrder();
-            viewDelegate.setData(Arrays.asList(orders));
+            if(orders != null){
+                viewDelegate.setData(Arrays.asList(orders));
+            }
         }
     }
 }
