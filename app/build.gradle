@@ -10,6 +10,10 @@ apt {
 }
 
 android {
+    def UMENG_RELEASE_KEY = "53ad0de956240b97b80eac9d"
+    def UMENG_TEST_KEY = "53a7c74056240b4b1d0cc011"
+
+
     signingConfigs {
         release {
             keyAlias KEY_ALIAS
@@ -26,7 +30,10 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
+        buildConfigField "boolean", "IS_PRODUCT_ENV", "false"
+        manifestPlaceholders = [
+                UMENG_APP_VALUE    : UMENG_TEST_KEY,
+                UMENG_CHANNEL_VALUE: "soubu"]
         ndk {
             // 设置支持的 SO 库构架
             abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -38,11 +45,13 @@ android {
             zipAlignEnabled true
             //移除无用的资源文件
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            debuggable false
         }
         debug {
             signingConfig signingConfigs.release
+            debuggable true
         }
     }
     sourceSets {
@@ -51,38 +60,12 @@ android {
         }
     }
     productFlavors {
-        baidu {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
-
+        online {
+            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
         }
-//        anzhi {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhi"]
-//
-//        }
-//        wdj {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wdj"]
-//
-//        }
-//        xiaomi {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
-//
-//        }
-//        huawei {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
-//
-//        }
-//        yyb {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yyb"]
-//
-//        }
-//        digital360 {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "digital360"]
-//
-//        }
-//        oppo {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
-//
-//        }
+        develop {
+            buildConfigField "boolean", "IS_PRODUCT_ENV", "false"
+        }
     }
     lintOptions {
         abortOnError false
@@ -103,34 +86,35 @@ bugtags {
     trackingNetworkEnabled true
 }
 
-def packageTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-}
-
-android {
-
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                File outputDirectory = new File(outputFile.parent);
-                def fileName
-                if (variant.buildType.name == "release") {
-                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}.apk"
-                } else {
-                    fileName = "app_v${defaultConfig.versionName}_${packageTime()}_beta.apk"
-                }
-                output.outputFile = new File(outputDirectory, fileName)
-            }
-        }
-    }
-
-}
+//def packageTime() {
+//    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+//}
+//
+//android {
+//
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                File outputDirectory = new File(outputFile.parent);
+//                def fileName
+//                if (variant.buildType.name == "release") {
+//                    fileName = "ShopManager_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}.apk"
+//                } else {
+//                    fileName = "ShopManager_v${defaultConfig.versionName}_${packageTime()}_beta.apk"
+//                }
+//                output.outputFile = new File(outputDirectory, fileName)
+//            }
+//        }
+//    }
+//
+//}
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile 'org.greenrobot:greendao:3.2.0'

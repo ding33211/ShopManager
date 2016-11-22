@@ -1,9 +1,18 @@
 package com.soubu.goldensteward.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
+import android.os.SystemClock;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * 异常处理工具
@@ -41,6 +50,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         try {
+            MobclickAgent.reportError(mContext, ex);
             //导出异常信息到SD卡中
             dumpExceptionToSDCard(ex);
             uploadExceptionToServer();
@@ -60,16 +70,62 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private void dumpExceptionToSDCard(Throwable ex) throws IOException {
-        //伪代码 本方法用于实现将错误信息存储到SD卡中
+        File file = mContext.getExternalFilesDir("Crash_sobu");
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        File outFile = new File(file, getCurProcessName(mContext) + SystemClock.elapsedRealtime());
+
+        try {
+            outFile.createNewFile();
+            saveCrashInfo2File(outFile, ex);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager mActivityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
+                .getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+
+                return appProcess.processName;
+            }
+        }
+        return null;
+    }
+
+    private void saveCrashInfo2File(File file, Throwable ex) throws IOException {
+
+        StringBuffer sb = new StringBuffer();
+
+
+        Writer writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        printWriter.close();
+        String result = writer.toString();
+        sb.append(result);
+
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(sb.toString().getBytes());
+        fos.close();
+    }
 
 
     private void uploadExceptionToServer() {
         //伪代码 本方法用于将错误信息上传至服务器
     }
-
-
 
 
 //    private final String TAG = CrashHandler.class.getSimpleName();

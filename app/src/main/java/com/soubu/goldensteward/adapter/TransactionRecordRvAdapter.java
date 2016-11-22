@@ -29,14 +29,22 @@ public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<ProductI
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_transaction_record_recyclerview, parent, false);
-        return new ItemViewHolder(v);
+        if (viewType != TYPE_FOOTER) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_transaction_record_recyclerview, parent, false);
+            return new ItemViewHolder(v);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.item_recyclerview_footer, null);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            return new FooterViewHolder(view);
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
-            ItemViewHolder holder1 = (ItemViewHolder)holder;
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder holder1 = (ItemViewHolder) holder;
             ProductInCustomerDetailServerParams params = mList.get(position);
             holder1.tvState.setText(mStates[Integer.valueOf(params.getStatus()) - 1]);
             holder1.tvTime.setText(params.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(params.getAdd_time()) * 1000)));
@@ -47,7 +55,7 @@ public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<ProductI
     }
 
 
-    class ItemViewHolder extends  RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvState;
         TextView tvTime;
@@ -66,4 +74,16 @@ public class TransactionRecordRvAdapter extends BaseRecyclerViewAdapter<ProductI
             tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);
         }
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            if (isShowFooter()) {
+                return TYPE_FOOTER;
+            }
+        }
+        return TYPE_ONLY;
+    }
+
+
 }

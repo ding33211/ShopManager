@@ -126,7 +126,6 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
             String content = param.getContent();
             int titleRes = param.getTitleRes();
             int type = param.getType();
-            Log.e("xxxxxxx", this.getActivity().getString(titleRes) + "   :  " + content);
             if (type > 0x10 && TextUtils.isEmpty(content)) {
                 if (type == TYPE_ITEM_MUST_CHOOSE) {
                     ShowWidgetUtil.showShort(getActivity().getString(R.string.please_choose_s, this.getActivity().getString(titleRes)));

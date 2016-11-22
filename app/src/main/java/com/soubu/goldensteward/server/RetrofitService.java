@@ -105,7 +105,6 @@ public class RetrofitService {
                         }
                     });
                     Gson gSon = gBuilder.create();
-
                     api = new Retrofit.Builder()
                             .client(mOkHttpClient)
                             .baseUrl(ApiConfig.API_HOST)
@@ -154,9 +153,7 @@ public class RetrofitService {
 //                        }
 //                    }
                     HeaderEntity entity = new HeaderEntity();
-                    Log.e("xxxxxxx", entity.toString());
                     String head = new Gson().toJson(entity);
-                    Log.e("xxxxxxx", "head   :    " + head);
                     request = request.newBuilder()
                             .header("SHOP_MANAGER_AGENT", head)
                             .build();

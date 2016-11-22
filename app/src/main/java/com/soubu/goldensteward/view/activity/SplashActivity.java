@@ -47,7 +47,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("xxxxxxxx", "sha1    :    " + PhoneUtil.getSHA1(this));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -58,7 +57,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     }
 
     //需要验证权限的方法
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void load() {
         if (GoldenStewardApplication.getContext().initUser()) {
             Intent intent = new Intent(this, HomeActivity.class);
@@ -74,17 +73,17 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法
     //建议是对话框的方式,告知用户请求这个权限的原因
     //注意由于是在build中生成的类文件,因此每次对注释方法有有修改需要clean,rebuild.
-    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void showDialog(PermissionRequest request) {
         PermissionUtil.showPermissionExplainDialog(getApplicationContext(), R.string.permission_explain_storage, request);
     }
 
-    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void onPermissionDenied() {
         finish();
     }
 
-    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void showGoToSettingDialog() {
         PermissionUtil.showGoToSettingDialog(this, R.string.permission_explain_storage, true);
     }
@@ -115,7 +114,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
 
     private void initProvinceAndCity() {
         AddressDao addressDao = DBHelper.getInstance(getApplicationContext()).getAddressDao();
-        Log.e("xxxxxxxxxxxx", addressDao.count() + "");
         if (addressDao.count() > 0) {
             return;
         } else {
@@ -131,7 +129,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                     address.setSort(object.getInt("sort"));
                     address.setTag(object.getString("tag"));
                     addressDao.insert(address);
-                    Log.e("xxxxxxxx", address.getArea_name());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

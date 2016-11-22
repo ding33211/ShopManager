@@ -21,6 +21,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
 
     List<T> mList;
 
+    //默认一页显式10项数据
+    final int PAGE_SIZE = 20;
+
     public BaseRecyclerViewAdapter() {
         mList = new ArrayList<>();
     }
@@ -33,9 +36,33 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
-    public boolean isShowFooter() {
-        return false;
+    public void setData(List<T> list, boolean isRefresh) {
+        if (isRefresh) {
+            if (!mList.isEmpty()) {
+                mList.clear();
+            }
+        }
+        if (list.size() < PAGE_SIZE) {
+            setShowFooter(false);
+        } else {
+            setShowFooter(true);
+        }
+        mList.addAll(list);
     }
+
+    /**
+     * 是否显示加载更多视图
+     */
+    boolean mShowFooter = false;
+
+    public void setShowFooter(boolean showFooter) {
+        this.mShowFooter = showFooter;
+    }
+
+    public boolean isShowFooter() {
+        return this.mShowFooter;
+    }
+
 
     @Override
     public int getItemCount() {

@@ -282,7 +282,6 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
                     int[] systemIds = new int[systemList.size()];
                     for (int a = 0; a < systemList.size(); a++) {
                         systemIds[a] = systemList.get(a);
-                        Log.e("xxxxxx", systemIds[a] + "");
                     }
                     param.setSys_tags(systemIds);
 //                    String[] customTags = new String[customList.size()];

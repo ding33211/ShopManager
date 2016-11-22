@@ -150,12 +150,10 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                             @Override
                             public void onSuccess(String fileName) {
                                 saveInfo(fileName, 0);
-                                Log.e("xxxxxxxSuccess", fileName);
                             }
 
                             @Override
                             public void onFailure(String fileName) {
-                                Log.e("xxxxxxxFailure", fileName);
                                 mIvLastClick.setImageResource(R.drawable.auth_reload);
                             }
 
@@ -175,12 +173,10 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                             @Override
                             public void onSuccess(String fileName) {
                                 saveInfo(fileName, 0);
-                                Log.e("xxxxxxxSuccess", fileName);
                             }
 
                             @Override
                             public void onFailure(String fileName) {
-                                Log.e("xxxxxxxFailure", fileName);
                                 mIvLastClick.setImageResource(R.drawable.auth_reload);
                             }
 

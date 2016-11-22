@@ -380,7 +380,6 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.e("xxxxxxxx", "onDraw");
         drawBackgroundLines(canvas);
         drawRect(canvas);
         drawLines(canvas);
@@ -439,7 +438,6 @@ public class LineView extends View {
         Rect touchRect;
         bars.clear();
         touchBars.clear();
-        Log.e("xxxxxxx", "drawRect   :    percentList " + percentList);
         if (percentList != null && !percentList.isEmpty()) {
             int size = percentList.size();
             List<Integer> leftList = new ArrayList<>();
@@ -479,7 +477,6 @@ public class LineView extends View {
                             backgroundGridWidth * i + rightList.get(j),
                             bottomLineY);
                     touchBars.add(touchRect);
-                    Log.e("xxxxxxx", "drawRect   :    i = " + i + "    left   :  " + rect.left);
                     canvas.drawRect(rect, fgPaint);
                 }
             }
@@ -523,9 +520,7 @@ public class LineView extends View {
             percentList.add(aPercentList);
             targetPercentList.add(targetList);
         }
-        Log.e("xxxxxxxx", "removeCallbacks   !!");
         removeCallbacks(barAnimator);
-        Log.e("xxxxxxxx", "post   !!");
         post(barAnimator);
     }
 
@@ -678,7 +673,6 @@ public class LineView extends View {
         int mViewWidth = measureWidth(widthMeasureSpec);
         mViewHeight = measureHeight(heightMeasureSpec);
         refreshAfterDataChanged();
-        Log.e("xxxxxxx", "width   :   " + mViewWidth);
         setMeasuredDimension(mViewWidth, mViewHeight);
     }
 

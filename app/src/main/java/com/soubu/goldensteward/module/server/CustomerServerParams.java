@@ -23,6 +23,24 @@ public class CustomerServerParams extends BaseDeltaCopyParams implements PinyinL
     String child_id;
     //用户身份
     String certification_type;
+    String page;
+    String size;
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public String getCertification_type() {
         return certification_type;

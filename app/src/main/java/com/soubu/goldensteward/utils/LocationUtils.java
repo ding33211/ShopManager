@@ -74,9 +74,7 @@ public class LocationUtils {
      */
     public void start() {
         synchronized (objLock) {
-            Log.e("xxxxxx", "11111111111");
             if(locationClient != null && !locationClient.isStarted()){
-                Log.e("xxxxxx", "222222");
                 locationClient.start();
             }
         }
@@ -87,9 +85,7 @@ public class LocationUtils {
      */
     public void stop() {
         synchronized (objLock) {
-            Log.e("xxxxxx", "33333333");
             if(locationClient != null && locationClient.isStarted()){
-                Log.e("xxxxxx", "444444444");
                 locationClient.stop();
             }
         }

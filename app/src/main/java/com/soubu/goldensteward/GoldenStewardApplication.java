@@ -24,7 +24,10 @@ import com.soubu.goldensteward.module.OssConst;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.sdk.eventbus.MyEventBusIndex;
 import com.soubu.goldensteward.utils.AppUtil;
+import com.soubu.goldensteward.utils.ChannelUtil;
+import com.soubu.goldensteward.utils.CrashHandler;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,12 +57,20 @@ public class GoldenStewardApplication extends Application implements Application
     public void onCreate() {
         super.onCreate();
         this.registerActivityLifecycleCallbacks(this);//注册
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, "53ad0de956240b97b80eac9d", ChannelUtil.getChannel(this)));
         sInstance = (GoldenStewardApplication) getApplicationContext();
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
         AppConfig.init(sInstance);
         initOSSConfig();
-        Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
+        if (BuildConfig.IS_PRODUCT_ENV) {
+            Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventNone);
+        } else {
+            Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
+        }
+        if (BuildConfig.IS_PRODUCT_ENV) {
+            Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance());
+        }
     }
 
     // 获取ApplicationContext
@@ -68,7 +79,6 @@ public class GoldenStewardApplication extends Application implements Application
     }
 
     public String getToken() {
-        Log.e("xxxxxxxxxxxx", "gettoken");
         if (TextUtils.isEmpty(mToken)) {
             SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
             mToken = sp.getString(Constant.SP_KEY_TOKEN, "");
@@ -77,7 +87,6 @@ public class GoldenStewardApplication extends Application implements Application
     }
 
     public void setToken(String token) {
-        Log.e("xxxxxxxxxxxx", "settoken    :   " + token);
         mToken = token;
         SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_TOKEN, token).commit();

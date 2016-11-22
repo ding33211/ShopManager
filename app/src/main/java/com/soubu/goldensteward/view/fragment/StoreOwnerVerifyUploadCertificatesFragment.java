@@ -226,14 +226,13 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
         StoreOwnerVerifyUploadCertificatesFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-    private void uploadData(final String path, final Uri uri) {
+    private void uploadData(final String path, final Uri uri, final int clickIndex) {
         GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, mPlaceHolderRes, mLastImgRes);
         OssUtil.uploadSingleImage(path, OssConst.DIY_CERTIFICATION, new OssUtil.UploadCallBack() {
             @Override
             public void onSuccess(String fileName) {
-                String path = OssConst.DIY_CERTIFICATION + File.separator + fileName;
-                mPaths[mClickIndex] = path;
-                Log.e("xxxxxxxSuccess", fileName);
+                String path = fileName;
+                mPaths[clickIndex] = path;
             }
 
             @Override
@@ -241,13 +240,12 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
                 if(!PhoneUtil.isConnected(GoldenStewardApplication.getContext())){
                     ShowWidgetUtil.showShort(R.string.please_check_internet);
                 }
-                Log.e("xxxxxxxFailure", fileName);
                 mIvLastClick.setImageResource(R.drawable.auth_reload);
                 mIvLastClick.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mIvLastClick = (ProgressImageView) v;
-                        uploadData(path, uri);
+                        uploadData(path, uri, clickIndex);
                     }
                 });
             }
@@ -268,13 +266,13 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
                 case CameraUtil.REQUEST_GALLERY:
                     if (data != null) {
                         String path = ConvertUtil.uriToPath(getActivity(), data.getData());
-                        uploadData(path, data.getData());
+                        uploadData(path, data.getData(), mClickIndex);
                     }
                     break;
                 case CameraUtil.REQUEST_CAMERA:
                     File takePhoto = CameraUtil.getTakePhoto();
                     Uri uri = Uri.fromFile(takePhoto);
-                    uploadData(takePhoto.getPath(), uri);
+                    uploadData(takePhoto.getPath(), uri, mClickIndex);
             }
         }
     }

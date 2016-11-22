@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/load_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="12dip"
+    android:paddingTop="12dip">
+
+    <com.soubu.goldensteward.widget.loadingview.AVLoadingIndicatorView
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/subtitle_grey" />
+
+    <TextView
+        android:id="@+id/more_data_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/loading"
+        android:textColor="@color/subtitle_grey"
+        android:textSize="16sp" />
+</LinearLayout>

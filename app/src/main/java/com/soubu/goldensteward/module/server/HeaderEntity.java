@@ -54,6 +54,5 @@ public class HeaderEntity {
         device = PhoneUtil.getDeviceIMEI(GoldenStewardApplication.getContext());
         token = GoldenStewardApplication.getContext().getToken();
         version = AppUtil.getVersionName(GoldenStewardApplication.getContext()) + "";
-        Log.e("xxxxxxx", "os   :  " + os + "   device   :   " + device + "    token   :   " + token + "   version  :  " + version);
     }
 }

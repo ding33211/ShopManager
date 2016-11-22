@@ -192,12 +192,10 @@ public class ConvertUtil {
                 macData = macData.substring(0, macData.length() - 1);
             }
             byte[] dataBytes = macData.getBytes("UTF-8");
-            Log.e("xxxxxxxxxxxxxxx", "data   :   " + macData + "      key   :   " + macKey);
             SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
             mac.init(secret);
             byte[] doFinal = mac.doFinal(dataBytes);
 //            byte[] hexB = new Hex().encode(doFinal);
-            Log.e("xxxxxxxxxxxxxxx", "result   :   " + bytes2Hex(doFinal));
             return bytes2Hex(doFinal);
         } catch (Exception e) {
             e.printStackTrace();

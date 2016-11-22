@@ -40,7 +40,6 @@ public class YAxisView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.e("xxxxxxx", "map   :   " + map);
         if (!map.isEmpty()) {
             drawNumbers(canvas);
         }
