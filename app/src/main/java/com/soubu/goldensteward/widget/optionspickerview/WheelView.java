@@ -128,6 +128,7 @@ public class WheelView extends View {
             textColorCenter = a.getColor(R.styleable.wheelview_textColorCenter, textColorCenter);
             dividerColor = a.getColor(R.styleable.wheelview_dividerColor, dividerColor);
             textSize = a.getDimensionPixelOffset(R.styleable.wheelview_textSize, textSize);
+            a.recycle();
         }
         initLoopView(context);
     }

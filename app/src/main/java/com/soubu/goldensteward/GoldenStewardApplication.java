@@ -39,7 +39,7 @@ import java.util.List;
 public class GoldenStewardApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static GoldenStewardApplication sInstance;
     //当前上下文,用以显式当前dialog
-    private static Context sNowContext;
+    private Context sNowContext;
 
     //token以及uid做成全局参数
     private static String mToken;
@@ -64,7 +64,7 @@ public class GoldenStewardApplication extends Application implements Application
         AppConfig.init(sInstance);
         initOSSConfig();
         if (BuildConfig.IS_PRODUCT_ENV) {
-            Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventNone);
+            Bugtags.start("a4aa632f49691a7caa3a1c49f038dc0d", this, Bugtags.BTGInvocationEventNone);
         } else {
             Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
         }
@@ -196,7 +196,7 @@ public class GoldenStewardApplication extends Application implements Application
         return false;
     }
 
-    public static Context getNowContext() {
+    public Context getNowContext() {
         return sNowContext;
     }
 

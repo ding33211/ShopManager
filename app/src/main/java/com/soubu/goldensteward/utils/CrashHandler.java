@@ -116,10 +116,23 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         printWriter.close();
         String result = writer.toString();
         sb.append(result);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(sb.toString().getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(sb.toString().getBytes());
-        fos.close();
     }
 
 

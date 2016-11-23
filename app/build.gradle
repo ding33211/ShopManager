@@ -10,7 +10,7 @@ apt {
 }
 
 android {
-    def UMENG_RELEASE_KEY = "53ad0de956240b97b80eac9d"
+//    def UMENG_RELEASE_KEY = "53ad0de956240b97b80eac9d"
     def UMENG_TEST_KEY = "53a7c74056240b4b1d0cc011"
 
 
@@ -45,7 +45,7 @@ android {
             zipAlignEnabled true
             //移除无用的资源文件
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             debuggable false
         }
@@ -72,17 +72,31 @@ android {
     }
 }
 
+
+afterEvaluate {
+    android.applicationVariants.each { variant ->
+        def bugtagsAppKey = null;
+        def bugtagsAppSecret = null;
+
+        if (variant.name.contains("debug")) {
+            bugtagsAppKey = '4c9c0ecb1faf11a9e160449041a0254a'
+            bugtagsAppSecret = 'APP_SECRET_BETA'
+        } else if (variant.name.contains("release")) {
+            bugtagsAppKey = 'a4aa632f49691a7caa3a1c49f038dc0d'
+            bugtagsAppSecret = 'APP_SECRET_LIVE'
+        }
+
+        variant.ext.bugtagsAppKey = bugtagsAppKey
+        variant.ext.bugtagsAppSecret = bugtagsAppSecret
+    }
+}
+
 //应用 Bugtags 插件
 apply plugin: 'com.bugtags.library.plugin'
 //Bugtags 插件配置
 
 bugtags {
-    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考插件详细使用说明
-    appKey "4c9c0ecb1faf11a9e160449041a0254a"  //这里是你的 appKey
-    appSecret "34f39ef17c13408f60e95765f16bfeb4"    //这里是你的 appSecret，管理员在设置页可以查看
     mappingUploadEnabled true
-
-    //网络跟踪功能配置(企业版)
     trackingNetworkEnabled true
 }
 

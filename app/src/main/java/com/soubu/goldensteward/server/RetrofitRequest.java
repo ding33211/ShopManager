@@ -87,13 +87,13 @@ public class RetrofitRequest {
                 ShowWidgetUtil.dismissProgressDialog();
                 if (response.isSuccessful()) {
                     if (response.body().status == -1) {
-                        new AlertDialog.Builder(GoldenStewardApplication.getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        new AlertDialog.Builder(GoldenStewardApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 GoldenStewardApplication.getContext().clearUser();
                                 ActivityContainer.getInstance().finishAllActivity();
-                                Intent intent = new Intent(GoldenStewardApplication.getNowContext(), LoginActivity.class);
-                                GoldenStewardApplication.getNowContext().startActivity(intent);
+                                Intent intent = new Intent(GoldenStewardApplication.getContext().getNowContext(), LoginActivity.class);
+                                GoldenStewardApplication.getContext().getNowContext().startActivity(intent);
                             }
                         }).show();
                         return;

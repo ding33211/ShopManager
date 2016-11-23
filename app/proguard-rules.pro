@@ -25,7 +25,6 @@
 -verbose
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
-#release版本不显示log
 -assumenosideeffects class android.util.Log {
     public static boolean isLoggable(java.lang.String, int);
     public static int v(...);
