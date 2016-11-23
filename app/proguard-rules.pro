@@ -43,6 +43,8 @@
 
 -keep class com.soubu.goldensteward.module.**{*;}
 
+-dontwarn com.baidu**
+-keep class com.baidu.** { *; }
 -keep public class javax.**
 -keep class com.google.**
 -dontwarn com.google.**

@@ -119,7 +119,7 @@ public class GoldenStewardApplication extends Application implements Application
         mPhone = name;
         SharedPreferences sp = AppUtil.getDefaultSharedPreference(sInstance);
         sp.edit().putString(Constant.SP_KEY_USER_PHONE, name).commit();
-        if (user != null) {
+        if (dao != null && user != null) {
             user.setPhone(name);
             dao.update(user);
         }
@@ -179,7 +179,7 @@ public class GoldenStewardApplication extends Application implements Application
     }
 
     public void clearUser() {
-        if (dao != null) {
+        if (dao != null && user != null) {
             dao.delete(user);
         }
     }

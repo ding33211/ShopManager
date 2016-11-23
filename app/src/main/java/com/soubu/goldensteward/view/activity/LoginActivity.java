@@ -100,12 +100,12 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
             if (data.getData() instanceof UserServerParams) {
                 GoldenStewardApplication.getContext().setToken(data.getToken());
                 final UserServerParams params = (UserServerParams) data.getData();
+                GoldenStewardApplication.getContext().setPhone(params.getPhone());
                 int certification = Integer.valueOf(params.getCertification());
                 int child_state = Integer.valueOf(params.getChild_status());
                 Intent intent;
                 if (certification == -1) {
                     intent = new Intent(this, StoreOwnerVerifyActivity.class);
-                    intent.putExtra(Constant.EXTRA_PARAMS, mParams);
                     startActivity(intent);
                 } else if (certification == 0) {
                     intent = new Intent(this, StoreOwnerVerifyActivity.class);
