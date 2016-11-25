@@ -14,40 +14,39 @@
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
-            android:visibility="invisible"
             android:orientation="horizontal">
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/ll_menu_r_2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/selector_toolbar_menu"-->
-                <!--android:paddingLeft="16dp"-->
-                <!--android:paddingRight="16dp">-->
+            <LinearLayout
+                android:id="@+id/ll_menu_r_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_menu_r_2"-->
-                    <!--android:layout_width="18dp"-->
-                    <!--android:layout_height="18dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:src="@drawable/home_browse_shop" />-->
-            <!--</LinearLayout>-->
+                <ImageView
+                    android:id="@+id/iv_menu_r_2"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/home_browse_shop" />
+            </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/ll_menu_r_1"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/selector_toolbar_menu"-->
-                <!--android:paddingLeft="16dp"-->
-                <!--android:paddingRight="16dp">-->
+            <LinearLayout
+                android:id="@+id/ll_menu_r_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_menu_r_1"-->
-                    <!--android:layout_width="18dp"-->
-                    <!--android:layout_height="18dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:src="@drawable/home_message" />-->
-            <!--</LinearLayout>-->
+                <ImageView
+                    android:id="@+id/iv_menu_r_1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/home_message" />
+            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -157,10 +156,10 @@
                     android:textSize="30sp" />
 
                 <!--<ImageView-->
-                    <!--android:layout_width="20dp"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:src="@drawable/home_help" />-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:src="@drawable/home_help" />-->
             </RelativeLayout>
 
             <View
@@ -178,23 +177,23 @@
                 android:verticalSpacing="1dp" />
 
             <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_marginBottom="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:background="@android:color/white">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:background="@android:color/white">-->
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="这是公告" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="这是公告" />-->
             <!--</LinearLayout>-->
 
             <com.soubu.goldensteward.widget.GridViewInScrollView
-                android:layout_marginTop="10dp"
                 android:id="@+id/gv_other_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/line_color"
                 android:horizontalSpacing="1dp"
                 android:numColumns="2"

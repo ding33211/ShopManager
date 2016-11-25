@@ -33,8 +33,10 @@ public class HomeActivity extends ActivityPresenter<HomeActivityDelegate> {
                 mIndex = 2;
                 break;
         }
-        viewDelegate.showFragmentAndSelectTab(mIndex, mCurrentTabIndex);
-        mCurrentTabIndex = mIndex;
+        if(mCurrentTabIndex != mIndex){
+            viewDelegate.showFragmentAndSelectTab(mIndex, mCurrentTabIndex);
+            mCurrentTabIndex = mIndex;
+        }
     }
 
     @Override

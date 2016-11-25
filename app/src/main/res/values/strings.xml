@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">搜布金管家</string>
-    <string name="app_version">1.0</string>
+    <string name="app_version">1.0.0</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="button_allow">允许</string>
@@ -307,4 +307,20 @@
     <string name="error_422_message">请求参数错误</string>
     <string name="error_500_message">服务器错误</string>
     <string name="error_socket_timeout_message">服务器连接超时</string>
+
+
+    <!-- 2.0-->
+    <string name="store_home">店铺首页</string>
+    <string name="all_product">全部产品</string>
+    <string name="new_product">新品上架</string>
+    <string name="evaluate">评价</string>
+    <string name="transaction_evaluate">交易评价</string>
+    <string name="product_classification">产品分类</string>
+    <string name="overall_satisfaction">总体满意度</string>
+    <string name="desc_match">描述相符</string>
+    <string name="service_attitude">服务态度</string>
+    <string name="delivery_speed">发货速度</string>
+    <string name="total_transaction">累计交易</string>
+    <string name="view_all">查看全部</string>
+
 </resources>

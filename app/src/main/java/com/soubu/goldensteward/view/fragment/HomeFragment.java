@@ -26,6 +26,7 @@ import com.soubu.goldensteward.view.activity.MyCustomersActivity;
 import com.soubu.goldensteward.view.activity.MyWalletActivity;
 import com.soubu.goldensteward.view.activity.OperationReportActivity;
 import com.soubu.goldensteward.view.activity.SettingActivity;
+import com.soubu.goldensteward.view.activity.StorePreviewActivity;
 import com.soubu.goldensteward.widget.PayPassWordView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +38,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-10-18.
  */
-public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
+public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> implements View.OnClickListener {
 
     @Override
     protected Class getDelegateClass() {
@@ -112,14 +113,7 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.get(R.id.rl_company).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), InformationActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        viewDelegate.setOnClickListener(this, R.id.rl_company, R.id.ll_menu_r_1, R.id.ll_menu_r_2);
         viewDelegate.setActionOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -142,4 +136,21 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.rl_company:
+                intent = new Intent(getActivity(), InformationActivity.class);
+                break;
+            case R.id.ll_menu_r_2:
+                intent = new Intent(getActivity(), StorePreviewActivity.class);
+                break;
+
+        }
+        if (null != intent) {
+            startActivity(intent);
+        }
+
+    }
 }

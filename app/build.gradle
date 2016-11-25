@@ -28,8 +28,8 @@ android {
         applicationId "com.soubu.goldensteward"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
         buildConfigField "boolean", "IS_PRODUCT_ENV", "false"
         manifestPlaceholders = [
                 UMENG_APP_VALUE    : UMENG_TEST_KEY,
