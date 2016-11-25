@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">金管家</string>
+    <string name="app_name">搜布金管家</string>
     <string name="app_version">1.0</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
@@ -175,6 +175,7 @@
     <string name="forget_password">忘记密码</string>
     <string name="permission_explain_storage">我们需要读取您的存储文件来让您更好的使用我们的应用</string>
     <string name="permission_explain_camera">您只有打开了允许了相机权限才可以使用相机</string>
+    <string name="permission_explain_phone">您只有打开了允许了电话权限才可以拨打电话</string>
     <string name="please_input_child_phone">请输入关联店铺账号</string>
     <string name="store_would_refer">将要关联的店铺(可添加多个)</string>
     <string name="add">添加</string>

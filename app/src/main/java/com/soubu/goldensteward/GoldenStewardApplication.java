@@ -200,7 +200,6 @@ public class GoldenStewardApplication extends Application implements Application
         return sNowContext;
     }
 
-
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         if (activity.getParent() != null) {

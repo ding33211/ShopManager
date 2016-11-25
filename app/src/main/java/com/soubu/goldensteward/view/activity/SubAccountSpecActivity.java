@@ -40,12 +40,12 @@ public class SubAccountSpecActivity extends ActivityPresenter<SubAccountActivity
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.spec_info);
-        viewDelegate.setSettingMenuListener(R.menu.sub_account_spec, new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return false;
-            }
-        });
+//        viewDelegate.setSettingMenuListener(R.menu.sub_account_spec, new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return false;
+//            }
+//        });
     }
 
     @Override
