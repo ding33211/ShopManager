@@ -30,7 +30,7 @@
                     android:layout_margin="10dp"
                     android:text="@string/order_refund_rate"
                     android:textColor="@color/title_black"
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
 
                 <include layout="@layout/item_line_view" />
 
@@ -50,7 +50,7 @@
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@color/colorPrimary"
-                    app:tabTextColor="@color/search_text_color" />
+                    app:tabTextColor="@color/subtitle_grey" />
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 

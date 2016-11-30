@@ -132,7 +132,7 @@
                 app:tabIndicatorColor="@color/colorPrimary"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/search_text_color" />
+                app:tabTextColor="@color/subtitle_grey" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView

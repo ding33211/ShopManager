@@ -1,14 +1,21 @@
 package com.soubu.goldensteward.delegate;
 
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.adapter.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.adapter.TurnOverOrderRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
+import com.soubu.goldensteward.module.TurnOverOrderRvItem;
+import com.soubu.goldensteward.module.server.OrderServerParams;
 import com.soubu.goldensteward.widget.linebarchart.LineView;
 import com.soubu.goldensteward.widget.linebarchart.YAxisView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dingsigang on 16-11-30.
@@ -17,6 +24,7 @@ import java.util.Date;
 public class RefundDataActivityDelegate extends AppDelegate {
     LineView mLineView;
     YAxisView mLeftAxisView;
+    RecyclerView mRvContent;
 
     @Override
     public int getRootLayoutId() {
@@ -29,6 +37,8 @@ public class RefundDataActivityDelegate extends AppDelegate {
         mLineView = get(R.id.line_view);
         mLeftAxisView = get(R.id.v_left_line);
         mLineView.setUnit(getActivity().getString(R.string.percent));
+        mRvContent = get(R.id.rv_content);
+        mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
@@ -52,6 +62,31 @@ public class RefundDataActivityDelegate extends AppDelegate {
         for (String a : titles) {
             tabLayout.addTab(tabLayout.newTab().setText(a));
         }
+    }
+
+    public void initTurnOverVolumeRecyclerView(OrderServerParams[] params) {
+        TurnOverOrderRvAdapter mAdapter = new TurnOverOrderRvAdapter(getActivity());
+        List<TurnOverOrderRvItem> list = new ArrayList<>();
+        for (OrderServerParams param : params) {
+            TurnOverOrderRvItem item = new TurnOverOrderRvItem();
+            item.setStatus(param.getStatus());
+            item.setTime(param.getAdd_time());
+            item.setCity(param.getCity());
+            item.setProvince(param.getProvince());
+            item.setDiscount(param.getDiscount());
+            item.setSum_price(param.getTotal_price());
+            item.setFreight(param.getShip_type());
+            item.setName(param.getName());
+            item.setPhone(param.getPhone());
+            item.setPic(param.getPic());
+            item.setSec_status(param.getSec_status());
+            item.setType(param.getOrder_type());
+            item.setConsignee(param.getConsignee());
+            item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
+            list.add(item);
+        }
+        mAdapter.setData(list);
+        mRvContent.setAdapter(mAdapter);
     }
 
     public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList,

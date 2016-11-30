@@ -260,7 +260,8 @@
             android:layout_height="35dp"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_refund_state"

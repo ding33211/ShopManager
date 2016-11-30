@@ -7,6 +7,8 @@ import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.EventBusConfig;
 import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.OrderDataArray;
+import com.soubu.goldensteward.module.server.OrderServerParams;
 import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.ConvertUtil;
@@ -59,6 +61,7 @@ public class RefundDataActivity extends ActivityPresenter<RefundDataActivityDele
         mColorList = new ArrayList<>();
         mColorList.add(getResources().getColor(R.color.colorPrimary));
         RetrofitRequest.getInstance().getReturnRates();
+        RetrofitRequest.getInstance().getOrderList(3);
         viewDelegate.setLineViewBottomSize(7);
 
     }
@@ -78,7 +81,12 @@ public class RefundDataActivity extends ActivityPresenter<RefundDataActivityDele
                 ShopVisitorServerParams[] params3 = (ShopVisitorServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
                 initReturnRateData(params3);
                 break;
-
+            case EventBusConfig.GET_ORDER_LIST:
+                OrderServerParams[] params1 = (OrderServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
+                if (params1.length > 0) {
+                    viewDelegate.initTurnOverVolumeRecyclerView(params1);
+                }
+                break;
         }
 
     }

@@ -19,12 +19,13 @@
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/search_text_color" />
+            app:tabTextColor="@color/subtitle_grey" />
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

@@ -22,7 +22,7 @@ import java.util.Date;
 public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapter<ProductInOrderListServerParams> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType != TYPE_FOOTER){
+        if (viewType != TYPE_FOOTER) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
             return new ItemViewHolder(v);
         } else {
@@ -39,11 +39,11 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
             ProductInOrderListServerParams params = mList.get(position);
             GlideUtils.loadRoundedImage(holder1.ivProductImg.getContext(), holder1.ivProductImg, params.getPic(), R.mipmap.ic_launcher, R.mipmap.ic_launcher);
             holder1.tvProductName.setText(params.getTitle());
-            holder1.tvUnitPrice.setText(params.getPrice());
-            holder1.tvUnit.setText(params.getUnit());
+            holder1.tvSamplePrice.setText(params.getPrice());
+//            holder1.tvUnit.setText(params.getUnit());
             holder1.tvBrowse.setText(params.getVisit());
             holder1.tvCollection.setText(params.getCollection());
-            holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getTime()) * 1000)));
+//            holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getTime()) * 1000)));
         }
     }
 
@@ -60,23 +60,25 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
     class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProductImg;
         TextView tvProductName;
-        TextView tvUnitPrice;
+        TextView tvSamplePrice;
+        TextView tvBigGoodsPrice;
         TextView tvBrowse;
         TextView tvCollection;
-        TextView tvTime;
+//        TextView tvTime;
         TextView tvCustomerService;
-        TextView tvUnit;
+//        TextView tvUnit;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             ivProductImg = (ImageView) itemView.findViewById(R.id.iv_product);
             tvProductName = (TextView) itemView.findViewById(R.id.tv_name);
-            tvUnitPrice = (TextView) itemView.findViewById(R.id.tv_unit_price);
+            tvSamplePrice = (TextView) itemView.findViewById(R.id.tv_sample_card_price);
+            tvBigGoodsPrice = (TextView) itemView.findViewById(R.id.tv_big_goods_price);
             tvBrowse = (TextView) itemView.findViewById(R.id.tv_browser_volume);
             tvCollection = (TextView) itemView.findViewById(R.id.tv_collection_volume);
-            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+//            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);
-            tvUnit = (TextView) itemView.findViewById(R.id.tv_unit);
+//            tvUnit = (TextView) itemView.findViewById(R.id.tv_unit);
         }
     }
 

@@ -5,6 +5,15 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.base.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.delegate.StoreFlowStatisticsActivityDelegate;
+import com.soubu.goldensteward.module.BaseEventBusResp;
+import com.soubu.goldensteward.module.EventBusConfig;
+import com.soubu.goldensteward.module.server.BaseResp;
+import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.module.server.WithCountDataArray;
+import com.soubu.goldensteward.server.RetrofitRequest;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by dingsigang on 16-11-30.
@@ -28,6 +37,13 @@ public class StoreFlowStatisticsActivity extends ActivityPresenter<StoreFlowStat
         viewDelegate.initTabLayout(new String[]{getString(R.string.product_browse_statistics), getString(R.string.store_visitor_statistics)});
     }
 
+
+    @Override
+    protected void initData() {
+        super.initData();
+        RetrofitRequest.getInstance().getProductListOnSale();
+    }
+
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -44,5 +60,18 @@ public class StoreFlowStatisticsActivity extends ActivityPresenter<StoreFlowStat
                 viewDelegate.setTopBarSelected(1);
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getDataSuccess(BaseEventBusResp resp) {
+        BaseResp resp1 = (BaseResp) resp.getObject();
+        int code = resp.getCode();
+        switch (code) {
+            case EventBusConfig.GET_PRODUCT_LIST_ON_SALE:
+                WithCountDataArray result2 = (WithCountDataArray) resp1.getResult();
+                viewDelegate.initProductAccessRecyclerView((ProductInOrderListServerParams[]) result2.getData());
+                break;
+        }
+
     }
 }

@@ -97,7 +97,7 @@
                 app:tabIndicatorColor="@color/colorPrimary"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorPrimary"
-                app:tabTextColor="@color/search_text_color" />
+                app:tabTextColor="@color/subtitle_grey" />
 
             <LinearLayout
                 android:id="@+id/ll_filter"

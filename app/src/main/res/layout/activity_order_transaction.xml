@@ -24,7 +24,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/order_transaction_statistics"
                 android:textColor="@color/title_black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
             <include layout="@layout/item_line_view" />
 
@@ -42,7 +42,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/order_transaction_analysis"
                 android:textColor="@color/title_black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,13 +77,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_1" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/color_card_transaction_num" />
+                                android:text="@string/color_card_transaction_num"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -105,12 +106,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_1" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/dan" />
+                                    android:text="@string/dan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -126,12 +130,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_1" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -151,13 +158,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_2" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/sample_card_transaction_num" />
+                                android:text="@string/sample_card_transaction_num"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -179,12 +187,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_2" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/dan" />
+                                    android:text="@string/dan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -200,12 +211,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_2" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -225,13 +239,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_3" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/big_goods_transaction_num" />
+                                android:text="@string/big_goods_transaction_num"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -253,12 +268,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_3" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/dan" />
+                                    android:text="@string/dan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -274,12 +292,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_3" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -320,13 +341,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_4" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/color_card_transaction_amount" />
+                                android:text="@string/color_card_transaction_amount"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -348,12 +370,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_4" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/yuan" />
+                                    android:text="@string/yuan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -369,12 +394,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_4" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -394,13 +422,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_5" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/sample_card_transaction_num" />
+                                android:text="@string/sample_card_transaction_amount"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -422,12 +451,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_5" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/yuan" />
+                                    android:text="@string/yuan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -443,12 +475,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_5" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -468,13 +503,14 @@
                             <ImageView
                                 android:layout_width="8dp"
                                 android:layout_height="8dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginRight="10dp"
                                 android:src="@color/pie_color_6" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/big_goods_transaction_num" />
+                                android:text="@string/big_goods_transaction_amount"
+                                android:textColor="@color/title_black"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -496,12 +532,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="252"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_6" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/yuan" />
+                                    android:text="@string/yuan"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -517,12 +556,15 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="4dp"
                                     android:text="25"
+                                    android:textSize="15sp"
                                     android:textColor="@color/pie_color_6" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/percent" />
+                                    android:text="@string/percent"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/subtitle_grey"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

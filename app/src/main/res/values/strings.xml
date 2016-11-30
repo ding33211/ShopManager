@@ -168,6 +168,7 @@
     <string name="yuan">元</string>
     <string name="backslash">/</string>
     <string name="meter">米</string>
+    <string name="kg">kg</string>
 
     <string name="please_input_your_phone_number">请输入您的手机号</string>
     <string name="please_input_password">请输入密码</string>
@@ -357,5 +358,9 @@
     <string name="store_visitor_statistics">店铺访客统计</string>
     <string name="order_refund_rate">订单退款率</string>
     <string name="refund_order">退款订单</string>
+    <string name="sample_card_price">剪样价格</string>
+    <string name="big_goods_price">大货价格</string>
+    <string name="browse_num">浏览次数</string>
+    <string name="store_visit_num">店铺访问次数</string>
 
 </resources>
