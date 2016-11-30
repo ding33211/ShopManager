@@ -13,17 +13,13 @@ import com.soubu.goldensteward.adapter.ReturnRateAllEvaluateRvAdapter;
 import com.soubu.goldensteward.adapter.StoreVisitorContactFriendsRvAdapter;
 import com.soubu.goldensteward.adapter.TurnOverOrderRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
-import com.soubu.goldensteward.module.ProductAccessProductsOnSaleRvItem;
-import com.soubu.goldensteward.module.ReturnRateAllEvaluateRvItem;
-import com.soubu.goldensteward.module.StoreVisitorContactFriendsRvItem;
 import com.soubu.goldensteward.module.TurnOverOrderRvItem;
 import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
 import com.soubu.goldensteward.module.server.OrderServerParams;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
-import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
-import com.soubu.goldensteward.widget.DividerItemDecoration;
+import com.soubu.goldensteward.widget.recyclerviewdecoration.DividerItemDecoration;
 import com.soubu.goldensteward.widget.linebarchart.LineView;
 import com.soubu.goldensteward.widget.linebarchart.YAxisView;
 

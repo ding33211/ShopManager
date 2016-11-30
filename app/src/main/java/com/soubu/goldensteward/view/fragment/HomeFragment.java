@@ -22,8 +22,10 @@ import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.view.activity.InformationActivity;
+import com.soubu.goldensteward.view.activity.MessageActivity;
 import com.soubu.goldensteward.view.activity.MyCustomersActivity;
 import com.soubu.goldensteward.view.activity.MyWalletActivity;
+import com.soubu.goldensteward.view.activity.NewOperationReportActivity;
 import com.soubu.goldensteward.view.activity.OperationReportActivity;
 import com.soubu.goldensteward.view.activity.SettingActivity;
 import com.soubu.goldensteward.view.activity.StorePreviewActivity;
@@ -123,7 +125,7 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> implem
                         intent = new Intent(getActivity(), MyWalletActivity.class);
                         break;
                     case 1:
-                        intent = new Intent(getActivity(), OperationReportActivity.class);
+                        intent = new Intent(getActivity(), NewOperationReportActivity.class);
                         break;
                     case 2:
                         intent = new Intent(getActivity(), MyCustomersActivity.class);
@@ -146,7 +148,9 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> implem
             case R.id.ll_menu_r_2:
                 intent = new Intent(getActivity(), StorePreviewActivity.class);
                 break;
-
+            case R.id.ll_menu_r_1:
+                intent = new Intent(getActivity(), MessageActivity.class);
+                break;
         }
         if (null != intent) {
             startActivity(intent);

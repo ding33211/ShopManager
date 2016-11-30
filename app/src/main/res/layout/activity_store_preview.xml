@@ -13,9 +13,11 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">
 
             <RelativeLayout
+                android:id="@+id/rl_top"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@drawable/preview_bg"
@@ -28,7 +30,7 @@
                     android:padding="18dp">
 
                     <ImageView
-                        android:id="@+id/iv_back"
+                        android:id="@+id/iv_back1"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:src="@drawable/btn_back" />
@@ -96,6 +98,62 @@
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextColor="@color/search_text_color" />
+
+            <LinearLayout
+                android:id="@+id/ll_filter"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@android:color/white"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/bt_complex"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/complex"
+                    android:textColor="@color/selector_home_bottom_text_color" />
+
+                <Button
+                    android:id="@+id/bt_new_product"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/new_product"
+                    android:textColor="@color/selector_home_bottom_text_color" />
+
+                <LinearLayout
+                    android:id="@+id/ll_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/ib_price"
+                        android:layout_width="50dp"
+                        android:layout_height="100dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:src="@drawable/selector_price_up_down" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_latest_7_new"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/latest_7_new"
+                android:visibility="gone" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -103,6 +161,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/delete_account"
+            app:backgroundTint="@color/two_translucent_black"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:layout_anchor="@id/rv_content"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="com.soubu.goldensteward.widget.layoutbehavior.FabInStorePreviewBehavior"
+            app:pressedTranslationZ="0dp" />
     </android.support.design.widget.CoordinatorLayout>
 
     <TextView

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.soubu.goldensteward.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
@@ -18,10 +17,7 @@ import com.soubu.goldensteward.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.InformationRvItem;
 import com.soubu.goldensteward.module.OssConst;
-import com.soubu.goldensteward.module.RegisterRvItem;
-import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
-import com.soubu.goldensteward.server.RetrofitRequest;
 import com.soubu.goldensteward.utils.CameraUtil;
 import com.soubu.goldensteward.utils.ConvertUtil;
 import com.soubu.goldensteward.utils.GlideUtils;
@@ -30,9 +26,6 @@ import com.soubu.goldensteward.utils.PermissionUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.view.activity.ModifyInfoActivity;
 import com.soubu.goldensteward.widget.ProgressImageView;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,12 +38,7 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-import static android.R.attr.path;
-import static android.R.id.list;
-import static android.R.id.switch_widget;
 import static android.app.Activity.RESULT_OK;
-import static android.icu.text.UnicodeSet.CASE;
-import static com.soubu.goldensteward.R.string.position;
 
 /**
  * Created by dingsigang on 16-10-19.
@@ -69,7 +57,6 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
 
     private final int REQUEST_LOCATION = 0x00;
     private final int REQUEST_COMPANY_PROFILE = 0x01;
-
 
     @Override
     protected Class<RecyclerViewFragmentDelegate> getDelegateClass() {

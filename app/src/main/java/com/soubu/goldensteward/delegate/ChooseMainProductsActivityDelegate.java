@@ -7,7 +7,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.adapter.ChooseMainProductsCategoryRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.module.TagInFlowLayoutModule;
-import com.soubu.goldensteward.widget.DividerItemDecoration;
+import com.soubu.goldensteward.widget.recyclerviewdecoration.DividerItemDecoration;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayout;
 import com.soubu.goldensteward.widget.flowlayout.FlowLayoutController;
 

@@ -12,6 +12,7 @@ import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.SubAccountServerParams;
 import com.soubu.goldensteward.server.RetrofitRequest;
+import com.soubu.goldensteward.utils.PinyinComparator;
 import com.soubu.goldensteward.view.activity.SubAccountSpecActivity;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -58,6 +59,7 @@ public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDele
         if (code == EventBusConfig.GET_SUB_ACCOUNT_LIST) {
             SubAccountServerParams[] params = (SubAccountServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
             mList = Arrays.asList(params);
+            Collections.sort(mList, new PinyinComparator());
             viewDelegate.setData(mList);
         }
     }

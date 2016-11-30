@@ -263,4 +263,20 @@ public abstract class AppDelegate implements IDelegate {
     }
 
 
+
+    //界面中只要出现选项按钮就能用到如下
+
+    protected View[] mTopButtons = null;
+
+    public void setTopBarSelected(int index) {
+        for (int i = 0; i < mTopButtons.length; i++) {
+            if (i == index) {
+                mTopButtons[i].setSelected(true);
+            } else {
+                mTopButtons[i].setSelected(false);
+            }
+        }
+    }
+
+
 }

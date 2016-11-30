@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">搜布金管家</string>
-    <string name="app_version">1.0.0</string>
+    <string name="app_version">1.0.1</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="button_allow">允许</string>
@@ -150,6 +150,7 @@
     <string name="last_week_collect_num">近7天收藏数</string>
     <string name="last_week">近7天</string>
     <string name="last_month">近30天</string>
+    <string name="last_half_year">近6月</string>
     <string name="all">全部</string>
     <string name="pending_payment">待付款</string>
     <string name="pending_shipped">待发货</string>
@@ -312,7 +313,7 @@
     <!-- 2.0-->
     <string name="store_home">店铺首页</string>
     <string name="all_product">全部产品</string>
-    <string name="new_product">新品上架</string>
+    <string name="new_arrivals">新品上架</string>
     <string name="evaluate">评价</string>
     <string name="transaction_evaluate">交易评价</string>
     <string name="product_classification">产品分类</string>
@@ -322,5 +323,39 @@
     <string name="delivery_speed">发货速度</string>
     <string name="total_transaction">累计交易</string>
     <string name="view_all">查看全部</string>
+    <string name="complex">综合</string>
+    <string name="new_product">新品</string>
+    <string name="latest_7_new">近7天上新</string>
+    <string name="message">消息</string>
+    <string name="store_order_conversion_rate">店铺订单转化率</string>
+    <string name="offer_num">报价数</string>
+    <string name="visitor_num">访客数</string>
+    <string name="browser_num">浏览量</string>
+    <string name="color_card_order_num">色卡订单数</string>
+    <string name="sample_card_order_num">剪样订单数</string>
+    <string name="big_goods_order_num">大货订单数</string>
+    <string name="order_transaction_data">订单交易数据</string>
+    <string name="refund_data">退款数据</string>
+    <string name="store_flow_data">店铺流量数据</string>
+    <string name="store_browser_num">店铺浏览量</string>
+    <string name="store_visitor_num">店铺访客数</string>
+    <string name="collection_product_num">收藏商品数</string>
+    <string name="average_browser_num">平均浏览数</string>
+    <string name="order_transaction_statistics">订单成交额统计</string>
+    <string name="order_transaction_analysis">订单交易分析</string>
+    <string name="color_card_transaction_num">色卡交易数量</string>
+    <string name="sample_card_transaction_num">剪样交易数量</string>
+    <string name="big_goods_transaction_num">大货交易数量</string>
+    <string name="color_card_transaction_amount">色卡交易金额</string>
+    <string name="sample_card_transaction_amount">剪样交易金额</string>
+    <string name="big_goods_transaction_amount">大货交易金额</string>
+    <string name="percent">%</string>
+    <string name="order">订单</string>
+    <string name="transaction">交易</string>
+    <string name="proportion">比例</string>
+    <string name="product_browse_statistics">商品浏览统计</string>
+    <string name="store_visitor_statistics">店铺访客统计</string>
+    <string name="order_refund_rate">订单退款率</string>
+    <string name="refund_order">退款订单</string>
 
 </resources>

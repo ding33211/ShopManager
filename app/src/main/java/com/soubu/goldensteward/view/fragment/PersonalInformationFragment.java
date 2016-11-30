@@ -28,7 +28,6 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
     private UserServerParams mParams;
     private boolean mHaveChanged = false;
 
-
     @Override
     protected Class<RecyclerViewFragmentDelegate> getDelegateClass() {
         return RecyclerViewFragmentDelegate.class;

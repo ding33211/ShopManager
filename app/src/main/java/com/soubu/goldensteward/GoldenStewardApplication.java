@@ -63,11 +63,15 @@ public class GoldenStewardApplication extends Application implements Application
         ShowWidgetUtil.register(this);
         AppConfig.init(sInstance);
         initOSSConfig();
-        if (BuildConfig.IS_PRODUCT_ENV) {
-            Bugtags.start("a4aa632f49691a7caa3a1c49f038dc0d", this, Bugtags.BTGInvocationEventNone);
-        } else {
-            Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
+        //只在非debug模式下打开bugtags
+        if(!BuildConfig.DEBUG){
+            if (BuildConfig.IS_PRODUCT_ENV) {
+                Bugtags.start("a4aa632f49691a7caa3a1c49f038dc0d", this, Bugtags.BTGInvocationEventNone);
+            } else {
+                Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
+            }
         }
+
         if (BuildConfig.IS_PRODUCT_ENV) {
             Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance());
         }

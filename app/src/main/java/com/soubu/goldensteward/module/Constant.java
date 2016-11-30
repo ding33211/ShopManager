@@ -20,5 +20,7 @@ public class Constant {
     public static final String SP_KEY_USER_ID = "USER_ID";
     public static final String SP_KEY_USER_PHONE = "USER_PHONE";
 
+    public static final String EXTRA_FROM = "FROM";
+
 
 }

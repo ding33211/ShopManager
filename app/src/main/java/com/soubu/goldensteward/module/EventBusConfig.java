@@ -38,5 +38,6 @@ public class EventBusConfig {
     public static final int GET_SUB_ACCOUNT_DETAIL = 0x1E;
     public static final int GET_ALL_EVALUATE_IN_RETURN_RATES = 0x1F;
     public static final int SEND_FEEDBACK = 0x20;
+    public static final int GET_MESSAGE = 0x21;
 
 }

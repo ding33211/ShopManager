@@ -29,10 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.Math.ceil;
-import static java.lang.Math.log;
-import static java.lang.Math.pow;
-
 public class LineView extends View {
     //存储各个底部栏的日期
     private List<Date> mDates;
@@ -41,7 +37,7 @@ public class LineView extends View {
     //单位
     private String mUnit;
     //x轴坐标显示格式
-    private String mFromat;
+    private String mFormat;
 
 
     private ArrayList<ArrayList<String>> mContentList = new ArrayList<>();
@@ -68,18 +64,20 @@ public class LineView extends View {
     private ArrayList<ArrayList<Float>> targetPercentList;
     private ArrayList<ArrayList<Integer>> barList;
     private ArrayList<Integer> barColorList;
+    private ArrayList<Integer> lineColorList;
 
-    private ArrayList<Integer> xCoordinateList = new ArrayList<Integer>();
-    private ArrayList<Integer> yCoordinateList = new ArrayList<Integer>();
+    private ArrayList<Integer> xCoordinateList = new ArrayList<>();
+    private ArrayList<Integer> yCoordinateList = new ArrayList<>();
 
     private ArrayList<ArrayList<Dot>> drawDotLists = new ArrayList<ArrayList<Dot>>();
-    private ArrayList<Dot> drawDotList = new ArrayList<Dot>();
 
     private ArrayList<Rect> bars = new ArrayList<>();
     //用来保存触摸区域的bars
     private ArrayList<Rect> touchBars = new ArrayList<>();
 
     private Paint bottomTextPaint = new Paint();
+    private Paint chooseBottomTextPaint;
+
     private int bottomTextDescent;
 
     //    //popup
@@ -88,7 +86,9 @@ public class LineView extends View {
     private Paint fgPaint;
 
     private final int bottomTriangleHeight = 12;
+
     public boolean showPopup = true;
+    public boolean showClickLine = false;
 
     private Dot pointToSelect;
     private Dot selectedDot;
@@ -108,8 +108,14 @@ public class LineView extends View {
     private final int popupBottomMargin = ConvertUtil.dip2px(getContext(), 5);
     private final int bottomTextTopMargin = ConvertUtil.sp2px(getContext(), 0);
     private final int bottomLineLength = ConvertUtil.sp2px(getContext(), 10);
-    private final int DOT_INNER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 2);
-    private final int DOT_OUTER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 5);
+    private final int DOT_INNER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 3);
+    private final int DOT_OUTER_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 4);
+
+    private final int DOT_OUTER_SELECT_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 6);
+    private final int DOT_INNER_SELECT_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 5);
+    private final int DOT_INNER_FILL_CIR_RADIUS = ConvertUtil.dip2px(getContext(), 4);
+
+
     private final int MIN_TOP_LINE_LENGTH = ConvertUtil.dip2px(getContext(), 16);
     private final int MIN_VERTICAL_GRID_NUM = 4;
     private final int MIN_HORIZONTAL_GRID_NUM = 1;
@@ -120,7 +126,7 @@ public class LineView extends View {
 
     private Boolean drawDotLine = false;
 
-    private String[] colorArray = {"#e74c3c", "#2980b9", "#1abc9c"};
+//    private String[] colorArray = {"#e74c3c", "#2980b9", "#1abc9c"};
 
     private int[] popupColorArray = {R.drawable.popup_red, R.drawable.popup_orange};
 
@@ -197,6 +203,9 @@ public class LineView extends View {
         bottomTextPaint.setStyle(Paint.Style.FILL);
         bottomTextPaint.setColor(BOTTOM_TEXT_COLOR);
 
+        chooseBottomTextPaint = new Paint(bottomTextPaint);
+        chooseBottomTextPaint.setColor(getResources().getColor(R.color.colorPrimary));
+
         fgPaint = new Paint();
         fgPaint.setAntiAlias(true);
     }
@@ -215,7 +224,7 @@ public class LineView extends View {
         this.dataList = null;
         bottomTextList.clear();
         mDates = dateList;
-        mFromat = format;
+        mFormat = format;
         for (Date date : dateList) {
             bottomTextList.add(ConvertUtil.dateToCustom(date, format));
         }
@@ -252,11 +261,13 @@ public class LineView extends View {
      * @param dataLists The Integer ArrayLists for showing,
      *                  dataList.size() must be smaller than bottomTextList.size()
      */
-    public void setDataList(ArrayList<ArrayList<Integer>> dataLists, YAxisView rightAxisView, int dataOfAGridRight) {
-        this.rightAxisView = rightAxisView;
-        this.dataOfAGridRight = dataOfAGridRight;
+    public void setDataList(ArrayList<ArrayList<Integer>> dataLists, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList,
+                            boolean clickShowPopup, boolean clickShowLine) {
+        this.leftAxisView = leftAxisView;
+        this.dataOfAGirdLeft = dataOfAGirdLeft;
         selectedDot = null;
         this.dataLists = dataLists;
+        this.lineColorList = colorList;
         for (ArrayList<Integer> list : dataLists) {
             if (list.size() > bottomTextList.size()) {
                 throw new RuntimeException("dacer.LineView error:" +
@@ -275,7 +286,8 @@ public class LineView extends View {
         }
 
         refreshAfterDataChanged();
-        showPopup = true;
+        showPopup = clickShowPopup;
+        showClickLine = clickShowLine;
         setMinimumWidth(0); // It can help the LineView reset the Width,
         // I don't know the better way..
         postInvalidate();
@@ -381,9 +393,6 @@ public class LineView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         drawBackgroundLines(canvas);
-        drawRect(canvas);
-        drawLines(canvas);
-        drawDots(canvas);
         if (showPopup && selectedDot != null) {
             drawPopup(canvas,
                     String.valueOf(selectedDot.data),
@@ -391,18 +400,45 @@ public class LineView extends View {
             selectedDot = null;
         }
 
-        if (showPopup && selectedBarIndex != -1) {
-            if (mContentList.size() == 0) {
-                drawPopup(canvas,
-                        String.valueOf(barList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
-            } else {
-                drawPopup(canvas,
-                        String.valueOf(mContentList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+        if (selectedBarIndex != -1) {
+            if (showPopup) {
+                if (mContentList.size() == 0) {
+                    drawPopup(canvas,
+                            String.valueOf(barList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+                } else {
+                    drawPopup(canvas,
+                            String.valueOf(mContentList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
+                }
+            } else if (showClickLine) {
+                drawClickLines(canvas);
             }
-            selectedBarIndex = -1;
-            selectedBarListIndex = -1;
         }
+        drawRect(canvas);
+        drawLines(canvas);
+        drawDots(canvas);
         drawAxis();
+
+        selectedBarIndex = -1;
+        selectedBarListIndex = -1;
+    }
+
+    private void drawClickLines(Canvas canvas) {
+        Paint linePaint = new Paint();
+        linePaint.setAntiAlias(true);
+        linePaint.setStrokeWidth(ConvertUtil.dip2px(getContext(), 2));
+        linePaint.setColor(getResources().getColor(R.color.colorPrimary));
+        Dot maxDot = drawDotLists.get(0).get(selectedBarIndex);
+        for (int i = 1; i < drawDotLists.size(); i++) {
+            Dot dot = drawDotLists.get(i).get(selectedBarIndex);
+            if (dot.y < maxDot.y) {
+                maxDot = dot;
+            }
+        }
+        canvas.drawLine(maxDot.x,
+                maxDot.y,
+                maxDot.x,
+                bottomLineY,
+                linePaint);
     }
 
     private void drawAxis() {
@@ -561,8 +597,8 @@ public class LineView extends View {
         int y = bars.get(barIndex).top;
         Rect popupTextRect = new Rect();
         String text;
-        if (TextUtils.equals(mFromat, "yy-MM")) {
-            text = ConvertUtil.dateToCustom(mDates.get(barIndex), mFromat);
+        if (TextUtils.equals(mFormat, "yy-MM")) {
+            text = ConvertUtil.dateToCustom(mDates.get(barIndex), mFormat);
         } else {
             text = ConvertUtil.dateToYYYY_MM_DD(mDates.get(barIndex));
         }
@@ -600,13 +636,34 @@ public class LineView extends View {
         bigCirPaint.setAntiAlias(true);
         Paint smallCirPaint = new Paint(bigCirPaint);
         smallCirPaint.setColor(Color.parseColor("#FFFFFF"));
+        Paint selectPaint = new Paint(bigCirPaint);
+        selectPaint.setStyle(Paint.Style.FILL);
         if (drawDotLists != null && !drawDotLists.isEmpty()) {
+            touchBars.clear();
             for (int k = 0; k < drawDotLists.size(); k++) {
-                bigCirPaint.setColor(Color.parseColor(colorArray[k % 3]));
-                for (Dot dot : drawDotLists.get(k)) {
-                    canvas.drawCircle(dot.x, dot.y, DOT_OUTER_CIR_RADIUS, bigCirPaint);
-                    canvas.drawCircle(dot.x, dot.y, DOT_INNER_CIR_RADIUS, smallCirPaint);
+                bigCirPaint.setColor(lineColorList.get(k));
+                selectPaint.setColor(lineColorList.get(k));
+                for (int i = 0; i < drawDotLists.get(k).size(); i++) {
+                    Dot dot = drawDotLists.get(k).get(i);
+                    if (touchBars.size() < drawDotLists.get(k).size()) {
+                        Rect touchRect = new Rect();
+                        touchRect.set(dot.x - backgroundGridWidth / 2,
+                                topLineLength,
+                                dot.x + backgroundGridWidth / 2,
+                                bottomLineY);
+                        touchBars.add(touchRect);
+                    }
+                    if (i == selectedBarIndex) {
+                        canvas.drawCircle(dot.x, dot.y, DOT_OUTER_SELECT_CIR_RADIUS, bigCirPaint);
+                        canvas.drawCircle(dot.x, dot.y, DOT_INNER_SELECT_CIR_RADIUS, smallCirPaint);
+                        canvas.drawCircle(dot.x, dot.y, DOT_INNER_FILL_CIR_RADIUS, selectPaint);
+                    } else {
+                        canvas.drawCircle(dot.x, dot.y, DOT_OUTER_CIR_RADIUS, bigCirPaint);
+                        canvas.drawCircle(dot.x, dot.y, DOT_INNER_CIR_RADIUS, smallCirPaint);
+                    }
+
                 }
+
             }
         }
     }
@@ -616,7 +673,7 @@ public class LineView extends View {
         linePaint.setAntiAlias(true);
         linePaint.setStrokeWidth(ConvertUtil.dip2px(getContext(), 2));
         for (int k = 0; k < drawDotLists.size(); k++) {
-            linePaint.setColor(Color.parseColor(colorArray[k % 3]));
+            linePaint.setColor(lineColorList.get(k));
             for (int i = 0; i < drawDotLists.get(k).size() - 1; i++) {
                 canvas.drawLine(drawDotLists.get(k).get(i).x,
                         drawDotLists.get(k).get(i).y,
@@ -638,7 +695,11 @@ public class LineView extends View {
         paint.setPathEffect(effects);
         if (bottomTextList != null) {
             for (int i = 0; i < bottomTextList.size(); i++) {
-                canvas.drawText(bottomTextList.get(i), sideLineLength + backgroundGridWidth * i, mViewHeight - bottomTextDescent, bottomTextPaint);
+                if (showClickLine && selectedBarIndex == i) {
+                    canvas.drawText(bottomTextList.get(i), sideLineLength + backgroundGridWidth * i, mViewHeight - bottomTextDescent, chooseBottomTextPaint);
+                } else {
+                    canvas.drawText(bottomTextList.get(i), sideLineLength + backgroundGridWidth * i, mViewHeight - bottomTextDescent, bottomTextPaint);
+                }
             }
         }
         if (!drawDotLine) {
@@ -707,8 +768,12 @@ public class LineView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            pointToSelect = findPointAt((int) event.getX(), (int) event.getY());
-            if (pointToSelect == null) {
+            if (showPopup) {
+                pointToSelect = findPointAt((int) event.getX(), (int) event.getY());
+                if (pointToSelect == null) {
+                    barToSelect = findBarIndexAt((int) event.getX(), (int) event.getY());
+                }
+            } else if (showClickLine) {
                 barToSelect = findBarIndexAt((int) event.getX(), (int) event.getY());
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -721,6 +786,9 @@ public class LineView extends View {
                 selectedBarListIndex = barToSelect / bottomTextList.size();
                 barToSelect = -1;
                 postInvalidate();
+                if (mListener != null && selectedBarIndex != -1) {
+                    mListener.onclick(selectedBarIndex);
+                }
             }
         }
         return true;
@@ -812,6 +880,18 @@ public class LineView extends View {
             }
             return origin;
         }
+    }
+
+
+    OnClickIndexListener mListener;
+
+    public void setOnclickIndexListener(OnClickIndexListener listener) {
+        mListener = listener;
+    }
+
+
+    public interface OnClickIndexListener {
+        void onclick(int index);
     }
 
 }

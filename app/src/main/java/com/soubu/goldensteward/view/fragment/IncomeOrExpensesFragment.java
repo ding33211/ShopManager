@@ -6,14 +6,12 @@ import com.soubu.goldensteward.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dingsigang on 16-10-20.
  */
 public class IncomeOrExpensesFragment extends FragmentPresenter<RecyclerViewFragmentDelegate> {
-
 
     @Override
     protected Class<RecyclerViewFragmentDelegate> getDelegateClass() {

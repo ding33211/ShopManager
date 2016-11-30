@@ -73,33 +73,7 @@
                         android:background="@color/colorPrimary" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@android:color/white">
-
-                    <HorizontalScrollView
-                        android:id="@+id/hsv_chart"
-                        android:layout_width="310dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:scrollbars="none">
-
-                        <com.soubu.goldensteward.widget.linebarchart.LineView
-                            android:id="@+id/line_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="200dp" />
-                    </HorizontalScrollView>
-
-                    <com.soubu.goldensteward.widget.linebarchart.YAxisView
-                        android:id="@+id/v_left_line"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/hsv_chart"
-                        app:type="left" />
-                </RelativeLayout>
+                <include layout="@layout/item_line_view" />
 
                 <View
                     android:id="@+id/v_tab_layout_margin"

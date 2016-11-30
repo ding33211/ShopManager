@@ -11,7 +11,7 @@ import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
 import com.soubu.goldensteward.adapter.LoginTimeRvAdapter;
 import com.soubu.goldensteward.base.mvp.view.AppDelegate;
 import com.soubu.goldensteward.utils.GlideUtils;
-import com.soubu.goldensteward.widget.DividerItemDecoration;
+import com.soubu.goldensteward.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.List;
 

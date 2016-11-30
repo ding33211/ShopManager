@@ -43,13 +43,22 @@
 
     </LinearLayout>
 
-    <GridView
+    <com.soubu.goldensteward.widget.GridViewInScrollView
         android:id="@+id/gv_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/line_color"
-        android:horizontalSpacing="1dp"
+        android:background="@android:color/white"
+        android:horizontalSpacing="4dp"
         android:numColumns="2"
-        android:verticalSpacing="1dp" />
+        android:paddingBottom="4dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:verticalSpacing="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/line_color" />
 </LinearLayout>

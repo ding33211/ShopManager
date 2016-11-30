@@ -264,7 +264,6 @@ public class SubAccountRvAdapter extends BaseRecyclerViewAdapter<SubAccountServe
     @Override
     public void setData(List<SubAccountServerParams> list) {
         super.setData(list);
-        Collections.sort(mList, new PinyinComparator());
     }
 
 

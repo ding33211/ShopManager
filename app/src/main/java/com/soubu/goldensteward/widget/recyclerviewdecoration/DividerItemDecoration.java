@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.widget;
+package com.soubu.goldensteward.widget.recyclerviewdecoration;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/bg_orange_stroke_corners">
+
+    <Button
+        android:id="@+id/bt_last_week"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/selector_left_corner_orange"
+        android:gravity="center"
+        android:text="@string/last_week"
+        android:textColor="@color/selector_grey_white" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/bt_last_month"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/selector_right_corner_orange"
+        android:gravity="center"
+        android:text="@string/last_month"
+        android:textColor="@color/selector_grey_white" />
+</LinearLayout>

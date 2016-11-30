@@ -9,7 +9,7 @@ import com.soubu.goldensteward.adapter.TransactionRecordRvAdapter;
 import com.soubu.goldensteward.module.server.CustomerServerParams;
 import com.soubu.goldensteward.module.server.ProductInCustomerDetailServerParams;
 import com.soubu.goldensteward.utils.GlideUtils;
-import com.soubu.goldensteward.widget.DividerItemDecoration;
+import com.soubu.goldensteward.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.List;
 
