@@ -57,7 +57,7 @@ public class GoldenStewardApplication extends Application implements Application
     public void onCreate() {
         super.onCreate();
         this.registerActivityLifecycleCallbacks(this);//注册
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, "53ad0de956240b97b80eac9d", ChannelUtil.getChannel(this)));
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, "583e85ee04e2056927000b1f", ChannelUtil.getChannel(this)));
         sInstance = (GoldenStewardApplication) getApplicationContext();
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
@@ -89,6 +89,7 @@ public class GoldenStewardApplication extends Application implements Application
         }
         return mToken;
     }
+
 
     public void setToken(String token) {
         mToken = token;
