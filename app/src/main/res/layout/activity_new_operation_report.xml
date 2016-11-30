@@ -496,7 +496,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="63"
-                    android:textColor="@color/pickerview_timebtn_nor" />
+                    android:textColor="@color/line_color_1" />
 
             </LinearLayout>
 
@@ -519,7 +519,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="63"
-                    android:textColor="@color/bank_account_blue" />
+                    android:textColor="@color/line_color_2" />
 
             </LinearLayout>
 
@@ -542,7 +542,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="63"
-                    android:textColor="@color/orange_wallet_sub" />
+                    android:textColor="@color/line_color_3" />
 
             </LinearLayout>
 
@@ -565,7 +565,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="63"
-                    android:textColor="@color/pickerview_timebtn_nor" />
+                    android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 

@@ -42,9 +42,9 @@ public class NewOperationReportActivity extends ActivityPresenter<NewOperationRe
         list.add(date);
         viewDelegate.setBottomTextList(list, "MM.dd");
         ArrayList<Integer> colorList = new ArrayList<>();
-        colorList.add(getResources().getColor(R.color.pickerview_timebtn_nor));
-        colorList.add(getResources().getColor(R.color.bank_account_blue));
-        colorList.add(getResources().getColor(R.color.orange_wallet_sub));
+        colorList.add(getResources().getColor(R.color.line_color_1));
+        colorList.add(getResources().getColor(R.color.line_color_2));
+        colorList.add(getResources().getColor(R.color.line_color_3));
         ArrayList<Integer> data1 = new ArrayList<>();
         ArrayList<Integer> data2 = new ArrayList<>();
         ArrayList<Integer> data3 = new ArrayList<>();

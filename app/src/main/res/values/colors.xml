@@ -32,6 +32,11 @@
     <!--覆盖颜色-->
     <color name="bgColor_overlay">#60000000</color>
 
+    <color name="line_color_1">#ff8385</color>
+    <color name="line_color_2">#54b2d0</color>
+    <color name="line_color_3">#ffb14c</color>
+
+
     <color name="pie_color_1">#16d5b6</color>
     <color name="pie_color_2">#2bbde2</color>
     <color name="pie_color_3">#9196dc</color>

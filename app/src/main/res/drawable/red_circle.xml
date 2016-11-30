@@ -5,6 +5,6 @@
     android:thickness="1dp"
     android:useLevel="false">
 
-    <stroke android:color="@color/pickerview_timebtn_nor" />
-    <solid android:color="@color/pickerview_timebtn_nor" />
+    <stroke android:color="@color/line_color_1" />
+    <solid android:color="@color/line_color_1" />
 </shape>
