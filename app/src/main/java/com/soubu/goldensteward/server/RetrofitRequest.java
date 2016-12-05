@@ -36,7 +36,7 @@ import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.utils.ActivityContainer;
 import com.soubu.goldensteward.utils.PhoneUtil;
 import com.soubu.goldensteward.utils.ShowWidgetUtil;
-import com.soubu.goldensteward.view.activity.LoginActivity;
+import com.soubu.goldensteward.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,8 +47,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.baidu.location.h.j.m;
 
 /**
  * Retrofit的网络请求类

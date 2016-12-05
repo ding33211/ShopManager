@@ -2,6 +2,8 @@ package com.soubu.goldensteward.utils;
 
 import android.util.Log;
 
+import com.soubu.goldensteward.BuildConfig;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -11,7 +13,7 @@ public class LogUtil {
 
     private static int LEVEL = Log.DEBUG;//默认level
     private static String TAG = "print";//默认tag
-    private static boolean IS_DEBUG = true;//默认显示log
+    private static boolean IS_DEBUG = BuildConfig.DEBUG;//默认显示log
 
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 

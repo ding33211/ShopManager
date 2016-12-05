@@ -266,32 +266,37 @@ public class GlideUtils {
         }
     }
 
-    public static void loadTopRoundedImage(Context context, final ImageView targetView, Uri uri, int placeholder, final int errorRes) {
+    public static void loadTopRoundedImage(Context context, final ImageView targetView, Object object, int placeholder, final int errorRes) {
         if (context != null) {
             if (context instanceof ActivityPresenter) {
                 if (((ActivityPresenter) context).isFinishing()) {
                     return;
                 }
             }
+            Uri uri = null;
+            String url = null;
+            if (object instanceof Uri) {
+                uri = (Uri) object;
+            }
+            if (object instanceof String) {
+                url = (String) object;
+            }
             RequestManager manager = Glide.with(context);
             int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics());
             RoundedCornersTransformation rtf = new RoundedCornersTransformation(context, px, 0,
                     RoundedCornersTransformation.CornerType.TOP);
-            manager.load(uri).placeholder(placeholder).error(errorRes).crossFade().bitmapTransform(new CenterCrop(context), rtf).
-                    listener(new RequestListener<Uri, GlideDrawable>() {
+            manager.load(uri == null ? url : uri).placeholder(placeholder).error(errorRes).crossFade().bitmapTransform(new CenterCrop(context), rtf).
+                    listener(new RequestListener<Comparable<? extends Comparable<?>>, GlideDrawable>() {
                         @Override
-                        public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        public boolean onException(Exception e, Comparable<? extends Comparable<?>> model, Target<GlideDrawable> target, boolean isFirstResource) {
                             targetView.setImageResource(errorRes);
-
                             return false;
                         }
 
-
                         @Override
-                        public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        public boolean onResourceReady(GlideDrawable resource, Comparable<? extends Comparable<?>> model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                             targetView.setImageDrawable(resource);
-
-                            return true;
+                            return false;
                         }
                     }).into(targetView);
         }
