@@ -15,7 +15,6 @@ import com.soubu.goldensteward.delegate.LoginActivityDelegate;
 import com.soubu.goldensteward.module.BaseEventBusResp;
 import com.soubu.goldensteward.module.Constant;
 import com.soubu.goldensteward.module.EventBusConfig;
-import com.soubu.goldensteward.module.server.BaseDataArray;
 import com.soubu.goldensteward.module.server.BaseDataObject;
 import com.soubu.goldensteward.module.server.BaseResp;
 import com.soubu.goldensteward.module.server.UserServerParams;
@@ -136,7 +135,6 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                     }
                 }
 
-//
 //                new Thread(new Runnable() {
 //                    @Override
 //                    public void run() {

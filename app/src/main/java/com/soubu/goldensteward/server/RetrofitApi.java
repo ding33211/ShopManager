@@ -9,8 +9,6 @@ import com.soubu.goldensteward.module.server.EvaluateInReturnRateServerParams;
 import com.soubu.goldensteward.module.server.HomeInfoServerParams;
 import com.soubu.goldensteward.module.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.module.server.MainProductTagServerParams;
-import com.soubu.goldensteward.module.server.MergeServerParams;
-import com.soubu.goldensteward.module.server.ModifyPwdServerParams;
 import com.soubu.goldensteward.module.server.OperationReportServerParams;
 import com.soubu.goldensteward.module.server.OrderDataArray;
 import com.soubu.goldensteward.module.server.ProductInOrderListServerParams;
@@ -18,10 +16,9 @@ import com.soubu.goldensteward.module.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.module.server.SubAccountServerParams;
 import com.soubu.goldensteward.module.server.TurnOverServerParams;
 import com.soubu.goldensteward.module.server.UserServerParams;
-import com.soubu.goldensteward.module.server.VerificationServerParams;
 import com.soubu.goldensteward.module.server.VisitFriendsServerParams;
-import com.soubu.goldensteward.module.server.WithCountDataArray;
 import com.soubu.goldensteward.module.server.WalletHomeInfoServerParams;
+import com.soubu.goldensteward.module.server.WithCountDataArray;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -30,12 +27,10 @@ import retrofit2.http.POST;
 
 public interface RetrofitApi {
 
-
     //获取验证码
     @FormUrlEncoded
     @POST("User/send_sms")
     Call<BaseResp<Object>> getVerifyCode(@Field("params") String params);
-
 
     //验证验证码
     @FormUrlEncoded

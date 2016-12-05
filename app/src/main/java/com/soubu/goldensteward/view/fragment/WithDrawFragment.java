@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,7 +30,6 @@ public class WithDrawFragment extends FragmentPresenter<WithDrawFragmentDelegate
     protected void initView() {
         super.initView();
         viewDelegate.get(R.id.tv_replace).setVisibility(View.GONE);
-
     }
 
     @Override
