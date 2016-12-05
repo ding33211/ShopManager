@@ -24,13 +24,13 @@
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <RelativeLayout
-                    android:id="@+id/ll_back"
+                    android:id="@+id/ll_back_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item_transparent_grey_bg"
                     android:padding="18dp">
 
                     <ImageView
-                        android:id="@+id/iv_back1"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:src="@drawable/btn_back" />

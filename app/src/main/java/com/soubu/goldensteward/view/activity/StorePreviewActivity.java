@@ -139,14 +139,14 @@ public class StorePreviewActivity extends ActivityPresenter<StorePreviewActivity
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.iv_back1, R.id.tv_product_classification, R.id.bt_complex,
+        viewDelegate.setOnClickListener(this, R.id.ll_back_1, R.id.tv_product_classification, R.id.bt_complex,
                 R.id.bt_new_product, R.id.ll_price, R.id.fab_up);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_back1:
+            case R.id.ll_back_1:
                 finish();
                 break;
             case R.id.tv_product_classification:

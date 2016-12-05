@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
@@ -15,6 +14,8 @@ import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.bugtags.library.Bugtags;
+import com.growingio.android.sdk.collection.Configuration;
+import com.growingio.android.sdk.collection.GrowingIO;
 import com.soubu.goldensteward.base.greendao.DBHelper;
 import com.soubu.goldensteward.base.greendao.User;
 import com.soubu.goldensteward.base.greendao.UserDao;
@@ -64,13 +65,20 @@ public class GoldenStewardApplication extends Application implements Application
         AppConfig.init(sInstance);
         initOSSConfig();
         //只在非debug模式下打开bugtags
-        if(!BuildConfig.DEBUG){
+        if (!BuildConfig.DEBUG) {
             if (BuildConfig.IS_PRODUCT_ENV) {
                 Bugtags.start("a4aa632f49691a7caa3a1c49f038dc0d", this, Bugtags.BTGInvocationEventNone);
             } else {
                 Bugtags.start("4c9c0ecb1faf11a9e160449041a0254a", this, Bugtags.BTGInvocationEventBubble);
             }
         }
+
+        //growingio
+        GrowingIO.startWithConfiguration(this, new Configuration()
+                .useID()
+                .trackAllFragments()
+                .setChannel(ChannelUtil.getChannel(this)));
+
 
         if (BuildConfig.IS_PRODUCT_ENV) {
             Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance());
