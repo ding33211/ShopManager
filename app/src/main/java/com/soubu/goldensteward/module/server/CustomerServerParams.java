@@ -134,6 +134,5 @@ public class CustomerServerParams extends BaseDeltaCopyParams implements PinyinL
     @Override
     public String getLetter() {
         return Character.toString(CharacterParser.getInstance().getSelling(name).charAt(0)).toUpperCase();
-
     }
 }

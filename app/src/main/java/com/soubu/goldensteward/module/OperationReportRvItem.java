@@ -1,6 +1,6 @@
 package com.soubu.goldensteward.module;
 
-import com.soubu.goldensteward.adapter.HomeGridViewAdapter;
+import com.soubu.goldensteward.home.HomeGridViewAdapter;
 
 /**
  * Created by dingsigang on 16-10-21.

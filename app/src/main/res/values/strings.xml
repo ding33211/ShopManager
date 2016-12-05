@@ -78,6 +78,7 @@
     <string name="confirm_roll_out">确认转出</string>
     <string name="customer_service_phone">客服电话</string>
     <string name="colon">:</string>
+    <string name="dash">-</string>
     <string name="customer_service_phone_number">400-850-1773</string>
     <string name="account_num">账 户 号</string>
     <string name="card_no_and_passbook_no">银行卡号/存折号</string>
@@ -362,5 +363,9 @@
     <string name="big_goods_price">大货价格</string>
     <string name="browse_num">浏览次数</string>
     <string name="store_visit_num">店铺访问次数</string>
+    <string name="all_activity">全部活动</string>
+    <string name="activity_i_join">我参加的活动</string>
+    <string name="sign_up_time">报名时间</string>
+    <string name="sign_up_end_time">报名截止时间</string>
 
 </resources>
