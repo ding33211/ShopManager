@@ -9,7 +9,7 @@
     android:paddingBottom="12dip"
     android:paddingTop="12dip">
 
-    <com.soubu.goldensteward.widget.loadingview.AVLoadingIndicatorView
+    <com.soubu.goldensteward.support.widget.loadingview.AVLoadingIndicatorView
         style="@style/AVLoadingIndicatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

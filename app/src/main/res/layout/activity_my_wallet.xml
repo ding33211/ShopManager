@@ -86,7 +86,7 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical">
 
-            <com.soubu.goldensteward.widget.GridViewInScrollView
+            <com.soubu.goldensteward.support.widget.GridViewInScrollView
                 android:id="@+id/gv_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

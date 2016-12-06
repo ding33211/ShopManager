@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <com.soubu.goldensteward.widget.loadingview.AVLoadingIndicatorView
+        <com.soubu.goldensteward.support.widget.loadingview.AVLoadingIndicatorView
             style="@style/AVLoadingIndicatorView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

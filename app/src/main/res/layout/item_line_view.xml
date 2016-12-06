@@ -12,13 +12,13 @@
         android:layout_marginRight="16dp"
         android:scrollbars="none">
 
-        <com.soubu.goldensteward.widget.linebarchart.LineView
+        <com.soubu.goldensteward.support.widget.linebarchart.LineView
             android:id="@+id/line_view"
             android:layout_width="wrap_content"
             android:layout_height="200dp" />
     </HorizontalScrollView>
 
-    <com.soubu.goldensteward.widget.linebarchart.YAxisView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.soubu.goldensteward.support.widget.linebarchart.YAxisView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/v_left_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
