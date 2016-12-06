@@ -1,0 +1,20 @@
+package com.soubu.goldensteward.support.bean.server;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Created by lakers on 16/11/2.
+ */
+
+public class BaseDataArray<T> {
+
+    @SerializedName("data")
+    @Expose
+    T[] data;
+
+    public T[] getData() {
+        return data;
+    }
+
+}

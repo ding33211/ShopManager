@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp">
 
-                <com.soubu.goldensteward.widget.linebarchart.PieView
+                <com.soubu.goldensteward.support.widget.linebarchart.PieView
                     android:id="@+id/pie_view_1"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
@@ -313,7 +313,7 @@
                 android:layout_height="240dp"
                 android:layout_marginTop="20dp">
 
-                <com.soubu.goldensteward.widget.linebarchart.PieView
+                <com.soubu.goldensteward.support.widget.linebarchart.PieView
                     android:id="@+id/pie_view_2"
                     android:layout_width="200dp"
                     android:layout_height="200dp"

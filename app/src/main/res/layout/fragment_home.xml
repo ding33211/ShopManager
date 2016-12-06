@@ -180,7 +180,7 @@
                 android:layout_height="1dp"
                 android:background="@color/line_color" />
 
-            <com.soubu.goldensteward.widget.GridViewInScrollView
+            <com.soubu.goldensteward.support.widget.GridViewInScrollView
                 android:id="@+id/gv_today_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
             <!--android:text="这是公告" />-->
             <!--</LinearLayout>-->
 
-            <com.soubu.goldensteward.widget.GridViewInScrollView
+            <com.soubu.goldensteward.support.widget.GridViewInScrollView
                 android:id="@+id/gv_other_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

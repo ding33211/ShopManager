@@ -64,7 +64,7 @@
             android:layout_toRightOf="@+id/ll_left"
             android:gravity="right">
 
-            <com.soubu.goldensteward.widget.ProgressImageView
+            <com.soubu.goldensteward.support.widget.ProgressImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

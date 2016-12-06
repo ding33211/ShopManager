@@ -62,14 +62,14 @@
                 android:paddingLeft="10dp">
 
 
-                <com.soubu.goldensteward.widget.ProgressImageView
+                <com.soubu.goldensteward.support.widget.ProgressImageView
                     android:id="@+id/iv_business_license"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="16dp"
                     android:src="@drawable/auth_camera_license" />
 
-                <com.soubu.goldensteward.widget.ProgressImageView
+                <com.soubu.goldensteward.support.widget.ProgressImageView
                     android:id="@+id/iv_business_code"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -148,21 +148,21 @@
                 android:paddingLeft="10dp">
 
 
-                <com.soubu.goldensteward.widget.ProgressImageView
+                <com.soubu.goldensteward.support.widget.ProgressImageView
                     android:id="@+id/iv_camera_hand"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="16dp"
                     android:src="@drawable/auth_camera_hand" />
 
-                <com.soubu.goldensteward.widget.ProgressImageView
+                <com.soubu.goldensteward.support.widget.ProgressImageView
                     android:id="@+id/iv_camera_front"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="16dp"
                     android:src="@drawable/auth_camera_front" />
 
-                <com.soubu.goldensteward.widget.ProgressImageView
+                <com.soubu.goldensteward.support.widget.ProgressImageView
                     android:id="@+id/iv_camera_back"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

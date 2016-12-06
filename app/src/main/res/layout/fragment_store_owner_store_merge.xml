@@ -75,7 +75,7 @@
                 android:background="@color/line_color"
                 android:visibility="gone" />
 
-            <com.soubu.goldensteward.widget.flowlayout.FlowLayout
+            <com.soubu.goldensteward.support.widget.flowlayout.FlowLayout
                 android:id="@+id/fl_child_phones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
