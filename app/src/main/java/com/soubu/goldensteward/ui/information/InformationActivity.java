@@ -9,7 +9,7 @@ import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;

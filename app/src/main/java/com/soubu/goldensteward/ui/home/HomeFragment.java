@@ -16,7 +16,7 @@ import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataObject;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.HomeInfoServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.ui.information.InformationActivity;
 import com.soubu.goldensteward.ui.message.MessageActivity;
 import com.soubu.goldensteward.ui.customer.MyCustomersActivity;

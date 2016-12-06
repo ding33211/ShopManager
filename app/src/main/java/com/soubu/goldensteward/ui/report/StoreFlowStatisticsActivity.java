@@ -9,7 +9,7 @@ import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

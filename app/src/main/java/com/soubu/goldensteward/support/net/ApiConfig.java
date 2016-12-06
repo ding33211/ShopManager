@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.support.server;
+package com.soubu.goldensteward.support.net;
 
 
 import com.soubu.goldensteward.BuildConfig;

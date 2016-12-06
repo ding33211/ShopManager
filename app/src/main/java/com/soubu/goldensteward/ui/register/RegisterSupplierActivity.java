@@ -24,7 +24,7 @@ import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
 import com.soubu.goldensteward.support.greendao.DBHelper;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.LocationUtils;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;

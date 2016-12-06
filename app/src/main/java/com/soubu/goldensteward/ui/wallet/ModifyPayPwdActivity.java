@@ -13,7 +13,7 @@ import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.ModifyPwdServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;

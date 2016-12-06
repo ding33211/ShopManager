@@ -9,7 +9,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.bean.server.StoreVisitorServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 
 import java.util.Arrays;
 import java.util.List;

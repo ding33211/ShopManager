@@ -13,7 +13,7 @@ import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.MergeServerParams;
 import com.soubu.goldensteward.support.bean.server.VerificationServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

@@ -10,7 +10,7 @@ import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.SubAccountServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.PinyinComparator;
 
 import org.greenrobot.eventbus.Subscribe;

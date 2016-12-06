@@ -11,7 +11,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.delegate.BaseFragmentDelegate;
 import com.soubu.goldensteward.support.bean.server.MergeServerParams;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.RegularUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.widget.flowlayout.FlowLayout;

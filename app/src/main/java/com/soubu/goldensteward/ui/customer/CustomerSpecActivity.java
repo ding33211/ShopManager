@@ -1,7 +1,6 @@
 package com.soubu.goldensteward.ui.customer;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.ui.customer.CustomerSpecActivityDelegate;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
@@ -9,8 +8,8 @@ import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
 import com.soubu.goldensteward.support.bean.server.ProductInCustomerDetailServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
-import com.soubu.goldensteward.support.presenter.BaseWithFootOrRefreshRecyclerViewPresenter;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.support.mvp.presenter.BaseWithFootOrRefreshRecyclerViewPresenter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

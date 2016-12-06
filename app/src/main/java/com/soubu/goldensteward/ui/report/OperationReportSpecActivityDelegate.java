@@ -14,7 +14,7 @@ import com.soubu.goldensteward.support.bean.server.EvaluateInReturnRateServerPar
 import com.soubu.goldensteward.support.bean.server.OrderServerParams;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 import com.soubu.goldensteward.support.widget.linebarchart.LineView;
 import com.soubu.goldensteward.support.widget.linebarchart.YAxisView;

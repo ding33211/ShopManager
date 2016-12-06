@@ -17,7 +17,7 @@ import com.soubu.goldensteward.support.bean.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.support.bean.server.TurnOverServerParams;
 import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
-import com.soubu.goldensteward.support.server.RetrofitRequest;
+import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.Subscribe;

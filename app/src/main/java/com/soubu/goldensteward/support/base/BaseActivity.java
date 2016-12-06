@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.bugtags.library.Bugtags;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.server.ServerErrorUtil;
+import com.soubu.goldensteward.support.net.ServerErrorUtil;
 import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;

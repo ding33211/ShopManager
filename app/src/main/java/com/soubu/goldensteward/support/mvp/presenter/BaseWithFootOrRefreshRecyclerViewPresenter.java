@@ -1,6 +1,5 @@
-package com.soubu.goldensteward.support.presenter;
+package com.soubu.goldensteward.support.mvp.presenter;
 
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.delegate.BaseWithFootOrRefreshRecyclerViewDelegate;
 
 /**
