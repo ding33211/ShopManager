@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.utils;
+package com.soubu.goldensteward.support.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
