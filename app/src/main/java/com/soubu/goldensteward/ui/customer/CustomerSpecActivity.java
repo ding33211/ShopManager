@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.ui;
+package com.soubu.goldensteward.ui.customer;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.ui.customer.CustomerSpecActivityDelegate;

@@ -112,7 +112,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.CustomerSpecActivity"
+            android:name=".ui.customer.CustomerSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait" />
         <activity

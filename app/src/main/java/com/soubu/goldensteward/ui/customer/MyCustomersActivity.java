@@ -13,7 +13,6 @@ import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
 import com.soubu.goldensteward.support.server.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.PinyinComparator;
-import com.soubu.goldensteward.ui.CustomerSpecActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
