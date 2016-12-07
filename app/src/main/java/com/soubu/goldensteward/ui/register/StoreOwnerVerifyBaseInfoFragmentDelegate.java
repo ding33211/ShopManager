@@ -78,10 +78,10 @@ public class StoreOwnerVerifyBaseInfoFragmentDelegate extends BaseFragmentDelega
             ShowWidgetUtil.showShort(R.string.please_fill_mobile);
             return false;
         }
-        if (!RegularUtil.isMobile(mobile)) {
-            ShowWidgetUtil.showShort(R.string.wrong_phone);
-            return false;
-        }
+//        if (!RegularUtil.isMobile(mobile)) {
+//            ShowWidgetUtil.showShort(R.string.wrong_phone);
+//            return false;
+//        }
         params.setCompany(company);
         params.setPerson(name);
         params.setId_num(id);

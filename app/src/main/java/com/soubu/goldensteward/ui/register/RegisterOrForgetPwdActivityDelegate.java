@@ -112,10 +112,10 @@ public class RegisterOrForgetPwdActivityDelegate extends AppDelegate {
     public boolean checkComplete(UserServerParams params) {
 
         String phone = mEtPhone.getText().toString();
-        if (!RegularUtil.isMobile(phone)) {
-            ShowWidgetUtil.showShort(R.string.wrong_phone);
-            return false;
-        }
+//        if (!RegularUtil.isMobile(phone)) {
+//            ShowWidgetUtil.showShort(R.string.wrong_phone);
+//            return false;
+//        }
         String code = ((EditText) get(R.id.et_verification_code)).getText().toString();
         if (TextUtils.isEmpty(code)) {
             ShowWidgetUtil.showShort(R.string.wrong_empty_code);

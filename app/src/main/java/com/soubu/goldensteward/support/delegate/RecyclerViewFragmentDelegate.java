@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
+import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.List;
 
@@ -30,6 +32,10 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    public void setDecorationHeight(int heightDp){
+        mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), heightDp)));
     }
 
     public void setData(List<T> list) {

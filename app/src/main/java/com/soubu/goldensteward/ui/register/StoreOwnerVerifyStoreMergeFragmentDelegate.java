@@ -80,13 +80,13 @@ public class StoreOwnerVerifyStoreMergeFragmentDelegate extends BaseFragmentDele
 
     public void clickAdd() {
         String phone = etChildPhone.getText().toString();
-        if (RegularUtil.isMobile(phone)) {
+//        if (RegularUtil.isMobile(phone)) {
             UserServerParams params = new UserServerParams();
             params.setPhone(phone);
             RetrofitRequest.getInstance().checkChildPhone(params);
-        } else {
-            ShowWidgetUtil.showShort(R.string.wrong_phone);
-        }
+//        } else {
+//            ShowWidgetUtil.showShort(R.string.wrong_phone);
+//        }
     }
 
     public void onCheckSuccess() {

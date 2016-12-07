@@ -367,5 +367,36 @@
     <string name="activity_i_join">我参加的活动</string>
     <string name="sign_up_time">报名时间</string>
     <string name="sign_up_end_time">报名截止时间</string>
+    <string name="watch_sign_up_spec">查看报名详情</string>
+    <string name="investment_time">招商时间</string>
+    <string name="activity_start_time">活动开始时间</string>
+    <string name="activity_end_time">活动结束时间</string>
+    <string name="sign_up_now">立即报名</string>
+    <string name="activity_spec">活动详情</string>
+    <string name="please_choose_store">请选择您要参与活动的店铺</string>
+    <string name="sing_up_desc">请选择您要参与活动的商品，如商品未上传请先去店铺上传。</string>
+    <string name="already_choose">已选</string>
+    <string name="unit_jian">件</string>
+    <string name="commit_sign_up">提交报名</string>
+    <string name="activity_sign_up">活动报名</string>
+    <string name="sign_up_server_error_desc">服务器异常，请刷新试试！</string>
+    <string name="sign_up_empty_product_desc">您的店铺当前没有任何商品\n无法参与当前活动！</string>
+    <string name="have_commit_sign_up_request">您的报名申请已提交！</string>
+    <string name="sign_up_success_desc_pre">共提交了</string>
+    <string name="sign_up_success_desc_post">件商品，请等待搜布审核...</string>
+    <string name="return_to_activity_home">返回活动首页</string>
+    <string name="sign_up_success">报名完成</string>
+    <string name="sign_appeal_state_1">报名申请</string>
+    <string name="sign_appeal_state_2">搜布审核</string>
+    <string name="sign_appeal_state_3">审核结果</string>
+    <string name="appealing">正在审核中...</string>
+    <string name="sign_up_appeal_success">审核已通过，报名成功！</string>
+    <string name="sign_up_appeal_fail">审核不通过，报名失败！</string>
+    <string name="appealing_desc_post">件商品，请您耐心等待。</string>
+    <string name="appeal_success_desc_post">件商品，恭喜您通过审核。</string>
+    <string name="fail_reason">失败原因</string>
+    <string name="sign_up_product">报名商品</string>
+    <string name="sign_up_spec">报名详情</string>
+    <string name="sign_up_again">重新报名</string>
 
 </resources>

@@ -21,7 +21,6 @@ public class MyActivityRvAdapter extends BaseRecyclerViewAdapter<MyActivityServe
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_my_activity_recyclerview, parent, false);
-
         return new ItemViewHolder(v);
     }
 
@@ -36,6 +35,7 @@ public class MyActivityRvAdapter extends BaseRecyclerViewAdapter<MyActivityServe
         public TextView tvStartTime;
         public TextView tvEndTime;
         public ImageView ivActivity;
+        public TextView tvWatchSpec;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -43,12 +43,17 @@ public class MyActivityRvAdapter extends BaseRecyclerViewAdapter<MyActivityServe
             tvStartTime = (TextView) itemView.findViewById(R.id.tv_start_time);
             tvEndTime = (TextView) itemView.findViewById(R.id.tv_end_time);
             ivActivity = (ImageView) itemView.findViewById(R.id.iv_activity);
-            itemView.setOnClickListener(this);
+            tvWatchSpec = (TextView) itemView.findViewById(R.id.tv_watch_spec);
+            tvWatchSpec.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-
+            if (mListener != null) {
+                mListener.onClick(getLayoutPosition());
+            }
         }
     }
+
+
 }

@@ -159,7 +159,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
     }
 
     public void initProductAccessRecyclerView(ProductInOrderListServerParams[] params) {
-        ProductAccessProductsOnSaleRvAdapter adapter = new ProductAccessProductsOnSaleRvAdapter();
+        ProductAccessProductsOnSaleRvAdapter adapter = new ProductAccessProductsOnSaleRvAdapter(ProductAccessProductsOnSaleRvAdapter.PRODUCT_ON_SALE);
         List<ProductInOrderListServerParams> list = Arrays.asList(params);
         adapter.setData(list);
         mRvContent.setAdapter(adapter);

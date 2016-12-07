@@ -14,6 +14,7 @@
     <color name="subtitle_grey">#999999</color>
     <color name="filter_selected_color">#f5f5f5</color>
     <color name="line_color">#e3e3e3</color>
+    <color name="unselected_line_color">#d8d8d8</color>
     <color name="item_line_grey">#e5e5e5</color>
     <color name="orange_wallet_sub">#FF901A</color>
     <color name="orange_wallet">#FF8400</color>
@@ -36,12 +37,15 @@
     <color name="line_color_2">#54b2d0</color>
     <color name="line_color_3">#ffb14c</color>
 
-
     <color name="pie_color_1">#16d5b6</color>
     <color name="pie_color_2">#2bbde2</color>
     <color name="pie_color_3">#9196dc</color>
     <color name="pie_color_4">#f75f5b</color>
     <color name="pie_color_5">#fb8856</color>
     <color name="pie_color_6">#ffb14c</color>
+
+    <color name="blue_sign_up_success">#2fa1dd</color>
+    <color name="red_sign_up_product">#fe3824</color>
+    <color name="green_sign_up_product">#46be7d</color>
 
 </resources>

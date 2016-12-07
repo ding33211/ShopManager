@@ -119,6 +119,19 @@ public class ShowWidgetUtil {
         dialog.show();
     }
 
+    public static void showMultiItemDialog(Activity activity, int titleRes, String[] arrays, boolean multiChoice, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(titleRes);
+        builder.setItems(arrays, listener);
+        builder.setCancelable(true);
+        AlertDialog dialog = builder.create();
+//        int dividerId = dialog.getContext().getResources()
+//                .getIdentifier("android:id/titleDivider", null, null);
+//        View divider = dialog.findViewById(dividerId);
+//        divider.setBackgroundColor(activity.getResources().getColor(R.color.colorPrimary));
+        dialog.show();
+    }
+
     public interface OnClickCustomInputConfirm {
         void onConfirm(String content);
     }
@@ -295,7 +308,6 @@ public class ShowWidgetUtil {
             });
         }
         dialog.setContentView(customView);
-
     }
 
 

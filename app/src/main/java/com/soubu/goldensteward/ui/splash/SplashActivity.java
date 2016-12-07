@@ -3,6 +3,7 @@ package com.soubu.goldensteward.ui.splash;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.GoldenStewardApplication;

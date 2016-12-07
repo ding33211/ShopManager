@@ -151,4 +151,6 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile 'com.growingio.android:vds-android-agent:0.9.100@aar'
+    provided 'org.projectlombok:lombok:1.16.10'
+    provided 'javax.annotation:javax.annotation-api:1.3'
 }

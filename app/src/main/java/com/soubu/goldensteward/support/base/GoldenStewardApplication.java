@@ -80,7 +80,6 @@ public class GoldenStewardApplication extends Application implements Application
                 .trackAllFragments()
                 .setChannel(ChannelUtil.getChannel(this)));
 
-
         if (BuildConfig.IS_PRODUCT_ENV) {
             Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance());
         }

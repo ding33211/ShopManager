@@ -174,7 +174,7 @@
             app:fabSize="normal"
             app:layout_anchor="@id/rv_content"
             app:layout_anchorGravity="bottom|right|end"
-            app:layout_behavior="com.soubu.goldensteward.widget.layoutbehavior.FabInStorePreviewBehavior"
+            app:layout_behavior="com.soubu.goldensteward.support.widget.layoutbehavior.FabInStorePreviewBehavior"
             app:pressedTranslationZ="0dp" />
     </android.support.design.widget.CoordinatorLayout>
 

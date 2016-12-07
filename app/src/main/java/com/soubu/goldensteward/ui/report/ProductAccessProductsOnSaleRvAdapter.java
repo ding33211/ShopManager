@@ -17,10 +17,33 @@ import com.soubu.goldensteward.support.utils.GlideUtils;
  */
 
 public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapter<ProductInOrderListServerParams> {
+    public int mWhere;
+    public static final int PRODUCT_ON_SALE = 0x00;
+    public static final int PRODUCT_CHOOSE_SIGN_UP = 0x01;
+    public static final int PRODUCT_HAVE_SIGNED_UP = 0x02;
+
+
+    public ProductAccessProductsOnSaleRvAdapter(int where) {
+        mWhere = where;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType != TYPE_FOOTER) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
+            switch (mWhere) {
+                case PRODUCT_HAVE_SIGNED_UP:
+                    View vBottom = v.findViewById(R.id.ll_bottom);
+                    vBottom.setVisibility(View.GONE);
+                case PRODUCT_ON_SALE:
+                    View vCbChoose = v.findViewById(R.id.cb_choose);
+                    vCbChoose.setVisibility(View.GONE);
+                    break;
+                case PRODUCT_CHOOSE_SIGN_UP:
+                    View vBottom1 = v.findViewById(R.id.ll_bottom);
+                    vBottom1.setVisibility(View.GONE);
+                    break;
+            }
             return new ItemViewHolder(v);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv_footer_in_report, parent, false);
@@ -61,7 +84,7 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
         TextView tvBigGoodsPrice;
         TextView tvBrowse;
         TextView tvCollection;
-//        TextView tvTime;
+        //        TextView tvTime;
         TextView tvCustomerService;
 //        TextView tvUnit;
 
@@ -81,6 +104,11 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
 
     @Override
     public boolean isShowFooter() {
-        return true;
+        if (mWhere == PRODUCT_ON_SALE) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 }

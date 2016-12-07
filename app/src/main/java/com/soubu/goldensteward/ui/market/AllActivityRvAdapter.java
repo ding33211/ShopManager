@@ -72,7 +72,9 @@ public class AllActivityRvAdapter extends BaseRecyclerViewAdapter<AllActivitySer
 
         @Override
         public void onClick(View view) {
-
+            if (mListener != null) {
+                mListener.onClick(getLayoutPosition());
+            }
         }
     }
 }

@@ -98,12 +98,12 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 break;
             case R.id.tv_send_verify_code:
                 String phone = ((EditText) viewDelegate.get(R.id.et_phone)).getText().toString();
-                if (RegularUtil.isMobile(phone)) {
+//                if (RegularUtil.isMobile(phone)) {
                     mVSendCode = v;
                     sendVerifyCode(phone);
-                } else {
-                    ShowWidgetUtil.showShort(R.string.wrong_phone);
-                }
+//                } else {
+//                    ShowWidgetUtil.showShort(R.string.wrong_phone);
+//                }
                 break;
             case R.id.btn_next_step:
                 if (viewDelegate.checkComplete(mParams)) {
