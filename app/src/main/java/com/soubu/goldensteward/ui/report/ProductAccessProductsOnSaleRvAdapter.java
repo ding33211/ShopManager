@@ -4,13 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.GlideUtils;
+
+import java.util.Date;
 
 /**
  * Created by lakers on 16/10/25.
@@ -30,14 +34,21 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType != TYPE_FOOTER) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
+            View v;
+            if (mWhere == PRODUCT_ON_SALE) {
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_old_product_maybe_delete_soon, parent, false);
+            } else {
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_access_product_on_sale_recyclerview, parent, false);
+            }
             switch (mWhere) {
                 case PRODUCT_HAVE_SIGNED_UP:
                     View vBottom = v.findViewById(R.id.ll_bottom);
                     vBottom.setVisibility(View.GONE);
-                case PRODUCT_ON_SALE:
                     View vCbChoose = v.findViewById(R.id.cb_choose);
                     vCbChoose.setVisibility(View.GONE);
+                case PRODUCT_ON_SALE:
+//                    View vCbChoose = v.findViewById(R.id.cb_choose);
+//                    vCbChoose.setVisibility(View.GONE);
                     break;
                 case PRODUCT_CHOOSE_SIGN_UP:
                     View vBottom1 = v.findViewById(R.id.ll_bottom);
@@ -59,11 +70,15 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
             ProductInOrderListServerParams params = mList.get(position);
             GlideUtils.loadRoundedImage(holder1.ivProductImg.getContext(), holder1.ivProductImg, params.getPic(), R.mipmap.ic_launcher, R.mipmap.ic_launcher);
             holder1.tvProductName.setText(params.getTitle());
-            holder1.tvSamplePrice.setText(params.getPrice());
-//            holder1.tvUnit.setText(params.getUnit());
+            if (mWhere == PRODUCT_ON_SALE) {
+                holder1.tvUnitPrice.setText(params.getPrice());
+                holder1.tvUnit.setText(params.getUnit());
+                holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getTime()) * 1000)));
+            } else {
+                holder1.tvSamplePrice.setText(params.getPrice());
+            }
             holder1.tvBrowse.setText(params.getVisit());
             holder1.tvCollection.setText(params.getCollection());
-//            holder1.tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(params.getTime()) * 1000)));
         }
     }
 
@@ -77,28 +92,52 @@ public class ProductAccessProductsOnSaleRvAdapter extends BaseRecyclerViewAdapte
         return TYPE_ONLY;
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView ivProductImg;
         TextView tvProductName;
         TextView tvSamplePrice;
         TextView tvBigGoodsPrice;
         TextView tvBrowse;
         TextView tvCollection;
-        //        TextView tvTime;
+        TextView tvTime;
+        TextView tvUnitPrice;
         TextView tvCustomerService;
-//        TextView tvUnit;
+        CheckBox cbChoose;
+
+        TextView tvUnit;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             ivProductImg = (ImageView) itemView.findViewById(R.id.iv_product);
             tvProductName = (TextView) itemView.findViewById(R.id.tv_name);
-            tvSamplePrice = (TextView) itemView.findViewById(R.id.tv_sample_card_price);
-            tvBigGoodsPrice = (TextView) itemView.findViewById(R.id.tv_big_goods_price);
+            if (mWhere == PRODUCT_ON_SALE) {
+                tvUnit = (TextView) itemView.findViewById(R.id.tv_unit);
+                tvUnitPrice = (TextView) itemView.findViewById(R.id.tv_unit_price);
+                tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+                tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);
+            } else {
+                tvSamplePrice = (TextView) itemView.findViewById(R.id.tv_sample_card_price);
+                tvBigGoodsPrice = (TextView) itemView.findViewById(R.id.tv_big_goods_price);
+                cbChoose = (CheckBox) itemView.findViewById(R.id.cb_choose);
+            }
             tvBrowse = (TextView) itemView.findViewById(R.id.tv_browser_volume);
             tvCollection = (TextView) itemView.findViewById(R.id.tv_collection_volume);
-//            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
-            tvCustomerService = (TextView) itemView.findViewById(R.id.tv_customer_service);
-//            tvUnit = (TextView) itemView.findViewById(R.id.tv_unit);
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            if (mWhere != PRODUCT_ON_SALE) {
+                if (cbChoose.isChecked()) {
+                    cbChoose.setChecked(false);
+                } else {
+                    cbChoose.setChecked(true);
+                }
+            }
+            if (mListener != null) {
+                mListener.onClick(getLayoutPosition());
+            }
         }
     }
 

@@ -132,15 +132,13 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             case EventBusConfig.GET_ORDER_LIST:
                 OrderServerParams[] params1 = (OrderServerParams[]) ((BaseDataArray) resp1.getResult()).getData();
                 OrderDataArray result = (OrderDataArray) resp1.getResult();
-                if (params1.length > 0) {
-                    if (!mHaveInitTab) {
-                        String[] titles = new String[]{getString(R.string.all) + params1.length, getString(R.string.pending_payment) + result.getWait_pay(),
-                                getString(R.string.pending_shipped) + result.getWait_send(), getString(R.string.refund_appeal) + result.getOther()};
-                        viewDelegate.refreshTabTitle(titles);
-                        mHaveInitTab = true;
-                    }
-                    viewDelegate.initTurnOverVolumeRecyclerView(params1);
+                if (!mHaveInitTab) {
+                    String[] titles = new String[]{getString(R.string.all) + params1.length, getString(R.string.pending_payment) + result.getWait_pay(),
+                            getString(R.string.pending_shipped) + result.getWait_send(), getString(R.string.refund_appeal) + result.getOther()};
+                    viewDelegate.refreshTabTitle(titles);
+                    mHaveInitTab = true;
                 }
+                viewDelegate.initTurnOverVolumeRecyclerView(params1);
                 break;
             case EventBusConfig.GET_PRODUCT_VISIT:
             case EventBusConfig.GET_SHOP_VISIT:
@@ -180,7 +178,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
             mLastMonthBottom.add(new Date(Long.valueOf(param.getDate()) * 1000));
             float a = Float.valueOf(param.getPrice());
             int value = (int) (a * 100);
-            if(value > max){
+            if (value > max) {
                 max = value;
             }
             monthList.add(value);

@@ -23,14 +23,19 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,15 +125,21 @@ public class ShowWidgetUtil {
     }
 
     public static void showMultiItemDialog(Activity activity, int titleRes, String[] arrays, boolean multiChoice, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        ContextThemeWrapper themedContext = new ContextThemeWrapper(activity, android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(themedContext);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(titleRes);
         builder.setItems(arrays, listener);
         builder.setCancelable(true);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.dialog_multi_item);
+        adapter.addAll(arrays);
+        builder.setAdapter(adapter, listener);
         AlertDialog dialog = builder.create();
-//        int dividerId = dialog.getContext().getResources()
-//                .getIdentifier("android:id/titleDivider", null, null);
-//        View divider = dialog.findViewById(dividerId);
-//        divider.setBackgroundColor(activity.getResources().getColor(R.color.colorPrimary));
+//        ListView listView = dialog.getListView();
+//        listView.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.line_color))); // set color
+//        listView.setDividerHeight(1);
+//        listView.setFadingEdgeLength(0);
         dialog.show();
     }
 

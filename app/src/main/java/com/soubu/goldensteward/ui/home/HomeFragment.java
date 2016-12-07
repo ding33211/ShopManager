@@ -20,6 +20,7 @@ import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.ui.information.InformationActivity;
 import com.soubu.goldensteward.ui.message.MessageActivity;
 import com.soubu.goldensteward.ui.customer.MyCustomersActivity;
+import com.soubu.goldensteward.ui.report.OperationReportActivity;
 import com.soubu.goldensteward.ui.wallet.MyWalletActivity;
 import com.soubu.goldensteward.ui.report.NewOperationReportActivity;
 import com.soubu.goldensteward.ui.setting.SettingActivity;
@@ -119,7 +120,7 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> implem
                         intent = new Intent(getActivity(), MyWalletActivity.class);
                         break;
                     case 1:
-                        intent = new Intent(getActivity(), NewOperationReportActivity.class);
+                        intent = new Intent(getActivity(), OperationReportActivity.class);
                         break;
                     case 2:
                         intent = new Intent(getActivity(), MyCustomersActivity.class);
