@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
@@ -74,7 +74,7 @@ public class RetrofitRequest {
 
 
     private <T> void enqueueClue(Call<BaseResp<T>> call, final boolean needEventPost, String dialogContent, final int eventBusCode) {
-        if (!PhoneUtil.isConnected(GoldenStewardApplication.getContext())) {
+        if (!PhoneUtil.isConnected(BaseApplication.getContext())) {
             ShowWidgetUtil.showShort(R.string.please_check_internet);
             return;
         }
@@ -83,15 +83,15 @@ public class RetrofitRequest {
             @Override
             public void onResponse(Call<BaseResp<T>> call, Response<BaseResp<T>> response) {
                 ShowWidgetUtil.dismissProgressDialog();
-                if (response.isSuccessful()) {
+                if (response.isSuccess()) {
                     if (response.body().status == -1) {
-                        new AlertDialog.Builder(GoldenStewardApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GoldenStewardApplication.getContext().clearUser();
+                                BaseApplication.getContext().clearUser();
                                 ActivityContainer.getInstance().finishAllActivity();
-                                Intent intent = new Intent(GoldenStewardApplication.getContext().getNowContext(), LoginActivity.class);
-                                GoldenStewardApplication.getContext().getNowContext().startActivity(intent);
+                                Intent intent = new Intent(BaseApplication.getContext().getNowContext(), LoginActivity.class);
+                                BaseApplication.getContext().getNowContext().startActivity(intent);
                             }
                         }).show();
                         return;

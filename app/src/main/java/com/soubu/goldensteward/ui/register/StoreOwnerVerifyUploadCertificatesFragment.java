@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.OssConst;
 import com.soubu.goldensteward.support.bean.server.VerificationServerParams;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
@@ -235,7 +235,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
 
             @Override
             public void onFailure(String fileName) {
-                if(!PhoneUtil.isConnected(GoldenStewardApplication.getContext())){
+                if(!PhoneUtil.isConnected(BaseApplication.getContext())){
                     ShowWidgetUtil.showShort(R.string.please_check_internet);
                 }
                 mIvLastClick.setImageResource(R.drawable.auth_reload);

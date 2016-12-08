@@ -12,7 +12,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
@@ -20,6 +19,7 @@ import com.soubu.goldensteward.support.bean.MainProductParams;
 import com.soubu.goldensteward.support.bean.RegisterRvItem;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
 import com.soubu.goldensteward.support.greendao.DBHelper;
@@ -27,6 +27,7 @@ import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.LocationUtils;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.widget.optionspickerview.OptionsPickerView;
 
@@ -335,8 +336,10 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
         int code = resp.getCode();
         if (code == EventBusConfig.REGISTER) {
             UserServerParams params = (UserServerParams) resp1.getResult();
-            GoldenStewardApplication.getContext().setToken(params.getToken());
-            GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
+
+            SPUtil.putValue(SpKey.TOKEN, params.getToken());
+            SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
+
             Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
             startActivity(intent);
             finish();

@@ -1,16 +1,17 @@
 package com.soubu.goldensteward.ui.information;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.bean.InformationRvItem;
+import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.greendao.DBHelper;
 import com.soubu.goldensteward.support.greendao.User;
 import com.soubu.goldensteward.support.greendao.UserDao;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
-import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
-import com.soubu.goldensteward.support.bean.InformationRvItem;
-import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.utils.RegularUtil;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -57,7 +58,8 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
         mParams = new UserServerParams();
         viewDelegate.setAdapter(new InformationRvAdapter());
         mUserDao = DBHelper.getInstance(getActivity()).getUserDao();
-        List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(GoldenStewardApplication.getContext().getPhone())).list();
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(phone)).list();
         if (list.size() > 0) {
             initRecyclerData(list.get(0));
         }

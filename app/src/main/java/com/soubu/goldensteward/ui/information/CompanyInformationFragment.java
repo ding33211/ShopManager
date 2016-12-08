@@ -7,11 +7,11 @@ import android.net.Uri;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
 import com.soubu.goldensteward.support.bean.OssConst;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.greendao.DBHelper;
 import com.soubu.goldensteward.support.greendao.User;
@@ -22,6 +22,7 @@ import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.utils.OssUtil;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.widget.ProgressImageView;
 
@@ -151,25 +152,25 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                     }
                     break;
                 case CameraUtil.REQUEST_CAMERA:
-                        File takePhoto = CameraUtil.getTakePhoto();
-                        Uri uri = Uri.fromFile(takePhoto);
-                        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, R.drawable.auth_reload, R.drawable.auth_reload);
-                        OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_USER, new OssUtil.UploadCallBack() {
-                            @Override
-                            public void onSuccess(String fileName) {
-                                saveInfo(fileName, 0);
-                            }
+                    File takePhoto = CameraUtil.getTakePhoto();
+                    Uri uri = Uri.fromFile(takePhoto);
+                    GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, R.drawable.auth_reload, R.drawable.auth_reload);
+                    OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_USER, new OssUtil.UploadCallBack() {
+                        @Override
+                        public void onSuccess(String fileName) {
+                            saveInfo(fileName, 0);
+                        }
 
-                            @Override
-                            public void onFailure(String fileName) {
-                                mIvLastClick.setImageResource(R.drawable.auth_reload);
-                            }
+                        @Override
+                        public void onFailure(String fileName) {
+                            mIvLastClick.setImageResource(R.drawable.auth_reload);
+                        }
 
-                            @Override
-                            public void onProgress(int progress) {
-                                mIvLastClick.setProgress(progress);
-                            }
-                        });
+                        @Override
+                        public void onProgress(int progress) {
+                            mIvLastClick.setProgress(progress);
+                        }
+                    });
                     break;
                 case REQUEST_LOCATION:
                     if (data != null) {
@@ -182,7 +183,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                         mUser.setCity_id(mLocationParams.getCity_id());
                         mList.get(4).setContent(params.getAddress());
                         viewDelegate.notifyItemChanged(4);
-                        if(!mHaveAddressChanged){
+                        if (!mHaveAddressChanged) {
                             mHaveAddressChanged = true;
                         }
                     }
@@ -199,7 +200,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
 
 
     private void saveInfo(String content, int position) {
-        if(!mHaveChanged){
+        if (!mHaveChanged) {
             mHaveChanged = true;
         }
         switch (position) {
@@ -269,7 +270,8 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
         mLocationParams = new UserServerParams();
         viewDelegate.setAdapter(new InformationRvAdapter());
         mUserDao = DBHelper.getInstance(getActivity()).getUserDao();
-        List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(GoldenStewardApplication.getContext().getPhone())).list();
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(phone)).list();
         if (list.size() > 0) {
             initRecyclerData(list.get(0));
         }
@@ -342,25 +344,25 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
 //        }
 //    }
 
-    public UserServerParams getParams(){
+    public UserServerParams getParams() {
         return mParams;
     }
 
 
-    public UserServerParams getLocationParams(){
+    public UserServerParams getLocationParams() {
         return mLocationParams;
     }
 
-    public void updateToDb(){
+    public void updateToDb() {
         mUserDao.update(mUser);
     }
 
-    public boolean isAddressChanged(){
+    public boolean isAddressChanged() {
         return mHaveAddressChanged;
     }
 
 
-    public boolean isChanged(){
+    public boolean isChanged() {
         return mHaveChanged;
     }
 }

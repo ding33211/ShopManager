@@ -3,10 +3,9 @@ package com.soubu.goldensteward.ui.splash;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
 import com.soubu.goldensteward.support.greendao.DBHelper;
@@ -59,7 +58,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void load() {
-        if (GoldenStewardApplication.getContext().initUser()) {
+        if (BaseApplication.getContext().initUser()) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         } else {

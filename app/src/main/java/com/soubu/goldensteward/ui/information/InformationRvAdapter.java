@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
@@ -86,14 +86,14 @@ public class InformationRvAdapter extends BaseRecyclerViewAdapter<InformationRvI
         holder1.tvTitle.setText(item.getTitleRes());
         String content = mList.get(position).getContent();
         if (mList.get(position).getArrayRes() != 0) {
-            holder1.tvContent.setText(GoldenStewardApplication.getContext().getResources().getTextArray(mList.get(position).getArrayRes())[Integer.valueOf(content) - 1]);
+            holder1.tvContent.setText(BaseApplication.getContext().getResources().getTextArray(mList.get(position).getArrayRes())[Integer.valueOf(content) - 1]);
         } else {
             holder1.tvContent.setText(content);
         }
         holder1.tvMultiLineContent.setText(item.getContent());
         if (getItemViewType(position) == TYPE_ITEM_AVATAR) {
             if (!TextUtils.isEmpty(content)) {
-                GlideUtils.loadRoundedImage(GoldenStewardApplication.getContext(), holder1.ivAvatar, content, R.drawable.common_header, R.drawable.common_header);
+                GlideUtils.loadRoundedImage(BaseApplication.getContext(), holder1.ivAvatar, content, R.drawable.common_header, R.drawable.common_header);
             }
         }
     }

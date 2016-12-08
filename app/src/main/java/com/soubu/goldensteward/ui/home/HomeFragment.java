@@ -5,26 +5,26 @@ import android.content.res.Resources;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.greendao.DBHelper;
-import com.soubu.goldensteward.support.greendao.User;
-import com.soubu.goldensteward.support.greendao.UserDao;
-import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataObject;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.HomeInfoServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.greendao.DBHelper;
+import com.soubu.goldensteward.support.greendao.User;
+import com.soubu.goldensteward.support.greendao.UserDao;
+import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.support.utils.SPUtil;
+import com.soubu.goldensteward.ui.customer.MyCustomersActivity;
 import com.soubu.goldensteward.ui.information.InformationActivity;
 import com.soubu.goldensteward.ui.message.MessageActivity;
-import com.soubu.goldensteward.ui.customer.MyCustomersActivity;
 import com.soubu.goldensteward.ui.report.OperationReportActivity;
-import com.soubu.goldensteward.ui.wallet.MyWalletActivity;
-import com.soubu.goldensteward.ui.report.NewOperationReportActivity;
 import com.soubu.goldensteward.ui.setting.SettingActivity;
 import com.soubu.goldensteward.ui.storepreview.StorePreviewActivity;
+import com.soubu.goldensteward.ui.wallet.MyWalletActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,7 +51,8 @@ public class HomeFragment extends FragmentPresenter<HomeFragmentDelegate> implem
 
     private void initTopBar() {
         UserDao dao = DBHelper.getInstance(getActivity()).getUserDao();
-        List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(GoldenStewardApplication.getContext().getPhone())).list();
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        List<User> list = dao.queryBuilder().where(UserDao.Properties.Phone.eq(phone)).list();
         if (list.size() > 0) {
             String name = list.get(0).getName();
             String url = list.get(0).getPortrait();

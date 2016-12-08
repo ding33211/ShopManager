@@ -8,18 +8,19 @@ import android.widget.TextView;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.net.ApiConfig;
-import com.soubu.goldensteward.support.bean.server.HeaderEntity;
+import com.soubu.goldensteward.support.constant.ApiConfig;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.GlideUtils;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.support.web.core.BaseHeader;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -48,7 +49,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
     @Override
     protected void initData() {
         super.initData();
-        String phone = GoldenStewardApplication.getContext().getPhone();
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
         mParams.setPhone(phone);
         viewDelegate.initPhone(phone.substring(0, 3) + "****" + phone.substring(7));
         loadImageCode();
@@ -92,7 +93,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
     }
 
     private void loadImageCode() {
-        HeaderEntity entity = new HeaderEntity();
+        BaseHeader entity = new BaseHeader();
         String head = new Gson().toJson(entity);
         GlideUtils.loadImage(this, (ImageView) viewDelegate.get(R.id.iv_image_code), new GlideUrl(ApiConfig.API_HOST + "Other/get_verify_image?timestamp=" + System.currentTimeMillis()
                 , new LazyHeaders.Builder().addHeader("SHOP_MANAGER_AGENT", head).build()), 0, R.drawable.common_btn_imagecode_fail);
@@ -118,7 +119,7 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
                 }
                 break;
             case EventBusConfig.CHANGE_PHONE:
-                GoldenStewardApplication.getContext().setPhone(mParams.getPhone());
+                SPUtil.putValue(SpKey.USER_PHONE, mParams.getPhone());
                 ShowWidgetUtil.showShort(R.string.modify_success);
                 finish();
                 break;

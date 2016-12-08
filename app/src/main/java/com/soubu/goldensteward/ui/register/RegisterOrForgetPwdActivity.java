@@ -14,18 +14,17 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.net.ApiConfig;
-import com.soubu.goldensteward.support.bean.server.HeaderEntity;
+import com.soubu.goldensteward.support.constant.ApiConfig;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.GlideUtils;
-import com.soubu.goldensteward.support.utils.RegularUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.support.web.core.BaseHeader;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -141,7 +140,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
 
 
     private void loadImageCode() {
-        HeaderEntity entity = new HeaderEntity();
+        BaseHeader entity = new BaseHeader();
         String head = new Gson().toJson(entity);
         GlideUtils.loadImage(this, (ImageView) viewDelegate.get(R.id.iv_image_code), new GlideUrl(ApiConfig.API_HOST + "Other/get_verify_image?timestamp=" + System.currentTimeMillis()
                 , new LazyHeaders.Builder().addHeader("SHOP_MANAGER_AGENT", head).build()), 0, R.drawable.common_btn_imagecode_fail);

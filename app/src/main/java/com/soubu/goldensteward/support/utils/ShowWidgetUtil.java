@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
@@ -34,12 +33,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.R;
 
 public class ShowWidgetUtil {
@@ -242,9 +239,9 @@ public class ShowWidgetUtil {
         try {
             if (dialog == null) {
                 if (style != 0) {
-                    dialog = new ProgressDialog(GoldenStewardApplication.getContext().getNowContext(), style);
+                    dialog = new ProgressDialog(BaseApplication.getContext().getNowContext(), style);
                 } else {
-                    dialog = new ProgressDialog(GoldenStewardApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
+                    dialog = new ProgressDialog(BaseApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
                 }
             }
 //            //通过这种方式，避免dialog直接持有activity对象，造成内存泄漏
@@ -297,7 +294,7 @@ public class ShowWidgetUtil {
 
     public static void showCustomDialog(int customViewRes, boolean clickContentCancelable) {
         dismissProgressDialogNow();
-        dialog = new ProgressDialog(GoldenStewardApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
+        dialog = new ProgressDialog(BaseApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
         dialog.setCanceledOnTouchOutside(clickContentCancelable);
         dialog.setCancelable(clickContentCancelable);
         dialog.show();
@@ -306,7 +303,7 @@ public class ShowWidgetUtil {
 
     public static void showCustomDialog(View customView, boolean clickContentCancelable) {
         dismissProgressDialogNow();
-        dialog = new ProgressDialog(GoldenStewardApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
+        dialog = new ProgressDialog(BaseApplication.getContext().getNowContext(), R.style.ProgressDialogTheme);
         dialog.setCanceledOnTouchOutside(clickContentCancelable);
         dialog.setCancelable(clickContentCancelable);
         dialog.show();

@@ -4,11 +4,12 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.delegate.BaseFragmentDelegate;
 import com.soubu.goldensteward.support.bean.server.VerificationServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.delegate.BaseFragmentDelegate;
 import com.soubu.goldensteward.support.utils.RegularUtil;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 /**
@@ -27,7 +28,8 @@ public class StoreOwnerVerifyBaseInfoFragmentDelegate extends BaseFragmentDelega
     @Override
     public void initWidget() {
         super.initWidget();
-        ((TextView) get(R.id.et_mobile)).setText(GoldenStewardApplication.getContext().getPhone());
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        ((TextView) get(R.id.et_mobile)).setText(phone);
     }
 
 

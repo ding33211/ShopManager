@@ -6,10 +6,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.mvp.view.AppDelegate;
+import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 
@@ -65,7 +66,8 @@ public class ModifyPhoneActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showShort(R.string.please_input_new_phone);
             return false;
         }
-        if(TextUtils.equals(newPhone, GoldenStewardApplication.getContext().getPhone())){
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        if(TextUtils.equals(newPhone, phone)){
             ShowWidgetUtil.showShort(R.string.same_to_old_phone);
             return false;
         }

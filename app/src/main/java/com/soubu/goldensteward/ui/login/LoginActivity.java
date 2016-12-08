@@ -8,22 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.ui.home.HomeActivity;
-import com.soubu.goldensteward.support.bean.BaseEventBusResp;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.Constant;
-import com.soubu.goldensteward.support.bean.EventBusConfig;
-import com.soubu.goldensteward.support.bean.server.BaseDataObject;
-import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.support.constant.SpKey;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.support.utils.SPUtil;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
+import com.soubu.goldensteward.support.web.core.BaseTransformer;
+import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
 import com.soubu.goldensteward.ui.register.StoreOwnerVerifyActivity;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by lakers on 16/10/25.
@@ -49,7 +46,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     @Override
     protected void initData() {
         super.initData();
-        String phone = GoldenStewardApplication.getContext().getPhone();
+        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
         mParams = new UserServerParams();
         if (!TextUtils.isEmpty(phone)) {
             viewDelegate.refreshPhone(phone);
@@ -75,7 +72,16 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 break;
             case R.id.btn_login:
                 if (viewDelegate.checkComplete(mParams)) {
-                    RetrofitRequest.getInstance().login(mParams);
+                    // TODO: 2016/12/8 重构登录接口
+                    BaseApplication.getWebModel()
+                            .login(mParams)
+                            .compose(new BaseTransformer<>())
+                            .subscribe(new BaseSubscriber<BaseResponse<UserServerParams>>() {
+                                @Override
+                                public void onSuccess(BaseResponse<UserServerParams> response) {
+                                    login(response);
+                                }
+                            });
                 }
                 break;
             case R.id.tv_register:
@@ -88,66 +94,51 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 intent2.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
                 startActivity(intent2);
                 break;
-
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void login(BaseEventBusResp resp) {
-        BaseResp resp1 = (BaseResp) resp.getObject();
-        int code = resp.getCode();
-        if (code == EventBusConfig.LOGIN) {
-            BaseDataObject data = (BaseDataObject) resp1.getResult();
-            if (data.getData() instanceof UserServerParams) {
-                GoldenStewardApplication.getContext().setToken(data.getToken());
-                final UserServerParams params = (UserServerParams) data.getData();
-                GoldenStewardApplication.getContext().setPhone(params.getPhone());
-                int certification = Integer.valueOf(params.getCertification());
-                int child_state = Integer.valueOf(params.getChild_status());
-                Intent intent;
-                if (certification == -1) {
-                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
-                    startActivity(intent);
-                } else if (certification == 0) {
-                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
-                    if (child_state == -1 || child_state == 2) {
-                        intent.putExtra(Constant.EXTRA_INDEX, 2);
-                    } else {
-                        intent.putExtra(Constant.EXTRA_INDEX, 3);
-                    }
-                    startActivity(intent);
-                } else {
-                    intent = new Intent(this, StoreOwnerVerifyActivity.class);
-                    if (child_state == -1 || child_state == 2) {
-                        intent.putExtra(Constant.EXTRA_INDEX, 2);
-                        startActivity(intent);
-                    } else if (child_state == 0) {
-                        intent.putExtra(Constant.EXTRA_INDEX, 3);
-                        startActivity(intent);
-                    } else {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                GoldenStewardApplication.getContext().saveUserInfo(params);
-                            }
-                        }).start();
-                        intent = new Intent(this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
+    public void login(BaseResponse<UserServerParams> response) {
+        BaseResponse<UserServerParams>.Entity<UserServerParams> result = response.getResult();
+        UserServerParams params = result.getData();
 
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        GoldenStewardApplication.getContext().saveUserInfo(params);
-//                    }
-//                }).start();
-//                Intent intent = new Intent(this, HomeActivity.class);
-//                startActivity(intent);
-//                finish();
+        SPUtil.putValue(SpKey.TOKEN, result.getToken());
+        SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
+
+        int certification = Integer.valueOf(params.getCertification());
+        int child_state = Integer.valueOf(params.getChild_status());
+        Intent intent;
+        if (certification == -1) {
+            intent = new Intent(this, StoreOwnerVerifyActivity.class);
+            startActivity(intent);
+        } else if (certification == 0) {
+            intent = new Intent(this, StoreOwnerVerifyActivity.class);
+            if (child_state == -1 || child_state == 2) {
+                intent.putExtra(Constant.EXTRA_INDEX, 2);
+            } else {
+                intent.putExtra(Constant.EXTRA_INDEX, 3);
+            }
+            startActivity(intent);
+        } else {
+            intent = new Intent(this, StoreOwnerVerifyActivity.class);
+            if (child_state == -1 || child_state == 2) {
+                intent.putExtra(Constant.EXTRA_INDEX, 2);
+                startActivity(intent);
+            } else if (child_state == 0) {
+                intent.putExtra(Constant.EXTRA_INDEX, 3);
+                startActivity(intent);
+            } else {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BaseApplication.getContext().saveUserInfo(params);
+                    }
+                }).start();
+                intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
+
     }
 
     @Override

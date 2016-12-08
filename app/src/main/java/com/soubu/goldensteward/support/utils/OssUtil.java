@@ -9,7 +9,7 @@ import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.google.gson.Gson;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.OssConst;
 
 import java.io.File;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import static com.soubu.goldensteward.support.base.GoldenStewardApplication.oss;
+import static com.soubu.goldensteward.support.base.BaseApplication.oss;
 
 /**
  * Created by lakers on 16/11/3.
@@ -130,7 +130,7 @@ public class OssUtil {
                 }
             }
         });
-        GoldenStewardApplication.oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        BaseApplication.oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
                     public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                         Log.e("onSuccess", putObjectRequest.getObjectKey());

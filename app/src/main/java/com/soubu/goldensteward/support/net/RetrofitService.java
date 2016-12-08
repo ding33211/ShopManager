@@ -1,28 +1,15 @@
 package com.soubu.goldensteward.support.net;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.bind.util.ISO8601Utils;
-import com.soubu.goldensteward.support.base.GoldenStewardApplication;
-import com.soubu.goldensteward.support.bean.server.HeaderEntity;
+import com.soubu.goldensteward.support.base.BaseApplication;
+import com.soubu.goldensteward.support.constant.ApiConfig;
 import com.soubu.goldensteward.support.utils.PhoneUtil;
+import com.soubu.goldensteward.support.web.core.BaseHeader;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -75,39 +62,39 @@ public class RetrofitService {
             synchronized (RetrofitService.class) {
                 if (api == null) {
                     initOkHttpClient();
-                    //特地对date做解析,防止出现date返回空字符串,无法解析的情况
-                    GsonBuilder gBuilder = new GsonBuilder();
-                    final DateFormat enUsFormat
-                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.US);
-                    final DateFormat localFormat
-                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT);
-                    gBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-
-                        @Override
-                        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                            if (TextUtils.isEmpty(json.getAsString())) {
-                                return null;
-                            }
-                            try {
-                                return localFormat.parse(json.getAsString());
-                            } catch (ParseException ignored) {
-                            }
-                            try {
-                                return enUsFormat.parse(json.getAsString());
-                            } catch (ParseException ignored) {
-                            }
-                            try {
-                                return ISO8601Utils.parse(json.getAsString(), new ParsePosition(0));
-                            } catch (ParseException e) {
-                                throw new JsonSyntaxException(json.getAsString(), e);
-                            }
-                        }
-                    });
-                    Gson gSon = gBuilder.create();
+//                    //特地对date做解析,防止出现date返回空字符串,无法解析的情况
+//                    GsonBuilder gBuilder = new GsonBuilder();
+//                    final DateFormat enUsFormat
+//                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.US);
+//                    final DateFormat localFormat
+//                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT);
+//                    gBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+//
+//                        @Override
+//                        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+//                            if (TextUtils.isEmpty(json.getAsString())) {
+//                                return null;
+//                            }
+//                            try {
+//                                return localFormat.parse(json.getAsString());
+//                            } catch (ParseException ignored) {
+//                            }
+//                            try {
+//                                return enUsFormat.parse(json.getAsString());
+//                            } catch (ParseException ignored) {
+//                            }
+//                            try {
+//                                return ISO8601Utils.parse(json.getAsString(), new ParsePosition(0));
+//                            } catch (ParseException e) {
+//                                throw new JsonSyntaxException(json.getAsString(), e);
+//                            }
+//                        }
+//                    });
+//                    Gson gSon = gBuilder.create();
                     api = new Retrofit.Builder()
                             .client(mOkHttpClient)
                             .baseUrl(ApiConfig.API_HOST)
-                            .addConverterFactory(GsonConverterFactory.create(gSon))
+                            .addConverterFactory(GsonConverterFactory.create(new Gson()))
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .build().create(RetrofitApi.class);
                 }
@@ -120,7 +107,7 @@ public class RetrofitService {
     private static void initOkHttpClient() {
         if (mOkHttpClient == null) {
             // 因为BaseUrl不同所以这里Retrofit不为静态，但是OkHttpClient配置是一样的,静态创建一次即可
-            File cacheFile = new File(GoldenStewardApplication.getContext().getCacheDir(),
+            File cacheFile = new File(BaseApplication.getContext().getCacheDir(),
                     "HttpCache"); // 指定缓存路径
             Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); // 指定缓存大小100Mb
             // 云端响应头拦截器，用来配置缓存策略
@@ -151,13 +138,13 @@ public class RetrofitService {
 //                                    .build();
 //                        }
 //                    }
-                    HeaderEntity entity = new HeaderEntity();
+                    BaseHeader entity = new BaseHeader();
                     String head = new Gson().toJson(entity);
                     request = request.newBuilder()
                             .header("SHOP_MANAGER_AGENT", head)
                             .build();
                     Response originalResponse = chain.proceed(request);
-                    if (PhoneUtil.isConnected(GoldenStewardApplication.getContext())) {
+                    if (PhoneUtil.isConnected(BaseApplication.getContext())) {
                         //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                         String cacheControl = request.cacheControl().toString();
                         return originalResponse.newBuilder()
@@ -191,6 +178,6 @@ public class RetrofitService {
      */
     @NonNull
     public static String getCacheControl() {
-        return PhoneUtil.isConnected(GoldenStewardApplication.getContext()) ? CACHE_CONTROL_NETWORK : CACHE_CONTROL_CACHE;
+        return PhoneUtil.isConnected(BaseApplication.getContext()) ? CACHE_CONTROL_NETWORK : CACHE_CONTROL_CACHE;
     }
 }
