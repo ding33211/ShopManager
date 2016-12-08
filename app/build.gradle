@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.growingio.android'
+apply plugin: 'me.tatarka.retrolambda'
 
 apt {
     arguments {
@@ -75,6 +76,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
 }
 
 
@@ -98,7 +105,13 @@ afterEvaluate {
 
 //应用 Bugtags 插件
 apply plugin: 'com.bugtags.library.plugin'
+apply plugin: 'com.antfortune.freeline'
 //Bugtags 插件配置
+
+freeline {
+    hack true
+    productFlavor 'develop'
+}
 
 bugtags {
     mappingUploadEnabled true
@@ -153,4 +166,5 @@ dependencies {
     compile 'com.growingio.android:vds-android-agent:0.9.100@aar'
     provided 'org.projectlombok:lombok:1.16.10'
     provided 'javax.annotation:javax.annotation-api:1.3'
+
 }

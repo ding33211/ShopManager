@@ -5,13 +5,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.FooterSingleAdapter;
 import com.soubu.goldensteward.support.delegate.BaseWithFootOrRefreshRecyclerViewDelegate;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.ui.report.TransactionRecordRvAdapter;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
 import com.soubu.goldensteward.support.bean.server.ProductInCustomerDetailServerParams;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +23,8 @@ import java.util.List;
  */
 
 public class CustomerSpecActivityDelegate extends BaseWithFootOrRefreshRecyclerViewDelegate {
+    private String[] mStates;
+
 
     @Override
     public int getRootLayoutId() {
@@ -28,7 +34,23 @@ public class CustomerSpecActivityDelegate extends BaseWithFootOrRefreshRecyclerV
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new TransactionRecordRvAdapter(getActivity());
+        mStates = getActivity().getResources().getStringArray(R.array.order_state);
+        mAdapter = new FooterSingleAdapter<ProductInCustomerDetailServerParams>(getActivity(), R.layout.item_transaction_record_recyclerview, R.layout.item_recyclerview_footer) {
+            @Override
+            protected void bindData(BaseViewHolder holder, ProductInCustomerDetailServerParams item, int position) {
+                TextView tvState = holder.getView(R.id.tv_state);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                TextView tvPrice = holder.getView(R.id.tv_price);
+                ImageView ivProduct = holder.getView(R.id.iv_product);
+                TextView tvProduct = holder.getView(R.id.tv_product_name);
+                tvState.setText(mStates[Integer.valueOf(item.getStatus()) - 1]);
+                tvTime.setText(item.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(item.getAdd_time()) * 1000)));
+                tvPrice.setText(item.getPrice());
+                GlideUtils.loadRoundedImage(ivProduct.getContext(), ivProduct, item.getPic(), R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+                tvProduct.setText(item.getPname());
+            }
+        };
+//        mAdapter = new TransactionRecordRvAdapter(getActivity());
         mRvContent = get(R.id.rv_content);
         mRvContent.setAdapter(mAdapter);
         mManager = new LinearLayoutManager(getActivity());

@@ -3,6 +3,7 @@ package com.soubu.goldensteward.support.delegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.soubu.goldensteward.support.adapter.FooterSingleAdapter;
 import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 
@@ -13,7 +14,7 @@ import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 public abstract class BaseWithFootOrRefreshRecyclerViewDelegate extends AppDelegate {
     public RecyclerView mRvContent;
     public LinearLayoutManager mManager;
-    public BaseRecyclerViewAdapter mAdapter;
+    public FooterSingleAdapter mAdapter;
 
     public interface FreshInRvCallBack {
         void loadMore();
