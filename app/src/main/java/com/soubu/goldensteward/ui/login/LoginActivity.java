@@ -75,6 +75,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                     // TODO: 2016/12/8 重构登录接口
                     BaseApplication.getWebModel()
                             .login(mParams)
+                            .compose(bindToLifecycle())
                             .compose(new BaseTransformer<>())
                             .subscribe(new BaseSubscriber<BaseResponse<UserServerParams>>() {
                                 @Override
