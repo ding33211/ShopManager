@@ -4,9 +4,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.mvp.view.AppDelegate;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.server.ProductClassificationServerParams;
+import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 
 import java.util.List;
 
@@ -16,14 +16,12 @@ import java.util.List;
 
 public class ProductClassificationActivityDelegate extends AppDelegate {
     RecyclerView mRvContent;
-    ProductClassificationRvAdapter mAdapter;
+    SingleAdapter mAdapter;
 
     @Override
     public void initWidget() {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
-        mAdapter = new ProductClassificationRvAdapter();
-        mRvContent.setAdapter(mAdapter);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -37,7 +35,8 @@ public class ProductClassificationActivityDelegate extends AppDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setOnRvItemClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
-        mAdapter.setOnRvItemClickListener(listener);
+    public void setProductClassificationRvAdapter(SingleAdapter adapter){
+        mAdapter = adapter;
+        mRvContent.setAdapter(mAdapter);
     }
 }

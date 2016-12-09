@@ -4,14 +4,21 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.bean.server.StoreVisitorServerParams;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
+import com.soubu.goldensteward.support.utils.GlideUtils;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,7 +100,27 @@ public class StoreFlowStatisticsActivityDelegate extends AppDelegate {
     }
 
     public void initProductAccessRecyclerView(ProductInOrderListServerParams[] params) {
-        ProductAccessProductsOnSaleRvAdapter adapter = new ProductAccessProductsOnSaleRvAdapter(ProductAccessProductsOnSaleRvAdapter.PRODUCT_ON_SALE);
+        SingleAdapter adapter = new SingleAdapter<ProductInOrderListServerParams>(getActivity(), R.layout.item_old_product_maybe_delete_soon) {
+            @Override
+            protected void bindData(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
+                ImageView ivProductImg = holder.getView(R.id.iv_product);
+                TextView tvProductName = holder.getView(R.id.tv_name);
+                TextView tvBrowse = holder.getView(R.id.tv_browser_volume);
+                TextView tvCollection = holder.getView(R.id.tv_collection_volume);
+                TextView tvUnit = holder.getView(R.id.tv_unit);
+                TextView tvUnitPrice = holder.getView(R.id.tv_unit_price);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                TextView tvCustomerService = holder.getView(R.id.tv_customer_service);
+                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                tvProductName.setText(item.getTitle());
+                tvUnitPrice.setText(item.getPrice());
+                tvUnit.setText(item.getUnit());
+                tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(item.getTime()) * 1000)));
+                tvBrowse.setText(item.getVisit());
+                tvCollection.setText(item.getCollection());
+            }
+
+        };
         List<ProductInOrderListServerParams> list = Arrays.asList(params);
         adapter.setData(list);
         mRvContent.setAdapter(adapter);
@@ -101,7 +128,27 @@ public class StoreFlowStatisticsActivityDelegate extends AppDelegate {
 
 
     public void initProductAccessRecyclerView(StoreVisitorServerParams[] params) {
-        StoreVisitorRvAdapter adapter = new StoreVisitorRvAdapter();
+        SingleAdapter adapter = new SingleAdapter<StoreVisitorServerParams>(getActivity(), R.layout.item_store_visitor_recyclerview) {
+            @Override
+            protected void bindData(BaseViewHolder holder, StoreVisitorServerParams item, int position) {
+                View vBottom = holder.getView(R.id.v_bottom_line);
+                TextView tvName = holder.getView(R.id.tv_name);
+                TextView tvBrowse = holder.getView(R.id.tv_browse_num);
+                TextView tvVisit = holder.getView(R.id.tv_store_visit_num);
+                ImageView ivStore = holder.getView(R.id.iv_store);
+                vBottom.setVisibility(View.VISIBLE);
+                if (position == getItemCount() - 1) {
+                    vBottom.setVisibility(View.GONE);
+                }
+                tvName.setText(item.getName());
+                tvBrowse.setText(item.getBrowse());
+                tvVisit.setText(item.getVisit());
+                GlideUtils.loadImage(ivStore.getContext(), ivStore, item.getUrl(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+
+
+            }
+
+        };
         List<StoreVisitorServerParams> list = Arrays.asList(params);
         adapter.setData(list);
         mRvContent.setAdapter(adapter);

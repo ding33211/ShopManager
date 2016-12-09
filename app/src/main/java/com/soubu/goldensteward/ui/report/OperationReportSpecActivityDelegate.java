@@ -3,21 +3,31 @@ package com.soubu.goldensteward.ui.report;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.mvp.view.AppDelegate;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.FooterSingleAdapter;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.TurnOverOrderRvItem;
 import com.soubu.goldensteward.support.bean.server.EvaluateInReturnRateServerParams;
+import com.soubu.goldensteward.support.bean.server.ImageServerParams;
 import com.soubu.goldensteward.support.bean.server.OrderServerParams;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
+import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
-import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
+import com.soubu.goldensteward.support.utils.GlideUtils;
+import com.soubu.goldensteward.support.utils.RegularUtil;
 import com.soubu.goldensteward.support.widget.linebarchart.LineView;
 import com.soubu.goldensteward.support.widget.linebarchart.YAxisView;
+import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,7 +105,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
         mLineView.setBarDataList(list, mLeftAxisView, space, colorList, contentList);
     }
 
-    public void setBottomTextList(ArrayList<Date> list ,String format) {
+    public void setBottomTextList(ArrayList<Date> list, String format) {
         mLineView.setBottomTextList(list, format);
     }
 
@@ -119,7 +129,52 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
     }
 
     public void initTurnOverVolumeRecyclerView(OrderServerParams[] params) {
-        TurnOverOrderRvAdapter mAdapter = new TurnOverOrderRvAdapter(getActivity());
+        FooterSingleAdapter adapter = new FooterSingleAdapter<TurnOverOrderRvItem>(getActivity(), R.layout.item_turnover_order_recyclerview, R.layout.item_rv_footer_in_report) {
+            @Override
+            protected void bindData(BaseViewHolder holder, TurnOverOrderRvItem item, int position) {
+                TextView tvOrderState = holder.getView(R.id.tv_order_state);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                ImageView ivProductImage = holder.getView(R.id.iv_product);
+                TextView tvCompany = holder.getView(R.id.tv_company);
+                TextView tvPhone = holder.getView(R.id.tv_phone);
+                TextView tvAddress = holder.getView(R.id.tv_address);
+                TextView tvForWhat = holder.getView(R.id.tv_for_what);
+                TextView tvUnit = holder.getView(R.id.tv_unit);
+                TextView tvAmount = holder.getView(R.id.tv_amount);
+                TextView tvTotal = holder.getView(R.id.tv_total);
+                TextView tvPostageMode = holder.getView(R.id.tv_postage_mode);
+                TextView tvPrice = holder.getView(R.id.tv_price);
+                TextView tvRefundState = holder.getView(R.id.tv_refund_state);
+                TextView tvCustomerService = holder.getView(R.id.tv_customer_service);
+                View vShipFee = holder.getView(R.id.ll_ship_fee);
+                View vDiscount = holder.getView(R.id.iv_discount);
+                GlideUtils.loadRoundedImage(ivProductImage.getContext(), ivProductImage, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                tvOrderState.setText(item.getStatus());
+                tvTime.setText(ConvertUtil.dateToYYYY_MM_DD_HH_mm_ss(new Date(Long.valueOf(item.getTime()) * 1000)));
+                tvCompany.setText(item.getName() + "(" + item.getConsignee() + ")");
+                tvPhone.setText(item.getPhone());
+                tvAddress.setText(item.getProvince() + "  " + item.getCity());
+//            holder1.tvForWhat.setText(mProductType[Integer.valueOf(item.getType()) - 1]);
+                tvForWhat.setText(item.getType());
+                tvUnit.setText(item.getPrice());
+                tvPrice.setText(item.getSum_price());
+//            holder1.tvPostageMode.setText(mFreight[Integer.valueOf(item.getFreight()) - 1]);
+                vShipFee.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(item.getFreight())) {
+                    tvPostageMode.setText(item.getFreight());
+                    vShipFee.setVisibility(View.VISIBLE);
+                }
+                tvRefundState.setText(item.getSec_status());
+                tvTotal.setText(item.getP_count());
+                vDiscount.setVisibility(View.GONE);
+                if (RegularUtil.isInteger(item.getDiscount())) {
+                    int discount = Integer.valueOf(item.getDiscount());
+                    if (discount > 1) {
+                        vDiscount.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        };
         List<TurnOverOrderRvItem> list = new ArrayList<>();
         for (OrderServerParams param : params) {
             TurnOverOrderRvItem item = new TurnOverOrderRvItem();
@@ -136,11 +191,11 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
             item.setSec_status(param.getSec_status());
             item.setType(param.getOrder_type());
             item.setConsignee(param.getConsignee());
-            item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
+//            item.setRvType(BaseRecyclerViewAdapter.TYPE_ONLY);
             list.add(item);
         }
-        mAdapter.setData(list);
-        mRvContent.setAdapter(mAdapter);
+        adapter.setData(list);
+        mRvContent.setAdapter(adapter);
     }
 
     public void initLabel(String label) {
@@ -152,21 +207,117 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
     }
 
     public void initStoreVisitorRecyclerView(VisitFriendsServerParams[] params) {
-        StoreVisitorContactFriendsRvAdapter adapter = new StoreVisitorContactFriendsRvAdapter();
+        FooterSingleAdapter adapter = new FooterSingleAdapter<VisitFriendsServerParams>(getActivity(), R.layout.item_store_visitor_contact_friends_recyclerview, R.layout.item_rv_footer_in_report) {
+            @Override
+            protected void bindData(BaseViewHolder holder, VisitFriendsServerParams item, int position) {
+                ImageView ivAvatar = holder.getView(R.id.iv_avatar);
+                TextView tvName = holder.getView(R.id.tv_name);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                GlideUtils.loadRoundedImage(ivAvatar.getContext(), ivAvatar, item.getPortrait(), R.drawable.common_header, R.drawable.common_header);
+                tvName.setText(item.getName());
+                tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(item.getAdd_time()) * 1000)));
+            }
+        };
         List<VisitFriendsServerParams> list = Arrays.asList(params);
         adapter.setData(list);
         mRvContent.setAdapter(adapter);
     }
 
     public void initProductAccessRecyclerView(ProductInOrderListServerParams[] params) {
-        ProductAccessProductsOnSaleRvAdapter adapter = new ProductAccessProductsOnSaleRvAdapter(ProductAccessProductsOnSaleRvAdapter.PRODUCT_ON_SALE);
+        SingleAdapter adapter = new SingleAdapter<ProductInOrderListServerParams>(getActivity(), R.layout.item_old_product_maybe_delete_soon) {
+            @Override
+            protected void bindData(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
+                ImageView ivProductImg = holder.getView(R.id.iv_product);
+                TextView tvProductName = holder.getView(R.id.tv_name);
+                TextView tvBrowse = holder.getView(R.id.tv_browser_volume);
+                TextView tvCollection = holder.getView(R.id.tv_collection_volume);
+                TextView tvUnit = holder.getView(R.id.tv_unit);
+                TextView tvUnitPrice = holder.getView(R.id.tv_unit_price);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                TextView tvCustomerService = holder.getView(R.id.tv_customer_service);
+                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                tvProductName.setText(item.getTitle());
+                tvUnitPrice.setText(item.getPrice());
+                tvUnit.setText(item.getUnit());
+                tvTime.setText(ConvertUtil.dateToYYYY_MM_DD(new Date(Long.valueOf(item.getTime()) * 1000)));
+                tvBrowse.setText(item.getVisit());
+                tvCollection.setText(item.getCollection());
+            }
+
+        };
         List<ProductInOrderListServerParams> list = Arrays.asList(params);
         adapter.setData(list);
         mRvContent.setAdapter(adapter);
     }
 
     public void initReturnRateRecyclerView(List<EvaluateInReturnRateServerParams> list) {
-        ReturnRateAllEvaluateRvAdapter adapter = new ReturnRateAllEvaluateRvAdapter();
+        FooterSingleAdapter adapter = new FooterSingleAdapter<EvaluateInReturnRateServerParams>(getActivity(), R.layout.item_store_visitor_contact_friends_recyclerview, R.layout.item_rv_footer_in_report) {
+            @Override
+            protected void bindData(BaseViewHolder holder, EvaluateInReturnRateServerParams item, int position) {
+                ImageView ivCompanyIcon = holder.getView(R.id.iv_company_icon);
+                TextView tvName = holder.getView(R.id.tv_name);
+                ImageView ivVip = holder.getView(R.id.iv_vip);
+//            ivShopType = (ImageView) itemView.findViewById(R.id.iv_shop_type);
+                ImageView ivShopSpec = holder.getView(R.id.iv_shop_spec);
+                TextView tvContent = holder.getView(R.id.tv_content);
+                TextView tvTime = holder.getView(R.id.tv_time);
+                TextView tvCustomerService = holder.getView(R.id.tv_customer_service);
+                GridView gvImage = holder.getView(R.id.gv_image);
+                RatingBar rbRating = holder.getView(R.id.rb_rating);
+                TextView tvReply = holder.getView(R.id.tv_reply);
+                gvImage.setVisibility(View.GONE);
+                if (item.getImgList() != null && item.getImgList().length > 0) {
+                    ImageServerParams[] images = item.getImgList();
+                    List<String> urls = new ArrayList<>();
+                    for (ImageServerParams params : images) {
+                        urls.add(params.getThumb_img());
+                    }
+                    gvImage.setAdapter(new ImageGridViewAdapter(gvImage.getContext(), urls));
+                    gvImage.setVisibility(View.VISIBLE);
+                }
+                GlideUtils.loadRoundedImage(ivCompanyIcon.getContext(), ivCompanyIcon, item.getPortrait(), R.drawable.common_header, R.drawable.common_header);
+                tvName.setText(item.getName());
+                if (RegularUtil.isInteger(item.getLevel())) {
+                    switch (Integer.valueOf(item.getLevel())) {
+                        case 0:
+                            ivVip.setImageResource(R.drawable.role_0);
+                            break;
+                        case 1:
+                            ivVip.setImageResource(R.drawable.role_1);
+                            break;
+                        case 2:
+                            ivVip.setImageResource(R.drawable.role_2);
+                            break;
+                        case 3:
+                            ivVip.setImageResource(R.drawable.role_3);
+                            break;
+                        case 4:
+                            ivVip.setImageResource(R.drawable.role_4);
+                            break;
+                    }
+                }
+                try {
+                    rbRating.setRating(Float.valueOf(item.getRating()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tvContent.setText(item.getContent());
+                tvTime.setText(TextUtils.isEmpty(item.getAdd_time()) ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(item.getAdd_time()) * 1000)));
+                tvReply.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(item.getReply())) {
+                    tvReply.setText("商家回复：" + item.getReply());
+                    tvReply.setVisibility(View.VISIBLE);
+                }
+                if (RegularUtil.isInteger(item.getRole())) {
+                    int role = Integer.valueOf(item.getRole());
+                    if (role == 1) {
+                        ivShopSpec.setImageResource(R.drawable.purchaser_type_purchaser);
+                    } else {
+                        ivShopSpec.setImageResource(R.drawable.supplier_type_supplier);
+                    }
+                }
+            }
+        };
 //        List<ReturnRateAllEvaluateRvItem> list = new ArrayList<>();
 //        ReturnRateAllEvaluateRvItem item = new ReturnRateAllEvaluateRvItem();
 //        item.setUrls(new String[]{"http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg","http://img.isoubu.net/jgj/certification/1479263394496.jpg"});

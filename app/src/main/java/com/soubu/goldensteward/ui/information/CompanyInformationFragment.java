@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
 import com.soubu.goldensteward.support.bean.OssConst;
@@ -63,68 +63,6 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
     }
 
     @Override
-    protected void bindEvenListener() {
-        super.bindEvenListener();
-        viewDelegate.setRvItemOnClickListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
-            @Override
-            public void onClick(final int position) {
-                boolean needChoose = false;
-                switch (position) {
-                    case 0:
-                        mIvLastClick = (ProgressImageView) viewDelegate.getClickView(position).findViewById(R.id.iv_avatar);
-                        ShowWidgetUtil.showMultiItemDialog(getActivity(), R.string.choose_photo, R.array.choose_photo, false, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0) {
-                                    CameraUtil.doChoosePhoto(CompanyInformationFragment.this);
-                                } else {
-                                    CompanyInformationFragmentPermissionsDispatcher.takePhotoWithCheck(CompanyInformationFragment.this);
-                                }
-                            }
-                        });
-                        break;
-                    case 5:
-                    case 6:
-                        needChoose = true;
-                        break;
-                    case 4:
-                        UserServerParams params = new UserServerParams();
-                        params.setCity_id(mUser.getCity_id());
-                        params.setCity(mUser.getCity());
-                        params.setProvince_id(mUser.getProvince_id());
-                        params.setProvince(mUser.getProvince());
-                        params.setAddress(mUser.getAddress());
-                        Intent intent = new Intent(getActivity(), ModifyInfoActivity.class);
-                        intent.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_LOCATION);
-                        intent.putExtra(Constant.EXTRA_PARAMS, params);
-                        intent.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_address));
-                        startActivityForResult(intent, REQUEST_LOCATION);
-                        break;
-                    case 8:
-                        Intent intent1 = new Intent(getActivity(), ModifyInfoActivity.class);
-                        intent1.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_EDIT);
-                        intent1.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_profile));
-                        intent1.putExtra(Constant.EXTRA_CONTENT, mUser.getCompany_profile());
-                        intent1.putExtra(Constant.EXTRA_HINT, getString(R.string.company_profile_desc));
-                        intent1.putExtra(Constant.EXTRA_LABEL, getString(R.string.company_profile));
-                        startActivityForResult(intent1, REQUEST_COMPANY_PROFILE);
-                        break;
-                }
-                if (needChoose) {
-                    final InformationRvItem item = mList.get(position);
-                    ShowWidgetUtil.showMultiItemDialog(getActivity(), item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveInfo(which + 1 + "", position);
-                            dialog.dismiss();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -152,25 +90,25 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                     }
                     break;
                 case CameraUtil.REQUEST_CAMERA:
-                    File takePhoto = CameraUtil.getTakePhoto();
-                    Uri uri = Uri.fromFile(takePhoto);
-                    GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, R.drawable.auth_reload, R.drawable.auth_reload);
-                    OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_USER, new OssUtil.UploadCallBack() {
-                        @Override
-                        public void onSuccess(String fileName) {
-                            saveInfo(fileName, 0);
-                        }
+                        File takePhoto = CameraUtil.getTakePhoto();
+                        Uri uri = Uri.fromFile(takePhoto);
+                        GlideUtils.loadRoundedImage(getContext(), mIvLastClick, uri, R.drawable.auth_reload, R.drawable.auth_reload);
+                        OssUtil.uploadSingleImage(takePhoto.getPath(), OssConst.DIY_USER, new OssUtil.UploadCallBack() {
+                            @Override
+                            public void onSuccess(String fileName) {
+                                saveInfo(fileName, 0);
+                            }
 
-                        @Override
-                        public void onFailure(String fileName) {
-                            mIvLastClick.setImageResource(R.drawable.auth_reload);
-                        }
+                            @Override
+                            public void onFailure(String fileName) {
+                                mIvLastClick.setImageResource(R.drawable.auth_reload);
+                            }
 
-                        @Override
-                        public void onProgress(int progress) {
-                            mIvLastClick.setProgress(progress);
-                        }
-                    });
+                            @Override
+                            public void onProgress(int progress) {
+                                mIvLastClick.setProgress(progress);
+                            }
+                        });
                     break;
                 case REQUEST_LOCATION:
                     if (data != null) {
@@ -183,7 +121,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                         mUser.setCity_id(mLocationParams.getCity_id());
                         mList.get(4).setContent(params.getAddress());
                         viewDelegate.notifyItemChanged(4);
-                        if (!mHaveAddressChanged) {
+                        if(!mHaveAddressChanged){
                             mHaveAddressChanged = true;
                         }
                     }
@@ -200,7 +138,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
 
 
     private void saveInfo(String content, int position) {
-        if (!mHaveChanged) {
+        if(!mHaveChanged){
             mHaveChanged = true;
         }
         switch (position) {
@@ -268,9 +206,65 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
         super.initData();
         mParams = new UserServerParams();
         mLocationParams = new UserServerParams();
-        viewDelegate.setAdapter(new InformationRvAdapter());
-        mUserDao = DBHelper.getInstance(getActivity()).getUserDao();
+        InformationSingleRvAdapter adapter = new InformationSingleRvAdapter(getActivity()){
+            @Override
+            public void onItemClick(BaseViewHolder holder, InformationRvItem item, int position) {
+                boolean needChoose = false;
+                switch (position) {
+                    case 0:
+                        mIvLastClick = (ProgressImageView) viewDelegate.getClickView(position).findViewById(R.id.iv_avatar);
+                        ShowWidgetUtil.showMultiItemDialog(getActivity(), R.string.choose_photo, R.array.choose_photo, false, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    CameraUtil.doChoosePhoto(CompanyInformationFragment.this);
+                                } else {
+                                    CompanyInformationFragmentPermissionsDispatcher.takePhotoWithCheck(CompanyInformationFragment.this);
+                                }
+                            }
+                        });
+                        break;
+                    case 5:
+                    case 6:
+                        needChoose = true;
+                        break;
+                    case 4:
+                        UserServerParams params = new UserServerParams();
+                        params.setCity_id(mUser.getCity_id());
+                        params.setCity(mUser.getCity());
+                        params.setProvince_id(mUser.getProvince_id());
+                        params.setProvince(mUser.getProvince());
+                        params.setAddress(mUser.getAddress());
+                        Intent intent = new Intent(getActivity(), ModifyInfoActivity.class);
+                        intent.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_LOCATION);
+                        intent.putExtra(Constant.EXTRA_PARAMS, params);
+                        intent.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_address));
+                        startActivityForResult(intent, REQUEST_LOCATION);
+                        break;
+                    case 8:
+                        Intent intent1 = new Intent(getActivity(), ModifyInfoActivity.class);
+                        intent1.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_EDIT);
+                        intent1.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_profile));
+                        intent1.putExtra(Constant.EXTRA_CONTENT, mUser.getCompany_profile());
+                        intent1.putExtra(Constant.EXTRA_HINT, getString(R.string.company_profile_desc));
+                        intent1.putExtra(Constant.EXTRA_LABEL, getString(R.string.company_profile));
+                        startActivityForResult(intent1, REQUEST_COMPANY_PROFILE);
+                        break;
+                }
+                if (needChoose) {
+                    ShowWidgetUtil.showMultiItemDialog(getActivity(), item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveInfo(which + 1 + "", position);
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            }
+        };
+        viewDelegate.setAdapter(adapter);
         String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
+        mUserDao = DBHelper.getInstance(getActivity()).getUserDao();
         List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(phone)).list();
         if (list.size() > 0) {
             initRecyclerData(list.get(0));
@@ -282,18 +276,18 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
         mUser = user;
         mList = new ArrayList<>();
         InformationRvItem item = new InformationRvItem();
-        item.setTitleRes(R.string.company_logo);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_AVATAR);
+        item.setTitleRes(R.string.sign_up_now);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_AVATAR);
         item.setContent(user.getPortrait());
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.company_name);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         item.setContent(user.getCompany());
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.main_industry);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         item.setArrayRes(R.array.main_industry);
         item.setContent(user.getMain_industry());
         mList.add(item);
@@ -301,34 +295,34 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
         item.setTitleRes(R.string.management_model);
         item.setContent(user.getOperation_mode());
         item.setArrayRes(R.array.operation_mode);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.company_address);
         item.setContent(user.getAddress());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.annual_turnover);
         item.setContent(user.getTurnover());
         item.setArrayRes(R.array.turnover);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.employees_num);
         item.setContent(user.getCompany_size());
         item.setArrayRes(R.array.company_size);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.main_products);
         item.setContent(user.getMain_product());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CONTENT_MULTILINE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CONTENT_MULTILINE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.company_profile);
         item.setContent(user.getCompany_profile());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_COMPANY_PROFILE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_COMPANY_PROFILE);
         mList.add(item);
         viewDelegate.setData(mList);
     }
@@ -344,25 +338,25 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
 //        }
 //    }
 
-    public UserServerParams getParams() {
+    public UserServerParams getParams(){
         return mParams;
     }
 
 
-    public UserServerParams getLocationParams() {
+    public UserServerParams getLocationParams(){
         return mLocationParams;
     }
 
-    public void updateToDb() {
+    public void updateToDb(){
         mUserDao.update(mUser);
     }
 
-    public boolean isAddressChanged() {
+    public boolean isAddressChanged(){
         return mHaveAddressChanged;
     }
 
 
-    public boolean isChanged() {
+    public boolean isChanged(){
         return mHaveChanged;
     }
 }

@@ -7,12 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.ui.home.HomeGridViewAdapter;
-import com.soubu.goldensteward.ui.login.LoginTimeRvAdapter;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +25,7 @@ import java.util.List;
 public class SubAccountActivityDelegate extends AppDelegate {
 
     HomeGridViewAdapter mAdapter;
-    LoginTimeRvAdapter mRecyclerAdapter;
+    SingleAdapter mRecyclerAdapter;
 
     @Override
     public int getRootLayoutId() {
@@ -34,7 +37,13 @@ public class SubAccountActivityDelegate extends AppDelegate {
         super.initWidget();
         mAdapter = new HomeGridViewAdapter(this.getActivity());
         ((GridView) get(R.id.gv_container)).setAdapter(mAdapter);
-        mRecyclerAdapter = new LoginTimeRvAdapter();
+        mRecyclerAdapter = new SingleAdapter<String>(getActivity(), R.layout.item_logintime_recyclerview) {
+            @Override
+            protected void bindData(BaseViewHolder holder, String item, int position) {
+                TextView tvContent = holder.getView(R.id.tv_content);
+                tvContent.setText(ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(item) * 1000)));
+            }
+        };
         RecyclerView rvContent = get(R.id.rv_content);
         rvContent.setAdapter(mRecyclerAdapter);
         rvContent.setLayoutManager(new LinearLayoutManager(getActivity()));

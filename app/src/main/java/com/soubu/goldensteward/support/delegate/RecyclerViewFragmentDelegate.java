@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
 
-    private BaseRecyclerViewAdapter mAdapter;
+    private SingleAdapter mAdapter;
     RecyclerView mRvContent;
     LinearLayout mLlEmptyView;
 
@@ -50,7 +50,7 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setAdapter(BaseRecyclerViewAdapter<T> adapter) {
+    public void setAdapter(SingleAdapter adapter) {
         mAdapter = adapter;
         mRvContent.setAdapter(mAdapter);
     }
@@ -62,9 +62,9 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         mLlEmptyView.addView(view);
     }
 
-    public void setRvItemOnClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
-        mAdapter.setOnRvItemClickListener(listener);
-    }
+//    public void setRvItemOnClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
+//        mAdapter.setOnRvItemClickListener(listener);
+//    }
 
     public View getClickView(int position) {
         return mRvContent.getLayoutManager().findViewByPosition(position);

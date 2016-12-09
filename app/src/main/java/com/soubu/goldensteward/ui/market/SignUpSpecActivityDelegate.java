@@ -8,11 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
+import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
-import com.soubu.goldensteward.ui.report.ProductAccessProductsOnSaleRvAdapter;
 
 import java.util.List;
 
@@ -22,14 +24,34 @@ import java.util.List;
 
 public class SignUpSpecActivityDelegate extends AppDelegate {
     RecyclerView mRvContent;
-    ProductAccessProductsOnSaleRvAdapter mAdapter;
+    SingleAdapter mAdapter;
 
     @Override
     public void initWidget() {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProductAccessProductsOnSaleRvAdapter(ProductAccessProductsOnSaleRvAdapter.PRODUCT_HAVE_SIGNED_UP);
+        mAdapter = new SingleAdapter<ProductInOrderListServerParams>(getActivity(), R.layout.item_product_access_product_on_sale_recyclerview) {
+            @Override
+            protected void bindData(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
+                View vBottom = holder.getView(R.id.ll_bottom);
+                View vCbChoose = holder.getView(R.id.cb_choose);
+                vBottom.setVisibility(View.GONE);
+                vCbChoose.setVisibility(View.GONE);
+                ImageView ivProductImg = holder.getView(R.id.iv_product);
+                TextView tvProductName = holder.getView(R.id.tv_name);
+                TextView tvSamplePrice = holder.getView(R.id.tv_sample_card_price);
+                TextView tvBigGoodsPrice = holder.getView(R.id.tv_big_goods_price);
+                TextView tvBrowse = holder.getView(R.id.tv_browser_volume);
+                TextView tvCollection = holder.getView(R.id.tv_collection_volume);
+                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                tvProductName.setText(item.getTitle());
+                tvSamplePrice.setText(item.getPrice());
+                tvBrowse.setText(item.getVisit());
+                tvCollection.setText(item.getCollection());
+            }
+
+        };
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), 10)));
         mRvContent.setAdapter(mAdapter);
     }

@@ -19,9 +19,9 @@ import java.util.List;
  * Created by dingsigang on 16-10-18.
  */
 public class MarketingFragmentDelegate extends BaseFragmentDelegate {
-    RecyclerView mRvContent;
-    AllActivityRvAdapter mAllActivityAdapter;
-    MyActivityRvAdapter mMyActivityAdapter;
+//    RecyclerView mRvContent;
+//    AllActivityRvAdapter mAllActivityAdapter;
+//    MyActivityRvAdapter mMyActivityAdapter;
 
     @Override
     public int getRootLayoutId() {
