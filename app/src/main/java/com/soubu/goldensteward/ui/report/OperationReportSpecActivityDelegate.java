@@ -251,7 +251,7 @@ public class OperationReportSpecActivityDelegate extends AppDelegate {
     }
 
     public void initReturnRateRecyclerView(List<EvaluateInReturnRateServerParams> list) {
-        FooterSingleAdapter adapter = new FooterSingleAdapter<EvaluateInReturnRateServerParams>(getActivity(), R.layout.item_store_visitor_contact_friends_recyclerview, R.layout.item_rv_footer_in_report) {
+        FooterSingleAdapter adapter = new FooterSingleAdapter<EvaluateInReturnRateServerParams>(getActivity(), R.layout.item_return_rate_all_evaluate_recyclerview, R.layout.item_rv_footer_in_report) {
             @Override
             protected void bindData(BaseViewHolder holder, EvaluateInReturnRateServerParams item, int position) {
                 ImageView ivCompanyIcon = holder.getView(R.id.iv_company_icon);
