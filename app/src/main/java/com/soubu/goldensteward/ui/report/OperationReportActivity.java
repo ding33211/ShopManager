@@ -1,12 +1,13 @@
 package com.soubu.goldensteward.ui.report;
 
 import android.content.Intent;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.ui.home.HomeGridViewAdapter;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.delegate.RecyclerViewActivityDelegate;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
@@ -14,7 +15,10 @@ import com.soubu.goldensteward.support.bean.OperationReportRvItem;
 import com.soubu.goldensteward.support.bean.server.BaseDataObject;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.OperationReportServerParams;
+import com.soubu.goldensteward.support.delegate.RecyclerViewActivityDelegate;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.ui.home.HomeGridViewAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -92,27 +96,41 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setAdapter(new OperationReportRvAdapter());
-        viewDelegate.setRvItemOnClickListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
+        SingleAdapter adapter = new SingleAdapter<OperationReportRvItem>(this, R.layout.item_operation_report_recyclerview) {
             @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(OperationReportActivity.this, OperationReportSpecActivity.class);
-                switch (position) {
-                    case 0:
-                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
-                        break;
-                    case 1:
-                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_STORE_VISITOR);
-                        break;
-                    case 2:
-                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_PRODUCT_ACCESS);
-                        break;
-                    case 3:
-                        intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_REFUND_RATE);
-                        break;
+            protected void bindData(BaseViewHolder holder, OperationReportRvItem item, int position) {
+                View vChoose = holder.getView(R.id.iv_choose);
+                if (!item.isClickable()) {
+                    vChoose.setVisibility(View.GONE);
                 }
-                startActivity(intent);
+                TextView tvLabel = holder.getView(R.id.tv_label);
+                GridView gvContainer = holder.getView(R.id.gv_container);
+                tvLabel.setText(item.getLabel());
+                gvContainer.setAdapter(item.getAdapter());
             }
-        });
+
+            @Override
+            public void onItemClick(BaseViewHolder holder, OperationReportRvItem item, int position) {
+                if(item.isClickable()){
+                    Intent intent = new Intent(OperationReportActivity.this, OperationReportSpecActivity.class);
+                    switch (position) {
+                        case 0:
+                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
+                            break;
+                        case 1:
+                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_STORE_VISITOR);
+                            break;
+                        case 2:
+                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_PRODUCT_ACCESS);
+                            break;
+                        case 3:
+                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_REFUND_RATE);
+                            break;
+                    }
+                    startActivity(intent);
+                }
+            }
+        };
+        viewDelegate.setAdapter(adapter);
     }
 }

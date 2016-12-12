@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.soubu.goldensteward.support.adapter.FooterSingleAdapter;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 
 /**

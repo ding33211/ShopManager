@@ -8,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
-import com.soubu.goldensteward.ui.report.ProductAccessProductsOnSaleRvAdapter;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ import java.util.List;
 
 public class SignUpActivityDelegate extends AppDelegate {
     RecyclerView mRvContent;
-    ProductAccessProductsOnSaleRvAdapter mAdapter;
+    SingleAdapter mAdapter;
     TextView mTvTotal;
     FrameLayout mFmAll;
 
@@ -38,10 +37,8 @@ public class SignUpActivityDelegate extends AppDelegate {
         mRvContent = get(R.id.rv_content);
         mTvTotal = get(R.id.tv_total);
         mFmAll = get(R.id.fm_all);
-        mAdapter = new ProductAccessProductsOnSaleRvAdapter(ProductAccessProductsOnSaleRvAdapter.PRODUCT_CHOOSE_SIGN_UP);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), 10)));
-        mRvContent.setAdapter(mAdapter);
     }
 
     public void initProduct(List<ProductInOrderListServerParams> list) {
@@ -49,8 +46,9 @@ public class SignUpActivityDelegate extends AppDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setOnProductItemClickListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
-        mAdapter.setOnRvItemClickListener(listener);
+    public void setProductAdapter(SingleAdapter adapter) {
+        mAdapter = adapter;
+        mRvContent.setAdapter(mAdapter);
     }
 
     public void onCommitSuccess() {

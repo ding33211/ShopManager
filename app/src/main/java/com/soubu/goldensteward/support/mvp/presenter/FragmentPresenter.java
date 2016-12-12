@@ -16,24 +16,26 @@
 package com.soubu.goldensteward.support.mvp.presenter;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.soubu.goldensteward.support.mvp.view.IDelegate;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
+
+//import com.trello.rxlifecycle2.components.support.RxFragment;
 
 
 /**
  * Presenter层的实现基类
+ *
  * @param <T> View delegate class type
  */
-public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
+public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment {
     public T viewDelegate;
 
     @Override
@@ -59,7 +61,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(viewDelegate.ifNeedEventBus()){
+        if (viewDelegate.ifNeedEventBus()) {
             EventBus.getDefault().register(this);
         }
         viewDelegate.initWidget();
@@ -105,7 +107,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(viewDelegate.ifNeedEventBus()){
+        if (viewDelegate.ifNeedEventBus()) {
             EventBus.getDefault().unregister(this);
         }
         viewDelegate = null;

@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.mvp.view.AppDelegate;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
+import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.widget.RecyclerViewFastScroller;
 
 import java.util.List;
@@ -17,8 +17,8 @@ import java.util.List;
  */
 
 public class MyCustomersActivityDelegate extends AppDelegate {
-    MyCustomersRvAdapter mAdapter;
-
+    SingleAdapter mAdapter;
+    RecyclerView mRecyclerView;
     @Override
     public int getRootLayoutId() {
         return R.layout.activity_my_customers;
@@ -27,11 +27,9 @@ public class MyCustomersActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new MyCustomersRvAdapter();
-        RecyclerView recyclerView = get(R.id.rv_content);
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView = get(R.id.rv_content);
         final RecyclerViewFastScroller fastScroller = get(R.id.fast_scroller);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public void onLayoutChildren(final RecyclerView.Recycler recycler, final RecyclerView.State state) {
                 super.onLayoutChildren(recycler, state);
@@ -49,13 +47,14 @@ public class MyCustomersActivityDelegate extends AppDelegate {
                 fastScroller.setVisibility(mAdapter.getItemCount() > itemsShown ? View.VISIBLE : View.GONE);
             }
         });
-        fastScroller.setRecyclerView(recyclerView);
+        fastScroller.setRecyclerView(mRecyclerView);
         fastScroller.setViewsToUse(R.layout.recycler_view_fast_scroller, R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
     }
 
 
-    public void setOnRvItemSelectedListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener){
-        mAdapter.setOnRvItemClickListener(listener);
+    public void setMyCustomerAdapter(SingleAdapter adapter) {
+        mAdapter = adapter;
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class MyCustomersActivityDelegate extends AppDelegate {
         return true;
     }
 
-    public void setData(List<CustomerServerParams> list){
+    public void setData(List<CustomerServerParams> list) {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }

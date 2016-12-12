@@ -5,9 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.delegate.BaseFragmentDelegate;
 import com.soubu.goldensteward.support.bean.server.SubAccountServerParams;
+import com.soubu.goldensteward.support.delegate.BaseFragmentDelegate;
 import com.soubu.goldensteward.support.widget.RecyclerViewFastScroller;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
 
     SubAccountRvAdapter mAdapter;
-
+    RecyclerView mRvSubAccount;
     @Override
     public int getRootLayoutId() {
         return R.layout.fragment_sub_account;
@@ -28,11 +27,9 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new SubAccountRvAdapter();
-        RecyclerView recyclerView = get(R.id.rv_content);
-        recyclerView.setAdapter(mAdapter);
+        mRvSubAccount = get(R.id.rv_content);
         final RecyclerViewFastScroller fastScroller = get(R.id.fast_scroller);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+        mRvSubAccount.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
             @Override
             public void onLayoutChildren(final RecyclerView.Recycler recycler, final RecyclerView.State state) {
                 super.onLayoutChildren(recycler, state);
@@ -50,7 +47,7 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
                 fastScroller.setVisibility(mAdapter.getItemCount() > itemsShown ? View.VISIBLE : View.GONE);
             }
         });
-        fastScroller.setRecyclerView(recyclerView);
+        fastScroller.setRecyclerView(mRvSubAccount);
         fastScroller.setViewsToUse(R.layout.recycler_view_fast_scroller, R.id.fast_scroller_bubble, R.id.fast_scroller_handle);
 
 //        ((EditText) get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
@@ -71,8 +68,9 @@ public class SubAccountFragmentDelegate extends BaseFragmentDelegate {
 //        });
     }
 
-    public void setOnRvItemSelectListener(BaseRecyclerViewAdapter.OnRvItemClickListener listener) {
-        mAdapter.setOnRvItemClickListener(listener);
+    public void setSubAccountRvAdapter(SubAccountRvAdapter adapter) {
+        mAdapter = adapter;
+        mRvSubAccount.setAdapter(mAdapter);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -20,10 +19,6 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import jp.wasabeef.glide.transformations.internal.Utils;
-
-import static android.support.v7.widget.StaggeredGridLayoutManager.TAG;
-import static com.baidu.location.h.j.S;
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
 

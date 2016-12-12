@@ -2,14 +2,14 @@ package com.soubu.goldensteward.ui.referstore;
 
 import android.content.Intent;
 
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.SubAccountServerParams;
+import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.PinyinComparator;
 
@@ -35,19 +35,15 @@ public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDele
     protected void initData() {
         super.initData();
         RetrofitRequest.getInstance().getSubAccountList();
-    }
-
-    @Override
-    protected void bindEvenListener() {
-        super.bindEvenListener();
-        viewDelegate.setOnRvItemSelectListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
+        SubAccountRvAdapter adapter = new SubAccountRvAdapter(getActivity()){
             @Override
-            public void onClick(int position) {
+            public void onItemClick(BaseViewHolder holder, SubAccountServerParams item, int position) {
                 Intent intent = new Intent(getActivity(), SubAccountSpecActivity.class);
-                intent.putExtra(Constant.EXTRA_SUB_ACCOUNT_ID, mList.get(position).getUser_id());
+                intent.putExtra(Constant.EXTRA_SUB_ACCOUNT_ID, item.getUser_id());
                 startActivity(intent);
             }
-        });
+        };
+        viewDelegate.setSubAccountRvAdapter(adapter);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

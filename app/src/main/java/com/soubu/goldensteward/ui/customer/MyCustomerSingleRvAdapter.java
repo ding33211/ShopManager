@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.ui.referstore;
+package com.soubu.goldensteward.ui.customer;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -9,28 +9,25 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.server.SubAccountServerParams;
+import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.widget.RecyclerViewFastScroller;
 
+import java.util.Date;
+
 /**
- * Created by lakers on 16/10/31.
+ * Created by dingsigang on 16-12-8.
  */
 
-public class SubAccountRvAdapter extends SingleAdapter<SubAccountServerParams> implements RecyclerViewFastScroller.BubbleTextGetter {
+public class MyCustomerSingleRvAdapter extends SingleAdapter<CustomerServerParams> implements RecyclerViewFastScroller.BubbleTextGetter{
 
-    public SubAccountRvAdapter(Context context) {
-        super(context, R.layout.item_sub_account_recyclerview);
+    public MyCustomerSingleRvAdapter(Context context) {
+        super(context, R.layout.item_my_customer_recycler);
     }
 
     @Override
-    public String getTextToShowInBubble(int pos) {
-        return data.get(pos).getLetter();
-    }
-
-
-    @Override
-    protected void bindData(BaseViewHolder holder, SubAccountServerParams item, int position) {
+    protected void bindData(BaseViewHolder holder, CustomerServerParams item, int position) {
         String thisLetter = item.getLetter();
         String lastLetter = null;
         String nextLetter = null;
@@ -58,14 +55,19 @@ public class SubAccountRvAdapter extends SingleAdapter<SubAccountServerParams> i
             }
         }
         TextView tvName = holder.getView(R.id.tv_name);
-        TextView tvLetter = holder.getView(R.id.tv_letter);
+        TextView tvDealCount = holder.getView(R.id.tv_traded_order_count);
+        TextView tvLastDeal = holder.getView(R.id.tv_last_deal_time);
         ImageView ivAvatar = holder.getView(R.id.iv_avatar);
+        TextView tvLetter = holder.getView(R.id.tv_letter);
         tvName.setText(item.getName());
         tvLetter.setText(item.getLetter());
-        tvName.setTextColor(tvLetter.getResources().getColor(R.color.title_black));
+        tvDealCount.setText(item.getOrder_count());
         GlideUtils.loadRoundedImage(ivAvatar.getContext(), ivAvatar, item.getPortrait(), R.drawable.common_header, R.drawable.common_header);
-
+        tvLastDeal.setText(item.getAdd_time() == null ? "" : ConvertUtil.dateToYYYY_MM_DD_HH_mm(new Date(Long.valueOf(item.getAdd_time()) * 1000)).substring(2));
     }
 
-
+    @Override
+    public String getTextToShowInBubble(int pos) {
+        return data.get(pos).getLetter();
+    }
 }

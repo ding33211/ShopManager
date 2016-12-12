@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
 import com.soubu.goldensteward.support.bean.RegisterRvItem;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.utils.WindowUtil;
@@ -27,7 +26,7 @@ import java.util.List;
  * Created by lakers on 16/10/27.
  */
 
-public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterRvItem> {
+public class RegisterSupplierRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_ITEM_CAN_FILL = 0x00;  // 可填
     public static final int TYPE_ITEM_MUST_FILL = 0x11;  // 必填
     public static final int TYPE_ITEM_MUST_CHOOSE = 0x12;  // 必选
@@ -43,6 +42,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     private String mMultiLine;
     //必填项
     private List<RegisterRvItem> mMustList;
+    private List<RegisterRvItem> mList;
 
 
     public RegisterSupplierRvAdapter(Activity activity) {
@@ -50,6 +50,7 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
         mActivity = activity;
         mMustList = new ArrayList<>();
 //        mLostFocusListener = listener;
+        mList = new ArrayList<>();
     }
 
     @Override
@@ -235,7 +236,16 @@ public class RegisterSupplierRvAdapter extends BaseRecyclerViewAdapter<RegisterR
     @Override
     public int getItemViewType(int position) {
         return mList.get(position).getType();
+    }
 
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    public void setData(List<RegisterRvItem> list) {
+        mList = list;
+        notifyDataSetChanged();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

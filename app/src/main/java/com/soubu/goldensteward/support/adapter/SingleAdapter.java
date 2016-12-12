@@ -19,9 +19,9 @@ import java.util.List;
  */
 public abstract class SingleAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private Context context;
+    Context context;
     LayoutInflater inflater;
-    List<T> data = new ArrayList<>();
+    public List<T> data = new ArrayList<>();
     private int layoutId;
     private SparseArray<Boolean> listenerMap = new SparseArray<>();
 

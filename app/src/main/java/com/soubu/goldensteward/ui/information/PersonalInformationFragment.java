@@ -1,7 +1,7 @@
 package com.soubu.goldensteward.ui.information;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.SpKey;
@@ -37,11 +37,17 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setRvItemOnClickListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mParams = new UserServerParams();
+        InformationSingleRvAdapter adapter = new InformationSingleRvAdapter(getActivity()) {
             @Override
-            public void onClick(final int position) {
-                if (mList.get(position).getItemType() == InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE) {
-                    ShowWidgetUtil.showCustomInputDialog(getActivity(), mList.get(position).getTitleRes(), mList.get(position).getContent(), new ShowWidgetUtil.OnClickCustomInputConfirm() {
+            public void onItemClick(BaseViewHolder holder, InformationRvItem item, int position) {
+                if (item.getItemType() == InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE) {
+                    ShowWidgetUtil.showCustomInputDialog(getActivity(), item.getTitleRes(), item.getContent(), new ShowWidgetUtil.OnClickCustomInputConfirm() {
                         @Override
                         public void onConfirm(String content) {
                             saveInfo(content, position);
@@ -49,14 +55,8 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
                     });
                 }
             }
-        });
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        mParams = new UserServerParams();
-        viewDelegate.setAdapter(new InformationRvAdapter());
+        };
+        viewDelegate.setAdapter(adapter);
         mUserDao = DBHelper.getInstance(getActivity()).getUserDao();
         String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
         List<User> list = mUserDao.queryBuilder().where(UserDao.Properties.Phone.eq(phone)).list();
@@ -101,33 +101,33 @@ public class PersonalInformationFragment extends FragmentPresenter<RecyclerViewF
         InformationRvItem item = new InformationRvItem();
         item.setTitleRes(R.string.store_name);
         item.setContent(user.getName());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.contact);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         item.setContent(user.getContact_name());
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.position);
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         item.setArrayRes(R.array.job);
         item.setContent(user.getJob());
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.mobile);
         item.setContent(user.getPhone());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_NOT_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.email);
         item.setContent(user.getMail());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new InformationRvItem();
         item.setTitleRes(R.string.phone);
         item.setContent(user.getFixed_telephone());
-        item.setItemType(InformationRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(InformationSingleRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         viewDelegate.setData(mList);
     }

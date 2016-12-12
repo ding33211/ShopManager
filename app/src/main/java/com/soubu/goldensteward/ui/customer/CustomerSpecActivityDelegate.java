@@ -7,11 +7,10 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.FooterSingleAdapter;
-import com.soubu.goldensteward.support.delegate.BaseWithFootOrRefreshRecyclerViewDelegate;
-import com.soubu.goldensteward.support.utils.ConvertUtil;
-import com.soubu.goldensteward.ui.report.TransactionRecordRvAdapter;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
 import com.soubu.goldensteward.support.bean.server.ProductInCustomerDetailServerParams;
+import com.soubu.goldensteward.support.delegate.BaseWithFootOrRefreshRecyclerViewDelegate;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 

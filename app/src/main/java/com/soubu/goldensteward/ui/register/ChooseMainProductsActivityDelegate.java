@@ -32,7 +32,7 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         mRvCategory = get(R.id.rv_content);
-        mAdapter = new ChooseMainProductsCategoryRvAdapter();
+        mAdapter = new ChooseMainProductsCategoryRvAdapter(getActivity());
         mRvCategory.setAdapter(mAdapter);
         mRvCategory.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 1, R.drawable.divider_grey_recyclerview));
         mRvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -50,7 +50,7 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mAdapter.setSelectedList(selectedList);
     }
 
-    public void setSelectedPosition(int position){
+    public void setSelectedPosition(int position) {
         mAdapter.setSelectedPosition(position);
     }
 

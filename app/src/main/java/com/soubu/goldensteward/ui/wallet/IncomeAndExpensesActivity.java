@@ -49,11 +49,11 @@ public class IncomeAndExpensesActivity extends ActivityPresenter<TabViewpagerAct
         List<Fragment> fragments = new ArrayList<>();
         mIncomeFragment = new IncomeOrExpensesFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesRvAdapter.TYPE_INCOME);
+        bundle.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_INCOME);
         mIncomeFragment.setArguments(bundle);
         mExpensesFragment = new IncomeOrExpensesFragment();
         Bundle bundle2 = new Bundle();
-        bundle2.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesRvAdapter.TYPE_EXPENSES);
+        bundle2.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_EXPENSES);
         mExpensesFragment.setArguments(bundle2);
         fragments.add(mIncomeFragment);
         fragments.add(mExpensesFragment);

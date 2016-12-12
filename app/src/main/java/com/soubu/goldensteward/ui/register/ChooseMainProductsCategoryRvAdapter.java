@@ -1,14 +1,13 @@
 package com.soubu.goldensteward.ui.register;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.adapter.SingleAdapter;
 
 import java.util.List;
 
@@ -16,65 +15,73 @@ import java.util.List;
  * Created by lakers on 16/10/29.
  */
 
-public class ChooseMainProductsCategoryRvAdapter extends BaseRecyclerViewAdapter<String> {
+public class ChooseMainProductsCategoryRvAdapter extends SingleAdapter<String> {
 
     private int mSelectPosition = 0;
 
     private List<Integer> mSelectedList;
 
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_choose_main_products_category_recyclerview, parent, false);
-        return new ItemViewHolder(v);
+    public ChooseMainProductsCategoryRvAdapter(Context context) {
+        super(context, R.layout.item_choose_main_products_category_recyclerview);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ItemViewHolder) {
-            ItemViewHolder holder1 = (ItemViewHolder) holder;
-            holder1.tvContent.setText(mList.get(position));
-            holder1.ivSelected.setVisibility(View.GONE);
-            if (mSelectedList.contains(position)) {
-                holder1.ivSelected.setImageResource(R.drawable.login_product_checked);
-                holder1.ivSelected.setVisibility(View.VISIBLE);
-            }
-            if (mSelectPosition == position) {
-                holder1.vItem.setBackgroundResource(R.color.colorPrimary);
-                holder1.tvContent.setTextColor(holder1.tvContent.getResources().getColor(android.R.color.white));
-                holder1.ivSelected.setImageResource(R.drawable.login_product_checking);
-                holder1.ivSelected.setVisibility(View.VISIBLE);
-            } else {
-                holder1.vItem.setBackgroundResource(android.R.color.transparent);
-                holder1.tvContent.setTextColor(holder1.tvContent.getResources().getColor(R.color.subtitle_grey));
-            }
+    protected void bindData(BaseViewHolder holder, String item, int position) {
+        TextView tvContent = holder.getView(R.id.tv_content);
+        ImageView ivSelected = holder.getView(R.id.iv_select);
+        View vItem = holder.getRootView();
+        tvContent.setText(item);
+        ivSelected.setVisibility(View.GONE);
+        if (mSelectedList.contains(position)) {
+            ivSelected.setImageResource(R.drawable.login_product_checked);
+            ivSelected.setVisibility(View.VISIBLE);
+        }
+        if (mSelectPosition == position) {
+            vItem.setBackgroundResource(R.color.colorPrimary);
+            tvContent.setTextColor(tvContent.getResources().getColor(android.R.color.white));
+            ivSelected.setImageResource(R.drawable.login_product_checking);
+            ivSelected.setVisibility(View.VISIBLE);
+        } else {
+            vItem.setBackgroundResource(android.R.color.transparent);
+            tvContent.setTextColor(tvContent.getResources().getColor(R.color.subtitle_grey));
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvContent;
-        ImageView ivSelected;
-        View vItem;
-
-        public ItemViewHolder(View itemView) {
-            super(itemView);
-            vItem = itemView;
-            tvContent = (TextView) itemView.findViewById(R.id.tv_content);
-            ivSelected = (ImageView) itemView.findViewById(R.id.iv_select);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mListener != null) {
-                if(!mListener.onClick(getLayoutPosition())){
-                    return;
-                }
+    @Override
+    public void onItemClick(BaseViewHolder holder, String item, int position) {
+        if (mListener != null) {
+            if(!mListener.onClick(position)){
+                return;
             }
-            mSelectPosition = getLayoutPosition();
-            notifyDataSetChanged();
         }
+        mSelectPosition = position;
+        notifyDataSetChanged();
     }
+
+//    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        TextView tvContent;
+//        ImageView ivSelected;
+//        View vItem;
+//
+//        public ItemViewHolder(View itemView) {
+//            super(itemView);
+//            vItem = itemView;
+//            tvContent = (TextView) itemView.findViewById(R.id.tv_content);
+//            ivSelected = (ImageView) itemView.findViewById(R.id.iv_select);
+//            itemView.setOnClickListener(this);
+//        }
+//
+//        @Override
+//        public void onClick(View v) {
+//            if (mListener != null) {
+//                if(!mListener.onClick(getLayoutPosition())){
+//                    return;
+//                }
+//            }
+//            mSelectPosition = getLayoutPosition();
+//            notifyDataSetChanged();
+//        }
+//    }
 
 
     public void setSelectedList(List<Integer> list) {

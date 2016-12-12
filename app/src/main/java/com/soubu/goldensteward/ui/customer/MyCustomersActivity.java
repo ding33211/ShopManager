@@ -3,14 +3,14 @@ package com.soubu.goldensteward.ui.customer;
 import android.content.Intent;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseRecyclerViewAdapter;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.PinyinComparator;
 
@@ -51,14 +51,15 @@ public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDe
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnRvItemSelectedListener(new BaseRecyclerViewAdapter.OnRvItemClickListener() {
+        MyCustomerSingleRvAdapter adapter = new MyCustomerSingleRvAdapter(this) {
             @Override
-            public void onClick(int position) {
+            public void onItemClick(BaseViewHolder holder, CustomerServerParams item, int position) {
                 Intent intent = new Intent(MyCustomersActivity.this, CustomerSpecActivity.class);
                 intent.putExtra(Constant.EXTRA_PARAMS, mList.get(position));
                 startActivity(intent);
             }
-        });
+        };
+        viewDelegate.setMyCustomerAdapter(adapter);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
