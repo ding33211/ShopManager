@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
 import com.soubu.goldensteward.support.greendao.DBHelper;
+import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.ui.home.HomeActivity;
@@ -58,7 +58,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void load() {
-        if (BaseApplication.getContext().initUser()) {
+        if (UserManager.initUser()) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         } else {
@@ -66,7 +66,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             startActivityForResult(intent, REQUEST_LOGIN);
         }
         finish();
-
     }
 
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法

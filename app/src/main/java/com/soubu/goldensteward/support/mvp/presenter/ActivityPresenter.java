@@ -132,4 +132,8 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
 
     protected abstract Class<T> getDelegateClass();
 
+    @Override
+    public void initWidget() {
+
+    }
 }

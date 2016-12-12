@@ -17,7 +17,7 @@ import com.soubu.goldensteward.support.net.ServerErrorUtil;
 import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
-import com.soubu.goldensteward.support.web.core.BaseView;
+import com.soubu.goldensteward.support.web.mvp.BaseView;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -35,7 +35,7 @@ import permissions.dispatcher.RuntimePermissions;
  * 基类activity,放公有方法
  */
 @RuntimePermissions
-public class BaseActivity extends RxAppCompatActivity implements BaseView{
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseView {
 
     public boolean mEventBusJustForThis = false;
 
@@ -162,7 +162,6 @@ public class BaseActivity extends RxAppCompatActivity implements BaseView{
         }
     }
 
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         //注：回调 3
@@ -174,4 +173,6 @@ public class BaseActivity extends RxAppCompatActivity implements BaseView{
     public <T> LifecycleTransformer<T> bindLife() {
         return bindToLifecycle();
     }
+
+
 }

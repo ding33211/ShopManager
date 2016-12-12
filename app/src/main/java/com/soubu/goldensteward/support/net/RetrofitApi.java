@@ -63,7 +63,7 @@ public interface RetrofitApi {
 
     //登录
     @FormUrlEncoded
-    @POST("User/login")
+    @POST("User/responseLogin")
     Call<BaseResp<BaseDataObject<UserServerParams>>> login(@Field("params") String params);
 
     //修改登录密码

@@ -3,6 +3,7 @@ package com.soubu.goldensteward.support.web.core;
 
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.support.web.mvp.BaseView;
 
 import rx.Subscriber;
 
@@ -93,6 +94,8 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
      */
     public void onFailure(BaseException exception) {
         // TODO: 2016/12/7 公共的错误处理
+        LogUtil.print(exception.getMessage());
+        ShowWidgetUtil.showShort(exception.getMessage());
     }
 
 }

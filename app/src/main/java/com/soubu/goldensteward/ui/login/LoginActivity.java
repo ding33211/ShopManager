@@ -1,7 +1,9 @@
 package com.soubu.goldensteward.ui.login;
 
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -9,78 +11,80 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.constant.SpKey;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.LogUtil;
-import com.soubu.goldensteward.support.utils.SPUtil;
-import com.soubu.goldensteward.support.web.core.BaseResponse;
-import com.soubu.goldensteward.support.web.core.BaseSubscriber;
+import com.soubu.goldensteward.support.web.mvp.BaseMvpActivity;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
 import com.soubu.goldensteward.ui.register.StoreOwnerVerifyActivity;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by lakers on 16/10/25.
  */
 
-public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> implements View.OnClickListener {
-    private boolean mDisplayPwd;
-    private UserServerParams mParams;
+public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginView {
+    @BindView(R.id.et_your_phone)
+    EditText etYourPhone;
+    @BindView(R.id.et_pwd)
+    EditText etPwd;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
+    @BindView(R.id.iv_transfer_pwd)
+    ImageView ivTransferPwd;
+
+    private boolean mDisplayPwd;//是否显示密码
 
     @Override
-    protected Class<LoginActivityDelegate> getDelegateClass() {
-        return LoginActivityDelegate.class;
-    }
-
-
-    @Override
-    protected void bindEvenListener() {
-        super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_login, R.id.tv_register, R.id.tv_forget_pwd);
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
-        mParams = new UserServerParams();
-        if (!TextUtils.isEmpty(phone)) {
-            viewDelegate.refreshPhone(phone);
-        }
+    protected int createLayoutId() {
+        return R.layout.activity_login;
     }
 
     @Override
+    protected LoginPresenter createPresenter() {
+        return new LoginPresenter();
+    }
+
+    @Override
+    public void initWidget() {
+        etYourPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s)) {
+                    ivClear.setVisibility(View.INVISIBLE);
+                } else {
+                    ivClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    @OnClick({R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_login, R.id.tv_register, R.id.tv_forget_pwd, R.id.tv_customer_service_num})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_clear:
-                ((EditText) viewDelegate.get(R.id.et_your_phone)).setText("");
+                etYourPhone.setText("");
                 break;
             case R.id.iv_transfer_pwd:
-                if (!mDisplayPwd) {
-                    ((EditText) viewDelegate.get(R.id.et_pwd)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_show);
-                    mDisplayPwd = true;
-                } else {
-                    ((EditText) viewDelegate.get(R.id.et_pwd)).setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.password_hide);
-                    mDisplayPwd = false;
-                }
+                switchDisplayPwd();
                 break;
             case R.id.btn_login:
-                if (viewDelegate.checkComplete(mParams)) {
-                    // TODO: 重构登录接口
-                    BaseApplication.getWebModel()
-                            .login(mParams)
-                            .sendTo(new BaseSubscriber<BaseResponse<UserServerParams>>(this) {
-                                @Override
-                                public void onSuccess(BaseResponse<UserServerParams> response) {
-                                    login(response);
-                                }
-                            });
-                }
+                String phone = etYourPhone.getText().toString();
+                String password = etPwd.getText().toString();
+                getPresenter().login(phone, password);
                 break;
             case R.id.tv_register:
                 Intent intent1 = new Intent(this, RegisterOrForgetPwdActivity.class);
@@ -95,17 +99,32 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
         }
     }
 
-    public void login(BaseResponse<UserServerParams> response) {
-        BaseResponse<UserServerParams>.Entity<UserServerParams> result = response.getResult();
 
-        SPUtil.putValue(SpKey.TOKEN, result.getToken());
 
-        UserServerParams params = result.getData();
+    private void switchDisplayPwd() {
+        if (!mDisplayPwd) {
+            etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            ivTransferPwd.setImageResource(R.drawable.password_show);
+            mDisplayPwd = true;
+        } else {
+            etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            ivTransferPwd.setImageResource(R.drawable.password_hide);
+            mDisplayPwd = false;
+        }
+    }
 
-        SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
+    public void refreshPhone(String phone) {
+        etYourPhone.setText(phone);
+        etYourPhone.clearFocus();
+        etPwd.requestFocus();
+    }
 
+    @Override
+    public void gotoNext(UserServerParams params) {
         int certification = Integer.valueOf(params.getCertification());
         int child_state = Integer.valueOf(params.getChild_status());
+
+
         Intent intent;
 
         LogUtil.print("certification=" + certification);
@@ -129,22 +148,26 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 intent.putExtra(Constant.EXTRA_INDEX, 3);
                 startActivity(intent);
             } else {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        BaseApplication.getContext().saveUserInfo(params);
-                    }
-                }).start();
+                getPresenter().save(params);
                 intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }
         }
+    }
 
+    public boolean ifNeedHideToolBar() {
+        return true;
+    }
+
+    public boolean ifNeedEventBus() {
+        return true;
     }
 
     @Override
     public boolean keyDownTwiceFinish() {
         return true;
     }
+
+
 }

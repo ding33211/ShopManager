@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
@@ -33,6 +33,7 @@ import com.soubu.goldensteward.support.bean.server.VerificationServerParams;
 import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.support.bean.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
+import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.PhoneUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
@@ -88,7 +89,7 @@ public class RetrofitRequest {
                         new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.body().msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                BaseApplication.getContext().clearUser();
+                                UserManager.clearUser();
                                 ActivityContainer.getInstance().finishAllActivity();
                                 Intent intent = new Intent(BaseApplication.getContext().getNowContext(), LoginActivity.class);
                                 BaseApplication.getContext().getNowContext().startActivity(intent);

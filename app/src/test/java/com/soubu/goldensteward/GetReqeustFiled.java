@@ -11,7 +11,7 @@ public class GetReqeustFiled {
 
     @Test
     public void testResources() {
-        String res = ResourceUtil.getInstance().read("response", "login.txt");
+        String res = ResourceUtil.getInstance().read("response", "responseLogin.txt");
         System.out.println(res);
     }
 }

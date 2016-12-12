@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.support.web.core;
+package com.soubu.goldensteward.support.web.mvp;
 
 import com.trello.rxlifecycle.LifecycleTransformer;
 
@@ -8,4 +8,6 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 public interface BaseView {
 
     <T> LifecycleTransformer<T> bindLife();
+
+    void initWidget();
 }
