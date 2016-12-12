@@ -25,11 +25,12 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-
+        this.view = null;
     }
 
     @Override
     public void onError(Throwable e) {
+        this.view = null;
         LogUtil.printException(e);
         ShowWidgetUtil.dismissProgressDialog();
         //先调用网络错误
