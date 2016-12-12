@@ -27,12 +27,10 @@ import retrofit2.http.POST;
 
 public interface RetrofitApi {
 
-
     //获取验证码
     @FormUrlEncoded
     @POST("User/send_sms")
     Call<BaseResp<Object>> getVerifyCode(@Field("params") String params);
-
 
     //验证验证码
     @FormUrlEncoded

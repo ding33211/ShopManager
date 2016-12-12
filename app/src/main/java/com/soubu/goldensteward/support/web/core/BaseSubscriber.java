@@ -13,6 +13,16 @@ import rx.Subscriber;
  */
 public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
+    private BaseView view;
+
+    public BaseSubscriber(BaseView view) {
+        this.view = view;
+    }
+
+    public BaseView getView() {
+        return view;
+    }
+
     @Override
     public void onCompleted() {
 

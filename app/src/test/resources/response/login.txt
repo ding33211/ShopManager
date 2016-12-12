@@ -1,0 +1,23 @@
+name	string	用户名
+portrait	string	头像
+phone	string	手机号
+province	string	省份
+province_id	int	省份ID
+city	string	城市
+city_id	int	城市ID
+address	string	详细地址
+main_product	string	主营
+job	string	职位
+operation_mode	string	供应商经营模式 1生产商 2一级代理 3 二级代理 4国际代理 5其他
+company	string	公司名称
+company_size	string	公司规模 1 1-10人 2 10-100人 3 100人以上
+mail	string	邮箱
+contact_name	string	联系人
+main_industry	string	主营行业 1面料 2 辅料 3加工工艺
+turnover	string	年营业额 1 100万-300万 2 300万-600万 3 600万-1000万 4 1000万以上
+fixed_telephone	string	固定电话
+company_profile	string	公司简介
+certification	int	认证状态 －1 未提交过 0 待审核 1审核通过 2审核未通过
+fail_cause	string	认证失败原因 没有为空字符串
+child_status	int	账号合并状态 -1 未提交 0待审核 1审核通过 2审核未通过
+token	string	token令牌

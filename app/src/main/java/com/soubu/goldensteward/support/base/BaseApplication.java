@@ -50,7 +50,6 @@ public class BaseApplication extends Application implements Application.Activity
     private static final String accessKey = OssConst.ACCESSKEYID;
     private static final String secretKey = OssConst.ACCESSKEYSECRET;
 
-
     private static WebClient webClient;
     private static IWebModel webModel;
 

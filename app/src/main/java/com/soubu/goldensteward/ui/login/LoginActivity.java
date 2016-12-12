@@ -14,10 +14,10 @@ import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
-import com.soubu.goldensteward.support.web.core.BaseTransformer;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
 import com.soubu.goldensteward.ui.register.StoreOwnerVerifyActivity;
@@ -29,7 +29,6 @@ import com.soubu.goldensteward.ui.register.StoreOwnerVerifyActivity;
 public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> implements View.OnClickListener {
     private boolean mDisplayPwd;
     private UserServerParams mParams;
-
 
     @Override
     protected Class<LoginActivityDelegate> getDelegateClass() {
@@ -72,11 +71,10 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 break;
             case R.id.btn_login:
                 if (viewDelegate.checkComplete(mParams)) {
-                    // TODO: 2016/12/8 重构登录接口
+                    // TODO: 重构登录接口
                     BaseApplication.getWebModel()
                             .login(mParams)
-                            .compose(new BaseTransformer<>())
-                            .subscribe(new BaseSubscriber<BaseResponse<UserServerParams>>() {
+                            .sendTo(new BaseSubscriber<BaseResponse<UserServerParams>>(this) {
                                 @Override
                                 public void onSuccess(BaseResponse<UserServerParams> response) {
                                     login(response);
@@ -99,14 +97,18 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
 
     public void login(BaseResponse<UserServerParams> response) {
         BaseResponse<UserServerParams>.Entity<UserServerParams> result = response.getResult();
-        UserServerParams params = result.getData();
 
         SPUtil.putValue(SpKey.TOKEN, result.getToken());
+
+        UserServerParams params = result.getData();
+
         SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
 
         int certification = Integer.valueOf(params.getCertification());
         int child_state = Integer.valueOf(params.getChild_status());
         Intent intent;
+
+        LogUtil.print("certification=" + certification);
         if (certification == -1) {
             intent = new Intent(this, StoreOwnerVerifyActivity.class);
             startActivity(intent);

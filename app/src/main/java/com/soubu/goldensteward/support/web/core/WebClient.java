@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * 网络客户端
@@ -37,7 +36,7 @@ public class WebClient {
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConfig.API_HOST)
                 .client(client)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(BaseCallAdapterFactory.create())
                 .addConverterFactory(BaseConverter.create())
                 .build();
     }

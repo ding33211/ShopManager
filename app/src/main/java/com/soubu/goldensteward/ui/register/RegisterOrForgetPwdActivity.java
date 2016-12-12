@@ -14,20 +14,16 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.bean.BaseEventBusResp;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.Constant;
-import com.soubu.goldensteward.support.bean.EventBusConfig;
-import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.ApiConfig;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseHeader;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
 /**
  * Created by lakers on 16/10/26.
@@ -41,7 +37,6 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     private UserServerParams mParams;
     private View mVSendCode;
     private boolean mDisplayPwd;
-
 
     @Override
     protected Class<RegisterOrForgetPwdActivityDelegate> getDelegateClass() {
@@ -97,36 +92,17 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
                 break;
             case R.id.tv_send_verify_code:
                 String phone = ((EditText) viewDelegate.get(R.id.et_phone)).getText().toString();
-//                if (RegularUtil.isMobile(phone)) {
-                    mVSendCode = v;
-                    sendVerifyCode(phone);
-//                } else {
-//                    ShowWidgetUtil.showShort(R.string.wrong_phone);
-//                }
+                mVSendCode = v;
+                sendVerifyCode(phone);
                 break;
             case R.id.btn_next_step:
                 if (viewDelegate.checkComplete(mParams)) {
                     if (mType == TYPE_REGISTER) {
                         verifyPhoneCode();
                     } else {
-                        RetrofitRequest.getInstance().forgetPassword(mParams);
+                        forgetPwd();
                     }
                 }
-
-
-                //现在没有关联店铺这个东西了
-//                    new AlertDialog.Builder(this).setTitle(R.string.alert).setMessage(R.string.phone_has_been_registered)
-//                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//
-//                                }
-//                            }).setPositiveButton(R.string.refer_store, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            viewDelegate.gotoReferStore();
-//                        }
-//                    }).show();
                 break;
             case R.id.tv_protocol:
                 Intent intent = new Intent(this, ProtocolActivity.class);
@@ -154,37 +130,68 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
             mParams.setType("2");
         }
         mParams.setImage_code(viewDelegate.getImageCode());
-        RetrofitRequest.getInstance().getVerifyCode(mParams);
+
+        getVerifyCode();
     }
 
+    // Todo：获取验证码
+    private void getVerifyCode() {
+        BaseApplication.getWebModel()
+                .getVerifyCode(mParams)
+                .sendTo(new BaseSubscriber<BaseResponse<Object>>(this) {
+                    @Override
+                    public void onSuccess(BaseResponse<Object> response) {
+                        responseGetVerifyCode(response);
+                    }
+                });
+    }
+
+    // Todo: 验证短信验证码
     private void verifyPhoneCode() {
-        RetrofitRequest.getInstance().checkCode(mParams);
+        BaseApplication.getWebModel()
+                .checkCode(mParams)
+                .sendTo(new BaseSubscriber<BaseResponse<Object>>(this) {
+                    @Override
+                    public void onSuccess(BaseResponse<Object> response) {
+                        responseCheckCode(response);
+                    }
+                });
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(BaseEventBusResp resp) {
-        BaseResp resp1 = (BaseResp) resp.getObject();
-        String msg = resp1.getMsg();
-        int code = resp.getCode();
-        if (code == EventBusConfig.GET_VERIFY_CODE) {
-            if (TextUtils.equals(msg, "发送成功")) {
-                mVSendCode.setEnabled(false);
-                ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
-                ShowWidgetUtil.showShort(msg);
-            }
-        }
-        if (code == EventBusConfig.CHECK_CODE) {
-            if (TextUtils.equals(msg, "验证成功")) {
-                Intent intent = new Intent(this, RegisterSupplierActivity.class);
-                intent.putExtra(Constant.EXTRA_PARAMS, mParams);
-                startActivity(intent);
-            }
-        }
-        if (code == EventBusConfig.FORGET_PWD) {
-            ShowWidgetUtil.showShort(R.string.modify_success);
-            finish();
-        }
-
+    // Todo: 忘记密码
+    private void forgetPwd() {
+        BaseApplication.getWebModel()
+                .forgetPassword(mParams)
+                .sendTo(new BaseSubscriber<BaseResponse<Object>>(this) {
+                    @Override
+                    public void onSuccess(BaseResponse<Object> response) {
+                        responseForgetPwd(response);
+                    }
+                });
     }
+
+    private void responseGetVerifyCode(BaseResponse<Object> response) {
+        String msg = response.getMsg();
+        if (TextUtils.equals(msg, "发送成功")) {
+            mVSendCode.setEnabled(false);
+            ShowWidgetUtil.showVerifyCodeTimerStart((TextView) viewDelegate.get(R.id.tv_send_verify_code));
+            ShowWidgetUtil.showShort(msg);
+        }
+    }
+
+    private void responseCheckCode(BaseResponse<Object> response) {
+        String msg = response.getMsg();
+        if (TextUtils.equals(msg, "验证成功")) {
+            Intent intent = new Intent(this, RegisterSupplierActivity.class);
+            intent.putExtra(Constant.EXTRA_PARAMS, mParams);
+            startActivity(intent);
+        }
+    }
+
+    private void responseForgetPwd(BaseResponse<Object> response) {
+        ShowWidgetUtil.showShort(R.string.modify_success);
+        finish();
+    }
+
 
 }

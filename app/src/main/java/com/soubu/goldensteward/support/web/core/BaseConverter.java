@@ -25,18 +25,18 @@ public final class BaseConverter extends Converter.Factory {
 
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return new FastjsonRequestBodyConverter<>();
+        return new RequestConverter<>();
     }
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        return new FastjsonResponseBodyConverter<>(type);
+        return new ResponseConverter<>(type);
     }
 
     /**
      * 请求转换器
      */
-    class FastjsonRequestBodyConverter<T> implements Converter<T, RequestBody> {
+    class RequestConverter<T> implements Converter<T, RequestBody> {
 
         @Override
         public RequestBody convert(T value) throws IOException {
@@ -46,14 +46,13 @@ public final class BaseConverter extends Converter.Factory {
         }
     }
 
-
     /**
      * 响应转换器
      */
-    class FastjsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
+    class ResponseConverter<T> implements Converter<ResponseBody, T> {
         private final Type type;
 
-        public FastjsonResponseBodyConverter(Type type) {
+        public ResponseConverter(Type type) {
             this.type = type;
         }
 
@@ -63,7 +62,6 @@ public final class BaseConverter extends Converter.Factory {
             String tempStr = bufferedSource.readUtf8();
             bufferedSource.close();
             return JSON.parseObject(tempStr, type);
-
         }
     }
 }
