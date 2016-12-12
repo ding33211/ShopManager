@@ -10,4 +10,6 @@ public interface BaseView {
     <T> LifecycleTransformer<T> bindLife();
 
     void initWidget();
+
+    void showShort(int resId);
 }

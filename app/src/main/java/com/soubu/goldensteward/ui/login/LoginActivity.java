@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
-import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.web.mvp.BaseMvpActivity;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
@@ -25,7 +24,6 @@ import butterknife.OnClick;
 /**
  * Created by lakers on 16/10/25.
  */
-
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginView {
     @BindView(R.id.et_your_phone)
     EditText etYourPhone;
@@ -72,7 +70,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
         });
     }
 
-    @OnClick({R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_login, R.id.tv_register, R.id.tv_forget_pwd, R.id.tv_customer_service_num})
+    @OnClick({R.id.iv_clear, R.id.iv_transfer_pwd, R.id.btn_login, R.id.tv_register, R.id.tv_forget_pwd})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_clear:
@@ -99,8 +97,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
         }
     }
 
-
-
     private void switchDisplayPwd() {
         if (!mDisplayPwd) {
             etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -123,11 +119,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void gotoNext(UserServerParams params) {
         int certification = Integer.valueOf(params.getCertification());
         int child_state = Integer.valueOf(params.getChild_status());
-
-
         Intent intent;
-
-        LogUtil.print("certification=" + certification);
         if (certification == -1) {
             intent = new Intent(this, StoreOwnerVerifyActivity.class);
             startActivity(intent);
@@ -156,11 +148,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
         }
     }
 
+    @Override
     public boolean ifNeedHideToolBar() {
-        return true;
-    }
-
-    public boolean ifNeedEventBus() {
         return true;
     }
 
@@ -168,6 +157,5 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public boolean keyDownTwiceFinish() {
         return true;
     }
-
 
 }

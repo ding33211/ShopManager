@@ -14,7 +14,7 @@ import android.view.View;
 import com.bugtags.library.Bugtags;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.net.ServerErrorUtil;
-import com.soubu.goldensteward.support.utils.ActivityContainer;
+import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.mvp.BaseView;
@@ -42,9 +42,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityContainer.getInstance().addActivity(this);
-    }
 
+    }
 
     @Override
     protected void onResume() {
@@ -65,7 +64,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityContainer.getInstance().removeActivity(this);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -100,7 +99,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
                     // 利用handler延迟发送更改状态信息
                     mHandler.sendEmptyMessageDelayed(0, 2000);
                 } else {
-                    ActivityContainer.getInstance().finishAllActivity();
+                    BaseApplication.getContext().finishAllActivity();
                     System.exit(0);
                 }
             }
@@ -115,6 +114,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     }
 
     public void onClickCustomerServicePhone(View view) {
+        LogUtil.print("");
         BaseActivityPermissionsDispatcher.loadWithCheck(this);
     }
 

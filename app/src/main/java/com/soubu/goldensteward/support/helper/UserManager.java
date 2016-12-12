@@ -71,7 +71,6 @@ public class UserManager {
         }
     }
 
-
     public static void clearUser() {
         if (dao != null && user != null) {
             dao.delete(user);

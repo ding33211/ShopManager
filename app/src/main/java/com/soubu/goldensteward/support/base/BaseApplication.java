@@ -37,7 +37,7 @@ public class BaseApplication extends Application {
     private static final String accessKey = OssConst.ACCESSKEYID;
     private static final String secretKey = OssConst.ACCESSKEYSECRET;
 
-    private static IWebModel webModel;
+    private IWebModel webModel;
     private ActivityLifecycle activityLifecycle;
 
     @Override
@@ -66,13 +66,14 @@ public class BaseApplication extends Application {
         return activityLifecycle.getNowContext();
     }
 
+
     private void initWeb() {
         WebClient webClient = new WebClient();
         webModel = webClient.getRetrofit().create(IWebModel.class);
     }
 
     public static IWebModel getWebModel() {
-        return webModel;
+        return getContext().webModel;
     }
 
     private void initGrowingIO() {
@@ -117,4 +118,7 @@ public class BaseApplication extends Application {
     }
 
 
+    public void finishAllActivity() {
+        activityLifecycle.finishAllActivity();
+    }
 }

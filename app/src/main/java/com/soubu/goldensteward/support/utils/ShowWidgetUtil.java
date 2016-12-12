@@ -47,7 +47,6 @@ public class ShowWidgetUtil {
     private ShowWidgetUtil() {
     }
 
-
     public static void register(Context context) {
         sContext = context.getApplicationContext();
     }

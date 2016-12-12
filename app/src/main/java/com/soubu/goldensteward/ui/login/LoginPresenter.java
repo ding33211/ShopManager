@@ -8,7 +8,6 @@ import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.utils.SPUtil;
-import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 import com.soubu.goldensteward.support.web.mvp.BasePresenter;
@@ -46,18 +45,17 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public boolean checkComplete(String phone, String password) {
         if (TextUtils.isEmpty(phone)) {
-            ShowWidgetUtil.showShort(R.string.please_input_your_phone_number);
+            getView().showShort(R.string.please_input_your_phone_number);
             return false;
         }
         if (TextUtils.isEmpty(password)) {
-            ShowWidgetUtil.showShort(R.string.please_input_password);
+            getView().showShort(R.string.please_input_password);
             return false;
         }
         mParams.setPhone(phone);
         mParams.setPassword(password);
         return true;
     }
-
 
     public void login(String phone, String password) {
         if (checkComplete(phone, password)) {

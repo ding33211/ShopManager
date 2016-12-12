@@ -99,6 +99,35 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
         }
     }
 
+    /**
+     * 是否需要全屏展示
+     */
+    public boolean ifNeedFullScreen() {
+        return false;
+    }
+
+    /**
+     * 是否需要搜索栏
+     */
+    public boolean ifNeedSearch() {
+        return false;
+    }
+
+    /**
+     * 是否需要隐藏toolbar
+     */
+    public boolean ifNeedHideToolBar() {
+        return false;
+    }
+
+    /**
+     * 默认不需要使用到EventBus
+     */
+    public boolean ifNeedEventBus() {
+        return false;
+    }
+
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

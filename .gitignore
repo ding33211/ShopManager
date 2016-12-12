@@ -6,3 +6,5 @@
 .DS_Store
 /build
 /captures
+freeline.py
+freeline_project_description.json

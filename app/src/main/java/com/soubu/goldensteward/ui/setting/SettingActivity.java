@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.ui.login.LoginActivity;
 import com.soubu.goldensteward.ui.wallet.ModifyPayPwdActivity;
@@ -60,7 +60,7 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
                     public void onClick(DialogInterface dialog, int which) {
                         SPUtil.putValue(SpKey.TOKEN, "");
                         UserManager.clearUser();
-                        ActivityContainer.getInstance().finishAllActivity();
+                        BaseApplication.getContext().finishAllActivity();
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();

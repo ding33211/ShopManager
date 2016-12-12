@@ -24,6 +24,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public abstract class AppDelegate implements IDelegate {
         rootView = inflater.inflate(R.layout.activity_base_with_toolbar, container, false);
         //如果需要隐藏toolbar或者是要求全屏,就不添加toolbar
         if (!ifNeedHideToolBar() && !ifNeedFullScreen()) {
-            ((LinearLayout) rootView.findViewById(R.id.ll_content)).addView(contentView);
+            ((FrameLayout) rootView.findViewById(R.id.ll_content)).addView(contentView);
             if (ifNeedSearch()) {
                 get(R.id.rl_normal).setVisibility(View.GONE);
                 get(R.id.rl_search).setVisibility(View.VISIBLE);

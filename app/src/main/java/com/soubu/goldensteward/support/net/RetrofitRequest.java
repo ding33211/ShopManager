@@ -34,7 +34,6 @@ import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.support.bean.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
 import com.soubu.goldensteward.support.helper.UserManager;
-import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.PhoneUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.ui.login.LoginActivity;
@@ -90,7 +89,7 @@ public class RetrofitRequest {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 UserManager.clearUser();
-                                ActivityContainer.getInstance().finishAllActivity();
+                                BaseApplication.getContext().finishAllActivity();
                                 Intent intent = new Intent(BaseApplication.getContext().getNowContext(), LoginActivity.class);
                                 BaseApplication.getContext().getNowContext().startActivity(intent);
                             }
