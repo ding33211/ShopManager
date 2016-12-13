@@ -67,6 +67,8 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             BaseResponse response = (BaseResponse) t;
             //请求正确
             if (response.getStatus() == BaseStatus.SUCCESS) {
+                return false;
+            } else {
                 //token 过期
                 if(response.getStatus() == -1){
                     new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
@@ -78,10 +80,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
                             BaseApplication.getContext().getNowContext().startActivity(intent);
                         }
                     }).show();
-                    return true;
                 }
-                return false;
-            } else {
                 return true;
             }
         }

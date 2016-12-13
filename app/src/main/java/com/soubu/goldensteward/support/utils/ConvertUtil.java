@@ -90,7 +90,7 @@ public class ConvertUtil {
         if (date == null) {
             return null;
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("MM.DD  HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM.dd  HH:mm");
         return formatter.format(date);
     }
 

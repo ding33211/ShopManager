@@ -17,7 +17,9 @@ import com.soubu.goldensteward.support.bean.server.MyActivityServerParams;
 import com.soubu.goldensteward.support.bean.server.OperationReportServerParams;
 import com.soubu.goldensteward.support.bean.server.OrderDataArray;
 import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
 import com.soubu.goldensteward.support.bean.server.ShopVisitorServerParams;
+import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
 import com.soubu.goldensteward.support.bean.server.SubAccountInActivityServerParams;
 import com.soubu.goldensteward.support.bean.server.SubAccountServerParams;
 import com.soubu.goldensteward.support.bean.server.TurnOverServerParams;
@@ -85,6 +87,18 @@ public interface IWebModel {
     //活动详情页面获取子账号信息
     @POST("Activity/get_child")
     ObservableWrapper<BaseResponse<List<SubAccountInActivityServerParams>>> getSubAccountInActivity();
+
+    //报名页面的产品列表
+    @POST("Activity/product_list")
+    ObservableWrapper<BaseResponse<List<ProductInSignUpActivityServerParams>>> getProductListInActivity(@Body Map map);
+
+    //提交报名
+    @POST("Activity/sign_up")
+    ObservableWrapper<BaseResponse> signUp(@Body SignUpServerParams params);
+
+    //报名详情
+    @POST("Activity/sign_up_detail")
+    ObservableWrapper<BaseResponse<List<ProductInSignUpActivityServerParams>>> getSignUpSpec(@Body Map map);
 
     //---------------------------------------------------------------------------
 

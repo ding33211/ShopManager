@@ -9,6 +9,7 @@ import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.MyActivityServerParams;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
@@ -51,6 +52,7 @@ public class MyActivityFragment extends FragmentPresenter<RecyclerViewFragmentDe
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), SignUpSpecActivity.class);
+                        intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, item.getId());
                         startActivity(intent);
                     }
                 });

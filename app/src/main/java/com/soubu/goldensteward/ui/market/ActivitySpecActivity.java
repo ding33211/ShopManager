@@ -26,6 +26,7 @@ import java.util.Map;
 public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivityDelegate> {
 
     private static final int REQUEST_SIGN_UP = 1001;
+    private int mId = -1;
 
     @Override
     protected Class<ActivitySpecActivityDelegate> getDelegateClass() {
@@ -42,13 +43,17 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
     protected void initData() {
         super.initData();
         Map<String, Integer> map = new HashMap<>();
-        map.put("id", getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, 0));
-        BaseApplication.getWebModel().getActivitySpec(map).sendTo(new BaseSubscriber<BaseResponse<ActivitySpecServerParams>>(this) {
-            @Override
-            public void onSuccess(BaseResponse<ActivitySpecServerParams> response) {
-                viewDelegate.setActivitySpecContent(response.getResult().getData());
-            }
-        });
+        mId = getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, -1);
+        if(mId != -1){
+            map.put("id", mId);
+            BaseApplication.getWebModel().getActivitySpec(map).sendTo(new BaseSubscriber<BaseResponse<ActivitySpecServerParams>>(this) {
+                @Override
+                public void onSuccess(BaseResponse<ActivitySpecServerParams> response) {
+                    viewDelegate.setActivitySpecContent(response.getResult().getData());
+                }
+            });
+        }
+
     }
 
     @Override
@@ -70,8 +75,13 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
                         ShowWidgetUtil.showMultiItemDialog(ActivitySpecActivity.this, R.string.please_choose_store, stores, false, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
-                                startActivityForResult(intent, REQUEST_SIGN_UP);
+                                if(mId != -1){
+                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
+                                    intent.putExtra(IntentKey.EXTRA_ACCOUNT_ID, list.get(which).getUid());
+                                    intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, mId);
+                                    startActivityForResult(intent, REQUEST_SIGN_UP);
+                                }
+
                             }
                         });
                     }
