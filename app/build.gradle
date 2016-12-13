@@ -3,6 +3,7 @@ apply plugin: 'android-apt'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.growingio.android'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.bugtags.library.plugin'
 
 apt {
     arguments {
@@ -82,7 +83,6 @@ android {
     }
 }
 
-
 afterEvaluate {
     android.applicationVariants.each { variant ->
         def bugtagsAppKey = null;
@@ -99,16 +99,6 @@ afterEvaluate {
         variant.ext.bugtagsAppKey = bugtagsAppKey
         variant.ext.bugtagsAppSecret = bugtagsAppSecret
     }
-}
-
-//应用 Bugtags 插件
-apply plugin: 'com.bugtags.library.plugin'
-apply plugin: 'com.antfortune.freeline'
-//Bugtags 插件配置
-
-freeline {
-    hack true
-    productFlavor 'develop'
 }
 
 bugtags {

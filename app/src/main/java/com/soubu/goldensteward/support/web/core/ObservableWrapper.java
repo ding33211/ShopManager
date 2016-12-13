@@ -26,6 +26,8 @@ public class ObservableWrapper<T> {
         LogUtil.print("BaseConfig.IS_TEST=" + BaseConfig.IS_TEST);
         if (!BaseConfig.IS_TEST) {
             return observable
+                    .compose(new BaseTransformer<>())
+                    .compose(subscriber.getView().bindLife())
                     .doOnSubscribe(new Action0() {
                         @Override
                         public void call() {
@@ -33,8 +35,6 @@ public class ObservableWrapper<T> {
                         }
                     })
                     .subscribeOn(AndroidSchedulers.mainThread())//在主线程显示进度条
-                    .compose(subscriber.getView().bindLife())
-                    .compose(new BaseTransformer<>())
                     .subscribe(subscriber);
         } else {
             return observable
