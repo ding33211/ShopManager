@@ -1,0 +1,31 @@
+{
+  "result": {
+    "data": {
+      "name": "\u641c\u5e03\u7f51\u7edc\u79d1\u6280\u6709\u9650\u516c\u53f8",
+      "portrait": "http:\/\/image.isoubu.net\/jgj\/user\/29BC7436-4C15-43EA-9793-2CBF6527F988.jpg",
+      "phone": "15221234567",
+      "company": "hjj",
+      "contact_name": "\u4e8b\u5b9e\u4e0a",
+      "job": "2",
+      "mail": "31321277@qq.com111",
+      "fixed_telephone": "1233456",
+      "main_product": "\u9488\u7ec7\u7c7b,\u7a7a\u6c14\u5c42",
+      "main_industry": "1",
+      "operation_mode": "4",
+      "province": "\u4e0a\u6d77",
+      "province_id": "310100",
+      "city": "\u4e0a\u6d77",
+      "city_id": "310100",
+      "address": "\u9759\u5b89\u533a\u4f59\u59da\u8def336\u53f7",
+      "turnover": "1",
+      "company_size": "3",
+      "company_profile": "\u8fd8\u8bb0\u5f97\u53eby1",
+      "certification": 1,
+      "fail_cause": "",
+      "child_status": 1
+    },
+    "token": "f0df482f13bdad19eb2b550fa96fa5ae"
+  },
+  "status": 200,
+  "msg": "\u767b\u5f55\u6210\u529f"
+}

@@ -14,7 +14,6 @@ android {
 //    def UMENG_RELEASE_KEY = "53ad0de956240b97b80eac9d"
     def UMENG_TEST_KEY = "583e85ee04e2056927000b1f"
 
-
     signingConfigs {
         release {
             keyAlias KEY_ALIAS
@@ -81,7 +80,6 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-
 }
 
 
@@ -118,31 +116,6 @@ bugtags {
     trackingNetworkEnabled true
 }
 
-//def packageTime() {
-//    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-//}
-//
-//android {
-//
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def outputFile = output.outputFile
-//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                File outputDirectory = new File(outputFile.parent);
-//                def fileName
-//                if (variant.buildType.name == "release") {
-//                    fileName = "ShopManager_v${defaultConfig.versionName}_${packageTime()}_${variant.productFlavors[0].name}.apk"
-//                } else {
-//                    fileName = "ShopManager_v${defaultConfig.versionName}_${packageTime()}_beta.apk"
-//                }
-//                output.outputFile = new File(outputDirectory, fileName)
-//            }
-//        }
-//    }
-//
-//}
-
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //编译库
@@ -153,7 +126,7 @@ dependencies {
     //测试库
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:2.0.2-beta'
-    testCompile 'org.robolectric:robolectric:3.1.2'
+    testCompile "org.robolectric:robolectric:3.1.4"
     testCompile 'com.google.truth:truth:0.27'
     provided 'org.projectlombok:lombok:1.16.10'
     provided 'javax.annotation:javax.annotation-api:1.3'

@@ -15,7 +15,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.ApiConfig;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;

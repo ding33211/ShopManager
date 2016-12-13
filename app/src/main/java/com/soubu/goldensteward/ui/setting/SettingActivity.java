@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;

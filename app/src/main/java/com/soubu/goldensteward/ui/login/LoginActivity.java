@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.bean.Constant;
-import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.web.mvp.BaseMvpActivity;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
@@ -116,36 +115,16 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     }
 
     @Override
-    public void gotoNext(UserServerParams params) {
-        int certification = Integer.valueOf(params.getCertification());
-        int child_state = Integer.valueOf(params.getChild_status());
-        Intent intent;
-        if (certification == -1) {
-            intent = new Intent(this, StoreOwnerVerifyActivity.class);
-            startActivity(intent);
-        } else if (certification == 0) {
-            intent = new Intent(this, StoreOwnerVerifyActivity.class);
-            if (child_state == -1 || child_state == 2) {
-                intent.putExtra(Constant.EXTRA_INDEX, 2);
-            } else {
-                intent.putExtra(Constant.EXTRA_INDEX, 3);
-            }
-            startActivity(intent);
-        } else {
-            intent = new Intent(this, StoreOwnerVerifyActivity.class);
-            if (child_state == -1 || child_state == 2) {
-                intent.putExtra(Constant.EXTRA_INDEX, 2);
-                startActivity(intent);
-            } else if (child_state == 0) {
-                intent.putExtra(Constant.EXTRA_INDEX, 3);
-                startActivity(intent);
-            } else {
-                getPresenter().save(params);
-                intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
+    public void gotoStoreOwnerVerify(int index) {
+        Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
+        intent.putExtra(Constant.EXTRA_INDEX, index);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     @Override

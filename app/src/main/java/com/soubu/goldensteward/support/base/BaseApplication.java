@@ -10,22 +10,22 @@ import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.bugtags.library.Bugtags;
-import com.growingio.android.sdk.collection.Configuration;
-import com.growingio.android.sdk.collection.GrowingIO;
 import com.soubu.goldensteward.BuildConfig;
-import com.soubu.goldensteward.sdk.eventbus.MyEventBusIndex;
-import com.soubu.goldensteward.support.bean.AppConfig;
 import com.soubu.goldensteward.support.bean.OssConst;
+import com.soubu.goldensteward.support.constant.AppConfig;
 import com.soubu.goldensteward.support.helper.UserManager;
-import com.soubu.goldensteward.support.utils.ChannelUtil;
-import com.soubu.goldensteward.support.utils.CrashHandler;
 import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.IWebModel;
 import com.soubu.goldensteward.support.web.core.WebClient;
-import com.umeng.analytics.MobclickAgent;
 
-import org.greenrobot.eventbus.EventBus;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by dingsigang on 16-10-18.
@@ -39,22 +39,35 @@ public class BaseApplication extends Application {
 
     private IWebModel webModel;
     private ActivityLifecycle activityLifecycle;
+    private Scheduler scheduler;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = (BaseApplication) getApplicationContext();
-        SPUtil.init(this);
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this, "583e85ee04e2056927000b1f", ChannelUtil.getChannel(this)));
-        EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
-        ShowWidgetUtil.register(this);
+        sInstance = this;
         AppConfig.init(sInstance);
-        initOSSConfig();
-        initBugtags();
-        initGrowingIO();
+        UserManager.init(this);
+        SPUtil.init(this);
+        ShowWidgetUtil.register(this);
         initWeb();
         initActivityCycle();
-        UserManager.init(this);
+        initOSSConfig();
+        initScheduler();
+        initBugtags();
+    }
+
+    private void initScheduler() {
+        //核心有2个线程，最大线程数量为20，存活时间60s
+        ExecutorService customThreadExecutor = new ThreadPoolExecutor(2, 20, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+        scheduler = Schedulers.from(customThreadExecutor);
+    }
+
+    private String getData() {
+        return null;
+    }
+
+    public static Scheduler getScheduler() {
+        return getContext().scheduler;
     }
 
     private void initActivityCycle() {
@@ -66,7 +79,6 @@ public class BaseApplication extends Application {
         return activityLifecycle.getNowContext();
     }
 
-
     private void initWeb() {
         WebClient webClient = new WebClient();
         webModel = webClient.getRetrofit().create(IWebModel.class);
@@ -76,17 +88,6 @@ public class BaseApplication extends Application {
         return getContext().webModel;
     }
 
-    private void initGrowingIO() {
-        //growingio
-        GrowingIO.startWithConfiguration(this, new Configuration()
-                .useID()
-                .trackAllFragments()
-                .setChannel(ChannelUtil.getChannel(this)));
-
-        if (BuildConfig.IS_PRODUCT_ENV) {
-            Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance());
-        }
-    }
 
     private void initBugtags() {
         //只在非debug模式下打开bugtags

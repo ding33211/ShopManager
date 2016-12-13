@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseActivity;
-import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -212,8 +211,5 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
         v.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void showShort(int resId) {
-        ShowWidgetUtil.showShort(resId);
-    }
+
 }

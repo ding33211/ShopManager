@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.ui.login;
+package com.soubu.goldensteward.support.helper;
 
 import android.view.View;
 

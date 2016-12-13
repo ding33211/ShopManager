@@ -8,24 +8,24 @@ import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.utils.SPUtil;
+import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
+import com.soubu.goldensteward.support.web.core.BaseTransformer;
 import com.soubu.goldensteward.support.web.mvp.BasePresenter;
 
 import rx.Observable;
-import rx.schedulers.Schedulers;
 
 /**
  * 作者：余天然 on 2016/12/12 上午11:39
  */
 public class LoginPresenter extends BasePresenter<LoginView> {
 
-    private UserServerParams mParams;//用户信息参数
+    private UserServerParams mParams = new UserServerParams();//用户信息参数
 
     @Override
     public void initData() {
         String phone = SPUtil.getValue(SpKey.USER_PHONE, "");
-        mParams = new UserServerParams();
         if (!TextUtils.isEmpty(phone)) {
             getView().refreshPhone(phone);
         }
@@ -40,16 +40,39 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
         SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
 
-        getView().gotoNext(params);
+        gotoNext(params);
+    }
+
+    private void gotoNext(UserServerParams params) {
+        int certification = Integer.valueOf(params.getCertification());
+        int child_state = Integer.valueOf(params.getChild_status());
+        if (certification == -1) {
+            getView().gotoStoreOwnerVerify(0);
+        } else if (certification == 0) {
+            if (child_state == -1 || child_state == 2) {
+                getView().gotoStoreOwnerVerify(2);
+            } else {
+                getView().gotoStoreOwnerVerify(3);
+            }
+        } else {
+            if (child_state == -1 || child_state == 2) {
+                getView().gotoStoreOwnerVerify(2);
+            } else if (child_state == 0) {
+                getView().gotoStoreOwnerVerify(3);
+            } else {
+                save(params);
+                getView().gotoHome();
+            }
+        }
     }
 
     public boolean checkComplete(String phone, String password) {
         if (TextUtils.isEmpty(phone)) {
-            getView().showShort(R.string.please_input_your_phone_number);
+            ShowWidgetUtil.showShort(R.string.please_input_your_phone_number);
             return false;
         }
         if (TextUtils.isEmpty(password)) {
-            getView().showShort(R.string.please_input_password);
+            ShowWidgetUtil.showShort(R.string.please_input_password);
             return false;
         }
         mParams.setPhone(phone);
@@ -72,8 +95,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void save(UserServerParams params) {
         Observable.just(params)
-                .map(params1 -> UserManager.saveUserInfo(params))
-                .subscribeOn(Schedulers.io())
+                .map(var -> UserManager.saveUserInfo(var))
+                .compose(new BaseTransformer<>())
                 .subscribe();
     }
 }

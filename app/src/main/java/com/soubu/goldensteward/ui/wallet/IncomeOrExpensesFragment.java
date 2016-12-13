@@ -1,6 +1,5 @@
 package com.soubu.goldensteward.ui.wallet;
 
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 

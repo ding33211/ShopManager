@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.support.bean;
+package com.soubu.goldensteward.support.constant;
 
 import android.content.Context;
 

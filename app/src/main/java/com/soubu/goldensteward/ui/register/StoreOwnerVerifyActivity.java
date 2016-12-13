@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.MergeServerParams;
 import com.soubu.goldensteward.support.bean.server.VerificationServerParams;

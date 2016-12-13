@@ -17,7 +17,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
-import com.soubu.goldensteward.support.bean.AppConfig;
+import com.soubu.goldensteward.support.constant.AppConfig;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

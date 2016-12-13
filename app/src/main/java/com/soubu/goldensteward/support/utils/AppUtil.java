@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 
 
 /**

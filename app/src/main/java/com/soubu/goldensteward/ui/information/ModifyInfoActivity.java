@@ -8,7 +8,7 @@ import android.view.View;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;

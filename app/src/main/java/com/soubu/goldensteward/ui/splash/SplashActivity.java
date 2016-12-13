@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
 import com.soubu.goldensteward.support.greendao.DBHelper;
 import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.support.utils.FileUtil;
+import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.PermissionUtil;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.login.LoginActivity;
@@ -18,15 +21,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+import rx.Observable;
 
 /**
  * Created by lakers on 16/10/25.
@@ -46,12 +47,14 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initProvinceAndCity();
-            }
-        }).start();
+        LogUtil.print("");
+
+        Observable.just(1)
+                .map(var -> initProvinceAndCity())
+                .retryWhen(new RetryFunc(3))
+                .subscribeOn(BaseApplication.getScheduler())
+                .subscribe();
+
         SplashActivityPermissionsDispatcher.loadWithCheck(SplashActivity.this);
     }
 
@@ -110,13 +113,14 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     }
 
 
-    private void initProvinceAndCity() {
-        AddressDao addressDao = DBHelper.getInstance(getApplicationContext()).getAddressDao();
-        if (addressDao.count() > 0) {
-            return;
-        } else {
-            JSONObject addressJson = initJsonData();
-            try {
+    private boolean initProvinceAndCity() {
+        try {
+            AddressDao addressDao = DBHelper.getInstance(getApplicationContext()).getAddressDao();
+            if (addressDao.count() > 0) {
+                return false;
+            } else {
+                String json = FileUtil.getFromAssets(this, "areas.json");
+                JSONObject addressJson = new JSONObject(json);
                 JSONArray jsonArray = addressJson.getJSONArray("RECORDS");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
@@ -128,32 +132,12 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                     address.setTag(object.getString("tag"));
                     addressDao.insert(address);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-        }
-    }
-
-
-    /**
-     * 从assert文件夹中读取省市区的json文件，然后转化为json对象
-     */
-    private JSONObject initJsonData() {
-        try {
-            StringBuffer sb = new StringBuffer();
-            InputStream is = getAssets().open("areas.json");
-            int len = -1;
-            byte[] buf = new byte[is.available()];
-            while ((len = is.read(buf)) != -1) {
-                sb.append(new String(buf, 0, len, "UTF-8"));
-            }
-            is.close();
-            return new JSONObject(sb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
+        return true;
     }
+
 }

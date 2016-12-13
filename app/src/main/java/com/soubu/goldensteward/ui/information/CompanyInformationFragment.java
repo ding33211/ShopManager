@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
 import com.soubu.goldensteward.support.bean.OssConst;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;

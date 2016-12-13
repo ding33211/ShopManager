@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.ProductPreviewSeverParams;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.support.bean;
+package com.soubu.goldensteward.support.constant;
 
 /**
  * Created by dingsigang on 16-10-19.

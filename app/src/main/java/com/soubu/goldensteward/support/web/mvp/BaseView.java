@@ -11,5 +11,4 @@ public interface BaseView {
 
     void initWidget();
 
-    void showShort(int resId);
 }

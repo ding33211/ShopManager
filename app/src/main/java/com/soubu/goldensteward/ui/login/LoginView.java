@@ -1,6 +1,5 @@
 package com.soubu.goldensteward.ui.login;
 
-import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.web.mvp.BaseView;
 
 /**
@@ -10,5 +9,7 @@ public interface LoginView extends BaseView {
 
     void refreshPhone(String phone);
 
-    void gotoNext(UserServerParams params);
+    void gotoStoreOwnerVerify(int index);
+
+    void gotoHome();
 }

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.ProductClassificationServerParams;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 
