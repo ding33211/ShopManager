@@ -5,7 +5,7 @@ import android.content.Intent;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
@@ -55,7 +55,7 @@ public class MyCustomersActivity extends ActivityPresenter<MyCustomersActivityDe
             @Override
             public void onItemClick(BaseViewHolder holder, CustomerServerParams item, int position) {
                 Intent intent = new Intent(MyCustomersActivity.this, CustomerSpecActivity.class);
-                intent.putExtra(Constant.EXTRA_PARAMS, mList.get(position));
+                intent.putExtra(IntentKey.EXTRA_PARAMS, mList.get(position));
                 startActivity(intent);
             }
         };

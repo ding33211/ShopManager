@@ -9,6 +9,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
@@ -21,9 +22,14 @@ import com.soubu.goldensteward.support.utils.GlideUtils;
 import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseHeader;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lakers on 16/10/31.
@@ -66,7 +72,20 @@ public class ModifyPhoneActivity extends ActivityPresenter<ModifyPhoneActivityDe
         switch (v.getId()) {
             case R.id.tv_send_verify_code:
                 if (!mStep2) {
-                    RetrofitRequest.getInstance().getOldPhoneVerifyCode(viewDelegate.getImageCode());
+                    Map<String, String> map = new HashMap();
+                    map.put("image_code", viewDelegate.getImageCode());
+                    BaseApplication.getWebModel()
+                            .getOldPhoneVerifyCode(map)
+                            .sendTo(new BaseSubscriber<BaseResponse>(this) {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    if (TextUtils.equals("发送成功", response.msg)) {
+                                        ShowWidgetUtil.showShort(response.msg);
+                                        ShowWidgetUtil.showVerifyCodeTimerStart(viewDelegate.get(R.id.tv_send_verify_code));
+                                    }
+                                }
+
+                            });
                 } else {
                     if (viewDelegate.checkNewPhone(mParams)) {
                         mParams.setType("3");

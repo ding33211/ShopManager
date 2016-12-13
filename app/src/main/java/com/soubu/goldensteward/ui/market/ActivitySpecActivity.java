@@ -5,12 +5,19 @@ import android.content.Intent;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.ActivitySpecServerParams;
+import com.soubu.goldensteward.support.bean.server.SubAccountInActivityServerParams;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-12-6.
@@ -34,29 +41,14 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
     @Override
     protected void initData() {
         super.initData();
-        List<ActivitySpecServerParams.Content> list = new ArrayList<>();
-        ActivitySpecServerParams params = new ActivitySpecServerParams();
-        ActivitySpecServerParams.Content content = params.new Content();
-        content.setTitle("活动介绍");
-        content.setContent("odiajsdioa 哦低价撒旦激动哦披萨迪莫吗懂啊没事没的破碎偶怕高抛破代发搜谱破卡我怕没武器前面迫切我磨破我们大");
-        list.add(content);
-        content = params.new Content();
-        content.setTitle("活动介绍");
-        content.setContent("odiajsdioa 哦低价撒旦激动哦披萨迪莫吗懂啊没事没的破碎偶怕高抛破代发搜谱破卡我怕没武器前面迫切我磨破我们大");
-        list.add(content);
-        content = params.new Content();
-        content.setTitle("活动介绍");
-        content.setContent("odiajsdioa 哦低价撒旦激动哦披萨迪莫吗懂啊没事没的破碎偶怕高抛破代发搜谱破卡我怕没武器前面迫切我磨破我们大");
-        list.add(content);
-        content = params.new Content();
-        content.setTitle("活动介绍");
-        content.setContent("odiajsdioa 哦低价撒旦激动哦披萨迪莫吗懂啊没事没的破碎偶怕高抛破代发搜谱破卡我怕没武器前面迫切我磨破我们大");
-        list.add(content);
-        content = params.new Content();
-        content.setTitle("活动介绍");
-        content.setContent("odiajsdioa 哦低价撒旦激动哦披萨迪莫吗懂啊没事没的破碎偶怕高抛破代发搜谱破卡我怕没武器前面迫切我磨破我们大");
-        list.add(content);
-        viewDelegate.setActivitySpecContent(list);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("id", getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, 0));
+        BaseApplication.getWebModel().getActivitySpec(map).sendTo(new BaseSubscriber<BaseResponse<ActivitySpecServerParams>>(this) {
+            @Override
+            public void onSuccess(BaseResponse<ActivitySpecServerParams> response) {
+                viewDelegate.setActivitySpecContent(response.getResult().getData());
+            }
+        });
     }
 
     @Override
@@ -65,12 +57,23 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
         viewDelegate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] stores = new String[]{"店铺1大阿达啊大大大大的， 18937465589", "店铺2大大大大大奥德， 18811556695"};
-                ShowWidgetUtil.showMultiItemDialog(ActivitySpecActivity.this, R.string.please_choose_store, stores, false, new DialogInterface.OnClickListener() {
+                BaseApplication.getWebModel().getSubAccountInActivity().sendTo(new BaseSubscriber<BaseResponse<List<SubAccountInActivityServerParams>>>(ActivitySpecActivity.this) {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
-                        startActivityForResult(intent, REQUEST_SIGN_UP);
+                    public void onSuccess(BaseResponse<List<SubAccountInActivityServerParams>> response) {
+                        List<SubAccountInActivityServerParams> list = response.getResult().getData();
+                        List<String> accounts = new ArrayList<String>();
+                        for(SubAccountInActivityServerParams params : list){
+                            String a = params.getName() + ", " + params.getPhone();
+                            accounts.add(a);
+                        }
+                        String[] stores = accounts.toArray(new String[]{});
+                        ShowWidgetUtil.showMultiItemDialog(ActivitySpecActivity.this, R.string.please_choose_store, stores, false, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
+                                startActivityForResult(intent, REQUEST_SIGN_UP);
+                            }
+                        });
                     }
                 });
             }

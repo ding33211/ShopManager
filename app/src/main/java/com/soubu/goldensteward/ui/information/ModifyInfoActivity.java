@@ -8,7 +8,7 @@ import android.view.View;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.greendao.Address;
 import com.soubu.goldensteward.support.greendao.AddressDao;
@@ -62,7 +62,7 @@ public class ModifyInfoActivity extends ActivityPresenter<ModifyInfoActivityDele
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        String title = getIntent().getStringExtra(Constant.EXTRA_TITLE);
+        String title = getIntent().getStringExtra(IntentKey.EXTRA_TITLE);
         viewDelegate.setTitle(title);
 
     }
@@ -72,11 +72,11 @@ public class ModifyInfoActivity extends ActivityPresenter<ModifyInfoActivityDele
         super.initView();
 
         Intent intent = getIntent();
-        mType = intent.getIntExtra(Constant.EXTRA_TYPE, 0);
+        mType = intent.getIntExtra(IntentKey.EXTRA_TYPE, 0);
 
         switch (mType) {
             case TYPE_LOCATION:
-                mParams = (UserServerParams) intent.getSerializableExtra(Constant.EXTRA_PARAMS);
+                mParams = (UserServerParams) intent.getSerializableExtra(IntentKey.EXTRA_PARAMS);
                 String pc = mParams.getProvince() + mParams.getCity();
                 viewDelegate.refreshProvinceAndCity(pc);
                 viewDelegate.refreshEditText(mParams.getAddress(), null, null);
@@ -119,9 +119,9 @@ public class ModifyInfoActivity extends ActivityPresenter<ModifyInfoActivityDele
                 mOpv.setSelectOptions(0, 0, 0);
                 break;
             case TYPE_EDIT:
-                String content = intent.getStringExtra(Constant.EXTRA_CONTENT);
-                String label = intent.getStringExtra(Constant.EXTRA_LABEL);
-                String hint = intent.getStringExtra(Constant.EXTRA_HINT);
+                String content = intent.getStringExtra(IntentKey.EXTRA_CONTENT);
+                String label = intent.getStringExtra(IntentKey.EXTRA_LABEL);
+                String hint = intent.getStringExtra(IntentKey.EXTRA_HINT);
                 viewDelegate.refreshEditText(content, label, hint);
                 break;
         }
@@ -242,9 +242,9 @@ public class ModifyInfoActivity extends ActivityPresenter<ModifyInfoActivityDele
                     Intent intent = new Intent();
                     if (mType == TYPE_LOCATION) {
                         mParams.setAddress(content);
-                        intent.putExtra(Constant.EXTRA_PARAMS, mParams);
+                        intent.putExtra(IntentKey.EXTRA_PARAMS, mParams);
                     } else {
-                        intent.putExtra(Constant.EXTRA_CONTENT, content);
+                        intent.putExtra(IntentKey.EXTRA_CONTENT, content);
                     }
                     setResult(RESULT_OK, intent);
                     finish();

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.SpKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
@@ -84,12 +84,12 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 break;
             case R.id.tv_register:
                 Intent intent1 = new Intent(this, RegisterOrForgetPwdActivity.class);
-                intent1.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_REGISTER);
+                intent1.putExtra(IntentKey.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_REGISTER);
                 startActivity(intent1);
                 break;
             case R.id.tv_forget_pwd:
                 Intent intent2 = new Intent(this, RegisterOrForgetPwdActivity.class);
-                intent2.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
+                intent2.putExtra(IntentKey.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
                 startActivity(intent2);
                 break;
         }
@@ -115,18 +115,18 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
         } else if (certification == 0) {
             intent = new Intent(this, StoreOwnerVerifyActivity.class);
             if (child_state == -1 || child_state == 2) {
-                intent.putExtra(Constant.EXTRA_INDEX, 2);
+                intent.putExtra(IntentKey.EXTRA_INDEX, 2);
             } else {
-                intent.putExtra(Constant.EXTRA_INDEX, 3);
+                intent.putExtra(IntentKey.EXTRA_INDEX, 3);
             }
             startActivity(intent);
         } else {
             intent = new Intent(this, StoreOwnerVerifyActivity.class);
             if (child_state == -1 || child_state == 2) {
-                intent.putExtra(Constant.EXTRA_INDEX, 2);
+                intent.putExtra(IntentKey.EXTRA_INDEX, 2);
                 startActivity(intent);
             } else if (child_state == 0) {
-                intent.putExtra(Constant.EXTRA_INDEX, 3);
+                intent.putExtra(IntentKey.EXTRA_INDEX, 3);
                 startActivity(intent);
             } else {
                 new Thread(new Runnable() {

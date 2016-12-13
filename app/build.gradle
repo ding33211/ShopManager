@@ -24,7 +24,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '25'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "com.soubu.goldensteward"
         minSdkVersion 15
@@ -159,9 +159,9 @@ dependencies {
     provided 'javax.annotation:javax.annotation-api:1.3'
 
     //原生UI库
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:recyclerview-v7:25.0.1'
 
     //OkHttp+Retrofit+RxJava网络库
     compile 'io.reactivex:rxjava:1.2.3'

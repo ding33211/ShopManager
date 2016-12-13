@@ -7,7 +7,7 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.TagInFlowLayoutModule;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
@@ -51,7 +51,7 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.choose_main_products);
-        Parcelable[] parcelables = getIntent().getParcelableArrayExtra(Constant.EXTRA_PARAMS);
+        Parcelable[] parcelables = getIntent().getParcelableArrayExtra(IntentKey.EXTRA_PARAMS);
         if (parcelables != null) {
             mChooseParams = new MainProductParams[parcelables.length];
             for (int i = 0; i < parcelables.length; i++) {
@@ -290,10 +290,10 @@ public class ChooseMainProductsActivity extends ActivityPresenter<ChooseMainProd
                     mChooseParams[i] = param;
                 }
                 Intent data = new Intent();
-                data.putExtra(Constant.EXTRA_PARAMS, mChooseParams);
+                data.putExtra(IntentKey.EXTRA_PARAMS, mChooseParams);
                 if (builder.length() > 2) {
                     String result = builder.substring(0, builder.length() - 1);
-                    data.putExtra(Constant.EXTRA_RESULT, result);
+                    data.putExtra(IntentKey.EXTRA_RESULT, result);
                 }
                 setResult(RESULT_OK, data);
                 finish();

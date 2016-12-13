@@ -1,8 +1,16 @@
 package com.soubu.goldensteward.support.web.core;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+
+import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.base.BaseApplication;
+import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.ui.login.LoginActivity;
 
 import rx.Subscriber;
 
@@ -59,6 +67,19 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             BaseResponse response = (BaseResponse) t;
             //请求正确
             if (response.getStatus() == BaseStatus.SUCCESS) {
+                //token 过期
+                if(response.getStatus() == -1){
+                    new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            BaseApplication.getContext().clearUser();
+                            ActivityContainer.getInstance().finishAllActivity();
+                            Intent intent = new Intent(BaseApplication.getContext().getNowContext(), LoginActivity.class);
+                            BaseApplication.getContext().getNowContext().startActivity(intent);
+                        }
+                    }).show();
+                    return true;
+                }
                 return false;
             } else {
                 return true;
@@ -92,7 +113,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
      * 这里做一些公共的错误处理，个人页面需要自己处理错误的话，重写即可
      */
     public void onFailure(BaseException exception) {
-        // TODO: 2016/12/7 公共的错误处理
+        ShowWidgetUtil.showShort(exception.getMessage());
     }
 
 }

@@ -7,9 +7,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.ModifyPwdServerParams;
@@ -39,7 +39,7 @@ public class ModifyPayPwdActivity extends ActivityPresenter<ModifyPayPwdActivity
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, TYPE_PAY_PWD);
+        mType = getIntent().getIntExtra(IntentKey.EXTRA_TYPE, TYPE_PAY_PWD);
         if (mType == TYPE_PAY_PWD) {
             viewDelegate.setTitle(R.string.modify_pay_password);
         } else {

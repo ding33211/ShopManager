@@ -2,7 +2,7 @@ package com.soubu.goldensteward.ui.customer;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerDetailDataObject;
@@ -37,7 +37,7 @@ public class CustomerSpecActivity extends BaseWithFootOrRefreshRecyclerViewPrese
     @Override
     protected void initData() {
         super.initData();
-        mParams = (CustomerServerParams) getIntent().getSerializableExtra(Constant.EXTRA_PARAMS);
+        mParams = (CustomerServerParams) getIntent().getSerializableExtra(IntentKey.EXTRA_PARAMS);
     }
 
     @Override

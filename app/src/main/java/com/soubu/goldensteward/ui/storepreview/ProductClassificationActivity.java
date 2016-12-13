@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.server.ProductClassificationServerParams;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 
@@ -61,8 +61,8 @@ public class ProductClassificationActivity extends ActivityPresenter<ProductClas
             @Override
             public void onItemClick(BaseViewHolder holder, ProductClassificationServerParams item, int position) {
                 Intent intent = new Intent(ProductClassificationActivity.this, StorePreviewActivity.class);
-                intent.putExtra(Constant.EXTRA_FROM, StorePreviewActivity.FROM_PRODUCT_CLASSIFICATION);
-                intent.putExtra(Constant.EXTRA_CONTENT, item.getMain());
+                intent.putExtra(IntentKey.EXTRA_FROM, StorePreviewActivity.FROM_PRODUCT_CLASSIFICATION);
+                intent.putExtra(IntentKey.EXTRA_CONTENT, item.getMain());
                 startActivity(intent);
             }
         };

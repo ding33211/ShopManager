@@ -58,10 +58,10 @@ public class FeedBackActivityDelegate extends AppDelegate implements View.OnClic
         v.setSelected(true);
     }
 
-    @Override
-    public boolean ifNeedEventBus() {
-        return true;
-    }
+//    @Override
+//    public boolean ifNeedEventBus() {
+//        return true;
+//    }
 
     public boolean checkComplete(FeedBackServerParams params) {
         if (mLastClickIndex == 0) {

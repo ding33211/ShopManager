@@ -9,7 +9,7 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.OperationReportRvItem;
 import com.soubu.goldensteward.support.bean.server.BaseDataObject;
@@ -115,16 +115,16 @@ public class OperationReportActivity extends ActivityPresenter<RecyclerViewActiv
                     Intent intent = new Intent(OperationReportActivity.this, OperationReportSpecActivity.class);
                     switch (position) {
                         case 0:
-                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
+                            intent.putExtra(IntentKey.EXTRA_TYPE, OperationReportSpecActivity.TYPE_TURNOVER);
                             break;
                         case 1:
-                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_STORE_VISITOR);
+                            intent.putExtra(IntentKey.EXTRA_TYPE, OperationReportSpecActivity.TYPE_STORE_VISITOR);
                             break;
                         case 2:
-                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_PRODUCT_ACCESS);
+                            intent.putExtra(IntentKey.EXTRA_TYPE, OperationReportSpecActivity.TYPE_PRODUCT_ACCESS);
                             break;
                         case 3:
-                            intent.putExtra(Constant.EXTRA_TYPE, OperationReportSpecActivity.TYPE_REFUND_RATE);
+                            intent.putExtra(IntentKey.EXTRA_TYPE, OperationReportSpecActivity.TYPE_REFUND_RATE);
                             break;
                     }
                     startActivity(intent);

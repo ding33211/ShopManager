@@ -44,8 +44,20 @@
     <color name="pie_color_5">#fb8856</color>
     <color name="pie_color_6">#ffb14c</color>
 
+    <color name="avatar_1">#f2725e</color>
+    <color name="avatar_2">#668aad</color>
+    <color name="avatar_3">#9a89b9</color>
+    <color name="avatar_4">#8a8a8a</color>
+    <color name="avatar_5">#4da9eb</color>
+    <color name="avatar_6">#f7b55e</color>
+    <color name="avatar_7">#17c295</color>
+    <color name="tag_1">#fa9b2b</color>
+    <color name="tag_2">#2b96fa</color>
+    <color name="tag_3">#54b91c</color>
+
     <color name="blue_sign_up_success">#2fa1dd</color>
     <color name="red_sign_up_product">#fe3824</color>
     <color name="green_sign_up_product">#46be7d</color>
+    <color name="no_activity_grey">#e6e6e6</color>
 
 </resources>

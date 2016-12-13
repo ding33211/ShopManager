@@ -3,9 +3,9 @@ package com.soubu.goldensteward.ui.report;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
@@ -65,7 +65,7 @@ public class OperationReportSpecActivity extends ActivityPresenter<OperationRepo
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, 0);
+        mType = getIntent().getIntExtra(IntentKey.EXTRA_TYPE, 0);
         switch (mType) {
             case TYPE_TURNOVER:
                 viewDelegate.setTitle(R.string.turnover_volume);
