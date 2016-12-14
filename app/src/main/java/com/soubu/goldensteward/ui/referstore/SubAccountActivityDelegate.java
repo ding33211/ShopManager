@@ -65,9 +65,9 @@ public class SubAccountActivityDelegate extends AppDelegate {
         mRecyclerAdapter.notifyDataSetChanged();
     }
 
-
-    @Override
-    public boolean ifNeedEventBus() {
-        return true;
-    }
+//
+//    @Override
+//    public boolean ifNeedEventBus() {
+//        return true;
+//    }
 }

@@ -16,7 +16,6 @@ import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
 import com.soubu.goldensteward.support.bean.server.EvaluateInReturnRateServerParams;
-import com.soubu.goldensteward.support.bean.server.FeedBackServerParams;
 import com.soubu.goldensteward.support.bean.server.HomeInfoServerParams;
 import com.soubu.goldensteward.support.bean.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.support.bean.server.MainProductTagServerParams;
@@ -41,8 +40,6 @@ import com.soubu.goldensteward.ui.login.LoginActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -438,38 +435,38 @@ public class RetrofitRequest {
         enqueueClue(call, true, EventBusConfig.GET_SUB_ACCOUNT_LIST);
     }
 
-    /**
-     * 获取子账号详情
-     */
-    public void getSubAccountDetail(String id) {
-        Map map = new HashMap();
-        map.put("id", id);
-        Call<BaseResp<BaseDataObject<SubAccountServerParams>>> call = RetrofitService.getInstance()
-                .createApi(false)
-                .getSubAccountDetail(new Gson().toJson(map));
-        enqueueClue(call, true, EventBusConfig.GET_SUB_ACCOUNT_DETAIL);
-    }
+//    /**
+//     * 获取子账号详情
+//     */
+//    public void getSubAccountDetail(String id) {
+//        Map map = new HashMap();
+//        map.put("id", id);
+//        Call<BaseResp<BaseDataObject<SubAccountServerParams>>> call = RetrofitService.getInstance()
+//                .createApi(false)
+//                .getSubAccountDetail(new Gson().toJson(map));
+//        enqueueClue(call, true, EventBusConfig.GET_SUB_ACCOUNT_DETAIL);
+//    }
 
-    /**
-     * 获取旧手机的验证码
-     */
-    public void getOldPhoneVerifyCode(String imageCode) {
-        Map map = new HashMap();
-        map.put("image_code", imageCode);
-        Call<BaseResp<Object>> call = RetrofitService.getInstance()
-                .createApi(false)
-                .getOldPhoneVerifyCode(new Gson().toJson(map));
-        enqueueClue(call, true, EventBusConfig.GET_OLD_PHONE_VERIFY_CODE);
-    }
+//    /**
+//     * 获取旧手机的验证码
+//     */
+//    public void getOldPhoneVerifyCode(String imageCode) {
+//        Map map = new HashMap();
+//        map.put("image_code", imageCode);
+//        Call<BaseResp<Object>> call = RetrofitService.getInstance()
+//                .createApi(false)
+//                .getOldPhoneVerifyCode(new Gson().toJson(map));
+//        enqueueClue(call, true, EventBusConfig.GET_OLD_PHONE_VERIFY_CODE);
+//    }
 
-    /**
-     * 获取旧手机的验证码
-     */
-    public void sendFeedBack(FeedBackServerParams params) {
-        Call<BaseResp<Object>> call = RetrofitService.getInstance()
-                .createApi(false)
-                .sendFeedBack(new Gson().toJson(params));
-        enqueueClue(call, true, EventBusConfig.SEND_FEEDBACK);
-    }
+//    /**
+//     * 获取旧手机的验证码
+//     */
+//    public void sendFeedBack(FeedBackServerParams params) {
+//        Call<BaseResp<Object>> call = RetrofitService.getInstance()
+//                .createApi(false)
+//                .sendFeedBack(new Gson().toJson(params));
+//        enqueueClue(call, true, EventBusConfig.SEND_FEEDBACK);
+//    }
 
 }

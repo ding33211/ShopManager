@@ -3,15 +3,12 @@ package com.soubu.goldensteward.ui.setting;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.EventBusConfig;
+import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.FeedBackServerParams;
-import com.soubu.goldensteward.support.net.RetrofitRequest;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
 /**
  * Created by lakers on 16/10/31.
@@ -37,18 +34,22 @@ public class FeedBackActivity extends ActivityPresenter<FeedBackActivityDelegate
             public void onClick(View v) {
                 FeedBackServerParams params = new FeedBackServerParams();
                 if (viewDelegate.checkComplete(params)) {
-                    RetrofitRequest.getInstance().sendFeedBack(params);
+                    BaseApplication.getWebModel()
+                            .sendFeedBack(params)
+                            .sendTo(new BaseSubscriber<BaseResponse>(FeedBackActivity.this) {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    onSendFeedBackSuccess();
+                                }
+                            });
+
                 }
             }
         }, R.id.btn_submit);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSendFeedBackSuccess(BaseEventBusResp resp) {
-        int code = resp.getCode();
-        if (code == EventBusConfig.SEND_FEEDBACK) {
-            ShowWidgetUtil.showShort(R.string.submit_success);
-            finish();
-        }
+    public void onSendFeedBackSuccess() {
+        ShowWidgetUtil.showShort(R.string.submit_success);
+        finish();
     }
 }

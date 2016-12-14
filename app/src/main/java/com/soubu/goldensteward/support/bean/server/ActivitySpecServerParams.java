@@ -7,13 +7,18 @@ import lombok.Data;
  */
 @Data
 public class ActivitySpecServerParams {
-    String url;
-    String name;
-    String sign_up_time;
-    String sign_end_time;
-    String activity_start_time;
-    String activity_end_time;
-    Content[] content;
+    String id;
+    String detail_img;
+    String active_name;
+    String sign_up_start_time;
+    String sign_up_end_time;
+    String active_start_time;
+    String active_end_time;
+    String active_rule;
+    String sign_introduce;
+//    Content[] content;
+
+
 
     @Data
     public class Content {

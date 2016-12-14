@@ -23,6 +23,12 @@ public class BaseResponse<T> {
         T data;
 
         String token;
+
+        //报名详情中的审核状态
+        int status;
+
+        //报名详情中的失败原因
+        String fail_cause;
     }
 
 

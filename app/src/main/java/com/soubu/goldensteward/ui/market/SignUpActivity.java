@@ -1,35 +1,37 @@
 package com.soubu.goldensteward.ui.market;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.bean.EventBusConfig;
-import com.soubu.goldensteward.support.bean.server.BaseResp;
-import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
-import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
+import com.soubu.goldensteward.support.base.BaseApplication;
+import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
+import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.GlideUtils;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.soubu.goldensteward.support.web.core.BaseResponse;
+import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-12-6.
  */
 
 public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
-    List<Integer> mCheckedIndex;
+    private List<String> mCheckedProductId;
+    private String mAccountId;
+    private int mActivityId;
 
 
     @Override
@@ -46,56 +48,63 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
     @Override
     protected void initData() {
         super.initData();
-        mCheckedIndex = new ArrayList<>();
-        RetrofitRequest.getInstance().getProductListOnSale();
-        SingleAdapter adapter = new SingleAdapter<ProductInOrderListServerParams>(this, R.layout.item_product_access_product_on_sale_recyclerview) {
-            @Override
-            protected void bindData(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
-                View vBottom1 = holder.getView(R.id.ll_bottom);
-                vBottom1.setVisibility(View.GONE);
-                ImageView ivProductImg = holder.getView(R.id.iv_product);
-                TextView tvProductName = holder.getView(R.id.tv_name);
-                TextView tvSamplePrice = holder.getView(R.id.tv_sample_card_price);
-                TextView tvBigGoodsPrice = holder.getView(R.id.tv_big_goods_price);
-                TextView tvBrowse = holder.getView(R.id.tv_browser_volume);
-                TextView tvCollection = holder.getView(R.id.tv_collection_volume);
-                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
-                tvProductName.setText(item.getTitle());
-                tvSamplePrice.setText(item.getPrice());
-                tvBrowse.setText(item.getVisit());
-                tvCollection.setText(item.getCollection());
-            }
-
-            @Override
-            public void onItemClick(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
-                CheckBox cbChoose = holder.getView(R.id.cb_choose);
-                if (cbChoose.isChecked()) {
-                    cbChoose.setChecked(false);
-                } else {
-                    cbChoose.setChecked(true);
+        mCheckedProductId = new ArrayList<>();
+        mAccountId = getIntent().getStringExtra(IntentKey.EXTRA_ACCOUNT_ID);
+        mActivityId = getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, -1);
+        if (!TextUtils.isEmpty(mAccountId)) {
+            Map<String, String> map = new HashMap<>();
+            map.put("id", mAccountId);
+            BaseApplication.getWebModel().getProductListInActivity(map).sendTo(new BaseSubscriber<BaseResponse<List<ProductInSignUpActivityServerParams>>>(this) {
+                @Override
+                public void onSuccess(BaseResponse<List<ProductInSignUpActivityServerParams>> response) {
+                    viewDelegate.initProduct(response.getResult().getData());
                 }
-                if (!mCheckedIndex.contains(position)) {
-                    mCheckedIndex.add(position);
-                } else {
-                    mCheckedIndex.remove((Integer) position);
+            });
+            SingleAdapter adapter = new SingleAdapter<ProductInSignUpActivityServerParams>(this, R.layout.item_product_access_product_on_sale_recyclerview) {
+                @Override
+                protected void bindData(BaseViewHolder holder, ProductInSignUpActivityServerParams item, int position) {
+                    View vBottom1 = holder.getView(R.id.ll_bottom);
+                    vBottom1.setVisibility(View.GONE);
+                    CheckBox cbChoose = holder.getView(R.id.cb_choose);
+                    ImageView ivProductImg = holder.getView(R.id.iv_product);
+                    TextView tvProductName = holder.getView(R.id.tv_name);
+                    TextView tvSamplePrice = holder.getView(R.id.tv_sample_card_price);
+                    TextView tvBigGoodsPrice = holder.getView(R.id.tv_big_goods_price);
+                    TextView tvSampleUnit = holder.getView(R.id.tv_sample_unit);
+                    TextView tvBigGoodsUnit = holder.getView(R.id.tv_big_goods_unit);
+                    GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getCover(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                    tvProductName.setText(item.getName());
+                    tvSamplePrice.setText(item.getCut_price());
+                    tvBigGoodsPrice.setText(item.getPrice());
+                    tvSampleUnit.setText(item.getCut_units());
+                    tvBigGoodsUnit.setText(item.getUnit());
+                    if (mCheckedProductId.contains(item.getPro_id())) {
+                        cbChoose.setChecked(true);
+                    } else {
+                        cbChoose.setChecked(false);
+                    }
                 }
-                viewDelegate.refreshTotalText(mCheckedIndex.size());
-            }
-        };
-        viewDelegate.setProductAdapter(adapter);
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getDataSuccess(BaseEventBusResp resp) {
-        BaseResp resp1 = (BaseResp) resp.getObject();
-        int code = resp.getCode();
-        switch (code) {
-            case EventBusConfig.GET_PRODUCT_LIST_ON_SALE:
-                WithCountDataArray result2 = (WithCountDataArray) resp1.getResult();
-                List<ProductInOrderListServerParams> list = Arrays.asList((ProductInOrderListServerParams[]) result2.getData());
-                viewDelegate.initProduct(list);
-                break;
+                @Override
+                public void onItemClick(BaseViewHolder holder, ProductInSignUpActivityServerParams item, int position) {
+                    CheckBox cbChoose = holder.getView(R.id.cb_choose);
+                    if (cbChoose.isChecked()) {
+                        cbChoose.setChecked(false);
+                    } else {
+                        cbChoose.setChecked(true);
+                    }
+                    String id = item.getPro_id();
+                    if (!mCheckedProductId.contains(id)) {
+                        mCheckedProductId.add(id);
+                    } else {
+                        mCheckedProductId.remove(id);
+                    }
+                    viewDelegate.refreshTotalText(mCheckedProductId.size());
+                }
+            };
+            viewDelegate.setProductAdapter(adapter);
         }
+
     }
 
     @Override
@@ -106,7 +115,16 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.tv_commit:
-                        viewDelegate.onCommitSuccess();
+                        SignUpServerParams params = new SignUpServerParams();
+                        params.setUid(mAccountId);
+                        params.setActive_id(mActivityId + "");
+                        params.setProduct_list(JSON.toJSONString(mCheckedProductId));
+                        BaseApplication.getWebModel().signUp(params).sendTo(new BaseSubscriber<BaseResponse>(SignUpActivity.this) {
+                            @Override
+                            public void onSuccess(BaseResponse response) {
+                                viewDelegate.onCommitSuccess();
+                            }
+                        });
                         break;
                     case R.id.bt_return:
                         setResult(RESULT_OK);

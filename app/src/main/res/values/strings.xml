@@ -367,6 +367,7 @@
     <string name="activity_i_join">我参加的活动</string>
     <string name="sign_up_time">报名时间</string>
     <string name="sign_up_end_time">报名截止时间</string>
+    <string name="activity_time">活动时间</string>
     <string name="watch_sign_up_spec">查看报名详情</string>
     <string name="investment_time">招商时间</string>
     <string name="activity_start_time">活动开始时间</string>
@@ -379,6 +380,8 @@
     <string name="unit_jian">件</string>
     <string name="commit_sign_up">提交报名</string>
     <string name="activity_sign_up">活动报名</string>
+    <string name="activity_introduce">活动介绍</string>
+    <string name="sign_up_request">报名要求</string>
     <string name="sign_up_server_error_desc">服务器异常，请刷新试试！</string>
     <string name="sign_up_empty_product_desc">您的店铺当前没有任何商品\n无法参与当前活动！</string>
     <string name="have_commit_sign_up_request">您的报名申请已提交！</string>
@@ -398,5 +401,13 @@
     <string name="sign_up_product">报名商品</string>
     <string name="sign_up_spec">报名详情</string>
     <string name="sign_up_again">重新报名</string>
+    <string name="store_contact">店铺通讯录</string>
+    <string name="search">搜索</string>
+    <string name="find_people">找人</string>
+    <string name="new_friend">新朋友</string>
+    <string name="card_holder">名片夹</string>
+    <string name="recent_contact">最近联系人</string>
+    <string name="special_focus">特别关注</string>
+    <string name="card_holder_title">共%s人</string>
 
 </resources>

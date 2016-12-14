@@ -7,9 +7,9 @@ import lombok.Data;
  */
 @Data
 public class AllActivityServerParams {
-    String url;
-    String name;
-    String begin_time;
+    int id;
+    String index_img;
+    String active_name;
+    String start_time;
     String end_time;
-
 }

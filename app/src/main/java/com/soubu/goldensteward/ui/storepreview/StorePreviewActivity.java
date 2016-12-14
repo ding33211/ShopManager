@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
-import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.ProductPreviewSeverParams;
 
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class StorePreviewActivity extends ActivityPresenter<StorePreviewActivity
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        mFrom = getIntent().getIntExtra(Constant.EXTRA_FROM, 0);
+        mFrom = getIntent().getIntExtra(IntentKey.EXTRA_FROM, 0);
         if (mFrom != 0) {
-            String title = getIntent().getStringExtra(Constant.EXTRA_CONTENT);
+            String title = getIntent().getStringExtra(IntentKey.EXTRA_CONTENT);
             if (!TextUtils.isEmpty(title)) {
                 viewDelegate.setTitle(title);
                 viewDelegate.initFromProductClassification();

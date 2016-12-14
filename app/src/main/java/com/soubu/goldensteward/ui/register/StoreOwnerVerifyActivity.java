@@ -6,14 +6,14 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.ui.login.LoginActivity;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.MergeServerParams;
 import com.soubu.goldensteward.support.bean.server.VerificationServerParams;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
-import com.soubu.goldensteward.ui.login.LoginActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -45,7 +45,7 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.store_owner_verify);
-        int index = getIntent().getIntExtra(Constant.EXTRA_INDEX, 0);
+        int index = getIntent().getIntExtra(IntentKey.EXTRA_INDEX, 0);
         viewDelegate.setCurrentIndex(index);
     }
 

@@ -1,11 +1,8 @@
 package com.soubu.goldensteward.support.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-
-import com.soubu.goldensteward.support.constant.Constant;
 
 
 /**
@@ -65,7 +62,4 @@ public class AppUtil {
         return versionCode;
     }
 
-    public static SharedPreferences getDefaultSharedPreference(Context context) {
-        return context.getSharedPreferences(Constant.SHARED_PREFERENCE_DEFAULT, Context.MODE_PRIVATE);
-    }
 }

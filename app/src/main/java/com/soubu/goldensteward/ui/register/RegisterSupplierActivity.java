@@ -13,7 +13,7 @@ import com.baidu.location.BDLocationListener;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.MainProductParams;
 import com.soubu.goldensteward.support.bean.RegisterRvItem;
@@ -75,7 +75,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.supplier_register);
-        mParams = (UserServerParams) getIntent().getSerializableExtra(Constant.EXTRA_PARAMS);
+        mParams = (UserServerParams) getIntent().getSerializableExtra(IntentKey.EXTRA_PARAMS);
     }
 
 
@@ -208,7 +208,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                     getLocation();
                     break;
                 case REQUEST_CHOOSE_MAIN_PRODUCT:
-                    Parcelable[] parcelables = data.getParcelableArrayExtra(Constant.EXTRA_PARAMS);
+                    Parcelable[] parcelables = data.getParcelableArrayExtra(IntentKey.EXTRA_PARAMS);
                     if (parcelables != null) {
                         mMainProductParams = new MainProductParams[parcelables.length];
                         for (int i = 0; i < parcelables.length; i++) {
@@ -217,7 +217,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                     }
                     String json = new Gson().toJson(mMainProductParams);
                     mParams.setMain_product(json);
-                    String message = data.getStringExtra(Constant.EXTRA_RESULT);
+                    String message = data.getStringExtra(IntentKey.EXTRA_RESULT);
                     if (!TextUtils.isEmpty(message)) {
                         viewDelegate.refreshMainProducts(message);
                     }
@@ -269,7 +269,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
                     mOpv.show();
                 } else {
                     Intent intent = new Intent(RegisterSupplierActivity.this, ChooseMainProductsActivity.class);
-                    intent.putExtra(Constant.EXTRA_PARAMS, mMainProductParams);
+                    intent.putExtra(IntentKey.EXTRA_PARAMS, mMainProductParams);
                     startActivityForResult(intent, REQUEST_CHOOSE_MAIN_PRODUCT);
                 }
             }

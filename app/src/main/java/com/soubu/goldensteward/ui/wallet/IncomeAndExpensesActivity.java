@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.delegate.TabViewpagerActivityDelegate;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
@@ -49,11 +49,11 @@ public class IncomeAndExpensesActivity extends ActivityPresenter<TabViewpagerAct
         List<Fragment> fragments = new ArrayList<>();
         mIncomeFragment = new IncomeOrExpensesFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_INCOME);
+        bundle.putInt(IntentKey.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_INCOME);
         mIncomeFragment.setArguments(bundle);
         mExpensesFragment = new IncomeOrExpensesFragment();
         Bundle bundle2 = new Bundle();
-        bundle2.putInt(Constant.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_EXPENSES);
+        bundle2.putInt(IntentKey.EXTRA_TYPE, IncomeOrExpensesFragment.TYPE_EXPENSES);
         mExpensesFragment.setArguments(bundle2);
         fragments.add(mIncomeFragment);
         fragments.add(mExpensesFragment);

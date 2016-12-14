@@ -7,9 +7,9 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
-import com.soubu.goldensteward.support.constant.Constant;
 import com.soubu.goldensteward.support.bean.server.IncomeOrExpensesServerParams;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 
@@ -32,7 +32,7 @@ public class IncomeOrExpensesFragment extends FragmentPresenter<RecyclerViewFrag
     @Override
     protected void initData() {
         super.initData();
-        int type = getArguments().getInt(Constant.EXTRA_TYPE);
+        int type = getArguments().getInt(IntentKey.EXTRA_TYPE);
         SingleAdapter adapter = new SingleAdapter<IncomeOrExpensesServerParams>(getActivity(), R.layout.item_income_or_expenses_recyclerview) {
             @Override
             protected void bindData(BaseViewHolder holder, IncomeOrExpensesServerParams item, int position) {

@@ -167,13 +167,13 @@ public interface RetrofitApi {
     @POST("Child/child_detail")
     Call<BaseResp<BaseDataObject<SubAccountServerParams>>> getSubAccountDetail(@Field("params") String params);
 
-    //获取修改手机号老号码验证码
-    @FormUrlEncoded
-    @POST("User/change_phone_sms")
-    Call<BaseResp<Object>> getOldPhoneVerifyCode(@Field("params") String params);
+//    //获取修改手机号老号码验证码
+//    @FormUrlEncoded
+//    @POST("User/change_phone_sms")
+//    Call<BaseResp<Object>> getOldPhoneVerifyCode(@Field("params") String params);
 
-    //意见反馈
-    @FormUrlEncoded
-    @POST("Other/feedback")
-    Call<BaseResp<Object>> sendFeedBack(@Field("params") String params);
+//    //意见反馈
+//    @FormUrlEncoded
+//    @POST("Other/feedback")
+//    Call<BaseResp<Object>> sendFeedBack(@Field("params") String params);
 }

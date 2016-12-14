@@ -85,12 +85,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
                 break;
             case R.id.tv_register:
                 Intent intent1 = new Intent(this, RegisterOrForgetPwdActivity.class);
-                intent1.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_REGISTER);
+                intent1.putExtra(IntentKey.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_REGISTER);
                 startActivity(intent1);
                 break;
             case R.id.tv_forget_pwd:
                 Intent intent2 = new Intent(this, RegisterOrForgetPwdActivity.class);
-                intent2.putExtra(Constant.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
+                intent2.putExtra(IntentKey.EXTRA_TYPE, RegisterOrForgetPwdActivity.TYPE_FORGET_PWD);
                 startActivity(intent2);
                 break;
         }

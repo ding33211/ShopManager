@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.GlideUtils;
@@ -31,9 +31,9 @@ public class SignUpSpecActivityDelegate extends AppDelegate {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new SingleAdapter<ProductInOrderListServerParams>(getActivity(), R.layout.item_product_access_product_on_sale_recyclerview) {
+        mAdapter = new SingleAdapter<ProductInSignUpActivityServerParams>(getActivity(), R.layout.item_product_access_product_on_sale_recyclerview) {
             @Override
-            protected void bindData(BaseViewHolder holder, ProductInOrderListServerParams item, int position) {
+            protected void bindData(BaseViewHolder holder, ProductInSignUpActivityServerParams item, int position) {
                 View vBottom = holder.getView(R.id.ll_bottom);
                 View vCbChoose = holder.getView(R.id.cb_choose);
                 vBottom.setVisibility(View.GONE);
@@ -42,13 +42,14 @@ public class SignUpSpecActivityDelegate extends AppDelegate {
                 TextView tvProductName = holder.getView(R.id.tv_name);
                 TextView tvSamplePrice = holder.getView(R.id.tv_sample_card_price);
                 TextView tvBigGoodsPrice = holder.getView(R.id.tv_big_goods_price);
-                TextView tvBrowse = holder.getView(R.id.tv_browser_volume);
-                TextView tvCollection = holder.getView(R.id.tv_collection_volume);
-                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getPic(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
-                tvProductName.setText(item.getTitle());
-                tvSamplePrice.setText(item.getPrice());
-                tvBrowse.setText(item.getVisit());
-                tvCollection.setText(item.getCollection());
+                TextView tvSampleUnit = holder.getView(R.id.tv_sample_unit);
+                TextView tvBigGoodsUnit = holder.getView(R.id.tv_big_goods_unit);
+                GlideUtils.loadRoundedImage(ivProductImg.getContext(), ivProductImg, item.getCover(), R.drawable.common_product_placeholder, R.drawable.common_product_placeholder);
+                tvProductName.setText(item.getName());
+                tvSamplePrice.setText(item.getCut_price());
+                tvBigGoodsPrice.setText(item.getPrice());
+                tvSampleUnit.setText(item.getCut_units());
+                tvBigGoodsUnit.setText(item.getUnit());
             }
 
         };
@@ -61,20 +62,15 @@ public class SignUpSpecActivityDelegate extends AppDelegate {
         return R.layout.activity_sign_up_spec;
     }
 
-    public void initProduct(List<ProductInOrderListServerParams> list) {
+    public void initProduct(List<ProductInSignUpActivityServerParams> list) {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public boolean ifNeedEventBus() {
-        return true;
     }
 
     /**
      * 刷新报名状态
      *
-     * @param type 0表示正在审核，1表示审核通过，2表示审核失败
+     * @param type 1表示正在审核，2表示审核通过，3表示审核失败
      */
     public void refreshSignUpState(int type, int productCount, String failReason) {
         ImageView ivState = get(R.id.iv_appeal_state);
@@ -88,12 +84,12 @@ public class SignUpSpecActivityDelegate extends AppDelegate {
         TextView tvFailReason = get(R.id.tv_fail_reason);
         TextView tvProductCount = get(R.id.tv_product_count);
         tvProductCount.setText(productCount + "");
-        if (type == 1 || type == 2) {
+        if (type == 2 || type == 3) {
             Resources res = getActivity().getResources();
             tvStep3.setTextColor(res.getColor(R.color.colorPrimary));
             vLine2.setBackgroundResource(R.color.colorPrimary);
             tvStep3Num.setBackgroundResource(R.drawable.bg_orange_circle);
-            if (type == 1) {
+            if (type == 2) {
                 ivState.setImageResource(R.drawable.sign_up_appeal_success);
                 tvAppealState.setText(R.string.sign_up_appeal_success);
                 tvAppealState.setTextColor(res.getColor(R.color.green_sign_up_product));

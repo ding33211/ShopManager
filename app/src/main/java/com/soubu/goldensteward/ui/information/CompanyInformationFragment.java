@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.InformationRvItem;
 import com.soubu.goldensteward.support.bean.OssConst;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
@@ -112,7 +112,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                     break;
                 case REQUEST_LOCATION:
                     if (data != null) {
-                        UserServerParams params = (UserServerParams) data.getSerializableExtra(Constant.EXTRA_PARAMS);
+                        UserServerParams params = (UserServerParams) data.getSerializableExtra(IntentKey.EXTRA_PARAMS);
                         mLocationParams.deltaCopy(params);
                         mUser.setAddress(params.getAddress());
                         mUser.setProvince(mLocationParams.getProvince());
@@ -128,7 +128,7 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                     break;
                 case REQUEST_COMPANY_PROFILE:
                     if (data != null) {
-                        String companyProfile = data.getStringExtra(Constant.EXTRA_CONTENT);
+                        String companyProfile = data.getStringExtra(IntentKey.EXTRA_CONTENT);
                         saveInfo(companyProfile, 8);
                     }
                     break;
@@ -236,18 +236,18 @@ public class CompanyInformationFragment extends FragmentPresenter<RecyclerViewFr
                         params.setProvince(mUser.getProvince());
                         params.setAddress(mUser.getAddress());
                         Intent intent = new Intent(getActivity(), ModifyInfoActivity.class);
-                        intent.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_LOCATION);
-                        intent.putExtra(Constant.EXTRA_PARAMS, params);
-                        intent.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_address));
+                        intent.putExtra(IntentKey.EXTRA_TYPE, ModifyInfoActivity.TYPE_LOCATION);
+                        intent.putExtra(IntentKey.EXTRA_PARAMS, params);
+                        intent.putExtra(IntentKey.EXTRA_TITLE, getString(R.string.company_address));
                         startActivityForResult(intent, REQUEST_LOCATION);
                         break;
                     case 8:
                         Intent intent1 = new Intent(getActivity(), ModifyInfoActivity.class);
-                        intent1.putExtra(Constant.EXTRA_TYPE, ModifyInfoActivity.TYPE_EDIT);
-                        intent1.putExtra(Constant.EXTRA_TITLE, getString(R.string.company_profile));
-                        intent1.putExtra(Constant.EXTRA_CONTENT, mUser.getCompany_profile());
-                        intent1.putExtra(Constant.EXTRA_HINT, getString(R.string.company_profile_desc));
-                        intent1.putExtra(Constant.EXTRA_LABEL, getString(R.string.company_profile));
+                        intent1.putExtra(IntentKey.EXTRA_TYPE, ModifyInfoActivity.TYPE_EDIT);
+                        intent1.putExtra(IntentKey.EXTRA_TITLE, getString(R.string.company_profile));
+                        intent1.putExtra(IntentKey.EXTRA_CONTENT, mUser.getCompany_profile());
+                        intent1.putExtra(IntentKey.EXTRA_HINT, getString(R.string.company_profile_desc));
+                        intent1.putExtra(IntentKey.EXTRA_LABEL, getString(R.string.company_profile));
                         startActivityForResult(intent1, REQUEST_COMPANY_PROFILE);
                         break;
                 }

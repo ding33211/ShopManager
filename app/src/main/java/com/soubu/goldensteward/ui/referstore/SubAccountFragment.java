@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
@@ -39,7 +39,7 @@ public class SubAccountFragment extends FragmentPresenter<SubAccountFragmentDele
             @Override
             public void onItemClick(BaseViewHolder holder, SubAccountServerParams item, int position) {
                 Intent intent = new Intent(getActivity(), SubAccountSpecActivity.class);
-                intent.putExtra(Constant.EXTRA_SUB_ACCOUNT_ID, item.getUser_id());
+                intent.putExtra(IntentKey.EXTRA_SUB_ACCOUNT_ID, item.getUser_id());
                 startActivity(intent);
             }
         };

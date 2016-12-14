@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soubu.goldensteward.support.mvp.view.IDelegate;
+import com.soubu.goldensteward.support.web.core.BaseView;
+import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +37,7 @@ import org.greenrobot.eventbus.EventBus;
  *
  * @param <T> View delegate class type
  */
-public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment {
+public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment implements BaseView {
     public T viewDelegate;
 
     @Override
@@ -114,4 +116,9 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     }
 
     protected abstract Class<T> getDelegateClass();
+
+    @Override
+    public <T> LifecycleTransformer<T> bindLife() {
+        return bindToLifecycle();
+    }
 }

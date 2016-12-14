@@ -28,7 +28,6 @@ public class SubAccountRvAdapter extends SingleAdapter<SubAccountServerParams> i
         return data.get(pos).getLetter();
     }
 
-
     @Override
     protected void bindData(BaseViewHolder holder, SubAccountServerParams item, int position) {
         String thisLetter = item.getLetter();
@@ -64,7 +63,6 @@ public class SubAccountRvAdapter extends SingleAdapter<SubAccountServerParams> i
         tvLetter.setText(item.getLetter());
         tvName.setTextColor(tvLetter.getResources().getColor(R.color.title_black));
         GlideUtils.loadRoundedImage(ivAvatar.getContext(), ivAvatar, item.getPortrait(), R.drawable.common_header, R.drawable.common_header);
-
     }
 
 

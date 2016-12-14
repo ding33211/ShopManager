@@ -5,14 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
-import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.constant.SpKey;
-import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.SPUtil;
 import com.soubu.goldensteward.ui.login.LoginActivity;
+import com.soubu.goldensteward.support.utils.ActivityContainer;
 import com.soubu.goldensteward.ui.wallet.ModifyPayPwdActivity;
 
 /**
@@ -46,7 +46,7 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
                 break;
             case R.id.ll_modify_pwd:
                 intent = new Intent(this, ModifyPayPwdActivity.class);
-                intent.putExtra(Constant.EXTRA_TYPE, ModifyPayPwdActivity.TYPE_PWD);
+                intent.putExtra(IntentKey.EXTRA_TYPE, ModifyPayPwdActivity.TYPE_PWD);
                 break;
             case R.id.ll_modify_phone:
                 intent = new Intent(this, ModifyPhoneActivity.class);
@@ -58,9 +58,10 @@ public class SettingActivity extends ActivityPresenter<SettingActivityDelegate> 
                 new AlertDialog.Builder(this).setTitle(R.string.alert).setMessage(R.string.logout_alert_message).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SPUtil.putValue(SpKey.TOKEN, "");
-                        UserManager.clearUser();
-                        BaseApplication.getContext().finishAllActivity();
+                        SPUtil.putValue(SpKey.TOKEN,"");
+
+                        BaseApplication.getContext().clearUser();
+                        ActivityContainer.getInstance().finishAllActivity();
                         Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();

@@ -15,7 +15,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
 import com.soubu.goldensteward.support.constant.ApiConfig;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
@@ -53,7 +53,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        mType = getIntent().getIntExtra(Constant.EXTRA_TYPE, 0);
+        mType = getIntent().getIntExtra(IntentKey.EXTRA_TYPE, 0);
         if (mType == TYPE_REGISTER) {
             viewDelegate.setTitle(R.string.register);
         } else {
@@ -183,7 +183,7 @@ public class RegisterOrForgetPwdActivity extends ActivityPresenter<RegisterOrFor
         String msg = response.getMsg();
         if (TextUtils.equals(msg, "验证成功")) {
             Intent intent = new Intent(this, RegisterSupplierActivity.class);
-            intent.putExtra(Constant.EXTRA_PARAMS, mParams);
+            intent.putExtra(IntentKey.EXTRA_PARAMS, mParams);
             startActivity(intent);
         }
     }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
-import com.soubu.goldensteward.support.bean.server.ProductInOrderListServerParams;
+import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
 import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
@@ -41,7 +41,7 @@ public class SignUpActivityDelegate extends AppDelegate {
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), 10)));
     }
 
-    public void initProduct(List<ProductInOrderListServerParams> list) {
+    public void initProduct(List<ProductInSignUpActivityServerParams> list) {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }
@@ -82,8 +82,4 @@ public class SignUpActivityDelegate extends AppDelegate {
         mTvTotal.setText(total + "");
     }
 
-    @Override
-    public boolean ifNeedEventBus() {
-        return true;
-    }
 }

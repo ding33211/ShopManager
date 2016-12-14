@@ -80,6 +80,30 @@
                     android:horizontalSpacing="1dp"
                     android:numColumns="2"
                     android:verticalSpacing="1dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/ll_go_to_store_contract"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/selector_item_white_grey_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/store_contact"
+                        android:textColor="@color/title_black" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/arrow_choose" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -78,6 +78,22 @@ public class ConvertUtil {
         return formatter.format(date);
     }
 
+    public static String dateToYYYY(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        return formatter.format(date);
+    }
+
+    public static String dateToMM_DD_HH_mm(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("MM.dd  HH:mm");
+        return formatter.format(date);
+    }
+
     public static String dateToMMPointDD(Date date) {
         if (date == null) {
             return null;
