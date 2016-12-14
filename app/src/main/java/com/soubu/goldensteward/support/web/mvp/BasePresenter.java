@@ -9,13 +9,15 @@ public abstract class BasePresenter<V extends BaseView> {
 
     private WeakReference<V> viewRef;
 
-    public void attachView(BaseView view) {
+    public void attachView(V view) {
         viewRef = new WeakReference<V>((V) view);
         getView().initWidget();
         initData();
     }
 
-    protected abstract void initData();
+    protected void initData() {
+
+    }
 
     public void detachView(boolean retainInstance) {
         if (viewRef != null) {
@@ -31,5 +33,6 @@ public abstract class BasePresenter<V extends BaseView> {
     public boolean isViewAttached() {
         return viewRef != null && viewRef.get() != null;
     }
+
 
 }

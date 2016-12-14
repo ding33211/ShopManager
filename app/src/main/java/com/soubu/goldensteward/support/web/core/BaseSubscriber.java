@@ -7,9 +7,10 @@ import android.content.Intent;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
-import com.soubu.goldensteward.support.utils.ActivityContainer;
+import com.soubu.goldensteward.support.helper.UserManager;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
+import com.soubu.goldensteward.support.web.mvp.BaseView;
 import com.soubu.goldensteward.ui.login.LoginActivity;
 
 import rx.Subscriber;
@@ -23,11 +24,14 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     private BaseView view;
 
+    public BaseSubscriber() {
+    }
+
     public BaseSubscriber(BaseView view) {
         this.view = view;
     }
 
-    public BaseView getView() {
+    public BaseView getBaseView() {
         return view;
     }
 
@@ -70,12 +74,12 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
                 return false;
             } else {
                 //token 过期
-                if(response.getStatus() == -1){
+                if (response.getStatus() == -1) {
                     new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            BaseApplication.getContext().clearUser();
-                            ActivityContainer.getInstance().finishAllActivity();
+                            UserManager.clearUser();
+                            BaseApplication.getContext().finishAllActivity();
                             Intent intent = new Intent(BaseApplication.getContext().getNowContext(), LoginActivity.class);
                             BaseApplication.getContext().getNowContext().startActivity(intent);
                         }
@@ -84,21 +88,25 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
                 return true;
             }
         }
-        return true;
+        //默认是成功的，因为有时候有些List可能已经从BaseResponse中取出来了
+        return false;
     }
 
     //请求到数据了，但业务错误
     public BaseException onBizError(T t) {
+        LogUtil.print("t=" + t);
         if (t instanceof BaseResponse) {
             BaseResponse response = (BaseResponse) t;
+            LogUtil.print("业务错误：" + response.getMsg());
             return new BaseException(response.getStatus(), response.getMsg());
         }
-        return new BaseException(0, "系统错误");
+        return new BaseException(0, "未知业务错误");
     }
 
     //没请求成功,网络错误
     public BaseException onWebError(Throwable e) {
-        return new BaseException(0, "系统错误");
+        LogUtil.printException(e);
+        return new BaseException(0, "未知网络错误");
     }
 
     /**

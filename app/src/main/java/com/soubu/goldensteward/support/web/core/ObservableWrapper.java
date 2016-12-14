@@ -22,12 +22,16 @@ public class ObservableWrapper<T> {
         this.observable = observable;
     }
 
+    public Observable<T> getObservable() {
+        return observable;
+    }
+
     public Subscription sendTo(BaseSubscriber<T> subscriber) {
         LogUtil.print("BaseConfig.IS_TEST=" + BaseConfig.IS_TEST);
         if (!BaseConfig.IS_TEST) {
             return observable
                     .compose(new BaseTransformer<>())
-                    .compose(subscriber.getView().bindLife())
+                    .compose(subscriber.getBaseView().bindLife())
                     .doOnSubscribe(new Action0() {
                         @Override
                         public void call() {

@@ -34,7 +34,7 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         mRvContent.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-    public void setDecorationHeight(int heightDp){
+    public void setDecorationHeight(int heightDp) {
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), heightDp)));
     }
 
@@ -70,7 +70,7 @@ public class RecyclerViewFragmentDelegate<T> extends BaseFragmentDelegate {
         return mRvContent.getLayoutManager().findViewByPosition(position);
     }
 
-    public void notifyItemChanged(int position){
+    public void notifyItemChanged(int position) {
         mAdapter.notifyItemChanged(position);
     }
 

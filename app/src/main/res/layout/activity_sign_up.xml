@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fm_all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,7 @@
             android:id="@+id/iv_error"
             android:layout_width="260dp"
             android:layout_height="150dp"
-            android:src="@drawable/sign_up_server_error" />
+            android:src="@drawable/sign_up_server_error"/>
 
         <TextView
             android:id="@+id/tv_error_desc"
@@ -27,7 +28,7 @@
             android:layout_marginTop="50dp"
             android:gravity="center"
             android:text="@string/sign_up_server_error_desc"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +43,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="120dp"
-            android:src="@drawable/sign_up_success" />
+            android:src="@drawable/sign_up_success"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
             android:layout_marginTop="40dp"
             android:text="@string/have_commit_sign_up_request"
             android:textColor="@color/blue_sign_up_success"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -62,21 +63,21 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_success_desc_pre"
                 android:textColor="@color/search_text_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="18"
                 android:textColor="@color/red_sign_up_product"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_success_desc_post"
                 android:textColor="@color/search_text_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <Button
@@ -85,7 +86,7 @@
             android:layout_width="168dp"
             android:layout_height="40dp"
             android:layout_marginTop="44dp"
-            android:text="@string/return_to_activity_home" />
+            android:text="@string/return_to_activity_home"/>
     </LinearLayout>
 
     <LinearLayout
@@ -106,12 +107,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="@string/sing_up_desc"
-                android:textColor="@color/search_text_color" />
+                android:textColor="@color/search_text_color"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -133,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/already_choose"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/tv_total"
@@ -143,13 +144,13 @@
                     android:layout_marginRight="4dp"
                     android:text="0"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/unit_jian"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
             </LinearLayout>
 
             <TextView
@@ -159,7 +160,7 @@
                 android:layout_height="44dp"
                 android:layout_marginRight="0dp"
                 android:gravity="center"
-                android:text="@string/commit_sign_up" />
+                android:text="@string/commit_sign_up"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.constant.Constant;
+import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.web.mvp.BaseMvpActivity;
 import com.soubu.goldensteward.ui.home.HomeActivity;
 import com.soubu.goldensteward.ui.register.RegisterOrForgetPwdActivity;
@@ -117,7 +117,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @Override
     public void gotoStoreOwnerVerify(int index) {
         Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
-        intent.putExtra(Constant.EXTRA_INDEX, index);
+        intent.putExtra(IntentKey.EXTRA_INDEX, index);
         startActivity(intent);
     }
 

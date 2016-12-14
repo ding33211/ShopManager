@@ -14,6 +14,7 @@ import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.utils.GlideUtils;
+import com.soubu.goldensteward.support.web.BasePageRequest;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
@@ -62,7 +63,7 @@ public class AllActivityFragment extends FragmentPresenter<RecyclerViewFragmentD
         viewDelegate.setAdapter(adapter);
 
 
-        BaseApplication.getWebModel().getAllActivity().sendTo(new BaseSubscriber<BaseResponse<List<AllActivityServerParams>>>(this) {
+        BaseApplication.getWebModel().getAllActivity(new BasePageRequest(1)).sendTo(new BaseSubscriber<BaseResponse<List<AllActivityServerParams>>>(this) {
             @Override
             public void onSuccess(BaseResponse<List<AllActivityServerParams>> response) {
                 initAllActivity(response);

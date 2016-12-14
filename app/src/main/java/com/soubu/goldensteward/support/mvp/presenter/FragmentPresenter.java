@@ -23,13 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soubu.goldensteward.support.mvp.view.IDelegate;
-import com.soubu.goldensteward.support.web.core.BaseView;
+import com.soubu.goldensteward.support.web.mvp.BaseView;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
-
-//import com.trello.rxlifecycle2.components.support.RxFragment;
 
 
 /**
@@ -120,5 +118,10 @@ public abstract class FragmentPresenter<T extends IDelegate> extends RxFragment 
     @Override
     public <T> LifecycleTransformer<T> bindLife() {
         return bindToLifecycle();
+    }
+
+    @Override
+    public void initWidget() {
+
     }
 }

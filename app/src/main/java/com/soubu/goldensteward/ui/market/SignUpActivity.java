@@ -6,7 +6,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
@@ -54,12 +53,14 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
         if (!TextUtils.isEmpty(mAccountId)) {
             Map<String, String> map = new HashMap<>();
             map.put("id", mAccountId);
-            BaseApplication.getWebModel().getProductListInActivity(map).sendTo(new BaseSubscriber<BaseResponse<List<ProductInSignUpActivityServerParams>>>(this) {
-                @Override
-                public void onSuccess(BaseResponse<List<ProductInSignUpActivityServerParams>> response) {
-                    viewDelegate.initProduct(response.getResult().getData());
-                }
-            });
+            BaseApplication.getWebModel()
+                    .getProductListInActivity(new ProductListRequest(1, mAccountId))
+                    .sendTo(new BaseSubscriber<BaseResponse<List<ProductInSignUpActivityServerParams>>>(this) {
+                        @Override
+                        public void onSuccess(BaseResponse<List<ProductInSignUpActivityServerParams>> response) {
+                            viewDelegate.initProduct(response.getResult().getData());
+                        }
+                    });
             SingleAdapter adapter = new SingleAdapter<ProductInSignUpActivityServerParams>(this, R.layout.item_product_access_product_on_sale_recyclerview) {
                 @Override
                 protected void bindData(BaseViewHolder holder, ProductInSignUpActivityServerParams item, int position) {
@@ -118,7 +119,7 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
                         SignUpServerParams params = new SignUpServerParams();
                         params.setUid(mAccountId);
                         params.setActive_id(mActivityId + "");
-                        params.setProduct_list(JSON.toJSONString(mCheckedProductId));
+                        params.setProduct_list(mCheckedProductId);
                         BaseApplication.getWebModel().signUp(params).sendTo(new BaseSubscriber<BaseResponse>(SignUpActivity.this) {
                             @Override
                             public void onSuccess(BaseResponse response) {

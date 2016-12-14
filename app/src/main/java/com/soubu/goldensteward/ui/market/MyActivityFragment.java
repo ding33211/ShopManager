@@ -12,6 +12,7 @@ import com.soubu.goldensteward.support.bean.server.MyActivityServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
+import com.soubu.goldensteward.support.web.BasePageRequest;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
@@ -22,6 +23,7 @@ import java.util.List;
  */
 
 public class MyActivityFragment extends FragmentPresenter<RecyclerViewFragmentDelegate> {
+
     @Override
     protected Class<RecyclerViewFragmentDelegate> getDelegateClass() {
         return RecyclerViewFragmentDelegate.class;
@@ -60,12 +62,14 @@ public class MyActivityFragment extends FragmentPresenter<RecyclerViewFragmentDe
         };
         viewDelegate.setAdapter(adapter);
         viewDelegate.setDecorationHeight(10);
-        BaseApplication.getWebModel().getMyActivity().sendTo(new BaseSubscriber<BaseResponse<List<MyActivityServerParams>>>(this) {
-            @Override
-            public void onSuccess(BaseResponse<List<MyActivityServerParams>> response) {
-                viewDelegate.setData(response.getResult().getData());
-            }
-        });
+        BaseApplication.getWebModel()
+                .getMyActivity(new BasePageRequest(1))
+                .sendTo(new BaseSubscriber<BaseResponse<List<MyActivityServerParams>>>(this) {
+                    @Override
+                    public void onSuccess(BaseResponse<List<MyActivityServerParams>> response) {
+                        viewDelegate.setData(response.getResult().getData());
+                    }
+                });
     }
 
 }

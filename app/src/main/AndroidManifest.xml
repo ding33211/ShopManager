@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
-
     <application
         android:name=".support.base.AppApplication"
         android:allowBackup="true"
@@ -193,6 +192,11 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".ui.market.SignUpMvpActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".ui.market.SignUpSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"/>
@@ -200,17 +204,17 @@
         <activity
             android:name=".ui.referstore.StoreContractActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.referstore.CardHolderActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.referstore.SearchContactActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

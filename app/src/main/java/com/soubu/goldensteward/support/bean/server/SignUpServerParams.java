@@ -1,5 +1,7 @@
 package com.soubu.goldensteward.support.bean.server;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -10,5 +12,5 @@ import lombok.Data;
 public class SignUpServerParams {
     private String uid;
     private String active_id;
-    private String product_list;
+    private List<String> product_list;
 }

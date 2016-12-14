@@ -29,6 +29,7 @@ import com.soubu.goldensteward.support.bean.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.ObservableWrapper;
+import com.soubu.goldensteward.ui.market.ProductListRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -74,11 +75,11 @@ public interface IWebModel {
 
     //活动列表接口
     @POST("Activity/activity_list")
-    ObservableWrapper<BaseResponse<List<AllActivityServerParams>>> getAllActivity();
+    ObservableWrapper<BaseResponse<List<AllActivityServerParams>>> getAllActivity(@Body BasePageRequest request);
 
     //获取我的活动
     @POST("Activity/my_activity_list")
-    ObservableWrapper<BaseResponse<List<MyActivityServerParams>>> getMyActivity();
+    ObservableWrapper<BaseResponse<List<MyActivityServerParams>>> getMyActivity(@Body BasePageRequest request);
 
     //获取活动详情
     @POST("Activity/activity_detail")
@@ -90,7 +91,7 @@ public interface IWebModel {
 
     //报名页面的产品列表
     @POST("Activity/product_list")
-    ObservableWrapper<BaseResponse<List<ProductInSignUpActivityServerParams>>> getProductListInActivity(@Body Map map);
+    ObservableWrapper<BaseResponse<List<ProductInSignUpActivityServerParams>>> getProductListInActivity(@Body ProductListRequest request);
 
     //提交报名
     @POST("Activity/sign_up")
