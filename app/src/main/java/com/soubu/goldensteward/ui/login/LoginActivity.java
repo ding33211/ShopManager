@@ -108,6 +108,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
         }
     }
 
+    @Override
     public void refreshPhone(String phone) {
         etYourPhone.setText(phone);
         etYourPhone.clearFocus();

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import com.alibaba.fastjson.JSON;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.helper.UserManager;

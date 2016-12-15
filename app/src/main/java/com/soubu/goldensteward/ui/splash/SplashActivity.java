@@ -28,6 +28,7 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by lakers on 16/10/25.
@@ -51,8 +52,8 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
 
         Observable.just(1)
                 .map(var -> initProvinceAndCity())
-                .retryWhen(new RetryFunc(3))
                 .subscribeOn(BaseApplication.getScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
 
         SplashActivityPermissionsDispatcher.loadWithCheck(SplashActivity.this);
