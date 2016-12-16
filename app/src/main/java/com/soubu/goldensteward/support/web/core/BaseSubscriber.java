@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import com.alibaba.fastjson.JSON;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.helper.UserManager;
@@ -107,7 +106,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     //没请求成功,网络错误
     public BaseException onWebError(Throwable e) {
         LogUtil.printException(e);
-        return new BaseException(0, "未知网络错误");
+        return new BaseException(0, BaseApplication.getContext().getString(R.string.please_check_internet));
     }
 
     /**

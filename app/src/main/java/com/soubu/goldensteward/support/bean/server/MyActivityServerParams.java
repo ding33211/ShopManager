@@ -7,11 +7,11 @@ import lombok.Data;
  */
 @Data
 public class MyActivityServerParams {
-    String id;
+    int id;
     String active_name;
     String sign_up_end_time;
     String active_start_time;
     String active_end_time;
-    String status;
+    int status;
 
 }

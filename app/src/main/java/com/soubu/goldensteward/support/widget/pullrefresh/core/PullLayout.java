@@ -12,7 +12,7 @@ import com.soubu.goldensteward.support.utils.LogUtil;
 /**
  * 下拉上拉的布局
  */
-public abstract class PullLayout extends InterceptLauyout {
+public abstract class PullLayout extends InterceptLayout {
     // 事件监听接口
     private OnPullListener listener;
     // Layout状态

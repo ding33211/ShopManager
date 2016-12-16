@@ -46,11 +46,16 @@ public class AllActivityFragment extends FragmentPresenter<RecyclerViewFragmentD
                 TextView tvStartTime = holder.getView(R.id.tv_start_time);
                 TextView tvEndTime = holder.getView(R.id.tv_end_time);
                 ImageView ivActivity = holder.getView(R.id.iv_activity);
+                View vHaveSignedUp = holder.getView(R.id.iv_have_signed_up);
                 tvActivityName.setText(item.getActive_name());
                 tvStartTime.setText(item.getStart_time());
                 tvEndTime.setText(item.getEnd_time());
                 GlideUtils.loadTopRoundedImage(ivActivity.getContext(), ivActivity, item.getIndex_img(), R.drawable.bg_no_activity, R.drawable.bg_no_activity);
-
+                if (item.getSign_up_status() == 1) {
+                    vHaveSignedUp.setVisibility(View.VISIBLE);
+                } else {
+                    vHaveSignedUp.setVisibility(View.GONE);
+                }
             }
 
             @Override

@@ -51,13 +51,15 @@ public class SignUpActivityDelegate extends AppDelegate {
         mRvContent.setAdapter(mAdapter);
     }
 
-    public void onCommitSuccess() {
+    public void onCommitSuccess(int signUpCount) {
         //注意此处不要使用get的方式去setVisibility，需要借助从layout去getchildat去获得view再去set，直接使用get的方法是通过rootview的方式去做的
         View v = mFmAll.getChildAt(2);
         v.setVisibility(View.GONE);
         View v1 = mFmAll.getChildAt(1);
         v1.setVisibility(View.VISIBLE);
         setTitle(R.string.sign_up_success);
+        TextView tvSignUpCount = (TextView) v1.findViewById(R.id.tv_sign_up_count);
+        tvSignUpCount.setText(signUpCount + "");
     }
 
     public void onServerError() {
@@ -67,11 +69,16 @@ public class SignUpActivityDelegate extends AppDelegate {
         v0.setVisibility(View.VISIBLE);
     }
 
+    public void onInternetError() {
+        onServerError();
+        ImageView ivError = get(R.id.iv_error);
+        ivError.setImageResource(R.drawable.sign_up_no_internet);
+        TextView tvError = get(R.id.tv_error_desc);
+        tvError.setText(R.string.internet_error_desc);
+    }
+
     public void onProductEmpty() {
-        View v = mFmAll.getChildAt(2);
-        v.setVisibility(View.GONE);
-        View v0 = mFmAll.getChildAt(0);
-        v0.setVisibility(View.VISIBLE);
+        onServerError();
         ImageView ivError = get(R.id.iv_error);
         ivError.setImageResource(R.drawable.sign_up_empty);
         TextView tvError = get(R.id.tv_error_desc);

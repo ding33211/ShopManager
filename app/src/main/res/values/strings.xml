@@ -382,7 +382,8 @@
     <string name="activity_sign_up">活动报名</string>
     <string name="activity_introduce">活动介绍</string>
     <string name="sign_up_request">报名要求</string>
-    <string name="sign_up_server_error_desc">服务器异常，请刷新试试！</string>
+    <string name="server_error_desc">服务器异常，请点击重试！</string>
+    <string name="internet_error_desc">当前网络异常，请检查网络！</string>
     <string name="sign_up_empty_product_desc">您的店铺当前没有任何商品\n无法参与当前活动！</string>
     <string name="have_commit_sign_up_request">您的报名申请已提交！</string>
     <string name="sign_up_success_desc_pre">共提交了</string>
@@ -392,7 +393,7 @@
     <string name="sign_appeal_state_1">报名申请</string>
     <string name="sign_appeal_state_2">搜布审核</string>
     <string name="sign_appeal_state_3">审核结果</string>
-    <string name="appealing">正在审核中...</string>
+    <string name="appealing_quotes">正在审核中...</string>
     <string name="sign_up_appeal_success">审核已通过，报名成功！</string>
     <string name="sign_up_appeal_fail">审核不通过，报名失败！</string>
     <string name="appealing_desc_post">件商品，请您耐心等待。</string>
@@ -409,5 +410,11 @@
     <string name="recent_contact">最近联系人</string>
     <string name="special_focus">特别关注</string>
     <string name="card_holder_title">共%s人</string>
+    <string name="empty_all_activity_desc">当前没有可以参加的活动</string>
+    <string name="empty_my_activity_desc">当前没有参加任何活动</string>
+    <string name="appealing">正在审核中</string>
+    <string name="appeal_success">审核通过</string>
+    <string name="appeal_fail">审核失败</string>
+    <string name="have_signed_up">已报名</string>
 
 </resources>

@@ -19,7 +19,13 @@ import com.soubu.goldensteward.support.web.mvp.BaseListMvpFragment;
 public class AllActivityMvpFragment extends BaseListMvpFragment<AllActivityPresenter, AllActivityServerParams> {
 
     @Override
-    protected int createItmeId() {
+    public void initWidget() {
+        super.initWidget();
+        rv.setEmptyDesc(getString(R.string.empty_all_activity_desc));
+    }
+
+    @Override
+    protected int createItemId() {
         return R.layout.item_all_activity_recyclerview;
     }
 
@@ -40,16 +46,23 @@ public class AllActivityMvpFragment extends BaseListMvpFragment<AllActivityPrese
         TextView tvStartTime = holder.getView(R.id.tv_start_time);
         TextView tvEndTime = holder.getView(R.id.tv_end_time);
         ImageView ivActivity = holder.getView(R.id.iv_activity);
+        View vHaveSignedUp = holder.getView(R.id.iv_have_signed_up);
         tvActivityName.setText(item.getActive_name());
         tvStartTime.setText(item.getStart_time());
         tvEndTime.setText(item.getEnd_time());
         GlideUtils.loadTopRoundedImage(ivActivity.getContext(), ivActivity, item.getIndex_img(), R.drawable.bg_no_activity, R.drawable.bg_no_activity);
+        if (item.getSign_up_status() == 1) {
+            vHaveSignedUp.setVisibility(View.VISIBLE);
+        } else {
+            vHaveSignedUp.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onItemClick(BaseViewHolder holder, AllActivityServerParams item, int position) {
         Intent intent = new Intent(getActivity(), ActivitySpecActivity.class);
         intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, item.getId());
+        intent.putExtra(IntentKey.EXTRA_HAVE_SIGNED_UP, item.getSign_up_status() == 1);
         startActivity(intent);
     }
 

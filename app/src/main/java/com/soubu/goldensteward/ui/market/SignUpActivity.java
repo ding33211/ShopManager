@@ -15,6 +15,7 @@ import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.utils.GlideUtils;
+import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
@@ -58,7 +59,22 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
                     .sendTo(new BaseSubscriber<BaseResponse<List<ProductInSignUpActivityServerParams>>>(this) {
                         @Override
                         public void onSuccess(BaseResponse<List<ProductInSignUpActivityServerParams>> response) {
-                            viewDelegate.initProduct(response.getResult().getData());
+                            if (response.getResult().getData().size() == 0) {
+                                viewDelegate.onProductEmpty();
+                            } else {
+                                viewDelegate.initProduct(response.getResult().getData());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(BaseException exception) {
+                            super.onFailure(exception);
+                            if (exception.getErrorCode() == 0) {
+                                viewDelegate.onInternetError();
+                            }
+                            if (exception.getErrorCode() == 404) {
+                                viewDelegate.onServerError();
+                            }
                         }
                     });
             SingleAdapter adapter = new SingleAdapter<ProductInSignUpActivityServerParams>(this, R.layout.item_product_access_product_on_sale_recyclerview) {
@@ -123,7 +139,7 @@ public class SignUpActivity extends ActivityPresenter<SignUpActivityDelegate> {
                         BaseApplication.getWebModel().signUp(params).sendTo(new BaseSubscriber<BaseResponse>(SignUpActivity.this) {
                             @Override
                             public void onSuccess(BaseResponse response) {
-                                viewDelegate.onCommitSuccess();
+                                viewDelegate.onCommitSuccess(mCheckedProductId.size());
                             }
                         });
                         break;

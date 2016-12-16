@@ -112,20 +112,17 @@ dependencies {
     debugCompile 'com.antfortune.freeline:runtime:0.8.3'
     releaseCompile 'com.antfortune.freeline:runtime-no-op:0.8.3'
     testCompile 'com.antfortune.freeline:runtime-no-op:0.8.3'
-
     //测试库
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:2.0.2-beta'
-    testCompile "org.robolectric:robolectric:3.1.4"
+    testCompile 'org.robolectric:robolectric:3.1.4'
     testCompile 'com.google.truth:truth:0.27'
     provided 'org.projectlombok:lombok:1.16.10'
     provided 'javax.annotation:javax.annotation-api:1.3'
-
     //原生UI库
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:recyclerview-v7:25.0.1'
-
     //OkHttp+Retrofit+RxJava网络库
     compile 'io.reactivex:rxjava:1.2.3'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -137,24 +134,20 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-
+    compile 'com.artemzin.rxjava:proguard-rules:1.1.3.0'
     //ORM、事件分发库
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'org.greenrobot:eventbus-annotation-processor:3.0.1'
-
     //视图注入
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
     //权限库
     compile 'com.github.hotchemi:permissionsdispatcher:2.2.0'
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
-
     //图片库
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
-
     //辅助库
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
@@ -165,5 +158,5 @@ dependencies {
     //本地jar
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
-
+    compile 'com.artemzin.rxjava:proguard-rules:1.2.4.0'
 }

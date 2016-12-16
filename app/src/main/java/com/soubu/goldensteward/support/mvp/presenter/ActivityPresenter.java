@@ -165,4 +165,5 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     public void initWidget() {
 
     }
+
 }

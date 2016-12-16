@@ -1,7 +1,6 @@
 package com.soubu.goldensteward.ui.market;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
@@ -9,6 +8,7 @@ import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
+import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 
@@ -21,6 +21,10 @@ import java.util.Map;
  */
 
 public class SignUpSpecActivity extends ActivityPresenter<SignUpSpecActivityDelegate> {
+    private int mSignUpId = -1;
+    private int mActivityId = -1;
+    private boolean mHaveSignedUp = false;
+
     @Override
     protected Class<SignUpSpecActivityDelegate> getDelegateClass() {
         return SignUpSpecActivityDelegate.class;
@@ -35,16 +39,25 @@ public class SignUpSpecActivity extends ActivityPresenter<SignUpSpecActivityDele
     @Override
     protected void initData() {
         super.initData();
-        String activityId = getIntent().getStringExtra(IntentKey.EXTRA_ACTIVITY_ID);
-        if(!TextUtils.isEmpty(activityId)){
-            Map<String, String> map = new HashMap<>();
-            map.put("id", activityId);
+        mSignUpId = getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, -1);
+        if(mSignUpId != -1){
+            Map<String, Integer> map = new HashMap<>();
+            map.put("id", mSignUpId);
             BaseApplication.getWebModel().getSignUpSpec(map).sendTo(new BaseSubscriber<BaseResponse<List<ProductInSignUpActivityServerParams>>>(this) {
                 @Override
                 public void onSuccess(BaseResponse<List<ProductInSignUpActivityServerParams>> response) {
+                    BaseResponse.Entity entity = response.getResult();
+                    mActivityId = entity.getActive_id();
+                    mHaveSignedUp = entity.getSign_up_status() == 1;
                     List<ProductInSignUpActivityServerParams> list = response.getResult().getData();
                     viewDelegate.initProduct(list);
-                    viewDelegate.refreshSignUpState(response.getResult().getStatus(), list.size(), response.getResult().getFail_cause());
+                    viewDelegate.refreshSignUpState(entity.getStatus(), list.size(), entity.getFail_cause());
+                }
+
+                @Override
+                public void onFailure(BaseException exception) {
+                    super.onFailure(exception);
+
                 }
             });
         }
@@ -58,6 +71,8 @@ public class SignUpSpecActivity extends ActivityPresenter<SignUpSpecActivityDele
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignUpSpecActivity.this, ActivitySpecActivity.class);
+                intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, mActivityId);
+                intent.putExtra(IntentKey.EXTRA_HAVE_SIGNED_UP, mHaveSignedUp);
                 startActivity(intent);
             }
         }, R.id.btn_sign_up_again);

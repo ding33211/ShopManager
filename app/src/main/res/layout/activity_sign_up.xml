@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="@string/sign_up_server_error_desc"
+            android:text="@string/server_error_desc"
             android:textSize="16sp"/>
     </LinearLayout>
 
@@ -66,6 +66,7 @@
                 android:textSize="16sp"/>
 
             <TextView
+                android:id="@+id/tv_sign_up_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="18"

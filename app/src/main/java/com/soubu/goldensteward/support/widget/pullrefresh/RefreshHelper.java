@@ -15,6 +15,7 @@ import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 import com.soubu.goldensteward.support.web.core.BaseTransformer;
 import com.soubu.goldensteward.support.web.mvp.BaseView;
+import com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport;
 import com.soubu.goldensteward.support.widget.pullrefresh.core.OnPullListener;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
@@ -35,7 +36,7 @@ public class RefreshHelper<T> {
     public int layoutId;
 
     public Context context;
-    public View viewEmpty;
+    //    public View viewEmpty;
     public RecyclerView rv;
     public List<T> data;
 
@@ -56,8 +57,8 @@ public class RefreshHelper<T> {
         this.layoutId = layoutId;
 
         context = viewRefresh.getContext();
-        viewEmpty = viewRefresh.getChildAt(0);
-        rv = (RecyclerView) viewRefresh.getChildAt(1);
+//        viewEmpty = viewRefresh.getChildAt(0);
+        rv = (RecyclerView) viewRefresh.getChildAt(0);
         data = new ArrayList<>();
 
         initRv();
@@ -69,7 +70,7 @@ public class RefreshHelper<T> {
         this.viewRefresh = null;
         this.refreshInterface = null;
         this.context = null;
-        this.viewEmpty = null;
+//        this.viewEmpty = null;
         this.rv = null;
         this.data = null;
     }
@@ -110,6 +111,11 @@ public class RefreshHelper<T> {
 
             @Override
             public void onLoadMore() {
+                if (rv instanceof RecyclerViewExceptionHandlerSupport) {
+                    if (!((RecyclerViewExceptionHandlerSupport) rv).canLoadMore()) {
+                        return;
+                    }
+                }
                 LogUtil.print("");
                 isLoadMore = true;
                 curPage++;
@@ -134,6 +140,9 @@ public class RefreshHelper<T> {
             isShowLoading = false;
         } else {
             isShowLoading = true;
+        }
+        if (rv instanceof RecyclerViewExceptionHandlerSupport) {
+            ((RecyclerViewExceptionHandlerSupport) rv).resetting();
         }
         refreshInterface.getData(curPage)
                 .compose(new BaseTransformer<>())
@@ -168,17 +177,31 @@ public class RefreshHelper<T> {
                         data.addAll(list);
                         if (data.isEmpty()) {
                             rv.setVisibility(View.GONE);
-                            viewEmpty.setVisibility(View.VISIBLE);
+                            viewRefresh.setCanLoadMore(false);
+//                            viewEmpty.setVisibility(View.VISIBLE);
                         } else {
                             rv.setVisibility(View.VISIBLE);
-                            viewEmpty.setVisibility(View.GONE);
-                            adapter.setData(data);
+                            viewRefresh.setCanLoadMore(true);
+//                            viewEmpty.setVisibility(View.GONE);
                         }
+                        adapter.setData(data);
                     }
 
                     @Override
                     public void onFailure(BaseException exception) {
                         super.onFailure(exception);
+                        if (exception.getErrorCode() == 0) {
+                            if (rv instanceof RecyclerViewExceptionHandlerSupport) {
+                                ((RecyclerViewExceptionHandlerSupport) rv).setErrorType(RecyclerViewExceptionHandlerSupport.ERROR_INTERNET);
+                                viewRefresh.setCanLoadMore(false);
+                            }
+                        }
+                        if (exception.getErrorCode() == 404) {
+                            if (rv instanceof RecyclerViewExceptionHandlerSupport) {
+                                ((RecyclerViewExceptionHandlerSupport) rv).setErrorType(RecyclerViewExceptionHandlerSupport.ERROR_SERVER);
+                                viewRefresh.setCanLoadMore(false);
+                            }
+                        }
                         if (isRefresh) {
                             isRefresh = false;
                             viewRefresh.stopRefresh(false);

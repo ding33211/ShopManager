@@ -12,4 +12,5 @@ public class AllActivityServerParams {
     String active_name;
     String start_time;
     String end_time;
+    int sign_up_status;
 }

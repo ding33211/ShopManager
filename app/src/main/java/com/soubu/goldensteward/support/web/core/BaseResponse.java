@@ -29,6 +29,12 @@ public class BaseResponse<T> {
 
         //报名详情中的失败原因
         String fail_cause;
+
+        //报名详情中的活动id
+        int active_id;
+
+        //报名详情中的报名状态
+        int sign_up_status;
     }
 
 

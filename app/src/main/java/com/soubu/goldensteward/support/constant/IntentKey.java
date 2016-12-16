@@ -17,6 +17,7 @@ public class IntentKey {
 
     public static final String EXTRA_FROM = "FROM";
     public static final String EXTRA_ACTIVITY_ID = "ACTIVITY_ID";
+    public static final String EXTRA_HAVE_SIGNED_UP = "HAVE_SIGNED_UP";
     public static final String EXTRA_ACCOUNT_ID = "ACCOUNT_ID";
 
 

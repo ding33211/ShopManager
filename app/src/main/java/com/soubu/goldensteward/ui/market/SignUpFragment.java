@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
@@ -34,10 +33,10 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
 
     @BindView(R.id.tv_total)
     TextView tvTotal;
-    @BindView(R.id.tv_nomsg)
-    TextView tvNomsg;
-    @BindView(R.id.view_empty)
-    LinearLayout viewEmpty;
+//    @BindView(R.id.tv_nomsg)
+//    TextView tvNoMsg;
+//    @BindView(R.id.view_empty)
+//    LinearLayout viewEmpty;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.view_refresh)

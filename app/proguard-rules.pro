@@ -41,7 +41,13 @@
 -keep class sun.misc.Unsafe {*;}
 -dontwarn sun.misc.Unsafe
 
--keep class com.soubu.goldensteward.module.**{*;}
+
+# bean类不混淆
+-keep class com.soubu.goldensteward.support.bean.**{*;}
+-keep class com.soubu.goldensteward.support.web.core.BaseHeader{*;}
+-keep class com.soubu.goldensteward.support.web.core.BaseResponse{*;}
+-keep class com.soubu.goldensteward.support.web.core.BaseResponse$Entity{*;}
+# end bean类不混淆
 
 -dontwarn com.baidu**
 -keep class com.baidu.** { *; }
@@ -75,6 +81,21 @@
 -dontwarn org.apache.http.**
 -dontwarn android.net.http.AndroidHttpClient
 # End Bugtags
+
+#fastjson
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** { *; }
+#end fastjson
+
+#rxlifecycle2
+-dontwarn com.trello.rxlifecycle2.**
+-keep class com.trello.rxlifecycle2.** { *; }
+#end rxlifecycle2
+
+#retrolambda
+-dontwarn java.lang.invoke.**
+-keep class java.lang.invoke.** { *; }
+#end retrolambda
 
 #greendao
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {

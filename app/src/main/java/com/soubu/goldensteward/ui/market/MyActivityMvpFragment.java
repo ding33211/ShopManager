@@ -17,7 +17,13 @@ import com.soubu.goldensteward.support.web.mvp.BaseListMvpFragment;
 public class MyActivityMvpFragment extends BaseListMvpFragment<MyActivityPresenter, MyActivityServerParams> {
 
     @Override
-    protected int createItmeId() {
+    public void initWidget() {
+        super.initWidget();
+        rv.setEmptyDesc(getString(R.string.empty_my_activity_desc));
+    }
+
+    @Override
+    protected int createItemId() {
         return R.layout.item_my_activity_recyclerview;
     }
 
@@ -37,6 +43,13 @@ public class MyActivityMvpFragment extends BaseListMvpFragment<MyActivityPresent
         tvSignUpEndTime.setText(item.getSign_up_end_time());
         tvStartTime.setText(item.getActive_start_time());
         tvEndTime.setText(item.getActive_end_time());
+        if (item.getStatus() == 1) {
+            tvStatus.setText(R.string.appealing);
+        } else if (item.getStatus() == 2) {
+            tvStatus.setText(R.string.appeal_success);
+        } else {
+            tvStatus.setText(R.string.appeal_fail);
+        }
     }
 
     @Override
@@ -52,6 +65,5 @@ public class MyActivityMvpFragment extends BaseListMvpFragment<MyActivityPresent
             }
         });
     }
-
 
 }

@@ -280,4 +280,13 @@ public abstract class AppDelegate implements IDelegate {
     }
 
 
+
+    public void showInternetError(){
+
+    }
+
+    public void showServerError(){
+
+    }
+
 }

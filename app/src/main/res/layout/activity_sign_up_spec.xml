@@ -39,7 +39,7 @@
                     android:id="@+id/tv_appeal_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/appealing"
+                    android:text="@string/appealing_quotes"
                     android:textColor="@color/blue_sign_up_success"
                     android:textSize="20sp" />
 

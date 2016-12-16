@@ -2,6 +2,8 @@ package com.soubu.goldensteward.ui.market;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,13 +46,13 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
                 TextView tvTitle = holder.getView(R.id.tv_title);
                 TextView tvContent = holder.getView(R.id.tv_content);
                 tvTitle.setText(item.getTitle());
-                tvContent.setText(item.getContent());
+                tvContent.setText(Html.fromHtml(Html.fromHtml(item.getContent()).toString()));
             }
         };
         mRvContent.setAdapter(mRvAdapter);
     }
 
-    public void setActivitySpecContent(ActivitySpecServerParams params) {
+    public void setActivitySpecContent(ActivitySpecServerParams params, boolean haveSignedUp) {
         TextView tvName = get(R.id.tv_activity_name);
         TextView tvSignStartTime = get(R.id.tv_sign_up_start_time);
         TextView tvSignEndTime = get(R.id.tv_sign_up_end_time);
@@ -76,9 +78,14 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
         list.add(content);
         content = params.new Content();
         content.setTitle(getActivity().getString(R.string.sign_up_request));
-        content.setContent(params.getSign_introduce());
+        content.setContent(params.getActive_rule());
         list.add(content);
         mRvAdapter.setData(list);
         mRvAdapter.notifyDataSetChanged();
+        if (haveSignedUp) {
+            Button btnSignUp = get(R.id.btn_sign_up_now);
+            btnSignUp.setEnabled(false);
+            btnSignUp.setText(R.string.have_signed_up);
+        }
     }
 }

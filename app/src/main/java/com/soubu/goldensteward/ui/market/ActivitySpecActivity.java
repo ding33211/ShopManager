@@ -27,6 +27,7 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
 
     private static final int REQUEST_SIGN_UP = 1001;
     private int mId = -1;
+    private boolean mHaveSignedUp = false;
 
     @Override
     protected Class<ActivitySpecActivityDelegate> getDelegateClass() {
@@ -42,6 +43,7 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
     @Override
     protected void initData() {
         super.initData();
+        mHaveSignedUp = getIntent().getBooleanExtra(IntentKey.EXTRA_HAVE_SIGNED_UP, false);
         Map<String, Integer> map = new HashMap<>();
         mId = getIntent().getIntExtra(IntentKey.EXTRA_ACTIVITY_ID, -1);
         if (mId != -1) {
@@ -49,7 +51,7 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
             BaseApplication.getWebModel().getActivitySpec(map).sendTo(new BaseSubscriber<BaseResponse<ActivitySpecServerParams>>(this) {
                 @Override
                 public void onSuccess(BaseResponse<ActivitySpecServerParams> response) {
-                    viewDelegate.setActivitySpecContent(response.getResult().getData());
+                    viewDelegate.setActivitySpecContent(response.getResult().getData(), mHaveSignedUp);
                 }
             });
         }
@@ -76,8 +78,8 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (mId != -1) {
-                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpMvpActivity.class);
-//                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
+//                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpMvpActivity.class);
+                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
                                     intent.putExtra(IntentKey.EXTRA_ACCOUNT_ID, list.get(which).getUid());
                                     intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, mId);
                                     startActivityForResult(intent, REQUEST_SIGN_UP);

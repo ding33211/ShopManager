@@ -1,11 +1,8 @@
 package com.soubu.goldensteward.support.web.mvp;
 
-import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshHelper;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout;
 
@@ -21,12 +18,12 @@ import rx.Observable;
  */
 public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> extends BaseMvpFragment<P> implements BaseView, RefreshHelper.RefreshInterface<T> {
 
-    @BindView(R.id.tv_nomsg)
-    TextView tvNomsg;
-    @BindView(R.id.view_empty)
-    LinearLayout viewEmpty;
+//    @BindView(R.id.tv_nomsg)
+//    TextView tvNomsg;
+    //    @BindView(R.id.view_empty)
+//    LinearLayout viewEmpty;
     @BindView(R.id.rv)
-    RecyclerView rv;
+    public RecyclerViewExceptionHandlerSupport rv;
     @BindView(R.id.view_refresh)
     RefreshLayout viewRefresh;
 
@@ -34,8 +31,14 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> ext
 
     @Override
     public void initWidget() {
-        refreshHelper = new RefreshHelper<T>(this, viewRefresh, this, createItmeId());
+        refreshHelper = new RefreshHelper<T>(this, viewRefresh, this, createItemId());
         refreshHelper.loadData();
+//        rv.setOnClickErrorViewListener(new RecyclerViewExceptionHandlerSupport.OnClickErrorViewListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickErrorView();
+//            }
+//        });
     }
 
     @Override
@@ -54,7 +57,7 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> ext
         super.onDestroyView();
     }
 
-    protected abstract int createItmeId();
+    protected abstract int createItemId();
 
     @Override
     public void bindListener(BaseViewHolder holder, T item, int position) {
@@ -65,4 +68,6 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> ext
     public void onItemClick(BaseViewHolder holder, T item, int position) {
 
     }
+
+//    protected abstract void onClickErrorView();
 }

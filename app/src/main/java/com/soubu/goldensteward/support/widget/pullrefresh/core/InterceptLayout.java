@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 /**
  * 作者：余天然 on 2016/10/18 下午3:21
  */
-public abstract class InterceptLauyout extends DrawLayout {
+public abstract class InterceptLayout extends DrawLayout {
 
     // 用于计算滑动距离的Y坐标中介
     public int lastYMove;
@@ -28,11 +28,11 @@ public abstract class InterceptLauyout extends DrawLayout {
     //是否正在下拉刷新或加载更多中
     public boolean isLoading = false;
 
-    public InterceptLauyout(Context context) {
+    public InterceptLayout(Context context) {
         super(context);
     }
 
-    public InterceptLauyout(Context context, AttributeSet attrs) {
+    public InterceptLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
