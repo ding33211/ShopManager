@@ -28,6 +28,9 @@ public class SPUtil {
      * 存储参数
      */
     public static <T> boolean putValue(String key, T value) {
+        if (value == null) {
+            return false;
+        }
         SharedPreferences.Editor editor = preferences.edit();
         if (value instanceof String) {
             editor.putString(key, (String) value);

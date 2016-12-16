@@ -45,10 +45,13 @@ public class MyActivityMvpFragment extends BaseListMvpFragment<MyActivityPresent
         tvEndTime.setText(item.getActive_end_time());
         if (item.getStatus() == 1) {
             tvStatus.setText(R.string.appealing);
+            tvStatus.setTextColor(getResources().getColor(R.color.item_line_grey));
         } else if (item.getStatus() == 2) {
             tvStatus.setText(R.string.appeal_success);
+            tvStatus.setTextColor(getResources().getColor(R.color.green_sign_up_product));
         } else {
             tvStatus.setText(R.string.appeal_fail);
+            tvStatus.setTextColor(getResources().getColor(R.color.red_sign_up_product));
         }
     }
 

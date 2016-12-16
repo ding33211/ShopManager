@@ -22,40 +22,46 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
-            <TextView
-                android:id="@+id/tv_must"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:text="*"
-                android:textColor="@color/colorPrimary" />
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/et_title"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:clickable="false"
-                android:hint="@string/store_name"
-                android:textColorHint="@color/line_color"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_must"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:text="@string/company_logo"
-                android:textColor="@color/title_black"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:hint="@string/store_name"
+                    android:textColorHint="@color/line_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/company_logo"
+                    android:textColor="@color/title_black"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="60dp"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:gravity="right|center_vertical">
 
                 <TextView
@@ -84,7 +90,7 @@
                     android:id="@+id/iv_clear"
                     android:layout_width="48dp"
                     android:layout_height="40dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_weight="0"
                     android:src="@drawable/clear"
                     android:visibility="gone" />
             </LinearLayout>
