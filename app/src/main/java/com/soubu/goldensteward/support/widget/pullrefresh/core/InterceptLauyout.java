@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
 
+
 /**
  * 作者：余天然 on 2016/10/18 下午3:21
  */
@@ -17,6 +18,15 @@ public abstract class InterceptLauyout extends DrawLayout {
     public int lastYMove;
     // 用于判断是否拦截触摸事件的Y坐标中介
     public int lastYIntercept;
+
+    //是否可以下拉刷新
+    private boolean canPullRefresh = true;
+
+    //是否可以上拉加载更多
+    private boolean canLoadMore = true;
+
+    //是否正在下拉刷新或加载更多中
+    public boolean isLoading = false;
 
     public InterceptLauyout(Context context) {
         super(context);
@@ -28,6 +38,11 @@ public abstract class InterceptLauyout extends DrawLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (isLoading == true) {
+            //正在加载中时，直接拦截掉子控件的手势
+            return true;
+        }
+
         boolean intercept = false;
         // 记录此次触摸事件的y坐标
         int y = (int) event.getY();
@@ -43,7 +58,7 @@ public abstract class InterceptLauyout extends DrawLayout {
             }
             // Move事件
             case MotionEvent.ACTION_MOVE: {
-                if (y > lastYIntercept) { // 下滑操作
+                if (y > lastYIntercept && canPullRefresh == true) { // 下滑操作
                     // 获取最顶部的子视图
                     View child = getFirstVisiableChild();
                     if (child == null) {
@@ -55,7 +70,7 @@ public abstract class InterceptLauyout extends DrawLayout {
                     } else if (child instanceof RecyclerView) {
                         intercept = rvPullDownIntercept(child);
                     }
-                } else if (y < lastYIntercept) { // 上拉操作
+                } else if (y < lastYIntercept && canLoadMore == true) { // 上拉操作
                     // 获取最底部的子视图
                     View child = getLastVisiableChild();
                     if (child == null) {
@@ -78,7 +93,6 @@ public abstract class InterceptLauyout extends DrawLayout {
                 break;
             }
         }
-
         lastYIntercept = y;
         return intercept;
     }
@@ -170,5 +184,21 @@ public abstract class InterceptLauyout extends DrawLayout {
             intercept = true;
 
         return intercept;
+    }
+
+    public boolean isCanPullRefresh() {
+        return canPullRefresh;
+    }
+
+    public void setCanPullRefresh(boolean canPullRefresh) {
+        this.canPullRefresh = canPullRefresh;
+    }
+
+    public boolean isCanLoadMore() {
+        return canLoadMore;
+    }
+
+    public void setCanLoadMore(boolean canLoadMore) {
+        this.canLoadMore = canLoadMore;
     }
 }

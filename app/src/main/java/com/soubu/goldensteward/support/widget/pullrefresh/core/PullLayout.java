@@ -8,10 +8,11 @@ import android.view.MotionEvent;
 
 import com.soubu.goldensteward.support.utils.LogUtil;
 
+
 /**
  * 下拉上拉的布局
  */
-public class PullLayout extends InterceptLauyout {
+public abstract class PullLayout extends InterceptLauyout {
     // 事件监听接口
     private OnPullListener listener;
     // Layout状态
@@ -39,13 +40,17 @@ public class PullLayout extends InterceptLauyout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (isLoading == true) {
+            //正在加载中时，直接处理掉子控件的手势
+            return true;
+        }
         int y = (int) event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE: {
                 // 计算本次滑动的Y轴增量(距离)
                 int dy = y - lastYMove;
                 // 如果getScrollY<0，即下拉操作
-                if (getScrollY() < 0) {
+                if (getScrollY() <= 0) {
                     if (header != null) {
                         // 进行Y轴上的滑动
                         performScroll(dy);
@@ -122,6 +127,7 @@ public class PullLayout extends InterceptLauyout {
                 pullHeader.onRefreshScrolling(scrollY);
                 break;
             case REFRESH_DOING:
+                isLoading = true;
                 pullHeader.onRefreshDoing(scrollY);
                 listener.onRefresh();
                 break;
@@ -142,6 +148,7 @@ public class PullLayout extends InterceptLauyout {
                 pullFooter.onLoadScrolling(scrollY);
                 break;
             case LOADMORE_DOING:
+                isLoading = true;
                 pullFooter.onLoadDoing(scrollY);
                 listener.onLoadMore();
                 break;
@@ -158,6 +165,7 @@ public class PullLayout extends InterceptLauyout {
     private void onDefault() {
         isRefreshSuccess = false;
         isLoadSuccess = false;
+        isLoading = false;
     }
 
     //滚动到加载状态
@@ -269,5 +277,6 @@ public class PullLayout extends InterceptLauyout {
 
         void onEnd();
     }
+
 
 }

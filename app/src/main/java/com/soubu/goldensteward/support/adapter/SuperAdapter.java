@@ -34,20 +34,30 @@ public class SuperAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
+    public SuperAdapter(Context context, List<Integer> layoutIds) {
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
+        for (int i = 0; i < layoutIds.size(); i++) {
+            layoutMap.put(i, layoutIds.get(i));
+        }
+    }
+
     public Context getContext() {
         return context;
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        BaseViewHolder holder = new BaseViewHolder(inflater.inflate(getLayoutId(viewType), parent, false));
+        final BaseViewHolder holder = new BaseViewHolder(inflater.inflate(getLayoutId(viewType), parent, false));
         holder.getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = holder.getLayoutPosition();
                 LayoutWrapper wrapper = data.get(position);
                 DataHolder dataHolder = wrapper.getHolder();
-                dataHolder.onItemClick(holder, wrapper.getData(), position);
+                if (dataHolder != null) {
+                    dataHolder.onItemClick(holder, wrapper.getData(), position);
+                }
             }
         });
         return holder;
