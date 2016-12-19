@@ -65,4 +65,9 @@ public class StoreOwnerVerifyActivityDelegate extends FragmentActivityDelegate {
     public boolean ifNeedEventBus() {
         return true;
     }
+
+    public void setName(String name){
+        mUploadBaseInfoFragment.setName(name);
+    }
+
 }

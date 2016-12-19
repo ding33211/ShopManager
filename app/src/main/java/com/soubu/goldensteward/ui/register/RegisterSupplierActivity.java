@@ -337,7 +337,7 @@ public class RegisterSupplierActivity extends ActivityPresenter<RegisterSupplier
         if (code == EventBusConfig.REGISTER) {
             UserServerParams params = (UserServerParams) resp1.getResult();
             SPUtil.putValue(SpKey.TOKEN, params.getToken());
-            SPUtil.putValue(SpKey.USER_PHONE, params.getPhone());
+            SPUtil.putValue(SpKey.USER_PHONE, mParams.getPhone());
             Intent intent = new Intent(this, StoreOwnerVerifyActivity.class);
             startActivity(intent);
             finish();

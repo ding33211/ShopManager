@@ -56,6 +56,7 @@ public class StoreOwnerVerifyActivity extends ActivityPresenter<StoreOwnerVerify
         if (!TextUtils.isEmpty(mParams.getFile_type())) {
             viewDelegate.setFileType(mParams.getFile_type());
         }
+        viewDelegate.setName(mParams.getPerson());
         viewDelegate.clickNextStep();
     }
 
