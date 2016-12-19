@@ -1,4 +1,4 @@
-package com.soubu.goldensteward.support.web;
+package com.soubu.goldensteward.support.bean.server;
 
 import lombok.Data;
 

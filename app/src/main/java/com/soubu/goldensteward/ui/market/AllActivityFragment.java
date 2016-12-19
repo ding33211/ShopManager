@@ -14,7 +14,7 @@ import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.delegate.RecyclerViewFragmentDelegate;
 import com.soubu.goldensteward.support.mvp.presenter.FragmentPresenter;
 import com.soubu.goldensteward.support.utils.GlideUtils;
-import com.soubu.goldensteward.support.web.BasePageRequest;
+import com.soubu.goldensteward.support.bean.server.BasePageRequest;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 

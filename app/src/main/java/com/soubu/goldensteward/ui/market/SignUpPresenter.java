@@ -2,6 +2,7 @@ package com.soubu.goldensteward.ui.market;
 
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
+import com.soubu.goldensteward.support.bean.server.ProductListRequest;
 import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;

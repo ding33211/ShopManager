@@ -2,7 +2,7 @@ package com.soubu.goldensteward.ui.market;
 
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.AllActivityServerParams;
-import com.soubu.goldensteward.support.web.BasePageRequest;
+import com.soubu.goldensteward.support.bean.server.BasePageRequest;
 import com.soubu.goldensteward.support.web.mvp.BaseListPresenter;
 
 import java.util.List;

@@ -163,10 +163,9 @@ public class RegisterSupplierRvAdapter extends RecyclerView.Adapter {
                 }
             }
             holder1.tvTitle.setText(titleRes);
-
+            holder1.etTitle.setHint(titleRes);
             if (type != TYPE_ITEM_MULTILINE) {
                 if (TextUtils.isEmpty(content)) {
-                    holder1.etTitle.setHint(titleRes);
                     holder1.etTitle.setText("");
                     holder1.tvContent.setText(R.string.please_choose);
                     holder1.tvContent.setTextColor(mActivity.getResources().getColor(R.color.line_color));

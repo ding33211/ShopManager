@@ -411,7 +411,6 @@
     <string name="card_holder_title">共%s人</string>
     <string name="empty_all_activity_desc">当前没有可以参加的活动</string>
     <string name="empty_my_activity_desc">当前没有参加任何活动</string>
-    <string name="appealing">正在审核中</string>
     <string name="appeal_success">审核通过</string>
     <string name="appeal_fail">审核失败</string>
     <string name="have_signed_up">已报名</string>

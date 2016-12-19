@@ -49,7 +49,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtil.print("");
-
         Observable.just(1)
                 .map(var -> initProvinceAndCity())
                 .subscribeOn(BaseApplication.getScheduler())
