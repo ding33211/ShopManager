@@ -27,6 +27,10 @@ public class ObservableWrapper<T> {
     }
 
     public Subscription sendTo(BaseSubscriber<T> subscriber) {
+        return sendTo(subscriber, true);
+    }
+
+    public Subscription sendTo(BaseSubscriber<T> subscriber, boolean hasProgress) {
         LogUtil.print("BaseConfig.IS_TEST=" + BaseConfig.IS_TEST);
         if (!BaseConfig.IS_TEST) {
             return observable
@@ -35,7 +39,9 @@ public class ObservableWrapper<T> {
                     .doOnSubscribe(new Action0() {
                         @Override
                         public void call() {
-                            ShowWidgetUtil.showProgressDialog(null, R.style.LoadingProgressTheme);
+                            if (hasProgress) {
+                                ShowWidgetUtil.showProgressDialog(null, R.style.LoadingProgressTheme);
+                            }
                         }
                     })
                     .subscribeOn(AndroidSchedulers.mainThread())//在主线程显示进度条

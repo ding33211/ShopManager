@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
 
     <LinearLayout
@@ -28,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
                 android:text="*"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"/>
 
             <EditText
                 android:id="@+id/et_title"
@@ -38,17 +39,17 @@
                 android:clickable="false"
                 android:hint="@string/store_name"
                 android:textColorHint="@color/line_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:text="@string/company_logo"
                 android:textColor="@color/title_black"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:text="@string/company_logo"/>
 
             <LinearLayout
                 android:id="@+id/ll_right"
@@ -68,7 +69,7 @@
                     android:singleLine="true"
                     android:text="@string/please_choose"
                     android:textColor="@color/line_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:id="@+id/iv_choose"
@@ -78,7 +79,7 @@
                     android:layout_marginLeft="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:src="@drawable/arrow_choose" />
+                    android:src="@drawable/arrow_choose"/>
 
                 <ImageView
                     android:id="@+id/iv_clear"
@@ -86,7 +87,7 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
                     android:src="@drawable/clear"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -100,7 +101,7 @@
             android:clickable="false"
             android:gravity="top"
             android:textColorHint="@color/line_color"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </LinearLayout>
 
 
@@ -122,5 +123,5 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/line_color" />
+        android:background="@color/line_color"/>
 </LinearLayout>

@@ -13,8 +13,6 @@ import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
-import com.soubu.goldensteward.support.web.core.BaseTransformer;
-import com.soubu.goldensteward.support.web.mvp.BaseView;
 import com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport;
 import com.soubu.goldensteward.support.widget.pullrefresh.core.OnPullListener;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
@@ -36,7 +34,6 @@ public class RefreshHelper<T> {
     public int layoutId;
 
     public Context context;
-    //    public View viewEmpty;
     public RecyclerView rv;
     public List<T> data;
 
@@ -48,16 +45,12 @@ public class RefreshHelper<T> {
 
     public boolean isShowLoading = true;//是否显示loading
 
-    public BaseView view;
-
-    public RefreshHelper(BaseView view, RefreshLayout viewRefresh, RefreshInterface<T> refreshInterface, int layoutId) {
-        this.view = view;
+    public RefreshHelper(RefreshLayout viewRefresh, RefreshInterface<T> refreshInterface, int layoutId) {
         this.viewRefresh = viewRefresh;
         this.refreshInterface = refreshInterface;
         this.layoutId = layoutId;
 
         context = viewRefresh.getContext();
-//        viewEmpty = viewRefresh.getChildAt(0);
         rv = (RecyclerView) viewRefresh.getChildAt(0);
         data = new ArrayList<>();
 
@@ -66,11 +59,9 @@ public class RefreshHelper<T> {
     }
 
     public void detachView() {
-        this.view = null;
         this.viewRefresh = null;
         this.refreshInterface = null;
         this.context = null;
-//        this.viewEmpty = null;
         this.rv = null;
         this.data = null;
     }
@@ -145,8 +136,6 @@ public class RefreshHelper<T> {
             ((RecyclerViewExceptionHandlerSupport) rv).resetting();
         }
         refreshInterface.getData(curPage)
-                .compose(new BaseTransformer<>())
-                .compose(view.bindLife())
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -155,7 +144,7 @@ public class RefreshHelper<T> {
                         }
                     }
                 })
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())//在主线程显示进度条
                 .subscribe(new BaseSubscriber<List<T>>() {
                     @Override
                     public void onSuccess(List<T> list) {
@@ -178,11 +167,9 @@ public class RefreshHelper<T> {
                         if (data.isEmpty()) {
                             rv.setVisibility(View.GONE);
                             viewRefresh.setCanLoadMore(false);
-//                            viewEmpty.setVisibility(View.VISIBLE);
                         } else {
                             rv.setVisibility(View.VISIBLE);
                             viewRefresh.setCanLoadMore(true);
-//                            viewEmpty.setVisibility(View.GONE);
                         }
                         adapter.setData(data);
                     }

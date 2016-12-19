@@ -22,6 +22,8 @@ import rx.Subscriber;
  */
 public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
+    private boolean isTokenExpire = false;//是否是Token失效的错误，是的话则不弹出Toast
+
     private BaseView view;
 
     public BaseSubscriber() {
@@ -75,6 +77,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             } else {
                 //token 过期
                 if (response.getStatus() == -1) {
+                    isTokenExpire = true;
                     new AlertDialog.Builder(BaseApplication.getContext().getNowContext()).setTitle(R.string.alert).setMessage(response.msg).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -120,7 +123,9 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
      * 这里做一些公共的错误处理，个人页面需要自己处理错误的话，重写即可
      */
     public void onFailure(BaseException exception) {
-        ShowWidgetUtil.showShort(exception.getMessage());
+        if (!isTokenExpire) {
+            ShowWidgetUtil.showShort(exception.getMessage());
+        }
     }
 
 }
