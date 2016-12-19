@@ -18,15 +18,15 @@ import butterknife.ButterKnife;
 public abstract class BaseMvpFragment<P extends BasePresenter> extends RxFragment implements BaseView {
 
     protected P presenter;
-    protected View view;
+    protected View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        view = create(inflater, container, savedInstanceState);
+        rootView = create(inflater, container, savedInstanceState);
         LogUtil.print("绑定了View");
-        ButterKnife.bind(this, view);
-        return view;
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override

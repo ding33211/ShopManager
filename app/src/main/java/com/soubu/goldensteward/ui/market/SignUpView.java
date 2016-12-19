@@ -7,6 +7,6 @@ import com.soubu.goldensteward.support.web.mvp.BaseView;
  */
 public interface SignUpView extends BaseView {
 
-    void onCommitSuccess();
+    void onCommitSuccess(int num);
 
 }

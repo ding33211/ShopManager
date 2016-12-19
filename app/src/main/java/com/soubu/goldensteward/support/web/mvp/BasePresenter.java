@@ -30,9 +30,4 @@ public abstract class BasePresenter<V extends BaseView> {
         return viewRef == null ? null : viewRef.get();
     }
 
-    public boolean isViewAttached() {
-        return viewRef != null && viewRef.get() != null;
-    }
-
-
 }

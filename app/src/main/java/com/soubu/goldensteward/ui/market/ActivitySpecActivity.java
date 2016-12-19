@@ -78,8 +78,8 @@ public class ActivitySpecActivity extends ActivityPresenter<ActivitySpecActivity
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (mId != -1) {
-//                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpMvpActivity.class);
-                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
+                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpMvpActivity.class);
+//                                    Intent intent = new Intent(ActivitySpecActivity.this, SignUpActivity.class);
                                     intent.putExtra(IntentKey.EXTRA_ACCOUNT_ID, list.get(which).getUid());
                                     intent.putExtra(IntentKey.EXTRA_ACTIVITY_ID, mId);
                                     startActivityForResult(intent, REQUEST_SIGN_UP);

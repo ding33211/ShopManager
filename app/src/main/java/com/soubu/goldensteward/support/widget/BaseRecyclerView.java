@@ -10,23 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
+import com.soubu.goldensteward.support.helper.ViewType;
 
 /**
  * 支持处理异常情况显示的recyclerView
  * Created by dingsigang on 16-12-15.
  */
 
-public class RecyclerViewExceptionHandlerSupport extends RecyclerView {
-    public static final int ERROR_SERVER = 0x01;
-    public static final int ERROR_INTERNET = 0x02;
-    private int errorType = -1;
+public class BaseRecyclerView extends RecyclerView {
+    private ViewType errorType;
 
     private View mEmptyView;
     private View mServerErrorView;
     private View mInternetErrorView;
 
     private AdapterDataObserver observer = new AdapterDataObserver() {
-
 
         @Override
         public void onChanged() {
@@ -41,8 +39,8 @@ public class RecyclerViewExceptionHandlerSupport extends RecyclerView {
                 if (mInternetErrorView.getParent() != null) {
                     mInternetErrorView.setVisibility(GONE);
                 }
-                if (errorType != -1) {
-                    ViewGroup vg = (ViewGroup) RecyclerViewExceptionHandlerSupport.this.getParent();
+                if (errorType != null) {
+                    ViewGroup vg = (ViewGroup) BaseRecyclerView.this.getParent();
                     switch (errorType) {
                         case ERROR_INTERNET:
                             if (mInternetErrorView.getParent() != null) {
@@ -59,34 +57,34 @@ public class RecyclerViewExceptionHandlerSupport extends RecyclerView {
                             }
                             break;
                     }
-                    RecyclerViewExceptionHandlerSupport.this.setVisibility(GONE);
+                    BaseRecyclerView.this.setVisibility(GONE);
                 } else if (adapter.getItemCount() == 0) {
                     if (mEmptyView.getParent() != null) {
                         mEmptyView.setVisibility(VISIBLE);
                     } else {
-                        ViewGroup vg = (ViewGroup) RecyclerViewExceptionHandlerSupport.this.getParent();
+                        ViewGroup vg = (ViewGroup) BaseRecyclerView.this.getParent();
                         vg.addView(mEmptyView);
                     }
-                    RecyclerViewExceptionHandlerSupport.this.setVisibility(GONE);
+                    BaseRecyclerView.this.setVisibility(GONE);
                 } else {
-                    RecyclerViewExceptionHandlerSupport.this.setVisibility(VISIBLE);
+                    BaseRecyclerView.this.setVisibility(VISIBLE);
                 }
             }
 
         }
     };
 
-    public RecyclerViewExceptionHandlerSupport(Context context) {
+    public BaseRecyclerView(Context context) {
         super(context);
         initErrorView(context);
     }
 
-    public RecyclerViewExceptionHandlerSupport(Context context, AttributeSet attrs) {
+    public BaseRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initErrorView(context);
     }
 
-    public RecyclerViewExceptionHandlerSupport(Context context, AttributeSet attrs, int defStyle) {
+    public BaseRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initErrorView(context);
     }
@@ -96,9 +94,6 @@ public class RecyclerViewExceptionHandlerSupport extends RecyclerView {
         mEmptyView = view.findViewById(R.id.ll_empty);
         mInternetErrorView = view.findViewById(R.id.ll_internet_error);
         mServerErrorView = view.findViewById(R.id.ll_server_error);
-//        mEmptyView.setOnClickListener(this);
-//        mInternetErrorView.setOnClickListener(this);
-//        mServerErrorView.setOnClickListener(this);
         view.removeAllViews();
     }
 
@@ -108,43 +103,23 @@ public class RecyclerViewExceptionHandlerSupport extends RecyclerView {
         if (adapter != null) {
             adapter.registerAdapterDataObserver(observer);
         }
-//        observer.onChanged();
     }
 
-
-    public void setErrorType(int errorType) {
+    public void setErrorType(ViewType errorType) {
         this.errorType = errorType;
         observer.onChanged();
     }
 
     public void resetting() {
-        errorType = -1;
+        errorType = null;
     }
 
-    public boolean canLoadMore(){
-        return !(getAdapter() == null || getAdapter().getItemCount() == 0 || errorType != -1);
+    public boolean canLoadMore() {
+        return !(getAdapter() == null || getAdapter().getItemCount() == 0 || errorType != null);
     }
 
-    public void setEmptyDesc(String desc){
+    public void setEmptyDesc(String desc) {
         TextView tvDesc = (TextView) mEmptyView.findViewById(R.id.tv_empty_desc);
         tvDesc.setText(desc);
     }
-
-//
-//    OnClickErrorViewListener mListener;
-//
-//    public interface OnClickErrorViewListener {
-//        void onClick(View v);
-//    }
-//
-//    public void setOnClickErrorViewListener(OnClickErrorViewListener listener) {
-//        mListener = listener;
-//    }
-//
-//    @Override
-//    public void onClick(View v) {
-//        if (mListener != null) {
-//            mListener.onClick(v);
-//        }
-//    }
 }

@@ -85,11 +85,11 @@ public class BitmapUtils {
 
     // 将view转为bitmap
     public static Bitmap getBitmapFromView(View view) {
-        // Define a bitmap with the same size as the view
+        // Define a bitmap with the same size as the rootView
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Config.ARGB_8888);
         // Bind a canvas to it
         Canvas canvas = new Canvas(returnedBitmap);
-        // Get the view's background
+        // Get the rootView's background
         Drawable bgDrawable = view.getBackground();
         if (bgDrawable != null)
             // has background drawable, then draw it on the canvas
@@ -98,7 +98,7 @@ public class BitmapUtils {
             // does not have background drawable, then draw white background on
             // the canvas
             canvas.drawColor(Color.WHITE);
-        // draw the view on the canvas
+        // draw the rootView on the canvas
         view.draw(canvas);
         // return the bitmap
         return returnedBitmap;

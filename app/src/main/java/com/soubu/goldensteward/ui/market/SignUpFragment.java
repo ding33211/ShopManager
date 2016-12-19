@@ -2,6 +2,7 @@ package com.soubu.goldensteward.ui.market;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +11,10 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
+import com.soubu.goldensteward.support.helper.ViewConverter;
+import com.soubu.goldensteward.support.helper.ViewType;
 import com.soubu.goldensteward.support.utils.GlideUtils;
+import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.mvp.BaseMvpFragment;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshHelper;
@@ -23,6 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Observable;
 
+import static android.app.Activity.RESULT_OK;
 import static com.soubu.goldensteward.R.string.total;
 
 /**
@@ -33,10 +38,6 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
 
     @BindView(R.id.tv_total)
     TextView tvTotal;
-    //    @BindView(R.id.tv_nomsg)
-//    TextView tvNoMsg;
-//    @BindView(R.id.view_empty)
-//    LinearLayout viewEmpty;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.view_refresh)
@@ -46,6 +47,7 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
     private List<String> mCheckedProductId;
     private String mAccountId;
     private int mActivityId;
+    private View errorView;
 
     @Override
     protected int createLayoutId() {
@@ -123,21 +125,40 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
         presenter.commit(mAccountId, mActivityId, mCheckedProductId);
     }
 
-    public void onCommitSuccess() {
+    public void onCommitSuccess(int num) {
         ShowWidgetUtil.showShort("提交成功");
+        View successView = ViewConverter.replaceView(rootView, R.layout.view_signup_success);
 
-//        //注意此处不要使用get的方式去setVisibility，需要借助从layout去getchildat去获得view再去set，直接使用get的方法是通过rootview的方式去做的
-//        View v = mFmAll.getChildAt(2);
-//        v.setVisibility(View.GONE);
-//        View v1 = mFmAll.getChildAt(1);
-//        v1.setVisibility(View.VISIBLE);
-//        setTitle(R.string.sign_up_success);
+        TextView tvTitle = (TextView) getActivity().findViewById(R.id.tv_toolbar_title);
+        tvTitle.setText(R.string.sign_up_success);
+
+        TextView tvSignUpCount = (TextView) getActivity().findViewById(R.id.tv_sign_up_count);
+        tvSignUpCount.setText(String.valueOf(num));
+
+        Button btReturn = (Button) successView.findViewById(R.id.bt_return);
+        btReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().setResult(RESULT_OK);
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
     public void initWidget() {
         refreshHelper = new RefreshHelper<ProductInSignUpActivityServerParams>(viewRefresh, this, R.layout.item_product_access_product_on_sale_recyclerview);
         refreshHelper.loadData();
+        refreshHelper.setDataInterface(new RefreshHelper.DataInterface() {
+            @Override
+            public void onData(ViewType type) {
+                LogUtil.print("type=" + type);
+                getActivity().findViewById(R.id.fr_content).setVisibility(View.VISIBLE);
+                if (type != ViewType.CONTENT) {
+                    errorView = ViewConverter.setErrorView(rootView, type);
+                }
+            }
+        });
     }
 
     @Override

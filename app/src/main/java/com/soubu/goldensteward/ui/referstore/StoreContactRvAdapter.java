@@ -41,7 +41,7 @@ public class StoreContactRvAdapter extends SingleAdapter<StoreContactServerParam
 //
 //        clickArea.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onClick(View view) {
+//            public void onClick(View rootView) {
 //                listener.onClick(person);
 //            }
 //        });

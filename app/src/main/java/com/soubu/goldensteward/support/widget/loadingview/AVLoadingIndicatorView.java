@@ -403,7 +403,7 @@ public class AVLoadingIndicatorView extends View {
     protected void onDetachedFromWindow() {
         stopAnimation();
         // This should come after stopAnimation(), otherwise an invalidate message remains in the
-        // queue, which can prevent the entire view hierarchy from being GC'ed during a rotation
+        // queue, which can prevent the entire rootView hierarchy from being GC'ed during a rotation
         super.onDetachedFromWindow();
         removeCallbacks();
     }

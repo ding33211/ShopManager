@@ -8,12 +8,13 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
+import com.soubu.goldensteward.support.helper.ViewType;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
-import com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport;
+import com.soubu.goldensteward.support.widget.BaseRecyclerView;
 import com.soubu.goldensteward.support.widget.pullrefresh.core.OnPullListener;
 import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
@@ -102,8 +103,8 @@ public class RefreshHelper<T> {
 
             @Override
             public void onLoadMore() {
-                if (rv instanceof RecyclerViewExceptionHandlerSupport) {
-                    if (!((RecyclerViewExceptionHandlerSupport) rv).canLoadMore()) {
+                if (rv instanceof BaseRecyclerView) {
+                    if (!((BaseRecyclerView) rv).canLoadMore()) {
                         return;
                     }
                 }
@@ -132,8 +133,8 @@ public class RefreshHelper<T> {
         } else {
             isShowLoading = true;
         }
-        if (rv instanceof RecyclerViewExceptionHandlerSupport) {
-            ((RecyclerViewExceptionHandlerSupport) rv).resetting();
+        if (rv instanceof BaseRecyclerView) {
+            ((BaseRecyclerView) rv).resetting();
         }
         refreshInterface.getData(curPage)
                 .doOnSubscribe(new Action0() {
@@ -148,6 +149,7 @@ public class RefreshHelper<T> {
                 .subscribe(new BaseSubscriber<List<T>>() {
                     @Override
                     public void onSuccess(List<T> list) {
+                        boolean hideLoadMore = false;
                         LogUtil.print("list.size=" + list.size());
                         if (isRefresh) {
                             isRefresh = false;
@@ -163,6 +165,11 @@ public class RefreshHelper<T> {
                         if (isBgRefresh) {
                             isBgRefresh = false;
                         }
+                        if (list.size() < 20) {
+                            hideLoadMore = true;
+                        } else {
+                            hideLoadMore = false;
+                        }
                         data.addAll(list);
                         if (data.isEmpty()) {
                             rv.setVisibility(View.GONE);
@@ -171,22 +178,42 @@ public class RefreshHelper<T> {
                             rv.setVisibility(View.VISIBLE);
                             viewRefresh.setCanLoadMore(true);
                         }
+                        if (data.isEmpty() && dataInterface != null) {
+                            dataInterface.onData(ViewType.ERROR_EMPTY);
+                            return;
+                        }
                         adapter.setData(data);
+                        if (dataInterface != null) {
+                            dataInterface.onData(ViewType.CONTENT);
+                        }
+                        if (hideLoadMore) {
+                            viewRefresh.setCanLoadMore(false);
+                        } else {
+                            viewRefresh.setCanLoadMore(true);
+                        }
                     }
 
                     @Override
                     public void onFailure(BaseException exception) {
                         super.onFailure(exception);
                         if (exception.getErrorCode() == 0) {
-                            if (rv instanceof RecyclerViewExceptionHandlerSupport) {
-                                ((RecyclerViewExceptionHandlerSupport) rv).setErrorType(RecyclerViewExceptionHandlerSupport.ERROR_INTERNET);
+                            if (rv instanceof BaseRecyclerView) {
+                                ((BaseRecyclerView) rv).setErrorType(ViewType.ERROR_INTERNET);
                                 viewRefresh.setCanLoadMore(false);
+                            } else {
+                                if (dataInterface != null) {
+                                    dataInterface.onData(ViewType.ERROR_INTERNET);
+                                }
                             }
                         }
                         if (exception.getErrorCode() == 404) {
-                            if (rv instanceof RecyclerViewExceptionHandlerSupport) {
-                                ((RecyclerViewExceptionHandlerSupport) rv).setErrorType(RecyclerViewExceptionHandlerSupport.ERROR_SERVER);
+                            if (rv instanceof BaseRecyclerView) {
+                                ((BaseRecyclerView) rv).setErrorType(ViewType.ERROR_SERVER);
                                 viewRefresh.setCanLoadMore(false);
+                            } else {
+                                if (dataInterface != null) {
+                                    dataInterface.onData(ViewType.ERROR_SERVER);
+                                }
                             }
                         }
                         if (isRefresh) {
@@ -204,6 +231,15 @@ public class RefreshHelper<T> {
                 });
     }
 
+    private DataInterface dataInterface;
+
+    public void setDataInterface(DataInterface dataInterface) {
+        this.dataInterface = dataInterface;
+    }
+
+    public interface DataInterface {
+        void onData(ViewType type);
+    }
 
     public interface RefreshInterface<T> {
 

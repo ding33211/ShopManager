@@ -6,16 +6,15 @@ import com.soubu.goldensteward.support.bean.server.ProductListRequest;
 import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
-import com.soubu.goldensteward.support.web.mvp.BasePresenter;
+import com.soubu.goldensteward.support.web.core.ObservableWrapper;
+import com.soubu.goldensteward.support.web.mvp.BaseListPresenter;
 
 import java.util.List;
-
-import rx.Observable;
 
 /**
  * 作者：余天然 on 2016/12/14 下午7:54
  */
-public class SignUpPresenter extends BasePresenter<SignUpView> {
+public class SignUpPresenter extends BaseListPresenter<ProductInSignUpActivityServerParams, SignUpView> {
 
     private String id;
 
@@ -23,25 +22,24 @@ public class SignUpPresenter extends BasePresenter<SignUpView> {
         this.id = id;
     }
 
-    public Observable<List<ProductInSignUpActivityServerParams>> getData(int curPage) {
+    @Override
+    protected ObservableWrapper<BaseResponse<List<ProductInSignUpActivityServerParams>>> getWrapper(int curPage) {
         return BaseApplication.getWebModel()
-                .getProductListInActivity(new ProductListRequest(curPage, id))
-                .getObservable()
-                .map(res -> res.getResult().getData());
+                .getProductListInActivity(new ProductListRequest(curPage, id));
     }
 
-    public void commit(String mAccountId, int mActivityId, List<String> mCheckedProductId) {
+    public void commit(String mAccountId, int mActivityId, List<String> products) {
         SignUpServerParams params = new SignUpServerParams();
         params.setUid(mAccountId);
         params.setActive_id(mActivityId + "");
-        params.setProduct_list(mCheckedProductId);
+        params.setProduct_list(products);
 
         BaseApplication.getWebModel()
                 .signUp(params)
                 .sendTo(new BaseSubscriber<BaseResponse>(getView()) {
                     @Override
                     public void onSuccess(BaseResponse response) {
-                        getView().onCommitSuccess();
+                        getView().onCommitSuccess(products.size());
                     }
                 });
     }

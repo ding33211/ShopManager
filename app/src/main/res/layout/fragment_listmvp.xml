@@ -28,7 +28,7 @@
 
     <!--</LinearLayout>-->
 
-    <com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport
+    <com.soubu.goldensteward.support.widget.BaseRecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -264,7 +264,6 @@ public abstract class AppDelegate implements IDelegate {
     }
 
 
-
     //界面中只要出现选项按钮就能用到如下
 
     protected View[] mTopButtons = null;
@@ -280,12 +279,11 @@ public abstract class AppDelegate implements IDelegate {
     }
 
 
-
-    public void showInternetError(){
+    public void showInternetError() {
 
     }
 
-    public void showServerError(){
+    public void showServerError() {
 
     }
 

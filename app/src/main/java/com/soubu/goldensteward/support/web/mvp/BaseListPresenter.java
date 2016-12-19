@@ -14,7 +14,7 @@ import rx.Subscriber;
 /**
  * 作者：余天然 on 2016/12/12 上午11:20
  */
-public abstract class BaseListPresenter<R> extends BasePresenter {
+public abstract class BaseListPresenter<R, V extends BaseView> extends BasePresenter<V> {
 
     public Observable<List<R>> getData(int curPage) {
         LogUtil.print("");
@@ -26,7 +26,9 @@ public abstract class BaseListPresenter<R> extends BasePresenter {
                             @Override
                             public void onSuccess(BaseResponse<List<R>> response) {
                                 LogUtil.print("");
-                                subscriber.onNext(response.getResult().getData());
+                                List<R> data = response.getResult().getData();
+                                List<R> subList = data.subList(0, 1);
+                                subscriber.onNext(subList);
                                 subscriber.onCompleted();
                             }
 

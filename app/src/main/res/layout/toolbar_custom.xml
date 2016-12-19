@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="?attr/actionBarSize"
     android:background="@android:color/transparent">
@@ -9,41 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+
         <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/cancel"
-            android:textSize="16sp"
             android:layout_alignParentRight="true"
-            android:paddingRight="16dp"
-            android:paddingLeft="15dp"
-            android:gravity="center"
             android:layout_centerVertical="true"
-            android:textColor="@android:color/white"/>
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="16dp"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginLeft="16dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:layout_toLeftOf="@+id/tv_cancel"
             android:background="@drawable/bg_white_corners">
+
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical"
                 android:src="@drawable/follow_search"/>
+
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
+                android:background="@null"
                 android:singleLine="true"
-                android:textColor="@color/search_text_color"
-                android:background="@null"/>
+                android:textColor="@color/search_text_color"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -65,7 +70,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/btn_back" />
+                android:src="@drawable/btn_back"/>
         </RelativeLayout>
 
         <View
@@ -76,7 +81,7 @@
             android:layout_marginBottom="11dp"
             android:layout_marginTop="11dp"
             android:layout_toRightOf="@+id/ll_back"
-            android:background="@color/three_translucent_white" />
+            android:background="@color/three_translucent_white"/>
 
         <TextView
             android:id="@+id/tv_toolbar_title"
@@ -87,7 +92,7 @@
             android:layout_toRightOf="@+id/v_decoration"
             android:text="title"
             android:textColor="@color/filter_selected_color"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -98,9 +103,9 @@
                 android:id="@+id/ll_menu_r_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:background="@drawable/selector_toolbar_menu"
                 android:visibility="gone">
 
                 <ImageView
@@ -108,16 +113,16 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/btn_search" />
+                    android:src="@drawable/btn_search"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_menu_r_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:background="@drawable/selector_toolbar_menu"
                 android:visibility="gone">
 
                 <ImageView
@@ -125,16 +130,16 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/btn_add" />
+                    android:src="@drawable/btn_add"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_setting_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:background="@drawable/selector_toolbar_menu"
                 android:visibility="gone">
 
                 <TextView
@@ -144,7 +149,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="@string/save"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
             </LinearLayout>
 
 
@@ -152,9 +157,9 @@
                 android:id="@+id/ll_setting_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@drawable/selector_toolbar_menu"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:background="@drawable/selector_toolbar_menu"
                 android:visibility="gone">
 
                 <ImageView
@@ -162,7 +167,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/more" />
+                    android:src="@drawable/more"/>
             </LinearLayout>
 
 

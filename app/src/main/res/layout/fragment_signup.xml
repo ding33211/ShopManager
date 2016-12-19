@@ -17,9 +17,21 @@
             android:text="@string/sing_up_desc"
             android:textColor="@color/search_text_color"/>
 
-        <include
+        <com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout
             android:id="@+id/view_refresh"
-            layout="@layout/fragment_listmvp"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/filter_selected_color">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:visibility="visible"/>
+
+        </com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout>
+
 
     </LinearLayout>
 
