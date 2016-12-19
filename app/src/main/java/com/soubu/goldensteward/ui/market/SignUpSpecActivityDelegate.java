@@ -100,7 +100,7 @@ public class SignUpSpecActivityDelegate extends AppDelegate {
                 tvAppealState.setTextColor(res.getColor(R.color.red_sign_up_product));
                 vNormal.setVisibility(View.GONE);
                 vFail.setVisibility(View.VISIBLE);
-                tvFailReason.setText(failReason);
+                tvFailReason.setText(getActivity().getString(R.string.fail_reason) + getActivity().getString(R.string.colon) + "  " + failReason);
                 get(R.id.ll_sign_up_again).setVisibility(View.VISIBLE);
             }
         }

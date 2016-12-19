@@ -90,7 +90,8 @@
                     android:background="@drawable/selector_item_white_grey_bg"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"

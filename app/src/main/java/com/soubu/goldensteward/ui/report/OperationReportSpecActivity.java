@@ -3,8 +3,6 @@ package com.soubu.goldensteward.ui.report;
 import android.view.View;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.constant.IntentKey;
-import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.bean.BaseEventBusResp;
 import com.soubu.goldensteward.support.bean.EventBusConfig;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
@@ -17,6 +15,8 @@ import com.soubu.goldensteward.support.bean.server.ShopVisitorServerParams;
 import com.soubu.goldensteward.support.bean.server.TurnOverServerParams;
 import com.soubu.goldensteward.support.bean.server.VisitFriendsServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
+import com.soubu.goldensteward.support.constant.IntentKey;
+import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;
 import com.soubu.goldensteward.support.net.RetrofitRequest;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 

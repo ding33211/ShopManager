@@ -15,7 +15,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.MathDoubleUtil;
@@ -164,6 +163,7 @@ public class LineView extends View {
             for (int j = 0; j < targetPercentList.size(); j++) {
                 aTargetPercentList = targetPercentList.get(j);
                 aPercentList = percentList.get(j);
+
                 for (int i = 0; i < aTargetPercentList.size(); i++) {
                     if (aPercentList.get(i) < aTargetPercentList.get(i)) {
                         aPercentList.set(i, aPercentList.get(i) + 0.02f);
@@ -295,7 +295,7 @@ public class LineView extends View {
     private void refreshAfterDataChanged() {
         verticalGridNum = getVerticalGridNum();
         refreshTopLineLength(verticalGridNum);
-        refreshYCoordinateList(verticalGridNum);
+//        refreshYCoordinateList(verticalGridNum);
         refreshDrawDotList(verticalGridNum);
     }
 
@@ -338,15 +338,6 @@ public class LineView extends View {
 
     }
 
-    private void refreshYCoordinateList(int verticalGridNum) {
-        yCoordinateList.clear();
-        for (int i = 0; i < (verticalGridNum + 1); i++) {
-            yCoordinateList.add(topLineLength +
-                    ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
-                            bottomLineLength - bottomTextDescent) * i / (verticalGridNum)));
-        }
-    }
-
     private void refreshDrawDotList(int verticalGridNum) {
         if (dataLists != null && !dataLists.isEmpty()) {
             if (drawDotLists.size() == 0) {
@@ -359,7 +350,9 @@ public class LineView extends View {
 
                 for (int i = 0; i < dataLists.get(k).size(); i++) {
                     int x = xCoordinateList.get(i);
-                    int y = yCoordinateList.get(verticalGridNum - dataLists.get(k).get(i));
+                    int y = topLineLength +
+                            ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
+                                    bottomLineLength - bottomTextDescent) * verticalGridNum - dataLists.get(k).get(i) / (verticalGridNum));
                     if (i > drawDotSize - 1) {
                         drawDotLists.get(k).add(new Dot(x, 0, x, y, dataLists.get(k).get(i), k));
                     } else {
@@ -557,6 +550,7 @@ public class LineView extends View {
         }
         removeCallbacks(barAnimator);
         post(barAnimator);
+
     }
 
     /**
@@ -704,19 +698,21 @@ public class LineView extends View {
         if (!drawDotLine) {
             //draw solid lines
             List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < yCoordinateList.size(); i++) {
-                int dataOfAGrid = 100;
-                if (dataOfAGridRight != -1) {
-                    dataOfAGrid = dataOfAGridRight;
-                } else if (dataOfAGirdLeft != -1) {
-                    dataOfAGrid = dataOfAGirdLeft;
-                }
-                if ((yCoordinateList.size() - 1 - i) % dataOfAGrid == 0) {
-                    canvas.drawLine(0, yCoordinateList.get(i), getWidth(), yCoordinateList.get(i), paint);
-                    bottomLineY = yCoordinateList.get(i);
-                    list.add(yCoordinateList.get(i));
-                }
+            int dataOfAGrid = 100;
+            if (dataOfAGridRight != -1) {
+                dataOfAGrid = dataOfAGridRight;
+            } else if (dataOfAGirdLeft != -1) {
+                dataOfAGrid = dataOfAGirdLeft;
             }
+
+            for (int i = 0; dataOfAGrid * i < verticalGridNum; i++) {
+                int x = topLineLength +
+                        ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
+                                bottomLineLength - bottomTextDescent) * (verticalGridNum - dataOfAGrid * i + 1) / (verticalGridNum));
+                canvas.drawLine(0, x, getWidth(), x, paint);
+                list.add(x);
+            }
+            bottomLineY = list.get(0);
             if (list.size() > 0) {
                 int j = 0;
                 rightScaleMap.clear();

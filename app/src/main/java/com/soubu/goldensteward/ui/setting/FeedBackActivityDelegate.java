@@ -16,7 +16,7 @@ import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
 public class FeedBackActivityDelegate extends AppDelegate implements View.OnClickListener {
     Button[] buttons;
-    int mLastClickIndex = 0;
+    int mLastClickIndex = -1;
 
     @Override
     public int getRootLayoutId() {
@@ -34,7 +34,9 @@ public class FeedBackActivityDelegate extends AppDelegate implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        buttons[mLastClickIndex].setSelected(false);
+        if(mLastClickIndex != -1){
+            buttons[mLastClickIndex].setSelected(false);
+        }
         switch (v.getId()) {
             case R.id.btn_feedback_1:
                 mLastClickIndex = 0;
@@ -64,7 +66,7 @@ public class FeedBackActivityDelegate extends AppDelegate implements View.OnClic
 //    }
 
     public boolean checkComplete(FeedBackServerParams params) {
-        if (mLastClickIndex == 0) {
+        if (mLastClickIndex == -1) {
             ShowWidgetUtil.showShort(R.string.please_choose_feedback_type);
             return false;
         }
