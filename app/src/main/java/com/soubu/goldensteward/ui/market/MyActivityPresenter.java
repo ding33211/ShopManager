@@ -1,8 +1,8 @@
 package com.soubu.goldensteward.ui.market;
 
 import com.soubu.goldensteward.support.base.BaseApplication;
+import com.soubu.goldensteward.support.bean.server.BasePageRequest;
 import com.soubu.goldensteward.support.bean.server.MyActivityServerParams;
-import com.soubu.goldensteward.support.web.BasePageRequest;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.ObservableWrapper;
 import com.soubu.goldensteward.support.web.mvp.BaseListPresenter;
