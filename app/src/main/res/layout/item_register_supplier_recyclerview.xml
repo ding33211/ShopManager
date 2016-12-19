@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -23,53 +22,60 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
-            <TextView
-                android:id="@+id/tv_must"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:text="*"
-                android:textColor="@color/colorPrimary"/>
+                android:layout_weight="0">
 
-            <EditText
-                android:id="@+id/et_title"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:clickable="false"
-                android:hint="@string/store_name"
-                android:textColorHint="@color/line_color"
-                android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_must"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/title_black"
-                android:textSize="16sp"
-                android:visibility="gone"
-                tools:text="@string/company_logo"/>
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:hint="@string/store_name"
+                    android:textColorHint="@color/line_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/company_logo"
+                    android:textColor="@color/title_black"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_right"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical">
 
                 <TextView
                     android:id="@+id/tv_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
+                    android:ellipsize="end"
                     android:gravity="right"
                     android:singleLine="true"
                     android:text="@string/please_choose"
                     android:textColor="@color/line_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/iv_choose"
@@ -77,17 +83,18 @@
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
+                    android:layout_weight="0"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:src="@drawable/arrow_choose"/>
+                    android:src="@drawable/arrow_choose" />
 
                 <ImageView
                     android:id="@+id/iv_clear"
                     android:layout_width="48dp"
                     android:layout_height="40dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_weight="0"
                     android:src="@drawable/clear"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -101,7 +108,7 @@
             android:clickable="false"
             android:gravity="top"
             android:textColorHint="@color/line_color"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
 
@@ -123,5 +130,5 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/line_color"/>
+        android:background="@color/line_color" />
 </LinearLayout>

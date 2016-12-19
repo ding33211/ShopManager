@@ -22,7 +22,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/selector_toolbar_menu"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingRight="16dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_menu_r_2"
@@ -36,7 +37,8 @@
                 android:id="@+id/ll_menu_r_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/selector_toolbar_menu">
+                android:background="@drawable/selector_toolbar_menu"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_menu_r_1"

@@ -11,6 +11,7 @@ import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.base.BaseApplication;
 import com.soubu.goldensteward.support.bean.server.ProductInSignUpActivityServerParams;
+import com.soubu.goldensteward.support.bean.server.ProductListRequest;
 import com.soubu.goldensteward.support.bean.server.SignUpServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
 import com.soubu.goldensteward.support.mvp.presenter.ActivityPresenter;

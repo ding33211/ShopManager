@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.soubu.goldensteward.R;
-import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.bean.RegisterRvItem;
 import com.soubu.goldensteward.support.bean.server.UserServerParams;
+import com.soubu.goldensteward.support.mvp.view.AppDelegate;
 import com.soubu.goldensteward.support.utils.RegularUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 
@@ -50,7 +50,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                 mList1.get(pos).setContent(content);
             }
         });
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     public void setStep2Data(List<RegisterRvItem> list) {
@@ -68,7 +68,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                 Log.e("zzzzzzz", "content   :   " + content);
             }
         });
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     public void onClickBackOnSecondStep() {
@@ -81,7 +81,7 @@ public class RegisterSupplierActivityDelegate extends AppDelegate {
                 mList1.get(pos).setContent(content);
             }
         });
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     public boolean ifStep2Init() {

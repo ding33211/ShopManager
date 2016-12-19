@@ -1,6 +1,4 @@
-package com.soubu.goldensteward.ui.market;
-
-import com.soubu.goldensteward.support.web.BasePageRequest;
+package com.soubu.goldensteward.support.bean.server;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

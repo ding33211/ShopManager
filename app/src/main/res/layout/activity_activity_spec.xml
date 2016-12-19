@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="310dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/marketing_bg" />
+                android:src="@drawable/bg_no_activity" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/investment_time"
+                            android:text="@string/sign_up_time"
                             android:textColor="@color/search_text_color" />
 
                         <TextView

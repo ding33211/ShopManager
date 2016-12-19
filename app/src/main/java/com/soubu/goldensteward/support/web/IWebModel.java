@@ -5,6 +5,7 @@ import com.soubu.goldensteward.support.bean.server.ActivitySpecServerParams;
 import com.soubu.goldensteward.support.bean.server.AllActivityServerParams;
 import com.soubu.goldensteward.support.bean.server.BaseDataArray;
 import com.soubu.goldensteward.support.bean.server.BaseDataObject;
+import com.soubu.goldensteward.support.bean.server.BasePageRequest;
 import com.soubu.goldensteward.support.bean.server.BaseResp;
 import com.soubu.goldensteward.support.bean.server.CustomerDetailDataObject;
 import com.soubu.goldensteward.support.bean.server.CustomerServerParams;
@@ -29,7 +30,7 @@ import com.soubu.goldensteward.support.bean.server.WalletHomeInfoServerParams;
 import com.soubu.goldensteward.support.bean.server.WithCountDataArray;
 import com.soubu.goldensteward.support.web.core.BaseResponse;
 import com.soubu.goldensteward.support.web.core.ObservableWrapper;
-import com.soubu.goldensteward.ui.market.ProductListRequest;
+import com.soubu.goldensteward.support.bean.server.ProductListRequest;
 
 import java.util.List;
 import java.util.Map;
