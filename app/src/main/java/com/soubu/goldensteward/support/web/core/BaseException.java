@@ -7,7 +7,7 @@ package com.soubu.goldensteward.support.web.core;
  */
 public class BaseException extends RuntimeException {
 
-    int errorCode;//0、系统错误，其它、业务错误
+    int errorCode;//0=系统错误，其它=业务错误,-1=token失效
 
     public BaseException(String detailMessage) {
         super(detailMessage);

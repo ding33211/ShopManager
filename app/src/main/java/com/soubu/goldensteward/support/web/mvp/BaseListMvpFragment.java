@@ -2,6 +2,7 @@ package com.soubu.goldensteward.support.web.mvp;
 
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.widget.RecyclerViewExceptionHandlerSupport;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshHelper;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout;
@@ -18,10 +19,6 @@ import rx.Observable;
  */
 public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> extends BaseMvpFragment<P> implements BaseView, RefreshHelper.RefreshInterface<T> {
 
-//    @BindView(R.id.tv_nomsg)
-//    TextView tvNomsg;
-    //    @BindView(R.id.view_empty)
-//    LinearLayout viewEmpty;
     @BindView(R.id.rv)
     public RecyclerViewExceptionHandlerSupport rv;
     @BindView(R.id.view_refresh)
@@ -31,14 +28,9 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> ext
 
     @Override
     public void initWidget() {
-        refreshHelper = new RefreshHelper<T>(this, viewRefresh, this, createItemId());
+        LogUtil.print("");
+        refreshHelper = new RefreshHelper<T>(viewRefresh, this, createItemId());
         refreshHelper.loadData();
-//        rv.setOnClickErrorViewListener(new RecyclerViewExceptionHandlerSupport.OnClickErrorViewListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickErrorView();
-//            }
-//        });
     }
 
     @Override
@@ -69,5 +61,4 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter<T>, T> ext
 
     }
 
-//    protected abstract void onClickErrorView();
 }

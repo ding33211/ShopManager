@@ -33,7 +33,7 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
 
     @BindView(R.id.tv_total)
     TextView tvTotal;
-//    @BindView(R.id.tv_nomsg)
+    //    @BindView(R.id.tv_nomsg)
 //    TextView tvNoMsg;
 //    @BindView(R.id.view_empty)
 //    LinearLayout viewEmpty;
@@ -136,7 +136,7 @@ public class SignUpFragment extends BaseMvpFragment<SignUpPresenter> implements 
 
     @Override
     public void initWidget() {
-        refreshHelper = new RefreshHelper<ProductInSignUpActivityServerParams>(this, viewRefresh, this, R.layout.item_product_access_product_on_sale_recyclerview);
+        refreshHelper = new RefreshHelper<ProductInSignUpActivityServerParams>(viewRefresh, this, R.layout.item_product_access_product_on_sale_recyclerview);
         refreshHelper.loadData();
     }
 

@@ -67,7 +67,7 @@ public class RegisterSupplierRvAdapter extends RecyclerView.Adapter {
         if (viewType > 0x10) {
             vMust.setVisibility(View.VISIBLE);
         } else {
-            vMust.setVisibility(View.GONE);
+            vMust.setVisibility(View.INVISIBLE);
         }
         switch (viewType) {
             case TYPE_ITEM_CAN_FILL:
