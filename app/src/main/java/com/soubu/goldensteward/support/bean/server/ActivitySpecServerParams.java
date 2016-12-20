@@ -18,8 +18,6 @@ public class ActivitySpecServerParams {
     String sign_introduce;
 //    Content[] content;
 
-
-
     @Data
     public class Content {
         String title;
