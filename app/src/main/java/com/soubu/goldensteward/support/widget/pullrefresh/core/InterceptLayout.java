@@ -42,7 +42,6 @@ public abstract class InterceptLayout extends DrawLayout {
             //正在加载中时，直接拦截掉子控件的手势
             return true;
         }
-
         boolean intercept = false;
         // 记录此次触摸事件的y坐标
         int y = (int) event.getY();
@@ -60,7 +59,7 @@ public abstract class InterceptLayout extends DrawLayout {
             case MotionEvent.ACTION_MOVE: {
                 if (y > lastYIntercept && canPullRefresh == true) { // 下滑操作
                     // 获取最顶部的子视图
-                    View child = getFirstVisiableChild();
+                    View child = getFirstVisibleChild();
                     if (child == null) {
                         intercept = false;
                     } else if (child instanceof AdapterView) {
@@ -72,7 +71,7 @@ public abstract class InterceptLayout extends DrawLayout {
                     }
                 } else if (y < lastYIntercept && canLoadMore == true) { // 上拉操作
                     // 获取最底部的子视图
-                    View child = getLastVisiableChild();
+                    View child = getLastVisibleChild();
                     if (child == null) {
                         intercept = false;
                     } else if (child instanceof AdapterView) {
@@ -97,7 +96,7 @@ public abstract class InterceptLayout extends DrawLayout {
         return intercept;
     }
 
-    private View getLastVisiableChild() {
+    private View getLastVisibleChild() {
         for (int i = lastChildIndex; i >= 0; i--) {
             View child = getChildAt(i);
             if (child.getVisibility() == GONE) {
@@ -109,7 +108,7 @@ public abstract class InterceptLayout extends DrawLayout {
         return null;
     }
 
-    private View getFirstVisiableChild() {
+    private View getFirstVisibleChild() {
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
             if (child.getVisibility() == GONE) {

@@ -149,7 +149,8 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     //辅助库
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.bugtags.library:bugtags-lib:latest.integration'
+    compile 'com.bugtags.library:bugtags-lib:2.1.0'
+//    compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile 'com.growingio.android:vds-android-agent:0.9.100@aar'
     compile 'com.alibaba:fastjson:1.2.21'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
