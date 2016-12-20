@@ -28,7 +28,7 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extend
     @BindView(R.id.view_refresh)
     RefreshLayout viewRefresh;
 
-    View errorView;
+    public View errorView;
 
     public RefreshHelper refreshHelper;
 
@@ -66,8 +66,6 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extend
         });
     }
 
-    protected abstract int getEmptyDesc();
-
     @Override
     protected int createLayoutId() {
         return R.layout.fragment_listmvp;
@@ -84,16 +82,28 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extend
         super.onDestroyView();
     }
 
+    /**
+     * 绑定Item的Id
+     */
     protected abstract int createItemId();
 
-    @Override
+    /**
+     * 绑定Item的监听事件
+     */
     public void bindListener(BaseViewHolder holder, T item, int position) {
 
     }
 
-    @Override
+    /**
+     * 绑定Item的点击事件
+     */
     public void onItemClick(BaseViewHolder holder, T item, int position) {
 
     }
+
+    /**
+     * 获取数据为空时的提示
+     */
+    protected abstract int getEmptyDesc();
 
 }
