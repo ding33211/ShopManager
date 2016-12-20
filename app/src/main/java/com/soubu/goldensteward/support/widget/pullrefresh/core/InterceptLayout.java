@@ -20,10 +20,10 @@ public abstract class InterceptLayout extends DrawLayout {
     public int lastYIntercept;
 
     //是否可以下拉刷新
-    private boolean canPullRefresh = true;
+    public boolean canPullRefresh = true;
 
     //是否可以上拉加载更多
-    private boolean canLoadMore = true;
+    public boolean canLoadMore = true;
 
     //是否正在下拉刷新或加载更多中
     public boolean isLoading = false;

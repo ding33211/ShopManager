@@ -27,8 +27,7 @@ public abstract class BaseListPresenter<R, V extends BaseView> extends BasePrese
                             public void onSuccess(BaseResponse<List<R>> response) {
                                 LogUtil.print("");
                                 List<R> data = response.getResult().getData();
-                                List<R> subList = data.subList(0, 1);
-                                subscriber.onNext(subList);
+                                subscriber.onNext(data);
                                 subscriber.onCompleted();
                             }
 

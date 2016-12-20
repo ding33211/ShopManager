@@ -18,10 +18,10 @@ import com.soubu.goldensteward.support.web.mvp.BaseListMvpFragment;
 
 public class AllActivityMvpFragment extends BaseListMvpFragment<AllActivityPresenter, AllActivityServerParams> {
 
+
     @Override
-    public void initWidget() {
-        super.initWidget();
-        rv.setEmptyDesc(getString(R.string.empty_all_activity_desc));
+    protected int getEmptyDesc() {
+        return R.string.empty_all_activity_desc;
     }
 
     @Override

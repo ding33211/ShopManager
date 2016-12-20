@@ -26,6 +26,8 @@ public abstract class PullLayout extends InterceptLayout {
     //是否加载完成
     private boolean isLoadSuccess = false;
 
+    private int dySum = 0;//记录整体的y偏移量
+
     public void setOnPullListener(OnPullListener listener) {
         this.listener = listener;
     }
@@ -44,33 +46,24 @@ public abstract class PullLayout extends InterceptLayout {
             //正在加载中时，直接处理掉子控件的手势
             return true;
         }
+
         int y = (int) event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE: {
                 // 计算本次滑动的Y轴增量(距离)
                 int dy = y - lastYMove;
-                // 如果getScrollY<0，即下拉操作
-                if (getScrollY() <= 0) {
-                    if (header != null) {
-                        // 进行Y轴上的滑动
-                        performScroll(dy);
-                        if (Math.abs(getScrollY()) > header.getMeasuredHeight()) {
-                            updateStatus(PullStatus.DOWN_AFTER);
-                        } else {
-                            updateStatus(PullStatus.DOWN_BEFORE);
-                        }
+                dySum += dy;
+
+                // 如果dy>0，即下拉操作
+                if (dySum > 0) {
+                    if (header != null && canPullRefresh == true) {
+                        performDownScroll(dy);
                     }
                 }
-                // 如果getScrollY>=0，即上拉操作
-                else {
-                    if (footer != null) {
-                        // 进行Y轴上的滑动
-                        performScroll(dy);
-                        if (getScrollY() >= bottomScroll + footer.getMeasuredHeight()) {
-                            updateStatus(PullStatus.UP_AFTER);
-                        } else {
-                            updateStatus(PullStatus.UP_BEFORE);
-                        }
+                // 如果dy<0，即上拉操作
+                else if (dySum < 0) {
+                    if (footer != null && canLoadMore == true) {
+                        performUpScroll(dy);
                     }
                 }
                 // 记录y坐标
@@ -79,6 +72,7 @@ public abstract class PullLayout extends InterceptLayout {
             }
 
             case MotionEvent.ACTION_UP: {
+                dySum = 0;
                 // 判断本次触摸系列事件结束时,Layout的状态
                 switch (status) {
                     //下拉刷新
@@ -104,6 +98,31 @@ public abstract class PullLayout extends InterceptLayout {
         lastYIntercept = 0;
         postInvalidate();
         return true;
+    }
+
+    private void performUpScroll(int dy) {
+        // 进行Y轴上的滑动
+        performScroll(dy);
+        if (getScrollY() >= bottomScroll + footer.getMeasuredHeight()) {
+            updateStatus(PullStatus.UP_AFTER);
+        } else {
+            updateStatus(PullStatus.UP_BEFORE);
+        }
+    }
+
+    private void performDownScroll(int dy) {
+        // 进行Y轴上的滑动
+        performScroll(dy);
+        if (Math.abs(getScrollY()) > header.getMeasuredHeight()) {
+            updateStatus(PullStatus.DOWN_AFTER);
+        } else {
+            updateStatus(PullStatus.DOWN_BEFORE);
+        }
+    }
+
+    //执行滑动
+    public void performScroll(int dy) {
+        scrollBy(0, (int) (-dy * damp));
     }
 
     //刷新状态
@@ -229,11 +248,6 @@ public abstract class PullLayout extends InterceptLayout {
     public void stopLoadMore(boolean isSuccess) {
         isLoadSuccess = isSuccess;
         scrolltoDefaultStatus(PullStatus.LOADMORE_COMPLETE_SCROLLING);
-    }
-
-    //执行滑动
-    public void performScroll(int dy) {
-        scrollBy(0, (int) (-dy * damp));
     }
 
     //执行动画

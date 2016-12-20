@@ -39,7 +39,14 @@ public class ViewConverter {
     }
 
     public static View setEmptyView(View contentView) {
-        return replaceView(contentView, R.layout.error_empty);
+        return setEmptyView(contentView, R.string.sign_up_empty_product_desc);
+    }
+
+    public static View setEmptyView(View contentView, int tipId) {
+        View view = replaceView(contentView, R.layout.error_empty);
+        TextView tvEmptyDesc = (TextView) view.findViewById(R.id.tv_empty_desc);
+        tvEmptyDesc.setText(tipId);
+        return view;
     }
 
     public static View setInternetView(View contentView) {

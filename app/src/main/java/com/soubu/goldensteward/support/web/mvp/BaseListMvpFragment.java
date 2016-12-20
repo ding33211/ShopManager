@@ -1,9 +1,13 @@
 package com.soubu.goldensteward.support.web.mvp;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
+import com.soubu.goldensteward.support.helper.ViewConverter;
+import com.soubu.goldensteward.support.helper.ViewType;
 import com.soubu.goldensteward.support.utils.LogUtil;
-import com.soubu.goldensteward.support.widget.BaseRecyclerView;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshHelper;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout;
 
@@ -20,9 +24,11 @@ import rx.Observable;
 public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extends BaseMvpFragment<P> implements BaseView, RefreshHelper.RefreshInterface<T> {
 
     @BindView(R.id.rv)
-    public BaseRecyclerView rv;
+    public RecyclerView rv;
     @BindView(R.id.view_refresh)
     RefreshLayout viewRefresh;
+
+    View errorView;
 
     public RefreshHelper refreshHelper;
 
@@ -31,7 +37,36 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extend
         LogUtil.print("");
         refreshHelper = new RefreshHelper<T>(viewRefresh, this, createItemId());
         refreshHelper.loadData();
+        refreshHelper.setDataInterface(new RefreshHelper.DataInterface() {
+            @Override
+            public void onData(ViewType type) {
+                LogUtil.print("type=" + type);
+                switch (type) {
+                    case CONTENT:
+                        rv.setVisibility(View.VISIBLE);
+                        if (errorView != null) {
+                            errorView.setVisibility(View.GONE);
+                        }
+                        viewRefresh.setCanLoadMore(true);
+                        break;
+                    case ERROR_EMPTY:
+                        errorView = ViewConverter.setEmptyView(rv, getEmptyDesc());
+                        viewRefresh.setCanLoadMore(false);
+                        break;
+                    case ERROR_INTERNET:
+                        errorView = ViewConverter.setInternetView(rv);
+                        viewRefresh.setCanLoadMore(false);
+                        break;
+                    case ERROR_SERVER:
+                        errorView = ViewConverter.setServerView(rv);
+                        viewRefresh.setCanLoadMore(false);
+                        break;
+                }
+            }
+        });
     }
+
+    protected abstract int getEmptyDesc();
 
     @Override
     protected int createLayoutId() {

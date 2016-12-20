@@ -12,7 +12,6 @@ apt {
 }
 
 android {
-//    def UMENG_RELEASE_KEY = "53ad0de956240b97b80eac9d"
     def UMENG_TEST_KEY = "583e85ee04e2056927000b1f"
 
     signingConfigs {
