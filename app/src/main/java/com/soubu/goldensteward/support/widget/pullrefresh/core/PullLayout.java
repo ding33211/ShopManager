@@ -50,7 +50,7 @@ public abstract class PullLayout extends InterceptLayout {
                 // 计算本次滑动的Y轴增量(距离)
                 int dy = y - lastYMove;
                 // 如果getScrollY<0，即下拉操作
-                if (getScrollY() <= 0) {
+                if (dy > 0) {
                     if (header != null) {
                         // 进行Y轴上的滑动
                         performScroll(dy);
@@ -63,7 +63,7 @@ public abstract class PullLayout extends InterceptLayout {
                 }
                 // 如果getScrollY>=0，即上拉操作
                 else {
-                    if (footer != null) {
+                    if (footer != null && isCanLoadMore()) {
                         // 进行Y轴上的滑动
                         performScroll(dy);
                         if (getScrollY() >= bottomScroll + footer.getMeasuredHeight()) {
@@ -83,17 +83,17 @@ public abstract class PullLayout extends InterceptLayout {
                 switch (status) {
                     //下拉刷新
                     case DOWN_BEFORE:
-                        scrolltoDefaultStatus(PullStatus.REFRESH_CANCEL_SCROLLING);
+                        scrollToDefaultStatus(PullStatus.REFRESH_CANCEL_SCROLLING);
                         break;
                     case DOWN_AFTER:
-                        scrolltoRefreshStatus();
+                        scrollToRefreshStatus();
                         break;
                     //上拉加载更多
                     case UP_BEFORE:
-                        scrolltoDefaultStatus(PullStatus.LOADMORE_CANCEL_SCROLLING);
+                        scrollToDefaultStatus(PullStatus.LOADMORE_CANCEL_SCROLLING);
                         break;
                     case UP_AFTER:
-                        scrolltoLoadStatus();
+                        scrollToLoadStatus();
                         break;
                     default:
                         LogUtil.print("松手时是其他状态：" + status);
@@ -169,7 +169,7 @@ public abstract class PullLayout extends InterceptLayout {
     }
 
     //滚动到加载状态
-    private void scrolltoLoadStatus() {
+    private void scrollToLoadStatus() {
         int start = getScrollY();
         int end = footer.getMeasuredHeight() + bottomScroll;
         performAnim(start, end, new AnimListener() {
@@ -186,7 +186,7 @@ public abstract class PullLayout extends InterceptLayout {
     }
 
     //滚动到刷新状态
-    private void scrolltoRefreshStatus() {
+    private void scrollToRefreshStatus() {
         int start = getScrollY();
         int end = -header.getMeasuredHeight();
         performAnim(start, end, new AnimListener() {
@@ -203,7 +203,7 @@ public abstract class PullLayout extends InterceptLayout {
     }
 
     //滚动到默认状态
-    private void scrolltoDefaultStatus(final PullStatus startStatus) {
+    private void scrollToDefaultStatus(final PullStatus startStatus) {
         int start = getScrollY();
         int end = 0;
         performAnim(start, end, new AnimListener() {
@@ -222,13 +222,13 @@ public abstract class PullLayout extends InterceptLayout {
     //停止刷新
     public void stopRefresh(boolean isSuccess) {
         isRefreshSuccess = isSuccess;
-        scrolltoDefaultStatus(PullStatus.REFRESH_COMPLETE_SCROLLING);
+        scrollToDefaultStatus(PullStatus.REFRESH_COMPLETE_SCROLLING);
     }
 
     //停止加载更多
     public void stopLoadMore(boolean isSuccess) {
         isLoadSuccess = isSuccess;
-        scrolltoDefaultStatus(PullStatus.LOADMORE_COMPLETE_SCROLLING);
+        scrollToDefaultStatus(PullStatus.LOADMORE_COMPLETE_SCROLLING);
     }
 
     //执行滑动
