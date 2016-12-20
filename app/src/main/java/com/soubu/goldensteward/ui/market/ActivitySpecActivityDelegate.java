@@ -32,7 +32,7 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
         return R.layout.activity_activity_spec;
     }
 
-    DataHolder<ActivitySpecServerParams.Content> dataHolder = new DataHolder<ActivitySpecServerParams.Content>() {
+    DataHolder<ActivitySpecServerParams.Content> itemHolder = new DataHolder<ActivitySpecServerParams.Content>() {
         @Override
         public void bindData(BaseViewHolder holder, ActivitySpecServerParams.Content item, int position) {
             TextView tvTitle = holder.getView(R.id.tv_title);
@@ -73,15 +73,17 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
         super.initWidget();
         mRvContent = get(R.id.rv_content);
         mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(this.getActivity(), 10)));
-        mRvContent.setItemView(R.layout.item_activity_spec_recyclerview);
-        mRvContent.setHeaderView(R.layout.layout_activity_spec);
-        mRvContent.setItemHolder(dataHolder);
-        mRvContent.setHeaderHolder(headerHolder);
-        mRvContent.updateViewType();
+
+        mRvContent.getViewBuilder()
+                .itemId(R.layout.item_activity_spec_recyclerview)
+                .itemHolder(itemHolder)
+                .headerId(R.layout.layout_activity_spec_header)
+                .headerHolder(headerHolder)
+                .build();
     }
 
     public void setActivitySpecContent(ActivitySpecServerParams params, boolean haveSignedUp) {
-        mRvContent.setHeaderData(params);
+//        mRvContent.setHeaderData(params);
 
         List<ActivitySpecServerParams.Content> list = new ArrayList<>();
         ActivitySpecServerParams.Content content = params.new Content();
@@ -92,7 +94,12 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
         content.setTitle(getActivity().getString(R.string.sign_up_request));
         content.setContent(params.getActive_rule());
         list.add(content);
-        mRvContent.setData(list);
+//        mRvContent.setData(list);
+
+        mRvContent.getDataBuilder()
+                .header(params)
+                .item(list)
+                .update();
 
         if (haveSignedUp) {
             Button btnSignUp = get(R.id.btn_sign_up_now);

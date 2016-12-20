@@ -21,20 +21,11 @@ import java.util.List;
 public class HeaderRecyclerView<T, H, F> extends RecyclerView {
 
     private SuperAdapter adapter;
-    private List<Integer> layoutIds = new ArrayList<>();
+    private List<Integer> layoutIds = new ArrayList<>();//布局id列表
+    private List<LayoutWrapper> data = new ArrayList<>();//多类型的数据源
 
-    private List<LayoutWrapper> data = new ArrayList<>();
-    private DataHolder<T> itemHolder;
-
-    private H headerData;
-    private DataHolder<H> headerHolder;
-
-    private F footerData;
-    private DataHolder<F> footerHolder;
-
-    private int itemId = -1;
-    private int headerId = -1;
-    private int footerId = -1;
+    private ViewBuilder viewBuilder;//视图建造者
+    private DataBuilder dataBuilder;//数据建造者
 
     public HeaderRecyclerView(Context context) {
         super(context);
@@ -53,6 +44,16 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
 
     private void init() {
         setLayoutManager(new LinearLayoutManager(getContext()));
+        viewBuilder = new ViewBuilder();
+        dataBuilder = new DataBuilder();
+    }
+
+    public DataBuilder getDataBuilder() {
+        return dataBuilder;
+    }
+
+    public ViewBuilder getViewBuilder() {
+        return viewBuilder;
     }
 
     /**
@@ -60,82 +61,114 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
      */
     public void updateViewType() {
         layoutIds = new ArrayList<>();
-        if (headerId != -1) {
-            layoutIds.add(itemId);
+        if (viewBuilder.headerId != -1) {
+            layoutIds.add(viewBuilder.itemId);
         }
-        if (headerId != -1) {
-            layoutIds.add(headerId);
+        if (viewBuilder.headerId != -1) {
+            layoutIds.add(viewBuilder.headerId);
         }
-        if (footerId != -1) {
-            layoutIds.add(footerId);
+        if (viewBuilder.footerId != -1) {
+            layoutIds.add(viewBuilder.footerId);
         }
         adapter = new SuperAdapter(getContext(), layoutIds);
         setAdapter(adapter);
     }
 
     /**
-     * 设置监听器
+     * 更新数据
      */
-    public void setItemHolder(DataHolder<T> holder) {
-        this.itemHolder = holder;
-    }
-
-    public void setFooterHolder(DataHolder<F> holder) {
-        this.footerHolder = holder;
-
-    }
-
-    public void setHeaderHolder(DataHolder<H> holder) {
-        this.headerHolder = holder;
-    }
-
-    /**
-     * 设置数据源
-     */
-    public void setData(List<T> list) {
-        checkHeader();
-        for (int i = 0; i < list.size(); i++) {
-            T t = list.get(i);
-            data.add(new LayoutWrapper(itemId, t, itemHolder));
+    public void updateData() {
+        if (viewBuilder.headerId != -1) {
+            data.add(new LayoutWrapper(viewBuilder.headerId, dataBuilder.headerData, viewBuilder.headerHolder));
         }
-        checkFooter();
+        for (int i = 0; i < dataBuilder.itemData.size(); i++) {
+            T t = dataBuilder.itemData.get(i);
+            data.add(new LayoutWrapper(viewBuilder.itemId, t, viewBuilder.itemHolder));
+        }
+        if (viewBuilder.footerId != -1) {
+            data.add(new LayoutWrapper(viewBuilder.footerId, dataBuilder.footerData, viewBuilder.footerHolder));
+        }
         adapter.setData(data);
     }
 
-    public void setHeaderData(H headerData) {
-        this.headerData = headerData;
-    }
+    /**
+     * 视图建造者
+     */
+    public class ViewBuilder {
 
-    public void setFooterData(F footerData) {
-        this.footerData = footerData;
+        public int itemId = -1;
+        public int headerId = -1;
+        public int footerId = -1;
+
+        public DataHolder<T> itemHolder;
+        public DataHolder<H> headerHolder;
+        public DataHolder<F> footerHolder;
+
+        public ViewBuilder itemId(int itemId) {
+            this.itemId = itemId;
+            return this;
+        }
+
+        public ViewBuilder headerId(int headerId) {
+            this.headerId = headerId;
+            return this;
+        }
+
+        public ViewBuilder footerId(int footerId) {
+            this.footerId = footerId;
+            return this;
+        }
+
+        public ViewBuilder itemHolder(DataHolder<T> itemHolder) {
+            this.itemHolder = itemHolder;
+            return this;
+        }
+
+        public ViewBuilder headerHolder(DataHolder<H> headerHolder) {
+            this.headerHolder = headerHolder;
+            return this;
+        }
+
+        public ViewBuilder footerHolder(DataHolder<F> footerHolder) {
+            this.footerHolder = footerHolder;
+            return this;
+        }
+
+        public void build() {
+            updateViewType();
+        }
     }
 
     /**
-     * 设置布局Id
+     * 数据建造者
      */
-    public void setItemView(int itemId) {
-        this.itemId = itemId;
-    }
+    public class DataBuilder {
 
-    public void setHeaderView(int headerId) {
-        this.headerId = headerId;
-    }
+        public List<T> itemData = new ArrayList<T>();
+        public H headerData;
+        public F footerData;
 
-    public void setFooterView(int footerId) {
-        this.footerId = footerId;
-    }
+        public DataBuilder() {
+        }
 
-    private void checkHeader() {
-        if (headerId != -1) {
-            data.add(new LayoutWrapper(headerId, headerData, headerHolder));
+        public DataBuilder item(List<T> itemData) {
+            this.itemData = itemData;
+            return this;
+        }
+
+        public DataBuilder header(H headerData) {
+            this.headerData = headerData;
+            return this;
+        }
+
+        public DataBuilder footerData(F footerData) {
+            this.footerData = footerData;
+            return this;
+        }
+
+        public void update() {
+            updateData();
         }
     }
-
-    private void checkFooter() {
-        if (footerId != -1) {
-            data.add(new LayoutWrapper(footerId, footerData, footerHolder));
-        }
-    }
-
 
 }
