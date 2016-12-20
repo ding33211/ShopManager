@@ -33,6 +33,9 @@ public class StoreOwnerVerifyUploadCertificatesFragmentDelegate extends BaseFrag
             get(R.id.iv_business_code).setVisibility(View.VISIBLE);
             ((TextView) get(R.id.tv_file_name)).setText(R.string.business_license_and_organization_code_certificate);
         }
+    }
 
+    public void setName(String name) {
+        ((TextView) get(R.id.tv_name)).setText(name);
     }
 }

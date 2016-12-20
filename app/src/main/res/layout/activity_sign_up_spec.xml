@@ -48,6 +48,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginTop="5dp">
 
                     <TextView
@@ -80,28 +82,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:visibility="gone">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fail_reason"
-                        android:textColor="@color/search_text_color"
-                        android:textSize="16sp" />
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/fail_reason"-->
+                    <!--android:textColor="@color/search_text_color"-->
+                    <!--android:textSize="16sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="4dp"
-                        android:text="@string/colon"
-                        android:textColor="@color/search_text_color"
-                        android:textSize="16sp" />
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginRight="4dp"-->
+                    <!--android:text="@string/colon"-->
+                    <!--android:textColor="@color/search_text_color"-->
+                    <!--android:textSize="16sp" />-->
 
                     <TextView
                         android:id="@+id/tv_fail_reason"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="价格太高"
                         android:textColor="@color/search_text_color"
                         android:textSize="16sp" />
                 </LinearLayout>

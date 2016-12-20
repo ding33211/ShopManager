@@ -67,6 +67,7 @@ public abstract class SingleAdapter<T> extends RecyclerView.Adapter<BaseViewHold
 
     public void setData(List<T> list) {
         this.data = list;
+        listenerMap.clear();
         notifyDataSetChanged();
     }
 

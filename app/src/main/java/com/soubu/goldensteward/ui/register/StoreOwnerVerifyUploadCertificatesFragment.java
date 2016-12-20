@@ -47,6 +47,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
     int mLastImgRes;
     int mPlaceHolderRes;
     private int mFileType = 1;
+    private String mName;
     private String[] mPaths = new String[5];
     private int mClickIndex;
 
@@ -66,6 +67,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
     protected void initView() {
         super.initView();
         viewDelegate.setFileType(mFileType);
+        viewDelegate.setName(mName);
     }
 
     @Override
@@ -235,7 +237,7 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
 
             @Override
             public void onFailure(String fileName) {
-                if(!PhoneUtil.isConnected(BaseApplication.getContext())){
+                if (!PhoneUtil.isConnected(BaseApplication.getContext())) {
                     ShowWidgetUtil.showShort(R.string.please_check_internet);
                 }
                 mIvLastClick.setImageResource(R.drawable.auth_reload);
@@ -287,5 +289,11 @@ public class StoreOwnerVerifyUploadCertificatesFragment extends FragmentPresente
         }
     }
 
+    public void setName(String name) {
+        mName = name;
+        if (viewDelegate != null) {
+            viewDelegate.setName(mName);
+        }
+    }
 
 }
