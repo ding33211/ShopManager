@@ -124,6 +124,9 @@ public class LineView extends View {
 
     private Boolean drawDotLine = false;
 
+    //是否所有的数据都比MIN_VERTICAL_GRID_NUM小
+    private Boolean ifLessThanFour = false;
+
 //    private String[] colorArray = {"#e74c3c", "#2980b9", "#1abc9c"};
 
     private int[] popupColorArray = {R.drawable.popup_red, R.drawable.popup_orange};
@@ -319,6 +322,9 @@ public class LineView extends View {
                 }
             }
         }
+        if(verticalGridNum == MIN_VERTICAL_GRID_NUM){
+            ifLessThanFour = true;
+        }
         return verticalGridNum;
     }
 
@@ -373,13 +379,14 @@ public class LineView extends View {
     private void refreshTopLineLength(int verticalGridNum) {
         // For prevent popup can't be completely showed when backgroundGridHeight is too small.
         // But this code not so good.
-        if ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin) /
-                (verticalGridNum + 2) < getPopupHeight()) {
+//        if ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin) /
+//                (verticalGridNum + 2) < getPopupHeight()) {
             //需要最高的依然可以完整的显式点击数据，因此 + MIN_TOP_LINE_LENGTH
             topLineLength = getPopupHeight() + DOT_OUTER_CIR_RADIUS + DOT_INNER_CIR_RADIUS + 2 + MIN_TOP_LINE_LENGTH;
-        } else {
-            topLineLength = MIN_TOP_LINE_LENGTH;
-        }
+//        }
+//        else {
+//            topLineLength = MIN_TOP_LINE_LENGTH;
+//        }
     }
 
     @Override
@@ -708,7 +715,7 @@ public class LineView extends View {
             for (int i = 0; dataOfAGrid * i < verticalGridNum; i++) {
                 int x = topLineLength +
                         ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
-                                bottomLineLength - bottomTextDescent) * (verticalGridNum - dataOfAGrid * i + 1) / (verticalGridNum));
+                                bottomLineLength - bottomTextDescent) * (ifLessThanFour ? verticalGridNum - dataOfAGrid * i : verticalGridNum - dataOfAGrid * i + 1) / (verticalGridNum));
                 canvas.drawLine(0, x, getWidth(), x, paint);
                 list.add(x);
             }
