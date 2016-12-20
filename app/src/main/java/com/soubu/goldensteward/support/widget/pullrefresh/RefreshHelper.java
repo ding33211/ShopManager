@@ -165,11 +165,11 @@ public class RefreshHelper<T> {
                         if (isBgRefresh) {
                             isBgRefresh = false;
                         }
-                        if (list.size() < 20) {
-                            hideLoadMore = true;
-                        } else {
-                            hideLoadMore = false;
-                        }
+//                        if (list.size() < 20) {
+//                            hideLoadMore = true;
+//                        } else {
+//                            hideLoadMore = false;
+//                        }
                         data.addAll(list);
                         if (data.isEmpty()) {
                             rv.setVisibility(View.GONE);
