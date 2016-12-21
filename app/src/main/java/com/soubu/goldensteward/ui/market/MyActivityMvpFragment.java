@@ -1,6 +1,7 @@
 package com.soubu.goldensteward.ui.market;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,8 +9,10 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.bean.server.MyActivityServerParams;
 import com.soubu.goldensteward.support.constant.IntentKey;
+import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.web.mvp.BaseListMvpFragment;
+import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
 /**
  * 作者：余天然 on 2016/12/14 下午6:04
@@ -24,6 +27,12 @@ public class MyActivityMvpFragment extends BaseListMvpFragment<MyActivityPresent
     @Override
     protected int createItemId() {
         return R.layout.item_my_activity_recyclerview;
+    }
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        setRecyclerViewDivider(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(getActivity(), 10)));
     }
 
     @Override

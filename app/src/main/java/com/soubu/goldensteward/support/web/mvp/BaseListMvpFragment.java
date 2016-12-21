@@ -10,6 +10,7 @@ import com.soubu.goldensteward.support.helper.ViewType;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshHelper;
 import com.soubu.goldensteward.support.widget.pullrefresh.RefreshLayout;
+import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.List;
 
@@ -105,5 +106,10 @@ public abstract class BaseListMvpFragment<P extends BaseListPresenter, T> extend
      * 获取数据为空时的提示
      */
     protected abstract int getEmptyDesc();
+
+
+    public void setRecyclerViewDivider(DividerItemDecoration divider){
+        rv.addItemDecoration(divider);
+    }
 
 }
