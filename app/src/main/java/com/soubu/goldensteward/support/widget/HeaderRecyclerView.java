@@ -29,17 +29,20 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
 
     public HeaderRecyclerView(Context context) {
         super(context);
+        init();
     }
 
     public HeaderRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public HeaderRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
 
-    public void init() {
+    private void init() {
         setLayoutManager(new LinearLayoutManager(getContext()));
         viewBuilder = new ViewBuilder<T, H, F>();
         dataBuilder = new DataBuilder<T, H, F>();
@@ -140,7 +143,7 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
      */
     public class DataBuilder<DT, DH, DF> {
 
-        public List<DT> itemData = new ArrayList<DT>();
+        public List<DT> itemData = new ArrayList<>();
         public DH headerData;
         public DF footerData;
 

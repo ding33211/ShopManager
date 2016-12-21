@@ -11,38 +11,39 @@ import android.view.View;
 import com.soubu.goldensteward.R;
 
 /**
- *  recyclerView分割线
- *
+ * recyclerView分割线
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDrawable;
     private static final int DEFAULT_ORIENTATION = LinearLayoutManager.VERTICAL;
     private int mOrientation;
     private int mHeight;
+    //是否需要画最后一条分割线
+    private boolean mNeedDrawLastOne = false;
 
-    /**
-     * 自定义recyclerView分割线
-     * @param context
-     * @param orientation
-     * @param height  定义分割线高度
-     */
     public DividerItemDecoration(Context context, int orientation, int height) {
-        if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
-            this.mOrientation = DEFAULT_ORIENTATION;
-        } else {
-            this.mOrientation = orientation;
-        }
-        mDrawable = context.getResources().getDrawable(R.drawable.divider_home_recyclerview);
-        mHeight = height;
+        this(context, orientation, height, R.drawable.divider_home_recyclerview, true);
     }
 
     /**
      * 自定义recyclerView分割线
+     *
      * @param context
      * @param orientation
-     * @param height  定义分割线高度
+     * @param height      定义分割线高度
      */
-    public DividerItemDecoration(Context context, int orientation, int height, int drawableRes) {
+    public DividerItemDecoration(Context context, int orientation, int height, boolean needDrawLastOne) {
+        this(context, orientation, height, R.drawable.divider_home_recyclerview, needDrawLastOne);
+    }
+
+    /**
+     * 自定义recyclerView分割线
+     *
+     * @param context
+     * @param orientation
+     * @param height      定义分割线高度
+     */
+    public DividerItemDecoration(Context context, int orientation, int height, int drawableRes, boolean needDrawLastOne) {
         if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
             this.mOrientation = DEFAULT_ORIENTATION;
         } else {
@@ -50,6 +51,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         mDrawable = context.getResources().getDrawable(drawableRes);
         mHeight = height;
+        mNeedDrawLastOne = needDrawLastOne;
     }
 
     @Override
@@ -64,8 +66,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private void drawHorizontal(Canvas c, RecyclerView parent) {
         int top = parent.getPaddingTop();
         int bottom = parent.getHeight() - parent.getPaddingBottom();
-        int childCount = parent.getChildCount();
-
+        int childCount = parent.getChildCount() - 1;
+        if (mNeedDrawLastOne) {
+            childCount++;
+        }
         for (int i = 0; i < childCount; i++) {
             View chileView = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) chileView.getLayoutParams();
@@ -81,16 +85,18 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private void drawVertical(Canvas c, RecyclerView parent) {
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
-
-        int childCount = parent.getChildCount();
+        int childCount = parent.getChildCount() - 1;
+        if (mNeedDrawLastOne) {
+            childCount++;
+        }
         //最后一根分割线不画
-        for (int i = 0; i < childCount - 1; i++) {
+        for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
             android.support.v7.widget.RecyclerView v = new android.support.v7.widget.RecyclerView(parent.getContext());
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             int top = child.getBottom() + params.bottomMargin;
-            int bottom = top + mDrawable.getIntrinsicHeight();
+            int bottom = top + mHeight;
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(c);
         }
@@ -98,6 +104,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        int position = parent.getChildAdapterPosition(view);
+        if (!mNeedDrawLastOne && position == parent.getAdapter().getItemCount() - 1) {
+            return;
+        }
         if (mOrientation == LinearLayoutManager.VERTICAL) {
             outRect.set(0, 0, 0, mHeight);
         } else {
