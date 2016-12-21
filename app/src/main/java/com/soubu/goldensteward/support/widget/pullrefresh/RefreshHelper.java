@@ -9,14 +9,12 @@ import com.soubu.goldensteward.R;
 import com.soubu.goldensteward.support.adapter.BaseViewHolder;
 import com.soubu.goldensteward.support.adapter.SingleAdapter;
 import com.soubu.goldensteward.support.helper.ViewType;
-import com.soubu.goldensteward.support.utils.ConvertUtil;
 import com.soubu.goldensteward.support.utils.LogUtil;
 import com.soubu.goldensteward.support.utils.ShowWidgetUtil;
 import com.soubu.goldensteward.support.web.core.BaseException;
 import com.soubu.goldensteward.support.web.core.BaseSubscriber;
 import com.soubu.goldensteward.support.widget.BaseRecyclerView;
 import com.soubu.goldensteward.support.widget.pullrefresh.core.OnPullListener;
-import com.soubu.goldensteward.support.widget.recyclerviewdecoration.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +68,6 @@ public class RefreshHelper<T> {
     private void initRv() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         rv.setLayoutManager(layoutManager);
-        rv.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(context, 10)));
         adapter = new SingleAdapter<T>(context, layoutId) {
             @Override
             protected void bindData(BaseViewHolder holder, T item, int position) {
