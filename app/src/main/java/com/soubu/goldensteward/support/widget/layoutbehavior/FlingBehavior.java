@@ -3,11 +3,13 @@ package com.soubu.goldensteward.support.widget.layoutbehavior;
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-12-20.
@@ -16,12 +18,10 @@ import android.view.View;
 public final class FlingBehavior extends AppBarLayout.Behavior {
 
     private static final String TAG = FlingBehavior.class.getName();
-    private static final int TOP_CHILD_FLING_THRESHOLD = 1;
-    private static final float OPTIMAL_FLING_VELOCITY = 3500;
-    private static final float MIN_FLING_VELOCITY = 20;
 
-    boolean shouldFling = false;
-    float flingVelocityY = 0;
+
+    private Map<RecyclerView, RecyclerViewScrollListener> scrollListenerMap = new HashMap<>(); //keep scroll listener map, the custom scroll listener also keep the current scroll Y position.
+
 
     public FlingBehavior() {
     }
@@ -31,50 +31,54 @@ public final class FlingBehavior extends AppBarLayout.Behavior {
     }
 
     @Override
-    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target,
-                                  int velocityX, int velocityY, int[] consumed) {
-
-        super.onNestedPreScroll(coordinatorLayout, child, target, velocityX, velocityY, consumed);
-
-        if (velocityY > MIN_FLING_VELOCITY) {
-            shouldFling = true;
-            flingVelocityY = velocityY;
-        } else {
-            shouldFling = false;
-        }
-    }
-
-    @Override
-    public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout abl, View target) {
-        super.onStopNestedScroll(coordinatorLayout, abl, target);
-        if (shouldFling) {
-            Log.d(TAG, "onNestedPreScroll: running nested fling, velocityY is " + flingVelocityY);
-            onNestedFling(coordinatorLayout, abl, target, 0, flingVelocityY, true);
-        }
-    }
-
-    @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target,
                                  float velocityX, float velocityY, boolean consumed) {
-
-        if (target instanceof RecyclerView && velocityY < 0) {
-            Log.d(TAG, "onNestedFling: target is recyclerView");
+        if (target instanceof RecyclerView) {
             final RecyclerView recyclerView = (RecyclerView) target;
-            final View firstChild = recyclerView.getChildAt(0);
-            final int childAdapterPosition = recyclerView.getChildAdapterPosition(firstChild);
-            consumed = childAdapterPosition > TOP_CHILD_FLING_THRESHOLD;
+            if (scrollListenerMap.get(recyclerView) == null) {
+                RecyclerViewScrollListener recyclerViewScrollListener = new RecyclerViewScrollListener(coordinatorLayout, child, this);
+                scrollListenerMap.put(recyclerView, recyclerViewScrollListener);
+                recyclerView.addOnScrollListener(recyclerViewScrollListener);
+            }
+            scrollListenerMap.get(recyclerView).setVelocity(velocityY);
+            consumed = scrollListenerMap.get(recyclerView).getScrolledY() > 0; //recyclerView only consume the fling when it's not scrolled to the top
         }
-
-        // prevent fling flickering when going up
-        if (target instanceof NestedScrollView && velocityY > 0) {
-            consumed = true;
-        }
-
-        if (Math.abs(velocityY) < OPTIMAL_FLING_VELOCITY) {
-            velocityY = OPTIMAL_FLING_VELOCITY * (velocityY < 0 ? -1 : 1);
-        }
-        Log.d(TAG, "onNestedFling: velocityY - " + velocityY + ", consumed - " + consumed);
-
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+    }
+
+    private static class RecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+        private int scrolledY;
+        private boolean dragging;
+        private float velocity;
+        private WeakReference<CoordinatorLayout> coordinatorLayoutRef;
+        private WeakReference<AppBarLayout> childRef;
+        private WeakReference<FlingBehavior> behaviorWeakReference;
+
+        public RecyclerViewScrollListener(CoordinatorLayout coordinatorLayout, AppBarLayout child, FlingBehavior barBehavior) {
+            coordinatorLayoutRef = new WeakReference<>(coordinatorLayout);
+            childRef = new WeakReference<>(child);
+            behaviorWeakReference = new WeakReference<>(barBehavior);
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            dragging = newState == RecyclerView.SCROLL_STATE_DRAGGING;
+        }
+
+        public void setVelocity(float velocity) {
+            this.velocity = velocity;
+        }
+
+        public int getScrolledY() {
+            return scrolledY;
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            scrolledY += dy;
+            if (scrolledY <= 0 && !dragging && childRef.get() != null && coordinatorLayoutRef.get() != null && behaviorWeakReference.get() != null) {
+                behaviorWeakReference.get().onNestedFling(coordinatorLayoutRef.get(), childRef.get(), recyclerView, 0, velocity, false);
+            }
+        }
     }
 }

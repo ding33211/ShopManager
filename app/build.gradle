@@ -29,7 +29,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 110
-        versionName "1.1.0"
+        versionName "1.2.0"
         buildConfigField "boolean", "IS_PRODUCT_ENV", "false"
 
         manifestPlaceholders = [
