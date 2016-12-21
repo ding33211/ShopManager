@@ -24,35 +24,32 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
     private List<Integer> layoutIds = new ArrayList<>();//布局id列表
     private List<LayoutWrapper> data = new ArrayList<>();//多类型的数据源
 
-    private ViewBuilder viewBuilder;//视图建造者
-    private DataBuilder dataBuilder;//数据建造者
+    private ViewBuilder<T, H, F> viewBuilder;//视图建造者
+    private DataBuilder<T, H, F> dataBuilder;//数据建造者
 
     public HeaderRecyclerView(Context context) {
         super(context);
-        init();
     }
 
     public HeaderRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public HeaderRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
     }
 
-    private void init() {
+    public void init() {
         setLayoutManager(new LinearLayoutManager(getContext()));
-        viewBuilder = new ViewBuilder();
-        dataBuilder = new DataBuilder();
+        viewBuilder = new ViewBuilder<T, H, F>();
+        dataBuilder = new DataBuilder<T, H, F>();
     }
 
-    public DataBuilder getDataBuilder() {
+    public DataBuilder<T, H, F> getDataBuilder() {
         return dataBuilder;
     }
 
-    public ViewBuilder getViewBuilder() {
+    public ViewBuilder<T, H, F> getViewBuilder() {
         return viewBuilder;
     }
 
@@ -82,8 +79,7 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
             data.add(new LayoutWrapper(viewBuilder.headerId, dataBuilder.headerData, viewBuilder.headerHolder));
         }
         for (int i = 0; i < dataBuilder.itemData.size(); i++) {
-            T t = dataBuilder.itemData.get(i);
-            data.add(new LayoutWrapper(viewBuilder.itemId, t, viewBuilder.itemHolder));
+            data.add(new LayoutWrapper(viewBuilder.itemId, dataBuilder.itemData.get(i), viewBuilder.itemHolder));
         }
         if (viewBuilder.footerId != -1) {
             data.add(new LayoutWrapper(viewBuilder.footerId, dataBuilder.footerData, viewBuilder.footerHolder));
@@ -94,42 +90,42 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
     /**
      * 视图建造者
      */
-    public class ViewBuilder {
+    public class ViewBuilder<VT, VH, VF> {
 
         public int itemId = -1;
         public int headerId = -1;
         public int footerId = -1;
 
-        public DataHolder<T> itemHolder;
-        public DataHolder<H> headerHolder;
-        public DataHolder<F> footerHolder;
+        public DataHolder<VT> itemHolder;
+        public DataHolder<VH> headerHolder;
+        public DataHolder<VF> footerHolder;
 
-        public ViewBuilder itemId(int itemId) {
+        public ViewBuilder<VT, VH, VF> itemId(int itemId) {
             this.itemId = itemId;
             return this;
         }
 
-        public ViewBuilder headerId(int headerId) {
+        public ViewBuilder<VT, VH, VF> headerId(int headerId) {
             this.headerId = headerId;
             return this;
         }
 
-        public ViewBuilder footerId(int footerId) {
+        public ViewBuilder<VT, VH, VF> footerId(int footerId) {
             this.footerId = footerId;
             return this;
         }
 
-        public ViewBuilder itemHolder(DataHolder<T> itemHolder) {
+        public ViewBuilder<VT, VH, VF> itemHolder(DataHolder<VT> itemHolder) {
             this.itemHolder = itemHolder;
             return this;
         }
 
-        public ViewBuilder headerHolder(DataHolder<H> headerHolder) {
+        public ViewBuilder<VT, VH, VF> headerHolder(DataHolder<VH> headerHolder) {
             this.headerHolder = headerHolder;
             return this;
         }
 
-        public ViewBuilder footerHolder(DataHolder<F> footerHolder) {
+        public ViewBuilder<VT, VH, VF> footerHolder(DataHolder<VF> footerHolder) {
             this.footerHolder = footerHolder;
             return this;
         }
@@ -142,26 +138,23 @@ public class HeaderRecyclerView<T, H, F> extends RecyclerView {
     /**
      * 数据建造者
      */
-    public class DataBuilder {
+    public class DataBuilder<DT, DH, DF> {
 
-        public List<T> itemData = new ArrayList<T>();
-        public H headerData;
-        public F footerData;
+        public List<DT> itemData = new ArrayList<DT>();
+        public DH headerData;
+        public DF footerData;
 
-        public DataBuilder() {
-        }
-
-        public DataBuilder item(List<T> itemData) {
+        public DataBuilder<DT, DH, DF> item(List<DT> itemData) {
             this.itemData = itemData;
             return this;
         }
 
-        public DataBuilder header(H headerData) {
+        public DataBuilder<DT, DH, DF> header(DH headerData) {
             this.headerData = headerData;
             return this;
         }
 
-        public DataBuilder footerData(F footerData) {
+        public DataBuilder<DT, DH, DF> footerData(DF footerData) {
             this.footerData = footerData;
             return this;
         }

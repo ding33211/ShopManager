@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 public class ActivitySpecActivityDelegate extends AppDelegate {
-    HeaderRecyclerView mRvContent;
+    HeaderRecyclerView<ActivitySpecServerParams.Content, ActivitySpecServerParams, Object> rvContent;
 
     @Override
     public int getRootLayoutId() {
@@ -71,10 +71,10 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mRvContent = get(R.id.rv_content);
-        mRvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(this.getActivity(), 10)));
+        rvContent = get(R.id.rv_content);
+        rvContent.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(this.getActivity(), 10)));
 
-        mRvContent.getViewBuilder()
+        rvContent.getViewBuilder()
                 .itemId(R.layout.item_activity_spec_recyclerview)
                 .itemHolder(itemHolder)
                 .headerId(R.layout.layout_activity_spec_header)
@@ -83,7 +83,7 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
     }
 
     public void setActivitySpecContent(ActivitySpecServerParams params, boolean haveSignedUp) {
-//        mRvContent.setHeaderData(params);
+//        rvContent.setHeaderData(params);
 
         List<ActivitySpecServerParams.Content> list = new ArrayList<>();
         ActivitySpecServerParams.Content content = params.new Content();
@@ -94,9 +94,9 @@ public class ActivitySpecActivityDelegate extends AppDelegate {
         content.setTitle(getActivity().getString(R.string.sign_up_request));
         content.setContent(params.getActive_rule());
         list.add(content);
-//        mRvContent.setData(list);
+//        rvContent.setData(list);
 
-        mRvContent.getDataBuilder()
+        rvContent.getDataBuilder()
                 .header(params)
                 .item(list)
                 .update();
