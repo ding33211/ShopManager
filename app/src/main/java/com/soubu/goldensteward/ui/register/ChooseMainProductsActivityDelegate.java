@@ -34,7 +34,7 @@ public class ChooseMainProductsActivityDelegate extends AppDelegate {
         mRvCategory = get(R.id.rv_content);
         mAdapter = new ChooseMainProductsCategoryRvAdapter(getActivity());
         mRvCategory.setAdapter(mAdapter);
-        mRvCategory.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 1, R.drawable.divider_grey_recyclerview));
+        mRvCategory.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, 1, R.drawable.divider_grey_recyclerview, true));
         mRvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
         mFlTags = get(R.id.fl_tags);
         mFlController = new FlowLayoutController(mFlTags);

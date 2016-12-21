@@ -19,7 +19,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private int mOrientation;
     private int mHeight;
     //是否需要画最后一条分割线
-    private boolean mNeedDrawLastOne = false;
+    private boolean mNeedDrawLastOne = true;
 
     public DividerItemDecoration(Context context, int orientation, int height) {
         this(context, orientation, height, R.drawable.divider_home_recyclerview, true);
